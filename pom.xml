@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>COnCEPT</name>
+
+    <url>http://www.ubitech.eu/projects/ubises</url>
+    <description>COnCEPT project</description>
+    <packaging>pom</packaging>
+    <groupId>eu.concept</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <modules>
+        <!-- COnCEPT UI Module -->
+        <module>COnCEPT-UTIL</module>
+        <module>COnCEPT-PLATFORM</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.source.charset>UTF-8</project.source.charset>
+        <project.source.encoding>UTF-8</project.source.encoding>
+        <java.source.version>1.7</java.source.version>
+        <java.target.version>1.7</java.target.version>
+        <!--JUnit -->
+        <junit.version>4.7</junit.version>            	
+    </properties>
+
+                            
+    <!-- Global Repository Settings -->  
+    <repositories>
+        <!-- Maven Central -->
+        <repository>
+            <id>MavenCentral</id>
+            <name>Maven repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>  
+        <!-- Spring -->
+        <repository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </repository>                        
+    </repositories>   
+    <!-- Plugin Repositories -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </pluginRepository>
+    </pluginRepositories>        
+    
+
+</project>
