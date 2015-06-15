@@ -88,7 +88,17 @@
             <artifactId>COnCEPT-UTIL</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+    
+    
+        <!-- Thymeleaf template engine -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>${org.springframework.boot}</version>
+        </dependency>    
+            
     </dependencies>
+    
 
     <build>
         <plugins>
