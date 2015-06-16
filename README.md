@@ -1,17 +1,25 @@
-COnCEPT Application
-===========================================
+# COnCEPT platform
 
+## Prerequisites
 
-Build the Application
-----------------------
+* JDK 1.7.0_latest
+* Maven 3.x
+
+Before moving on, make sure you have the required JDK and Maven version.
  
-mvn clean install 
- 
-Run the Application
--------------------
- 
-    mvn clean spring-boot:run
+	$ mvn -version
+	$ java -version
+	$ javac -version
+	
+### Install Maven on Ubuntu 
+	sudo apt-get install maven
+### Install Maven on OS X
+	brew install maven	
 
+## Run the Application
 
-----------------------
-dbs configuration from application.properties
+	$ git clone git@github.com:IntrasoftInternational/concept.git
+	$ cd concept
+	$ mvn clean install
+	$ cd COnCEPT-PLATFORM
+	$ mvn spring-boot:run

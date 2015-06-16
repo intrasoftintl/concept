@@ -4,4 +4,4 @@ nbproject
 .idea
 *.directory
 *.iml
-
+.DS_Store
