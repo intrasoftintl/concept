@@ -13,7 +13,8 @@
     <modules>
         <!-- COnCEPT UI Module -->
         <module>COnCEPT-UTIL</module>
-        <module>COnCEPT-PLATFORM</module>
+        <module>COnCEPT-PLATFORM-APP</module>
+        <module>COnCEPT-REPOSITORY</module>
     </modules>
 
     <properties>

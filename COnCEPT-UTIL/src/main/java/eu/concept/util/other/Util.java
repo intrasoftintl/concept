@@ -50,11 +50,13 @@ public class Util {
     public static void main(String[] args) {
         String sha1 = Util.createAlgorithm("ttest", "SHA");
         System.out.println("SHA1: " + sha1);
-        String salt = "689dc1036b90261c8f69c1666fc60e3f";
+        //String salt = "377aef61316588f56555fe2de599f40a";
+        String salt = Util.getRandomHexString(32);
+        
         String sha1_salt = Util.createAlgorithm(salt + sha1, "SHA");
-        System.out.println("SHA1(slat+SHA1(palin_text)) =  " + sha1_salt);
-
-        System.out.println(getRandomHexString(32));
+        System.out.println("Salt= " + salt);
+        System.out.println("salt+sha1=" +salt + sha1);
+        System.out.println("SHA1(salt+SHA1(palin_text)) =  " + sha1_salt);
 
     }
 
