@@ -5,13 +5,13 @@ import eu.concept.repository.openproject.domain.UserOp;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Christos Paraskeva
  */
-@Repository
-@Transactional
+@Service
 public class UserOpService {
 
     @Autowired

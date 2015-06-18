@@ -1,6 +1,6 @@
 package eu.concept.repository.concept.service;
 
-import eu.concept.repository.concept.dao.UserDAO;
+import eu.concept.repository.concept.dao.UserRepository;
 import eu.concept.repository.concept.domain.User;
 import eu.concept.util.other.Util;
 import java.util.logging.Logger;
@@ -19,7 +19,7 @@ public class UserService {
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
     @Autowired
-    UserDAO userDAO;
+    UserRepository userDAO;
 
     public User findByUsername(String username) {
         User user;

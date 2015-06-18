@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author Christos Paraskeva
  */
-public interface UserDAO extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     /**
      *

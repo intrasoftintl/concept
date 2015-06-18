@@ -1,13 +1,11 @@
 package eu.concept.controller;
 
 import eu.concept.repository.concept.domain.User;
-import eu.concept.repository.concept.service.UserService;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class ApplicationController {
-
-    @Autowired
-    UserService userService;
 
     @Autowired
     UserManagementOp userManagementService;
@@ -52,13 +47,6 @@ public class ApplicationController {
         return "topnav";
     }
 
-    @RequestMapping("/test")
-    public String test() {
-        userService.findByUsernameAndPassword("admin", "!admina!");
-
-        return "/";
-    }
-
     /*
      *  POST Methods 
      */
@@ -68,7 +56,6 @@ public class ApplicationController {
         return "login";
     }
 
-    @Transactional
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerSubmit(@ModelAttribute UserOp user, @ModelAttribute PasswordOp password, Model model) {
         model.addAttribute("user", user);

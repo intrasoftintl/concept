@@ -2,9 +2,9 @@ package eu.concept.repository.openproject.service;
 
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserManagementOp {
  
 
-    @Transactional
+
     public UserOp addUserToOpenproject(UserOp user, PasswordOp userPassword);
     
 }

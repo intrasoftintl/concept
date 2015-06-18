@@ -5,3 +5,5 @@ nbproject
 *.directory
 *.iml
 .DS_Store
+*.epoch
+*.log

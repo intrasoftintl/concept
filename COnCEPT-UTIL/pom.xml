@@ -13,10 +13,9 @@
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
     
+    <!-- Define Dependencies -->
     <dependencies>
-
         
     </dependencies>
-    
     
 </project>

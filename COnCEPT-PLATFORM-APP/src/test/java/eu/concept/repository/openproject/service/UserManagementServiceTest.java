@@ -1,8 +1,8 @@
 package eu.concept.repository.openproject.service;
 
 import eu.concept.main.Application;
-import eu.concept.main.DatabaseConceptConfig;
-import eu.concept.main.DatabaseOpenprojectConfig;
+import eu.concept.configuration.DatasourceConceptConfig;
+import eu.concept.configuration.DatasourceOpenprojectConfig;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
 import java.util.logging.Logger;
@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Christos Paraskeva
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {Application.class, DatabaseConceptConfig.class, DatabaseOpenprojectConfig.class})
+@SpringApplicationConfiguration(classes = {Application.class, DatasourceConceptConfig.class, DatasourceOpenprojectConfig.class})
 public class UserManagementServiceTest {
 
     @Autowired
@@ -27,7 +27,7 @@ public class UserManagementServiceTest {
     private static final Logger logger = Logger.getLogger(UserManagementServiceTest.class.getName());
 
     @Test
-    //@Ignore
+    @Ignore
     @Transactional
     public void testAddUserToOpenproject() {
         //Create User
