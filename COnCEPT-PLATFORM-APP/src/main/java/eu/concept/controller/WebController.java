@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Christos Paraskeva
  */
 @Controller
-public class ApplicationController {
+public class WebController {
 
     @Autowired
     UserManagementOp userManagementService;
@@ -45,6 +45,11 @@ public class ApplicationController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard() {
         return "topnav";
+    }
+
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public String main() {
+        return "main";
     }
 
     /*

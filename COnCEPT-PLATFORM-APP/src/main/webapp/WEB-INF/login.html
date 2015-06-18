@@ -11,12 +11,16 @@
         <link rel="stylesheet" href="resources/css/navbar.css" type="text/css" />	
     </head>
     <body>
-
         <div class="dashboard-container">
             <div class="dashboard-login">
-
                 <img src="resources/img/CONCEPT_LOGO_S.png" width="400"/>
                 <hr/>
+                <!-- Login failure DIV -->
+                <div th:if="${param.error}">
+                    <!--@gtsiolis -->
+                    <!--To be added a nice template for a Login fail action -->
+                    <i> Error log-in message to be add</i>
+                </div>
                 <section id="login">
                     <div class="container">
                         <div class="row">
@@ -25,12 +29,12 @@
                                     <h4>Log in with your account</h4>
                                     <form role="form" th:action="@{/login}" action="#" method="post" id="login-form" autocomplete="off">
                                         <div class="form-group">
-                                            <label for="email" class="sr-only">Email</label>
-                                            <input type="email" name="email" id="email" class="form-control" placeholder="Username"/>
+                                            <label for="login" class="sr-only">Username</label>
+                                            <input type="text" name="username" id="email" class="form-control" placeholder="Username"/>
                                         </div>
                                         <div class="form-group">
                                             <label for="key" class="sr-only">Password</label>
-                                            <input type="password" name="key" id="key" class="form-control" placeholder="Password"/>
+                                            <input type="password" name="password" id="key" class="form-control" placeholder="Password"/>
                                         </div>
                                         <input type="submit" id="btn-login" class="btn btn-primary btn-block" value="Log in"/>
                                     </form>
@@ -39,9 +43,7 @@
                         </div>
                     </div>
                 </section>
-
             </div>
         </div>
-
     </body>
 </html>

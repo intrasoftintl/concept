@@ -30,7 +30,6 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 
 // Database Configurations will be derived by DatabaseConceptConfig & DatabaseOpenprojectConfig
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
-//@EnableJpaRepositories
 @Configuration
 @EnableTransactionManagement
 public class Application extends SpringBootServletInitializer {

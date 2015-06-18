@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/openproject/rest")
-public class OPRestController {
+public class RestAPIController {
 
     @Autowired
     ProjectService service;
