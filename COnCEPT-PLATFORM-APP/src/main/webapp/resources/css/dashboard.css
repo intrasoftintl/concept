@@ -307,6 +307,7 @@ body{
     opacity:0.8;
     width:calc(100vw - 240px);
     margin-left:240px;
+    position:fixed;
 }
 
 .content-pre{
@@ -320,7 +321,7 @@ body{
     width:calc(100vw - 240px);
     margin-left:240px;
     color:#f8f8f8;
-    //text-shadow: 0px 2px 4px #000;
+    position:fixed;
 }
 
 .content .header{
