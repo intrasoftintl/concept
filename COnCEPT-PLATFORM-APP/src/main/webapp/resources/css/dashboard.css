@@ -322,6 +322,7 @@ body{
     margin-left:240px;
     color:#f8f8f8;
     position:fixed;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .content .header{
@@ -340,6 +341,12 @@ body{
     height:150px;
     padding:20px;
     margin-bottom:20px;
+}
+
+.content-pre form,
+.content-pre a{
+    opacity:0.9;
+    text-shadow: none;
 }
 
 /* SKETCHING APP */
@@ -388,7 +395,7 @@ body{
 h5.heading{
     text-transform: uppercase;
     font-weight: 800;
-    opacity:0.5;
+    opacity:0.6;
 }
 
 hr {
