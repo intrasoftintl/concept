@@ -12,7 +12,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
-        
+
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
@@ -51,22 +51,24 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-wrap">
-                                           
+
                                             <div th:if="${param.error}" class="alert alert-danger" role="alert">Wrong username or password.</div>
-                                           
+                                            <div th:if="null != ${new_registration}" class="alert alert-success" role="alert">You have successfully created a new account.</div>
+                                            
+
                                             <h5 class="heading">Log in with your account</h5>
                                             <form role="form" th:action="@{/login}" method="post" id="login-form" autocomplete="off">
                                                 <div class="form-group">
-                                                    <label for="email" class="sr-only">Email</label>
-                                                    <input type="email" name="email" id="email" class="form-control" placeholder="Username" />
+                                                    <label for="username" class="sr-only">Email</label>
+                                                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="key" class="sr-only">Password</label>
-                                                    <input type="password" name="key" id="key" class="form-control" placeholder="Password" />
+                                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" />
                                                 </div>
 
-                                                <a id="btn-login" class="btn btn-danger" value="Login">Login</a>
-                                                <a class="btn btn-link btn-danger">Forgot password?</a>
+                                                <input type="submit" value="Login" class="btn btn-danger"/>
+                                                <input type="submit" value="Forgot password?" class="btn btn-danger btn-link"/>
                                             </form>
                                         </div>
                                     </div>

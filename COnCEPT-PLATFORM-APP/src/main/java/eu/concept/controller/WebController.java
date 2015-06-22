@@ -6,6 +6,7 @@ import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
 import eu.concept.response.ApplicationResponse;
+import eu.concept.response.BasicResponseCode;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +76,18 @@ public class WebController {
         model.addAttribute("user", user);
         model.addAttribute("password", password);
         ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
+        String redirectToPage = "";
+
+        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
+            model.addAttribute("new_registration", "new_registration");
+            redirectToPage = "redirect:/login";
+        } else {
+            redirectToPage = "registration";
+            model.addAttribute("error", appResponse.getMessage());
+        }
         logger.info("StatusCode: " + appResponse.getCode() + " StatusMessage: " + appResponse.getMessage());
-        return "result";
+        return redirectToPage;
+
     }
 
     /*
