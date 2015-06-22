@@ -311,7 +311,7 @@ body{
 }
 
 .content-pre{
-    background:url('../img/bg.jpg');
+    background:url('../img/bg.jpg') no-repeat;
     webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -341,6 +341,9 @@ body{
     height:150px;
     padding:20px;
     margin-bottom:20px;
+
+
+no-repeat center center fixed;
 }
 
 .content-pre form,
@@ -403,3 +406,6 @@ hr {
     border:0;
     border-top:1px solid #fff;   
 }
+
+.back-button{ margin-left:20px; }
+.back-button:hover{ text-decoration:none; }
