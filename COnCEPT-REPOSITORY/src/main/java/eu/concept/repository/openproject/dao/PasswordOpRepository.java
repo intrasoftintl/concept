@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface PasswordOpRepository extends JpaRepository<PasswordOp, Integer> {
     
+    public PasswordOp findByuserId(int userID);
+    
 }

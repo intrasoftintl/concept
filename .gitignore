@@ -7,3 +7,4 @@ nbproject
 .DS_Store
 *.epoch
 *.log
+.sh

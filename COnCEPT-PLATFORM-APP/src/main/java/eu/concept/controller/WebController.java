@@ -1,9 +1,11 @@
 package eu.concept.controller;
 
-import eu.concept.repository.concept.domain.User;
+import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
+import eu.concept.response.ApplicationResponse;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class WebController {
 
+    private static final Logger logger = Logger.getLogger(WebController.class.getName());
+
     @Autowired
     UserManagementOp userManagementService;
 
@@ -31,7 +35,7 @@ public class WebController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserCo());
         return "login";
     }
 
@@ -56,7 +60,7 @@ public class WebController {
      *  POST Methods 
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginSubmit(@ModelAttribute User user, Model model) {
+    public String loginSubmit(@ModelAttribute UserCo user, Model model) {
         model.addAttribute(model);
         return "login";
     }
@@ -65,7 +69,8 @@ public class WebController {
     public String registerSubmit(@ModelAttribute UserOp user, @ModelAttribute PasswordOp password, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("password", password);
-        userManagementService.addUserToOpenproject(user, password);
+        ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
+        logger.info("StatusCode: " +appResponse.getCode() +" StatusMessage: "+appResponse.getMessage());
         return "result";
     }
 

@@ -1,10 +1,9 @@
-package eu.concept.repository.concept.service;
+package eu.concept.repository.openproject.service;
 
-import eu.concept.main.Application;
 import eu.concept.configuration.DatasourceConceptConfig;
 import eu.concept.configuration.DatasourceOpenprojectConfig;
-import eu.concept.repository.openproject.domain.ProjectOp;
-import eu.concept.repository.openproject.service.ProjectService;
+import eu.concept.main.Application;
+import eu.concept.repository.openproject.domain.UserOp;
 import java.util.logging.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,31 +18,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class, DatasourceConceptConfig.class, DatasourceOpenprojectConfig.class})
-public class ServicesTest {
+public class UserOpServiceTest {
 
-
+    private static final Logger logger = Logger.getLogger(UserManagementServiceTest.class.getName());
 
     @Autowired
-    UserCoService userCoService;
-    
-    
-    @Autowired
-    ProjectService service;
+    private UserOpService userService;
 
-    
     @Test
-    public void testFindByUsername(){
-        userCoService.findByUsername("user4");
-    }
-    
-    
-
-    //Test Service for Openproject
     @Ignore
-    @Test
-    public void testFetchProjectByID() {
-        ProjectOp project = service.findProjectByID(1);
-        Logger.getLogger(ServicesTest.class.getName()).info("\n\n" + project.toString());
+    public void findOpenprojectUser() {
+        String username = "user7";
+        UserOp user = userService.findUserByUsername(username);
+        if (null == user) {
+            logger.info("User with username: " + username + " not found!");
+        } else {
+            logger.info("Found User with usernmae: " + username + "  and  ID: " + user.getId());
+        }
+
     }
 
 }

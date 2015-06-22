@@ -21,4 +21,8 @@ public class PasswordOpService {
         userPasswordDAO.save(userPassword);
     }
 
+    public PasswordOp findPasswordByUserID(int userID) {
+        return userPasswordDAO.findByuserId(userID);
+    }
+
 }
