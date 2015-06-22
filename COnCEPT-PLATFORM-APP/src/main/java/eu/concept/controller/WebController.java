@@ -30,7 +30,8 @@ public class WebController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-        return "redirect:/login";
+        //return "redirect:/login";
+        return "index";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
