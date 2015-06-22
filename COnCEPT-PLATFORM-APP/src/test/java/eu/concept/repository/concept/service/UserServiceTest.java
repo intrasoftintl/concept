@@ -4,7 +4,7 @@ import eu.concept.main.Application;
 import eu.concept.configuration.DatasourceConceptConfig;
 import eu.concept.configuration.DatasourceOpenprojectConfig;
 import eu.concept.repository.openproject.domain.ProjectOp;
-import eu.concept.repository.openproject.service.ProjectService;
+import eu.concept.repository.openproject.service.ProjectServiceOp;
 import java.util.logging.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,31 +19,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class, DatasourceConceptConfig.class, DatasourceOpenprojectConfig.class})
-public class ServicesTest {
-
-
+public class UserServiceTest {
 
     @Autowired
     UserCoService userCoService;
-    
-    
-    @Autowired
-    ProjectService service;
 
-    
+    @Autowired
+    ProjectServiceOp service;
+
     @Test
-    public void testFindByUsername(){
+    @Ignore
+    public void testFindByUsername() {
         userCoService.findByUsername("user4");
     }
-    
-    
 
-    //Test Service for Openproject
     @Ignore
     @Test
     public void testFetchProjectByID() {
         ProjectOp project = service.findProjectByID(1);
-        Logger.getLogger(ServicesTest.class.getName()).info("\n\n" + project.toString());
+        Logger.getLogger(UserServiceTest.class.getName()).info("\n\n" + project.toString());
     }
 
 }

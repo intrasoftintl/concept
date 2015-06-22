@@ -48,17 +48,14 @@ public class UserManagementOpImpl implements UserManagementOp {
     public ApplicationResponse addUserToOpenproject(UserOp user, PasswordOp password) {
         Calendar cal = Calendar.getInstance();
 
-        //Check user/password length
+        //Check user/password length | throws User/Password too short Exception
         if (user.getLogin().length() < 5 || password.getHashedPassword().length() < 5) {
             return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Username/Password is too short (5 chars min)", null);
-            //User/Password too short Exception
         }
-
-        //Check if user already exists
+        //Check if user already exists | throws User already exists Exception
         if (null != userOpRepository.findByLogin(user.getLogin())) {
             logger.log(Level.WARNING, "User with username: {0} already exists... aborting create new user", user.getLogin());
             return new ApplicationResponse(BasicResponseCode.EXCEPTION, "User with username: " + user.getLogin() + " already exists..", null);
-            //User already exists Exception
         }
         //Store UserCo to database
         user.setType("User");

@@ -1,6 +1,5 @@
 package eu.concept.repository.openproject.service;
 
-
 import eu.concept.repository.openproject.dao.ProjectOpRepository;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import java.util.List;
@@ -14,7 +13,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Transactional
-public class ProjectService {
+public class ProjectServiceOp {
+
 
     @Autowired
     ProjectOpRepository projectRepo;
@@ -36,4 +36,13 @@ public class ProjectService {
         return projectRepo.findOne(projectID);
     }
 
+    /**
+     * Fetch all the projects that a user has access to
+     *
+     * @param userId The id of the user to search for projects
+     * @return A List of ProjectOp objects
+     */
+    public List<ProjectOp> findProjectsByUserId(int userId) {
+        return projectRepo.findProjectsByUserId(userId);
+    }
 }

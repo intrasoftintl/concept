@@ -1,12 +1,15 @@
 package eu.concept.controller;
 
+import eu.concept.authentication.CurrentUser;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
 import eu.concept.response.ApplicationResponse;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +56,7 @@ public class WebController {
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public String main() {
+        logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
         return "main";
     }
 
@@ -70,8 +74,19 @@ public class WebController {
         model.addAttribute("user", user);
         model.addAttribute("password", password);
         ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
-        logger.info("StatusCode: " +appResponse.getCode() +" StatusMessage: "+appResponse.getMessage());
+        logger.info("StatusCode: " + appResponse.getCode() + " StatusMessage: " + appResponse.getMessage());
         return "result";
     }
 
+    /*
+     *  Help Methods
+     */
+    /**
+     * Retrieve the current logged-in user
+     *
+     * @return An instance of CurrentUser object
+     */
+    private static CurrentUser getCurrentUser() {
+        return (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 }
