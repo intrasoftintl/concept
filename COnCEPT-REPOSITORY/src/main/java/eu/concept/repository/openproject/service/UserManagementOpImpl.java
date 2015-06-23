@@ -77,7 +77,7 @@ public class UserManagementOpImpl implements UserManagementOp {
         //Store UserCo to Concept Database
         UserCo conceptUser = new UserCo(addedUser.getId(), addedUser.getMail(), addedUser.getFirstname(), addedUser.getLastname(), password_sha1, addedUser.getLogin(),cal.getTime());
         userCoRepository.save(conceptUser);
-        return new ApplicationResponse(BasicResponseCode.SUCCESS, "User with username: " + user.getLogin() + "has been successfully created!", null);
+        return new ApplicationResponse(BasicResponseCode.SUCCESS, "User with username: " + user.getLogin() + " has been created!", null);
     }
 
 }

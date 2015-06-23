@@ -15,6 +15,7 @@
         <module>COnCEPT-UTIL</module>
         <module>COnCEPT-PLATFORM-APP</module>
         <module>COnCEPT-REPOSITORY</module>
+        <module>COnCEPT-CHAT</module>
     </modules>
 
     <properties>
