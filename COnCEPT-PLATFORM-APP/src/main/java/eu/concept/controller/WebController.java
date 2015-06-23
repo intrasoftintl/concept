@@ -3,10 +3,13 @@ package eu.concept.controller;
 import eu.concept.authentication.CurrentUser;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.openproject.domain.PasswordOp;
+import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.domain.UserOp;
+import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,9 @@ public class WebController {
 
     @Autowired
     UserManagementOp userManagementService;
+
+    @Autowired
+    ProjectServiceOp projectServiceOp;
 
     /*
      *  GET Methods 
@@ -52,11 +58,14 @@ public class WebController {
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String dashboard() {
+    public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        System.out.println("Projects size: " + projects.size());
         return "dashboard";
     }
-    
+
     @RequestMapping(value = "/sketching", method = RequestMethod.GET)
     public String sketching() {
         return "sketching";
@@ -78,7 +87,7 @@ public class WebController {
         ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
         String redirectToPage = "";
 
-        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {           
+        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
             model.addAttribute("new_registration", appResponse.getMessage());
             return login(model);
         } else {
