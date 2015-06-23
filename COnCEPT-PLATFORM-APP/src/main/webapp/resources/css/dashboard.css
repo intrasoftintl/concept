@@ -387,14 +387,12 @@ body{
 }
 .panel-body img{ width: 100px; margin:5px;}
 
-
-
 .panel-body .glyphicon { color:#aaa; }
 .panel-body .glyphicon:hover { color:#111; cursor:pointer; }
 .panel-body .glyphicon.icon-active{ color:#FF6138; }
 
-.btn-link{ color:#fff; }
-.btn-link:hover{ color:#fff; }
+.content-pre .btn-link{ color:#fff; }
+.content-pre .btn-link:hover{ color:#fff; }
 
 h5.heading{
     text-transform: uppercase;
