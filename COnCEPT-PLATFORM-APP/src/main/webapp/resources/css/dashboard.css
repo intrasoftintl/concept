@@ -387,7 +387,11 @@ body{
 }
 .panel-body img{ width: 100px; margin:5px;}
 
-.icon-active{ color:#FF6138; }
+
+
+.glyphicon { color:#aaa; }
+.glyphicon:hover { color:#111; cursor:pointer; }
+.glyphicon.icon-active{ color:#FF6138; }
 
 .btn-link{ color:#fff; }
 .btn-link:hover{ color:#fff; }
@@ -404,7 +408,7 @@ hr {
     border-top:1px solid #fff;   
 }
 
-.back-button{ margin-left:20px; font-size:14px; }
+.back-button{ margin-left:20px; f   ont-size:14px; }
 .back-button:hover{ text-decoration:none; }
 
 .alert-danger { text-shadow: none; }
