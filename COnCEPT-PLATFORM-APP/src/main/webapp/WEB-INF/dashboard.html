@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Dashboard &mdash; CONCEPT</title>
+        
+        <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />	
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+        
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+        
+        <!-- navbar -->
+        <nav class="nav-main">
+            <ul>
+                <a href="http://192.168.3.6/dashboard_v2"><li class="main"><img src="http://192.168.3.6/include_v2/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a onclick="TogetherJS(this);
+                                return false;"><li class="collaboration"></li></a>
+            </ul>
+
+        </nav>
+
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul>
+                <li><img src="resources/img/ICON_BA.png" /></li>
+                <li><img src="resources/img/ICON_FM.png" /></li>
+                <li><img src="resources/img/ICON_SE.png" /></li>
+                <li><img src="resources/img/ICON_MM.png" /></li>
+                <li><img src="resources/img/ICON_MB.png" /></li>
+                <li><a href="http://192.168.3.6/sketching/"><img src="resources/img/ICON_SK.png" /></a></li>
+            </ul>
+        </nav>
+
+        <!-- projects -->
+        <nav class="nav-projects">
+            <div class="btn-group project-selection">
+                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Project 1 <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu scrollable-menu">
+                    <li><a href="#">Project 223</a></li>
+                    <li><a href="#">Project New Chair</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+
+                    <li><a href="#">Project 223</a></li>
+                    <li><a href="#">Project New Chair</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+
+                    <li><a href="#">Project 223</a></li>
+                    <li><a href="#">Project New Chair</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+
+                    <li><a href="#">Project 223</a></li>
+                    <li><a href="#">Project New Chair</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+                    <li><a href="#">Test Project</a></li>
+                </ul>
+            </div>
+
+            <div class="project-selection">
+
+                <button type="button" class="btn btn-success btn-xs"> New Project</button><button type="button" class="btn btn-link btn-xs">Edit Project</button>
+                <h5 class="highlight">Project Members<br/><small>John Smith (Manager), George Papadopoulos (Designer), Mary Smith (Client)</small></h5>
+            </div>
+
+        </nav>
+
+        <!-- chat -->
+        <nav class="nav-chat">
+
+            <div class="nav-header">
+                <img class="icon" src="http://192.168.3.6/include_v2/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="http://192.168.3.6/include_v2/img/BUTTON_SETTINGS.png" /></a>
+                <p class="heading">Chat module</p>
+                <p class="title">Logged in as <span style="color:#888">User One</span></p>
+            </div>
+
+            <div class="nav-content">
+                <div class="nav-content-header">
+                    Project XYZ &raquo; User List
+                </div>
+                <ul>
+
+                    <li>
+                        <img class="user" src="http://192.168.3.6/include_v2/img/BUTTON_USER.png" />
+                        <img class="chat" src="http://192.168.3.6/include_v2/img/BUTTON_CHAT.png" />
+                        <p class="heading">User Two</p>
+                        <p class="title">user2@concept-fp7.eu</p>
+                    </li>
+
+                    <li>
+                        <img class="user" src="http://192.168.3.6/include_v2/img/BUTTON_USER.png" />
+                        <img class="chat" src="http://192.168.3.6/include_v2/img/BUTTON_CHAT.png" />
+                        <p class="heading">User Three with long name</p>
+                        <p class="title">user3@concept-fp7.eu</p>
+                    </li>
+
+                    <li>
+                        <img class="user" src="http://192.168.3.6/include_v2/img/BUTTON_USER.png" />
+                        <img class="chat" src="http://192.168.3.6/include_v2/img/BUTTON_CHAT.png" />
+                        <p class="heading">User Four</p>
+                        <p class="title">user4@concept-fp7.eu</p>
+                    </li>
+
+                    <li>
+                        <img class="user" src="http://192.168.3.6/include_v2/img/BUTTON_USER.png" />
+                        <img class="chat" src="http://192.168.3.6/include_v2/img/BUTTON_CHAT.png" />
+                        <p class="heading">User Five</p>
+                        <p class="title">user5@concept-fp7.eu</p>
+                    </li>
+
+                    <li>
+                        <img class="user" src="http://192.168.3.6/include_v2/img/BUTTON_USER.png" />
+                        <img class="chat" src="http://192.168.3.6/include_v2/img/BUTTON_CHAT.png" />
+                        <p class="heading">User Six</p>
+                        <p class="title">user6@concept-fp7.eu</p>
+                    </li>
+
+                    <li>
+                        <img class="user" src="http://192.168.3.6/include_v2/img/BUTTON_USER.png" />
+                        <img class="chat" src="http://192.168.3.6/include_v2/img/BUTTON_CHAT.png" />
+                        <p class="heading">User Seven</p>
+                        <p class="title">user7@concept-fp7.eu</p>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <!-- chat-hidden -->
+        <nav class="nav-chat-hidden">
+            <div class="nav-header">
+                <img class="icon" src="http://192.168.3.6/include_v2/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="http://192.168.3.6/include_v2/img/BUTTON_SETTINGS.png" /></a>
+                <p class="heading">Chat module</p>
+                <p class="title">Module hidden</p>
+            </div>
+        </nav>
+
+        <!-- dashboard -->
+        <div class="content">
+            <div class="header">
+                <img src="resources/img/CONCEPT_LOGO_S.png" width="400px" />
+
+                <!-- Profile -->
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        George Papadopoulos <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Settings</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <!-- brief analysis -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Brief Analysis</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-6">Timestamp</th>
+                                        <th>User</th>
+                                        <th class="col-md-4"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tue 22 Jun, 2015 - 16:30</td>
+                                        <td>user3</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tue 22 Jun, 2015 - 13:20</td>
+                                        <td>user5</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tue 22 Jun, 2015 - 11:33</td>
+                                        <td>user1</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tue 22 Jun, 2015 - 11:33</td>
+                                        <td>user1</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star icon-active" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tue 22 Jun, 2015 - 11:33</td>
+                                        <td>user1</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star icon-active" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer"><a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Text Annotation Tool</a>
+                            <div class="pull-right">Brief Analysis Docs (5)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- file management -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add File</a>
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /> 
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
+                            <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /> 
+                        </div>
+                        <div class="panel-footer"><a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>
+                            <div class="pull-right">Files (123)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- search engine -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Search Engine</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</a>
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            Recent Concept DB queries
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">"chair with blue color"</li>
+                            <li class="list-group-item"><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /> </li>
+                            <li class="list-group-item">"chair without arms"</li>
+                            <li class="list-group-item">"square plate"</li>
+                            <li class="list-group-item"><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /> </li>
+                        </ul>
+
+                        <div class="panel-footer"><a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Search Engine</a>
+                            <div class="pull-right">Saved Search Queries (214)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <!-- mind maps -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Mind Maps</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-6">Thumbnail</th>
+                                        <th>User</th>
+                                        <th class="col-md-4"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user3</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user5</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user1</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer"><a href="">Action 1</a> - <a href="">Action 2</a>
+                            <div class="pull-right">Mind Maps (7)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- mood boards -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Mood Boards</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-6">Thumbnail</th>
+                                        <th>User</th>
+                                        <th class="col-md-4"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user3</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star icon-active" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user5</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user1</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer"><a href="">Action 1</a> - <a href="">Action 2</a>
+                            <div class="pull-right">Mood Boards (14)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- sketches -->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Sketches</h4>
+                            <div class="btn-group pull-right">
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
+                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            </div>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-6">Thumbnail</th>
+                                        <th>User</th>
+                                        <th class="col-md-4"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user3</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star icon-active" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user5</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" /></td>
+                                        <td>user1</td>
+                                        <td><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> &nbsp; 
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="panel-footer"><a href="">Action 1</a> - <a href="">Action 2</a>
+                            <div class="pull-right">Sketches (44)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>
