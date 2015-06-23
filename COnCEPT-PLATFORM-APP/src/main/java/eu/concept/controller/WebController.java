@@ -53,13 +53,13 @@ public class WebController {
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard() {
+        logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
         return "dashboard";
     }
-
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public String main() {
-        logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
-        return "main";
+    
+    @RequestMapping(value = "/sketching", method = RequestMethod.GET)
+    public String sketching() {
+        return "sketching";
     }
 
     /*

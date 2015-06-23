@@ -307,7 +307,6 @@ body{
     opacity:0.8;
     width:calc(100vw - 240px);
     margin-left:240px;
-    
 }
 
 .content-pre{
@@ -351,13 +350,14 @@ body{
 
 /* SKETCHING APP */
 .literally{
-    margin-left:2px;
+    //margin-left:2px;
     width:calc(100vw - 242px);
-    height: calc(100vh - 32px);
+    //height: calc(100vh - 32px);
+    height:100vh;
 
-    position:absolute;
-    top:32px;
-    border-top: 2px solid #eee;
+    //position:absolute;
+    //top:32px;
+    //border-top: 2px solid #eee;
 }
 
 .export{
@@ -389,9 +389,9 @@ body{
 
 
 
-.glyphicon { color:#aaa; }
-.glyphicon:hover { color:#111; cursor:pointer; }
-.glyphicon.icon-active{ color:#FF6138; }
+.panel-body .glyphicon { color:#aaa; }
+.panel-body .glyphicon:hover { color:#111; cursor:pointer; }
+.panel-body .glyphicon.icon-active{ color:#FF6138; }
 
 .btn-link{ color:#fff; }
 .btn-link:hover{ color:#fff; }
@@ -408,7 +408,7 @@ hr {
     border-top:1px solid #fff;   
 }
 
-.back-button{ margin-left:20px; f   ont-size:14px; }
+.back-button{ margin-left:20px; font-size:14px; }
 .back-button:hover{ text-decoration:none; }
 
 .alert-danger { text-shadow: none; }
