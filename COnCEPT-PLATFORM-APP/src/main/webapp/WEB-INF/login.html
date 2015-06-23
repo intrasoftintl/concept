@@ -55,7 +55,7 @@
                                         <div class="form-wrap">
 
                                             <div th:if="${param.error}" class="alert alert-danger" role="alert">Wrong username or password.</div>
-                                            <div th:if="null != ${new_registration}" class="alert alert-success" role="alert">You have successfully created a new account.</div>
+                                            <div th:if="${new_registration}" class="alert alert-success" role="alert"><p th:text="${new_registration}"></p></div>
                                             
 
                                             <h5 class="heading">Log in with your account</h5>

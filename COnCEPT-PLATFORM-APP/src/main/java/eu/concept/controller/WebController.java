@@ -78,14 +78,14 @@ public class WebController {
         ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
         String redirectToPage = "";
 
-        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
-            model.addAttribute("new_registration", "new_registration");
-            redirectToPage = "redirect:/login";
+        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {           
+            model.addAttribute("new_registration", appResponse.getMessage());
+            return login(model);
         } else {
             redirectToPage = "registration";
             model.addAttribute("error", appResponse.getMessage());
         }
-        logger.info("StatusCode: " + appResponse.getCode() + " StatusMessage: " + appResponse.getMessage());
+        logger.log(Level.INFO, "StatusCode: {0} StatusMessage: {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
         return redirectToPage;
 
     }
