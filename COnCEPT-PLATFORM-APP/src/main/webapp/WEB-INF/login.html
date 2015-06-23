@@ -41,7 +41,7 @@
         <!-- dashboard -->
         <div class="content-pre">
             <div class="header">
-            	<a href="/" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>
+                <a href="/" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>
             </div>
 
             <div class="row">
@@ -56,7 +56,7 @@
 
                                             <div th:if="${param.error}" class="alert alert-danger" role="alert">Wrong username or password.</div>
                                             <div th:if="${new_registration}" class="alert alert-success" role="alert"><p th:text="${new_registration}"></p></div>
-                                            
+
 
                                             <h5 class="heading">Log in with your account</h5>
                                             <form role="form" th:action="@{/login}" method="post" id="login-form" autocomplete="off">

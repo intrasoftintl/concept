@@ -307,7 +307,7 @@ body{
     opacity:0.8;
     width:calc(100vw - 240px);
     margin-left:240px;
-    position:fixed;
+    
 }
 
 .content-pre{
@@ -404,7 +404,7 @@ hr {
     border-top:1px solid #fff;   
 }
 
-.back-button{ margin-left:20px; }
+.back-button{ margin-left:20px; font-size:14px; }
 .back-button:hover{ text-decoration:none; }
 
 .alert-danger { text-shadow: none; }

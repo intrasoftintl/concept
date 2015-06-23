@@ -152,18 +152,14 @@
         <div class="content">
             <div class="header">
                 <img src="resources/img/CONCEPT_LOGO_S.png" width="400px" />
-
+                              
                 <!-- Profile -->
                 <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        George Papadopoulos <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
+                    <h5 th:inline="text">George Papadopoulos ([[${#httpServletRequest.remoteUser}]]) </h5>
+                    
+                    <form th:action="@{/logout}" method="post">
+                        <input class="btn btn-default btn-xs pull-right" type="submit" value="Sign Out"/>
+                    </form>
                 </div>
             </div>
 
@@ -469,6 +465,10 @@
                 </div>
             </div>
         </div>
+        
+        <script src="resources/js/jquery-1.11.2.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/togetherjs-min.js"></script>
         
     </body>
 </html>
