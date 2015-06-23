@@ -17,11 +17,11 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <li class="placeholder"></li>
+                <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
             </ul>
-
         </nav>
-
+       
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
@@ -30,10 +30,10 @@
                 <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SK.png" /></li>
             </ul>
         </nav>
-
+     
         <!-- placeholder -->
         <nav class="nav-placeholder">
             <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
@@ -50,9 +50,10 @@
         </div>
         
         <script src="resources/js/jquery-1.11.2.min.js"></script>
+        <script src="resources/js/togetherjs-min.js"></script>
         <script src="resources/js/react-with-addons-0.13.3.min.js"></script>
         <script src="resources/js/literallycanvas.min.js"></script>
         <script src="resources/js/sketching.js"></script>     
-
+        
     </body>
 </html>

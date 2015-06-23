@@ -7,7 +7,7 @@ $(document).ready(function() {
 	};
 	var lc = LC.init(document.getElementsByClassName('literally')[0], {
 		backgroundColor: 'whiteSmoke',
-		imageURLPrefix: '../resources/img/sketching',
+		imageURLPrefix: '/resources/sketching',
 		imageSize: 'imageSize',
 	});
 	

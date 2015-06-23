@@ -60,7 +60,7 @@
                                             <form role="form" action="#" th:action="@{/register}" th:object="${user}" method="post" id="login-form" autocomplete="off">
                                                 <div class="form-group">
                                                     <label for="firstname" class="sr-only">First Name</label>
-                                                    <input type="text" th:field="*{firstname}" name="firstname" id="firstname" class="form-control" placeholder="First Name" value="" />
+                                                    <input type="text" th:field="*{firstname}" name="firstname" id="firstname" class="form-control" placeholder="First Name" value="" autofocus="true" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="lastname" class="sr-only">Last Name</label>
