@@ -39,30 +39,13 @@
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Project 1 <span class="caret"></span>
                 </button>
+                
+                
+                <div th:if="${projects.isEmpty()}"> No projects</div>
+                
+                
                 <ul class="dropdown-menu scrollable-menu">
-                    <li><a href="#">Project 223</a></li>
-                    <li><a href="#">Project New Chair</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
-
-                    <li><a href="#">Project 223</a></li>
-                    <li><a href="#">Project New Chair</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
-
-                    <li><a href="#">Project 223</a></li>
-                    <li><a href="#">Project New Chair</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
-
-                    <li><a href="#">Project 223</a></li>
-                    <li><a href="#">Project New Chair</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
-                    <li><a href="#">Test Project</a></li>
+                     <li th:each="project : ${projects}"> <a href="#" th:text="${project.name}"></a></li>                   
                 </ul>
             </div>
 
