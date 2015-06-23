@@ -2,22 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Dashboard &mdash; CONCEPT</title>
-        
+
         <meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />	
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-        
+        <meta name="viewport" content="width=device-width" />	
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
         <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
-        
+
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
                 <a href="/"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
@@ -36,17 +37,13 @@
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
-                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Project 1 <span class="caret"></span>
-                </button>
-                
-                
-                <div th:if="${projects.isEmpty()}"> No projects</div>
-                
-                
-                <ul class="dropdown-menu scrollable-menu">
-                     <li th:each="project : ${projects}"> <a href="#" th:text="${project.name}"></a></li>                   
-                </ul>
+                <select th:if="${!projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true">Please select a project</option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                </select>
+
+                <div th:if="${projects.isEmpty()}">No projects available</div>
+
             </div>
 
             <div class="project-selection">
@@ -58,62 +55,21 @@
         </nav>
 
         <!-- chat -->
-        <nav class="nav-chat">
+        <nav class="nav-chat disabled">
 
             <div class="nav-header">
                 <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
                 <p class="heading">Chat module</p>
-                <p class="title">Logged in as <span style="color:#888">User One</span></p>
+                <p class="title" th:inline="text">Logged in as <span style="color:#888">([[${#httpServletRequest.remoteUser}]])</span></p>
             </div>
 
             <div class="nav-content">
                 <div class="nav-content-header">
-                    Project XYZ &raquo; User List
+                    Please select a project
                 </div>
                 <ul>
-
-                    <li>
-                        <img class="user" src="resources/img/BUTTON_USER.png" />
-                        <img class="chat" src="resources/img/BUTTON_CHAT.png" />
-                        <p class="heading">User Two</p>
-                        <p class="title">user2@concept-fp7.eu</p>
-                    </li>
-
-                    <li>
-                        <img class="user" src="resources/img/BUTTON_USER.png" />
-                        <img class="chat" src="resources/img/BUTTON_CHAT.png" />
-                        <p class="heading">User Three with long name</p>
-                        <p class="title">user3@concept-fp7.eu</p>
-                    </li>
-
-                    <li>
-                        <img class="user" src="resources/img/BUTTON_USER.png" />
-                        <img class="chat" src="resources/img/BUTTON_CHAT.png" />
-                        <p class="heading">User Four</p>
-                        <p class="title">user4@concept-fp7.eu</p>
-                    </li>
-
-                    <li>
-                        <img class="user" src="resources/img/BUTTON_USER.png" />
-                        <img class="chat" src="resources/img/BUTTON_CHAT.png" />
-                        <p class="heading">User Five</p>
-                        <p class="title">user5@concept-fp7.eu</p>
-                    </li>
-
-                    <li>
-                        <img class="user" src="resources/img/BUTTON_USER.png" />
-                        <img class="chat" src="resources/img/BUTTON_CHAT.png" />
-                        <p class="heading">User Six</p>
-                        <p class="title">user6@concept-fp7.eu</p>
-                    </li>
-
-                    <li>
-                        <img class="user" src="resources/img/BUTTON_USER.png" />
-                        <img class="chat" src="resources/img/BUTTON_CHAT.png" />
-                        <p class="heading">User Seven</p>
-                        <p class="title">user7@concept-fp7.eu</p>
-                    </li>
+                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
                 </ul>
             </div>
 
@@ -133,11 +89,11 @@
         <div class="content">
             <div class="header">
                 <img src="resources/img/CONCEPT_LOGO_S.png" width="400px" />
-                              
+
                 <!-- Profile -->
                 <div class="btn-group pull-right">
                     <h5 th:inline="text">George Papadopoulos ([[${#httpServletRequest.remoteUser}]]) </h5>
-                    
+
                     <form th:action="@{/logout}" method="post">
                         <input class="btn btn-default btn-xs pull-right" type="submit" value="Sign Out"/>
                     </form>
@@ -145,7 +101,7 @@
             </div>
 
             <div class="row">
-                
+
                 <!-- brief analysis -->
                 <div class="col-md-4">
                     <div class="panel panel-default">
@@ -276,7 +232,7 @@
             </div>
 
             <div class="row">
-                
+
                 <!-- mind maps -->
                 <div class="col-md-4">
                     <div class="panel panel-default">
@@ -332,7 +288,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- mood boards -->
                 <div class="col-md-4">
                     <div class="panel panel-default">
@@ -388,7 +344,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- sketches -->
                 <div class="col-md-4">
                     <div class="panel panel-default">
@@ -446,10 +402,10 @@
                 </div>
             </div>
         </div>
-        
+
         <script src="resources/js/jquery-1.11.2.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
-        
+
     </body>
 </html>
