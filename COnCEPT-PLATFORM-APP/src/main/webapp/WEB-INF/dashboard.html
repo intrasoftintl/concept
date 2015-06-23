@@ -42,8 +42,10 @@
                     <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
                 </select>
 
-                <div th:if="${projects.isEmpty()}">No projects available</div>
-
+                <select th:if="${projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" disabled="true">No projects available</option>
+                </select>
+               
             </div>
 
             <div class="project-selection">
@@ -95,7 +97,7 @@
                     <h5 th:inline="text">George Papadopoulos ([[${#httpServletRequest.remoteUser}]]) </h5>
 
                     <form th:action="@{/logout}" method="post">
-                        <input class="btn btn-default btn-xs pull-right" type="submit" value="Sign Out"/>
+                        <input class="btn btn-default btn-xs pull-right" type="submit" value="Log Out"/>
                     </form>
                 </div>
             </div>
