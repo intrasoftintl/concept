@@ -53,7 +53,7 @@ public class WebController {
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard() {
-        return "topnav";
+        return "dashboard";
     }
 
     @RequestMapping(value = "/main", method = RequestMethod.GET)

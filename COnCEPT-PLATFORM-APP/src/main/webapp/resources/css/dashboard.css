@@ -406,3 +406,5 @@ hr {
 
 .back-button{ margin-left:20px; }
 .back-button:hover{ text-decoration:none; }
+
+.alert-danger { text-shadow: none; }
