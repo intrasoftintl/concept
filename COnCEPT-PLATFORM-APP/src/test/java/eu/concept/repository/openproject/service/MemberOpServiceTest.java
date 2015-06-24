@@ -29,14 +29,14 @@ public class MemberOpServiceTest {
     @Test
     @Ignore
     public void findUserProjectsMembershipById() {
-        int userID = 192;
+        int userID = 191;
         List<MemberOp> members = memberOpService.fetchUserProjectsMemmbership(userID);
         if (null == members) {
             logger.severe("No memberships found for user with id: " + userID);
         } else {
             logger.info("Total membesrhips found : " + members.size());
             for (MemberOp member : members) {
-                logger.info("Project ID: " + member.getProjectId());
+                logger.info("Project ID: " + member.getProjectId() + " Username: "+member.getUser().getLogin());
             }
         }
         
