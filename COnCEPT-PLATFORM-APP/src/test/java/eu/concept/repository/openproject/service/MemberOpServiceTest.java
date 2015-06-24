@@ -20,12 +20,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class, DatasourceConceptConfig.class, DatasourceOpenprojectConfig.class})
 public class MemberOpServiceTest {
-    
+
     private static final Logger logger = Logger.getLogger(MemberOpServiceTest.class.getName());
-    
+
     @Autowired
     MemberOpService memberOpService;
-    
+
     @Test
     @Ignore
     public void findUserProjectsMembershipById() {
@@ -36,10 +36,11 @@ public class MemberOpServiceTest {
         } else {
             logger.info("Total membesrhips found : " + members.size());
             for (MemberOp member : members) {
-                logger.info("Project ID: " + member.getProjectId() + " Username: "+member.getUser().getLogin());
+                logger.info("Project ID: " + member.getProjectId());
+                //                logger.info("Project ID: " + member.getProjectId() + " Username: "+member.getUser().getLogin());
             }
         }
-        
+
     }
-    
+
 }
