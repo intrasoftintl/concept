@@ -60,11 +60,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             logger.log(Level.WARNING, "Password for user: {0} not found in Concept database....", username);
             throw new UsernameNotFoundException("password not found");
         }
+        
+        //userConcept.
+        
         //Fetch password by user id
         PasswordOp password = passwordService.findPasswordByUserID(userOp.getId());
         //Fetch user role
         MemberRoleOp memberRoleOp = memberRoleOpService.findByUserId(userOp.getId());
 
-        return new CurrentUser(userOp.getId(), userOp.getLogin(), userConcept.getPassword(), COnCEPTRole.getCOnCEPTRole(memberRoleOp));
+        return new CurrentUser(userOp.getId(), userOp.getLogin(), userConcept.getPassword(), COnCEPTRole.getCOnCEPTRole(memberRoleOp),userConcept.getFirstName(),userConcept.getLastName());
     }
 }

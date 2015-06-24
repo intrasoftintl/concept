@@ -62,6 +62,7 @@ public class WebController {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
         System.out.println("Projects size: " + projects.size());
         return "dashboard";
     }

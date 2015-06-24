@@ -23,7 +23,7 @@
         </nav>
 
         <!-- apps -->
-        <nav class="nav-apps">
+        <nav class="nav-apps ">
             <ul>
                 <li><img src="resources/img/ICON_BA.png" /></li>
                 <li><img src="resources/img/ICON_FM.png" /></li>
@@ -37,21 +37,25 @@
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
-                <select th:if="${!projects.isEmpty()}" class="btn btn-default">
-                    <option selected="true">Please select a project</option>
+                <select id="projectSelect" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" value="0">Please select a project</option>
                     <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
                 </select>
 
                 <select th:if="${projects.isEmpty()}" class="btn btn-default">
                     <option selected="true" disabled="true">No projects available</option>
                 </select>
-               
-            </div>
+
+            </div>          
 
             <div class="project-selection">
 
-                <button type="button" class="btn btn-success btn-xs"> New Project</button><button type="button" class="btn btn-link btn-xs">Edit Project</button>
-                <h5 class="highlight">Project Members<br/><small>John Smith (Manager), George Papadopoulos (Designer), Mary Smith (Client)</small></h5>
+                <!-- Content to be showed only on Project Managers -->
+                <div th:if="${currentUser.getRole()} == 'MANAGER'">
+                    <button type="button" class="btn btn-success btn-xs"> New Project</button><button type="button" class="btn btn-link btn-xs">Edit Project</button>
+                </div>
+
+                <h5 id="projectMembers" class="highlight">Project Members<br/><small>John Smith (Manager), George Papadopoulos (Designer), Mary Smith (Client)</small></h5>
             </div>
 
         </nav>
@@ -63,7 +67,7 @@
                 <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
                 <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
                 <p class="heading">Chat module</p>
-                <p class="title" th:inline="text">Logged in as <span style="color:#888">([[${#httpServletRequest.remoteUser}]])</span></p>
+                <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
             </div>
 
             <div class="nav-content">
@@ -94,7 +98,7 @@
 
                 <!-- Profile -->
                 <div class="btn-group pull-right">
-                    <h5 th:inline="text">George Papadopoulos ([[${#httpServletRequest.remoteUser}]]) </h5>
+                    <h5 th:inline="text">[[${currentUser.getFirstName()}]] [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
 
                     <form th:action="@{/logout}" method="post">
                         <input class="btn btn-default btn-xs pull-right" type="submit" value="Log Out"/>
@@ -102,19 +106,19 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div id="firstRowContent" class="row">
 
                 <!-- brief analysis -->
-                <div class="col-md-4">
-                    <div class="panel panel-default">
+                <div class="col-md-4 ">
+                    <div id="brDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Brief Analysis</h4>
                             <div class="btn-group pull-right">
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                                <a id="brBut1" href="#" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
+                                <a id="brBut2" href="#" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
                             </div>
                         </div>
-                        <div class="panel-body no-padding">
+                        <div id="brDIVtable" class="panel-body no-padding">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -180,15 +184,15 @@
 
                 <!-- file management -->
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div id="fmDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
                             <div class="btn-group pull-right">
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add File</a>
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                                <a id="fmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add File</a>
+                                <a id="fmBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div id="fmDIVtable" class="panel-body">
                             <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
                             <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
                             <img src="resources/img/thumbnail.png" alt="..." class="img-thumbnail" />
@@ -207,12 +211,12 @@
 
                 <!-- search engine -->
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div id="seDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Search Engine</h4>
-                            <div class="btn-group pull-right">
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</a>
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            <div  class="btn-group pull-right">
+                                <a id="seBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</a>
+                                <a id="seBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -233,16 +237,16 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div id="secondRowContent" class="row">
 
                 <!-- mind maps -->
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div id="mmDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Mind Maps</h4>
-                            <div class="btn-group pull-right">
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            <div  class="btn-group pull-right">
+                                <a id="mmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
+                                <a id="mmBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -293,12 +297,12 @@
 
                 <!-- mood boards -->
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div id="mbDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Mood Boards</h4>
-                            <div class="btn-group pull-right">
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                            <div  class="btn-group pull-right">
+                                <a id="mbBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
+                                <a id="mbBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
                             </div>
                         </div>
                         <div class="panel-body">
@@ -349,12 +353,12 @@
 
                 <!-- sketches -->
                 <div class="col-md-4">
-                    <div class="panel panel-default">
+                    <div id="skDIVbuttons"  class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Sketches</h4>
                             <div class="btn-group pull-right">
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
-                                <a href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
+                                <a id="skBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New</a>
+                                <a id="skBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> View All</a>
                             </div>
                         </div>
                         <div class="panel-body no-padding">
@@ -408,6 +412,8 @@
         <script src="resources/js/jquery-1.11.2.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
+        <!--Javascript file handling various actions of dashboard page -->
+        <script src="resources/js/dashboard.js"></script>
 
     </body>
 </html>
