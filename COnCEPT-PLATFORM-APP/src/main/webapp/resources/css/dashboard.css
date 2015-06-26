@@ -317,6 +317,10 @@ body{
     width:236px; height:226px; text-align:center; padding-top:25%;
 }
 
+.nav-chat .nav-content ul li.placeholder:hover{
+    opacity:1;
+}
+
 @media (max-height: 700px) {
     .nav-chat{
         display: none;
