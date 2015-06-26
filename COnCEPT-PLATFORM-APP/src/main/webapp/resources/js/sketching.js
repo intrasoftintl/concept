@@ -7,8 +7,8 @@ $(document).ready(function() {
 	};
 	var lc = LC.init(document.getElementsByClassName('literally')[0], {
 		backgroundColor: 'whiteSmoke',
-		imageURLPrefix: '/resources/sketching',
-		imageSize: 'imageSize',
+		imageURLPrefix: '../resources/img/sketching',
+		imageSize: 'imageSize'
 	});
 	
 	// Local Storage
