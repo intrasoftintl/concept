@@ -103,7 +103,8 @@ body{
     -moz-appearance:none;
     appearance:none;
     cursor:pointer;
-    width:218px;    
+    width:218px;
+    text-align:left;
 }
 
 .nav-projects select option{
