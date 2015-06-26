@@ -350,8 +350,13 @@ body{
 }
 
 .content .header{
-    background:#fff;
+    background:url('../img/CONCEPT_LOGO_S.png');
+    background-size: 400px 109px;
+    background-repeat: no-repeat;
+    background-position: 30px 20px;
+    background-color:#fff;
     width:auto;
+    height:160px;
     padding:20px;
     border-bottom: 2px solid #eee;
     margin-bottom:20px;
@@ -360,7 +365,7 @@ body{
     background:url('../img/CONCEPT_LOGO_WHITE.png');
     background-size: 400px 109px;
     background-repeat: no-repeat;
-    background-position: 30px 30px;
+    background-position: 30px 20px;
     width:auto;
     height:150px;
     padding:20px;
