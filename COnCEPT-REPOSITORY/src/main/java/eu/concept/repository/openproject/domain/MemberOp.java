@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,15 +22,16 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "members")
 public class MemberOp implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "user_id")
+//    @Basic(optional = false)
+//    @NotNull
+//    @Column(name = "user_id")
     private int userId;
     @Basic(optional = false)
     @NotNull
@@ -41,6 +44,11 @@ public class MemberOp implements Serializable {
     @NotNull
     @Column(name = "mail_notification")
     private boolean mailNotification;
+
+   //Modifications
+    @OneToOne(optional=false)
+    @JoinColumn(name = "user_id",referencedColumnName="id")
+    private UserOp user;
 
     public MemberOp() {
     }
@@ -96,6 +104,19 @@ public class MemberOp implements Serializable {
         this.mailNotification = mailNotification;
     }
 
+    
+    //Modifications
+    public UserOp getUser() {
+        return user;
+    }
+
+    public void setUser(UserOp user) {
+        this.user = user;
+    }
+
+    
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -120,5 +141,5 @@ public class MemberOp implements Serializable {
     public String toString() {
         return "eu.concept.repository.openproject.domain.Members[ id=" + id + " ]";
     }
-    
+
 }

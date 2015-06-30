@@ -1,9 +1,7 @@
 //After html is rendered do the following...
 $(document).ready(function () {
-
     //On page load disable dashboard content
     disableDashboardPage();
-
     //Trigger event when project list is changed
     $('#projectSelect').change(function () {
         disableDashboardPage();
@@ -26,8 +24,6 @@ $(document).ready(function () {
             disableDashboardPage();
         }
     });
-
-
     //
     //TODO: A more efficient way to disable/enable dashboard widgets (DOM iter.)
     //
@@ -91,10 +87,6 @@ $(document).ready(function () {
         //Show Project Members List
         $("#projectMembers").show();
     }
-
-
-
-
 });
 
 

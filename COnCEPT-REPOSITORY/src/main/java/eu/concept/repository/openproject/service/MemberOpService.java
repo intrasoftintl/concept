@@ -21,4 +21,8 @@ public class MemberOpService {
 
     }
 
+    public List<MemberOp> fetchMemberhipsByProjectId(int projectID) {
+        return memberOpRepository.findByProjectId(projectID);
+    }
+
 }
