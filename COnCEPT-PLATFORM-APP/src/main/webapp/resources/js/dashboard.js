@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     //On page load disable dashboard content
-    disableDashboardPage()
+    disableDashboardPage();
 
     //Trigger event when project list is changed
     $('#projectSelect').change(function () {
@@ -10,10 +10,21 @@ $(document).ready(function () {
         var projectID = $(this).val();
         if (projectID > 0) {
             enableDashboardPage();
+            $.ajax({
+                url: "http://localhost:8080/concept/rest/memberships/" + projectID
+            }).then(function (data) {
+                var fullNames = "";
+                for (var i in data)
+                {
+                    fullNames += data[i].user.firstname + " " + data[i].user.lastname + ", ";
+                }
+                $("#projectMembers").text("");
+                $("#projectMembers").html("");
+                $("#projectMembers").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
+            });
         } else {
             disableDashboardPage();
         }
-        //alert("Project id: " + $(this).val());
     });
 
 
@@ -48,6 +59,8 @@ $(document).ready(function () {
         $("#skDIVbuttons").addClass("disabled");
         $("#skBut1").addClass("disabled");
         $("#skBut2").addClass("disabled");
+        //Hide Project Members List
+        $("#projectMembers").hide();
     }
 
     function enableDashboardPage() {
@@ -75,7 +88,11 @@ $(document).ready(function () {
         $("#skDIVbuttons").removeClass("disabled");
         $("#skBut1").removeClass("disabled");
         $("#skBut2").removeClass("disabled");
+        //Show Project Members List
+        $("#projectMembers").show();
     }
+
+
 
 
 });

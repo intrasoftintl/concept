@@ -36,5 +36,6 @@ public class MemberRoleOpServiceTest {
             logger.info("MemberRole ID: " + memberRoleOp.getId() + " Role Id: " + memberRoleOp.getRoleId());
         }
     }
+    
 
 }

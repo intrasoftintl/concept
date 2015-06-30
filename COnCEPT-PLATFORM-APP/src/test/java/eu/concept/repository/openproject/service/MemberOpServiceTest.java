@@ -37,7 +37,23 @@ public class MemberOpServiceTest {
             logger.info("Total membesrhips found : " + members.size());
             for (MemberOp member : members) {
                 logger.info("Project ID: " + member.getProjectId());
-                //                logger.info("Project ID: " + member.getProjectId() + " Username: "+member.getUser().getLogin());
+                logger.info("Project ID: " + member.getProjectId() + " Username: " + member.getUser().getLogin());
+            }
+        }
+
+    }
+
+    @Test
+    @Ignore
+    public void findProjectsMembershipById() {
+        int projectID = 2;
+        List<MemberOp> members = memberOpService.fetchMemberhipsByProjectId(projectID);
+        if (null == members) {
+            logger.severe("No memberships found for project with id: " + projectID);
+        } else {
+            logger.info("Total membesrhips found : " + members.size());
+            for (MemberOp member : members) {
+                logger.info("Project ID: " + member.getProjectId() + " Username: " + member.getUser().getLogin() + " Name: "+member.getUser().getFirstname());
             }
         }
 
