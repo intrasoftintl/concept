@@ -444,6 +444,6 @@ hr {
 .back-button{ margin-left:20px; font-size:14px; }
 .back-button:hover{ text-decoration:none; }
 
-.alert-danger, alert-success { text-shadow: none; }
+.alert-danger, .alert-success { text-shadow: none; }
 
 .btn:focus { outline:none; }
