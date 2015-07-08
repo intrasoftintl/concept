@@ -413,21 +413,6 @@ body{
     //border-top: 2px solid #eee;
 }
 
-.export{
-    position:fixed;
-    top:200px;
-    left:0px;
-    z-index:10000000;
-}
-.export a{
-    background:#ccc;
-    padding:4px 8px;
-    margin:4px;
-    border-radius:4px;
-    cursor:pointer;
-    text-decoration:none;
-}
-
 /* bootstrap override */
 .row { margin:0; }
 .row.disabled{ opacity:0.5; }

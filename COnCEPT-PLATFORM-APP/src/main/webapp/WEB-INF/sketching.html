@@ -43,13 +43,16 @@
                 </button>
             </form>
             
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-success btn-sm btn-block btn-actions">
-                    <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export to PNG
+            <form class="controls export">
+                <button type="submit" data-action="export-as-png" value="Export as PNG" class="btn btn-success btn-sm btn-block btn-actions">
+                    <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export as PNG
                 </button>
             </form>
             
-            <div class="alert alert-warning btn-actions" role="alert">Saved to Concept DB</div>
+            <div class="alert alert-warning alert-dismissible btn-actions" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Saved to Concept DB
+            </div>
 
         </nav>
 
@@ -69,6 +72,7 @@
         </div>
 
         <script src="resources/js/jquery-1.11.2.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
         <script src="resources/js/react-with-addons.min.js"></script>
         <script src="resources/js/literallycanvas.min.js"></script>
