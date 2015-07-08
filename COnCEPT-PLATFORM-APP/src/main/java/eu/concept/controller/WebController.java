@@ -67,6 +67,11 @@ public class WebController {
         return "dashboard";
     }
 
+    @RequestMapping(value = "/notifications", method = RequestMethod.GET)
+    public String notifications() {
+        return "notifications";
+    }
+    
     @RequestMapping(value = "/ba", method = RequestMethod.GET)
     public String ba() {
         return "ba";
