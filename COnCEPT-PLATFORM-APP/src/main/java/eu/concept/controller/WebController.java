@@ -67,9 +67,14 @@ public class WebController {
         return "dashboard";
     }
 
-    @RequestMapping(value = "/sketching", method = RequestMethod.GET)
-    public String sketching() {
-        return "sketching";
+    @RequestMapping(value = "/sk", method = RequestMethod.GET)
+    public String sk() {
+        return "sk";
+    }
+
+    @RequestMapping(value = "/ba", method = RequestMethod.GET)
+    public String ba() {
+        return "ba";
     }
 
     /*

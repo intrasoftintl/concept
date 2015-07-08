@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Brief Analysis &mdash; CONCEPT</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />	
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+        <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+
+        <!-- navbar -->
+        <nav class="nav-main">
+            <ul>
+                <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
+            </ul>
+        </nav>
+
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul class="disabled">
+                <li><img src="resources/img/ICON_BA.png" /></li>
+                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
+            </ul>
+        </nav>
+
+        <!-- actions -->
+        <nav class="nav-actions">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-success btn-sm btn-block btn-actions">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save to Concept DB
+                </button>
+            </form>
+
+            <div class="alert alert-warning alert-dismissible btn-actions" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Saved to Concept DB
+            </div>
+
+        </nav>
+
+        <!-- placeholder -->
+        <nav class="nav-placeholder">
+            <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
+        </nav>
+
+        <!-- dashboard -->
+        <div class="content">
+            <textarea>Start your brief analysis</textarea>
+        </div>
+
+        <script src="resources/js/jquery-1.11.2.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/togetherjs-min.js"></script>
+        <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+    </body>
+</html>

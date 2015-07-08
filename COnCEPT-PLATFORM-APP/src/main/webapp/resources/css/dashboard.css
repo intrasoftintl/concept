@@ -401,7 +401,7 @@ body{
     text-shadow: none;
 }
 
-/* SKETCHING APP */
+/* SK APP */
 .content .literally{
     //margin-left:2px;
     width:calc(100vw - 242px);
@@ -411,6 +411,11 @@ body{
     //position:absolute;
     //top:32px;
     //border-top: 2px solid #eee;
+}
+
+/* BA APP */
+textarea{
+    height:calc(100vh - 111px);
 }
 
 /* bootstrap override */
