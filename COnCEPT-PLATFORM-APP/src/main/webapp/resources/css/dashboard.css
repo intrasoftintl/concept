@@ -125,13 +125,31 @@ body{
     max-height: 200px;
 }
 
+/* NAV-ACTIONS CONTAINER */
+.nav-actions{
+    width: 240px;
+    height: auto;
+    position:fixed;
+    left:0;
+    top:244px;
+    z-index:100000;
+
+    text-align:center;
+}
+
+.nav-actions .btn-actions{
+    margin:10px;
+    width:216px;
+}
+
+
 /* NAV-PLACEHOLDER CONTAINER */
 .nav-placeholder{
     width: 240px;
     height: auto;
     position:fixed;
     left:0;
-    top:256px;
+    bottom:20px;
     z-index:100000;
 
     text-align:center;

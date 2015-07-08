@@ -18,10 +18,11 @@
         <nav class="nav-main">
             <ul>
                 <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
-       
+
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
@@ -33,7 +34,25 @@
                 <li><img src="resources/img/ICON_SK.png" /></li>
             </ul>
         </nav>
-     
+
+        <!-- actions -->
+        <nav class="nav-actions">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-success btn-sm btn-block btn-actions">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save to Concept DB
+                </button>
+            </form>
+            
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-success btn-sm btn-block btn-actions">
+                    <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Export to PNG
+                </button>
+            </form>
+            
+            <div class="alert alert-warning btn-actions" role="alert">Saved to Concept DB</div>
+
+        </nav>
+
         <!-- placeholder -->
         <nav class="nav-placeholder">
             <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
@@ -48,12 +67,12 @@
             </div>
 
         </div>
-        
+
         <script src="resources/js/jquery-1.11.2.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
         <script src="resources/js/react-with-addons.min.js"></script>
         <script src="resources/js/literallycanvas.min.js"></script>
         <script src="resources/js/sketching.js"></script>     
-        
+
     </body>
 </html>
