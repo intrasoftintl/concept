@@ -67,16 +67,21 @@ public class WebController {
         return "dashboard";
     }
 
-    @RequestMapping(value = "/sk", method = RequestMethod.GET)
-    public String sk() {
-        return "sk";
-    }
-
     @RequestMapping(value = "/ba", method = RequestMethod.GET)
     public String ba() {
         return "ba";
     }
+    
+    @RequestMapping(value = "/fm", method = RequestMethod.GET)
+    public String fm() {
+        return "fm";
+    }
 
+    @RequestMapping(value = "/sk", method = RequestMethod.GET)
+    public String sk() {
+        return "sk";
+    }
+    
     /*
      *  POST Methods 
      */

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Brief Analysis &mdash; CONCEPT</title>
+        <title>File Management &mdash; CONCEPT</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />	
@@ -26,28 +26,13 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="resources/img/ICON_BA.png" /></li>
-                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_FM.png" /></li>
                 <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
-        </nav>
-
-        <!-- actions -->
-        <nav class="nav-actions">
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-success btn-sm btn-block btn-actions">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save to Concept DB
-                </button>
-            </form>
-
-            <div class="alert alert-warning alert-dismissible btn-actions" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                Saved to Concept DB
-            </div>
-
         </nav>
 
         <!-- placeholder -->
@@ -57,7 +42,7 @@
 
         <!-- dashboard -->
         <div class="content">
-            <textarea></textarea>
+            
         </div>
 
         <script src="resources/js/jquery-1.11.2.min.js"></script>
