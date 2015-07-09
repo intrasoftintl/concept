@@ -73,13 +73,11 @@ public class WebController {
         return "notifications";
     }
     
-    // Brief Analysis APP
+    // Brief Analysis APP + ALL
     @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
     public String ba_app() {
         return "ba_app";
     }
-    
-    // Brief Analysis ALL
     @RequestMapping(value = "/ba_all", method = RequestMethod.GET)
     public String ba_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -88,13 +86,11 @@ public class WebController {
         return "ba_all";
     }
     
-    // File Management APP
+    // File Management APP + ALL
     @RequestMapping(value = "/fm_app", method = RequestMethod.GET)
     public String fm_app() {
         return "fm_app";
     }
-    
-    // File Management ALL
     @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
     public String fm_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -102,14 +98,39 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "fm_all";
     }
+    
+    // Search Engine ALL
+    @RequestMapping(value = "/se_all", method = RequestMethod.GET)
+    public String se_all(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "se_all";
+    }
+    
+    // Mindmaps ALL
+    @RequestMapping(value = "/mm_all", method = RequestMethod.GET)
+    public String mm_all(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "mm_all";
+    }
+    
+    // Storyboards ALL
+    @RequestMapping(value = "/sb_all", method = RequestMethod.GET)
+    public String sb_all(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "sb_all";
+    }
 
-    // Sketching APP
+    // Sketches APP + ALL
     @RequestMapping(value = "/sk_app", method = RequestMethod.GET)
     public String sk_app() {
         return "sk_app";
     }
-    
-    // Sketching ALL
     @RequestMapping(value = "/sk_all", method = RequestMethod.GET)
     public String sk_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
