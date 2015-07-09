@@ -77,9 +77,9 @@ public class WebController {
         return "ba";
     }
     
-    @RequestMapping(value = "/fm", method = RequestMethod.GET)
-    public String fm() {
-        return "fm";
+    @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
+    public String fm_all() {
+        return "fm_all";
     }
 
     @RequestMapping(value = "/sk", method = RequestMethod.GET)
