@@ -25,8 +25,8 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		// Get canvas image
-		window.open(lc.canvasForExport().toDataURL());
-
+		window.open(lc.canvasForExport().toDataURL("image/png"));
+                
 		// Get image
 		//window.open(lc.getImage().toDataURL());
 		
