@@ -357,6 +357,14 @@ body{
     margin-left:240px;
 }
 
+.content-error{
+    background:#f2f2f2;
+    opacity:0.8;
+    padding-top:200px;
+    text-align:center;
+}
+
+
 .content-pre{
     background:url('../img/bg.jpg') no-repeat;
     webkit-background-size: cover;

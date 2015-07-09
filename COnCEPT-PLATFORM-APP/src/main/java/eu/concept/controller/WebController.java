@@ -67,9 +67,18 @@ public class WebController {
         return "dashboard";
     }
 
+    // Error
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String error() {
+        return "error";
+    }
+    
     // Notifications
     @RequestMapping(value = "/notifications", method = RequestMethod.GET)
-    public String notifications() {
+    public String notifications(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
         return "notifications";
     }
     
