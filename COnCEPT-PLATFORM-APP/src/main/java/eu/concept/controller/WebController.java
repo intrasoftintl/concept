@@ -67,24 +67,55 @@ public class WebController {
         return "dashboard";
     }
 
+    // Notifications
     @RequestMapping(value = "/notifications", method = RequestMethod.GET)
     public String notifications() {
         return "notifications";
     }
     
-    @RequestMapping(value = "/ba", method = RequestMethod.GET)
-    public String ba() {
-        return "ba";
+    // Brief Analysis APP
+    @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
+    public String ba_app() {
+        return "ba_app";
     }
     
+    // Brief Analysis ALL
+    @RequestMapping(value = "/ba_all", method = RequestMethod.GET)
+    public String ba_all(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "ba_all";
+    }
+    
+    // File Management APP
+    @RequestMapping(value = "/fm_app", method = RequestMethod.GET)
+    public String fm_app() {
+        return "fm_app";
+    }
+    
+    // File Management ALL
     @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
-    public String fm_all() {
+    public String fm_all(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
         return "fm_all";
     }
 
-    @RequestMapping(value = "/sk", method = RequestMethod.GET)
-    public String sk() {
-        return "sk";
+    // Sketching APP
+    @RequestMapping(value = "/sk_app", method = RequestMethod.GET)
+    public String sk_app() {
+        return "sk_app";
+    }
+    
+    // Sketching ALL
+    @RequestMapping(value = "/sk_all", method = RequestMethod.GET)
+    public String sk_all(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "sk_all";
     }
     
     /*

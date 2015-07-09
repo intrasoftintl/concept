@@ -34,11 +34,62 @@
             </ul>
         </nav>
 
-        <!-- placeholder -->
-        <nav class="nav-placeholder">
-            <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
+        <!-- projects -->
+        <nav class="nav-projects">
+            <div class="btn-group project-selection">
+                <select id="projectSelect" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" value="0">Please select a project</option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                </select>
+
+                <select th:if="${projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" disabled="true">No projects available</option>
+                </select>
+
+            </div>          
+
+            <div class="project-selection">
+
+                <!-- Content to be showed only on Project Managers -->
+                <div th:if="${currentUser.getRole()} == 'MANAGER'">
+                    <button type="button" class="btn btn-success btn-xs"> New Project</button><button type="button" class="btn btn-link btn-xs">Edit Project</button>
+                </div>
+                <h5 id="projectMembers" class="highlight">Project Members<br/><small></small></h5>
+            </div>
+
         </nav>
- 
+
+        <!-- chat -->
+        <nav class="nav-chat disabled">
+
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <p class="heading">Chat module</p>
+                <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
+            </div>
+
+            <div class="nav-content">
+                <div class="nav-content-header">
+                    Please select a project
+                </div>
+                <ul>
+                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <!-- chat-hidden -->
+        <nav class="nav-chat-hidden">
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <p class="heading">Chat module</p>
+                <p class="title">Module hidden</p>
+            </div>
+        </nav>
+       
        <!-- FM -->
         <div class="content">
             
