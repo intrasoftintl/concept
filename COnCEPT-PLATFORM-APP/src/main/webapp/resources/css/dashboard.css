@@ -455,3 +455,12 @@ hr {
 .alert-danger, .alert-success { text-shadow: none; }
 
 .btn:focus { outline:none; }
+
+.img-thumbnail:hover{
+    //opacity:0.5;
+    background:#eee;
+}
+
+table .glyphicon {
+    vertical-align: middle;
+}
