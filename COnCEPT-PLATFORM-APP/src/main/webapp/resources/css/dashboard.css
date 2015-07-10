@@ -46,7 +46,7 @@ body{
 .nav-main ul li:hover{ color:#fff; background:#ECF0F1; color:#E74C3C; }
 
 .nav-main ul li.main{ border-bottom:2px solid #eee; width:202px; height:36px; background-color: #f2f2f2; color: #444; font-size:12px; }
-.nav-main ul li.main:hover{ opacity:0.5; }
+.nav-main ul li.main:hover { opacity:0.5; }
 .nav-main ul li.main img{ float:left; padding:2px; }
 .nav-main ul li.disabled{ border-bottom:2px solid #eee; width:242px; height:36px; background-color: #f2f2f2; color: #444; cursor: auto;}
 .nav-main ul li.collaboration { border-bottom:2px solid #eee; text-decoration:none; color: #ECF0F1; width:36px; height:36px; background:url('../img/BUTTON_COLLABORATION.png') no-repeat center; background-size:32px 32px; background-color: #f2f2f2; }
@@ -55,6 +55,31 @@ body{
 .nav-main ul li.communication:hover { opacity:0.4; }
 
 .nav-main ul li.active{ height:32px; background-color:#ECF0F1; text-decoration:none; color:#E74C3C; border-bottom:4px solid #67221B; }
+
+/* NAV-MAIN-MD CONTAINER */
+.nav-main-md{
+    width: 240px;
+    height: 100vh;
+    background: #85A5CC;
+    position:fixed;
+    left:0;
+    font-size:11px;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-transform:uppercase;
+    z-index:100;
+    border-bottom: 2px solid #6B8C65;
+    border-right: 2px solid #6B8C65;
+    letter-spacing: -0.5px;
+    overflow:hidden !important;
+}
+.nav-main-md ul li.main-md{ border-bottom:2px solid #6B8C65; width:238px; height:36px; background-color: #88B281; color: #6B8C65; font-size:12px; }
+.nav-main-md ul{ margin:0; padding:0; list-style:none; cursor: auto; height:36px; }
+.nav-main-md ul li{ float:left; line-height:36px; padding:0 12px; font-weight:bold; text-decoration:none; color: #5d676f; //#67221B;
+                 -webkit-transition: background-color 0.1s ease-out;
+                 -moz-transition: background-color 0.1s ease-out;
+                 -o-transition: background-color 0.1s ease-out;
+                 transition: background-color 0.1s ease-out;
+}
 
 /* NAV-APPS CONTAINER */
 .nav-apps{
@@ -142,6 +167,21 @@ body{
     width:216px;
 }
 
+/* NAV-ACTIONS-MD CONTAINER */
+.nav-actions-md{
+    width: 240px;
+    height: auto;
+    position:fixed;
+    left:0;
+    bottom:0px;
+    z-index:100000;
+    text-align:center;
+}
+
+.nav-actions-md .btn-actions{
+    margin:10px;
+    width:216px;
+}
 
 /* NAV-PLACEHOLDER CONTAINER */
 .nav-placeholder{
@@ -151,7 +191,6 @@ body{
     left:0;
     bottom:20px;
     z-index:100000;
-
     text-align:center;
 }
 

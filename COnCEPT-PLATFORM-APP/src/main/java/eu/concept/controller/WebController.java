@@ -147,6 +147,12 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "sk_all";
     }
+
+    // Metadata APP
+    @RequestMapping(value = "/md_app", method = RequestMethod.GET)
+    public String md_app() {
+        return "md_app";
+    }
     
     /*
      *  POST Methods 
