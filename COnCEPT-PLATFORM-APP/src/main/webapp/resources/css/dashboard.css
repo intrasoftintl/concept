@@ -60,7 +60,7 @@ body{
 .nav-main-md{
     width: 240px;
     height: 100vh;
-    background: #85A5CC;
+    background: #edf4fd;
     position:fixed;
     left:0;
     font-size:11px;
@@ -173,7 +173,7 @@ body{
     height: auto;
     position:fixed;
     left:0;
-    bottom:0px;
+    bottom:10px;
     z-index:100000;
     text-align:center;
 }
