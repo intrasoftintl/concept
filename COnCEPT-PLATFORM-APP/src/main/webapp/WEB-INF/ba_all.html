@@ -18,8 +18,7 @@
         <nav class="nav-main">
             <ul>
                 <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this);
-                        return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
@@ -139,43 +138,45 @@
                                 <a id="fmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add File</a>
                             </div>
                         </div>
-                        <div id="fmDIVtable" class="panel-body">
-                            <img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00004.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00006.jpg" alt="..." class="img-thumbnail" /> 
-                            <img src="resources/img/fm_00007.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00008.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00009.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00004.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00006.jpg" alt="..." class="img-thumbnail" /> 
-                            <img src="resources/img/fm_00007.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00008.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00009.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00004.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00006.jpg" alt="..." class="img-thumbnail" /> 
-                            <img src="resources/img/fm_00007.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00008.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00009.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00004.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00006.jpg" alt="..." class="img-thumbnail" /> 
-                            <img src="resources/img/fm_00007.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00008.jpg" alt="..." class="img-thumbnail" />
-                            <img src="resources/img/fm_00009.jpg" alt="..." class="img-thumbnail" />
+                        <div class="panel-body no-padding">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-6">Recent Mindmaps</th>
+                                        <th>User</th>
+                                        <th class="col-md-4"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a href=""><img src="resources/img/mm_00001.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td>user3</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
+                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href=""><img src="resources/img/mm_00002.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td>user5</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href=""><img src="resources/img/mm_00003.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td>user1</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="panel-footer">
                             <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->

@@ -438,6 +438,13 @@ textarea{
 }
 .panel-body img{ width: 100px; margin:5px;}
 
+.panel-body td.truncate{
+    max-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .panel-body .glyphicon { color:#aaa; }
 .panel-body .glyphicon:hover { color:#111; cursor:pointer; }
 .panel-body .glyphicon.icon-active{ color:#FF6138; }
