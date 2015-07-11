@@ -136,13 +136,9 @@ body{
 .nav-categories #tree{
     width:238px;
     background:#f2f2f2;
-    height:200px;
-    max-height: 200px;
-    
-    //height: auto;
-
+    height:166px;
+    max-height: 166px;
     overflow-x: hidden;
-    //width:200px;
     padding:10px;
 }
 
