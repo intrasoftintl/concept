@@ -169,6 +169,7 @@ $(function() {
     $tree.tree({
         data: data,
         autoOpen: true,
+        saveState: true
     });
     $tree.bind(
         'tree.click',
