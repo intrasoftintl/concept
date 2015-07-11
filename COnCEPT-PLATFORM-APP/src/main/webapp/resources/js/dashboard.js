@@ -87,7 +87,13 @@ $(document).ready(function () {
         //Show Project Members List
         $("#projectMembers").show();
     }
+    
+    
 });
 
-
-
+$('#tags').tagsInput({
+    'height':'160px',
+    'width':'238px',
+    'interactive':true,
+    'placeholderColor' : '#ccc'
+});

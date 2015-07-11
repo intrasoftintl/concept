@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/jquery.tagsinput.min.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
@@ -20,33 +21,38 @@
                 <li class="main-md"><img src="resources/img/BUTTON_MD.png" />Metadata</li>
             </ul>
         </nav>
-        
-        <!-- apps -->
-        <nav class="nav-apps">
-            <ul class="disabled">
-                <li><img src="resources/img/ICON_BA.png" /></li>
-                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
-            </ul>
-        </nav>
-
-        <!-- actions -->
-        <nav class="nav-actions">
+                
+        <!-- keywords -->
+        <nav class="nav-keywords">
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_KEYWORDS.png" />
+                
+                <p class="heading">KEYWORDS</p>
+                <p class="title">Annotate with keywords</p>
+            </div>
+            
+            <input name="tags" id="tags" value="foo,bar,baz" />
+            
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-success btn-sm btn-block btn-actions">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save to Concept DB
+                <button type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
+                    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
                 </button>
             </form>
-
-            <div class="alert alert-warning alert-dismissible btn-actions" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                Saved to Concept DB
-            </div>
-
         </nav>
+        
+        <!-- categories -->
+        <nav class="nav-categories">
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_CATEGORIES.png" />
+                
+                <p class="heading">CATEGORIES</p>
+                <p class="title">Annotate with categories</p>
+            </div>
+            
+          
+        </nav>
+        
+       
 
         <!-- save-cancel  -->
         <nav class="nav-actions-md">
@@ -65,6 +71,8 @@
         <script src="resources/js/jquery-1.11.2.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
+        <script src="resources/js/jquery.tagsinput.min.js"></script>
+        <script src="resources/js/dashboard.js"></script>
 
     </body>
 </html>
