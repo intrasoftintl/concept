@@ -133,6 +133,19 @@ body{
     font-weight:600;
 }
 
+.nav-categories #tree{
+    width:238px;
+    background:#f2f2f2;
+    height:200px;
+    max-height: 200px;
+    
+    //height: auto;
+
+    overflow-x: hidden;
+    //width:200px;
+    padding:10px;
+}
+
 /* NAV-PROJECTS CONTAINER */
 .nav-projects{
     width: 240px;

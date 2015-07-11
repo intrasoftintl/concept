@@ -87,13 +87,82 @@ $(document).ready(function () {
         //Show Project Members List
         $("#projectMembers").show();
     }
-    
-    
+
+
 });
 
 $('#tags').tagsInput({
-    'height':'160px',
-    'width':'238px',
-    'interactive':true,
-    'placeholderColor' : '#ccc'
+    'height': '160px',
+    'width': '238px',
+    'interactive': true,
+    'placeholderColor': '#ccc'
+});
+
+var data = [
+    {
+        label: 'Product Category', id: 1,
+        children: [
+            {label: 'Kitchenware', id: 2},
+            {label: 'Exhibition', id: 3},
+            {label: 'Lighting', id: 4},
+            {label: 'Furniture', id: 5}
+        ]
+    },
+    {
+        label: 'Product Domain', id: 10,
+        children: [
+            {label: 'Medical', id: 11},
+            {label: 'Cosumer', id: 12},
+            {label: 'Sport', id: 13},
+            {label: 'Market Analysis', id: 14},
+            {label: 'Technology', id: 15},
+            {label: 'Usability', id: 16}
+        ]
+    },
+    {
+        label: 'Product Language', id: 10,
+        children: [
+            {
+                label: 'Style', id: 10,
+                children: [
+                    {
+                        label: 'Period Style', id: 10,
+                        children: [
+                            {label: 'Classic', id: 11},
+                            {label: 'Chic', id: 12},
+                            {label: 'Modern', id: 13},
+                            {label: 'Artdeco', id: 14}
+                        ]
+                    },
+                    {
+                        label: 'Partial Style', id: 10,
+                        children: [
+                            {label: 'National', id: 11},
+                            {label: 'Corporate', id: 12},
+                            {label: 'Target Style', id: 13}
+                        ]
+                    }
+                ]
+            },
+            {
+                label: 'Material', id: 10,
+                children: [
+                    {label: 'Steel', id: 11},
+                    {label: 'Stone', id: 12}
+                ]
+            },
+            {
+                label: 'Associations and Feelings', id: 10,
+                children: [
+                    {label: 'Cold', id: 11},
+                    {label: 'Warm', id: 12},
+                    {label: 'Aggressive', id: 12}
+                ]
+            }
+        ]
+    }
+];
+
+$('#tree').tree({
+    data: data
 });
