@@ -141,29 +141,38 @@
                         </div>
                         <div class="panel-body">
 
+
                             <form id="fileuploadForm" action="upload" method="POST" enctype="multipart/form-data">
                                 <fieldset>
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                 </fieldset>
 
+
                                 <div class="row fileupload-buttonbar">
                                     <div class="col-md-4">
-                                        <span class="btn btn-success fileinput-button">
-                                            <i class="glyphicon glyphicon-plus icon-white"></i>
+                                        <span class="btn btn-default fileinput-button">
+                                            <i class="glyphicon glyphicon-plus"></i>
                                             <span>Select files...</span>
                                             <input id="fileupload"  type="file" name="files[]" multiple="true" />
                                         </span>
+                                        
+                                        <button type="submit" class="btn btn-success ">
+                                            <span class="glyphicon glyphicon-upload icon-white" aria-hidden="true"></span> Upload
+                                        </button>
                                         <br/>
                                         <br/>
 
                                         <div id="progress" class="progress">
                                             <div class="progress-bar progress-bar-success"></div>
                                         </div>
+
                                         <!-- Show uploaded files-->
                                         <div id="files" class="files"></div>
 
+
                                     </div>
                                 </div>
+
 
                             </form>
 

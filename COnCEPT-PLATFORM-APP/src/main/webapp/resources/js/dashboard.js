@@ -57,6 +57,7 @@ $(document).ready(function () {
         $("#skBut2").addClass("disabled");
         //Hide Project Members List
         $("#projectMembers").hide();
+        $("#projectSettings").hide();
     }
 
     function enableDashboardPage() {
@@ -86,6 +87,7 @@ $(document).ready(function () {
         $("#skBut2").removeClass("disabled");
         //Show Project Members List
         $("#projectMembers").show();
+        $("#projectSettings").show();
     }
 
 
@@ -213,6 +215,4 @@ $('#fileupload').fileupload({
     } 
     
 });
-
-
 
