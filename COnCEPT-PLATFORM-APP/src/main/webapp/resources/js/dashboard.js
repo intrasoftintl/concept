@@ -194,13 +194,25 @@ $(document).ready(function () {
 //});
 
 
-$(function () {
-    $('#fileupload').fileupload({
-        dataType: 'json',
-        done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo(document.body);
-            });
-        }
-    });
+
+$('#fileupload').fileupload({
+    dataType: 'json',
+    done: function (e, data) {
+        $("#files").text("");
+        $.each(data.result, function (index, result) {
+            //   $('<p/>').text(result.fileName).appendTo(document.body);
+            $("#files").append(result.fileName+"<br/>");
+        });
+    },
+    progressall: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        $('#progress .bar').css(
+            'width',
+            progress + '%'
+        );
+    } 
+    
 });
+
+
+
