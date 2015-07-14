@@ -51,7 +51,7 @@
 
                 <!-- Content to be showed only on Project Managers -->
                 <div th:if="${currentUser.getRole()} == 'MANAGER'">
-                    <button type="button" class="btn btn-success btn-xs"> New Project</button><button type="button" class="btn btn-link btn-xs">View Project</button>
+                    <button type="button" class="btn btn-success btn-xs"> New Project</button><button id="projectSettings" type="button" class="btn btn-link btn-xs">View Project</button>
                 </div>
                 
                 <!-- Content to be showed only on Project Members (Designers, Clients) -->
