@@ -140,16 +140,20 @@
 
                         </div>
                         <div class="panel-body">
-  
+
                             <form id="fileupload" action="/upload" method="POST" enctype="multipart/form-data">
 
                                 <div class="row fileupload-buttonbar">
                                     <div class="col-md-4">
-                                        <span class="btn btn-success fileinput-button">
-                                            <i class="glyphicon glyphicon-plus icon-white"></i>
+                                        <span class="btn btn-default fileinput-button">
+                                            <i class="glyphicon glyphicon-plus"></i>
                                             <span>Select files...</span>
                                             <input id="fileupload" type="file" name="files[]" multiple="true" />
                                         </span>
+                                        
+                                        <button type="submit" class="btn btn-success ">
+                                            <span class="glyphicon glyphicon-upload icon-white" aria-hidden="true"></span> Upload
+                                        </button>
                                         <br/>
                                         <br/>
 
@@ -157,11 +161,9 @@
                                             <div class="progress-bar progress-bar-success"></div>
                                         </div>
 
-                                        <div id="files" class="files"></div>
-
-
                                     </div>
                                 </div>
+
 
                             </form>
 
