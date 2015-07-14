@@ -20,12 +20,13 @@ $(document).ready(function () {
                 $("#projectMembers").html("");
                 $("#projectMembers").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
             });
+            $("#fmBut1").attr("href","/fm_app?projectID="+projectID)
         } else {
             disableDashboardPage();
         }
     });
     //
-    //TODO: A more efficient way to disable/enable dashboard widgets (DOM iter.)
+    //TODO: A more efficient way to disable/enable dashboard widgets (in ex. DOM iter.)
     //
 
     //Disable dashboard page widgets
