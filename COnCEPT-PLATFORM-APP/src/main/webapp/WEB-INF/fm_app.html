@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>File Management &mdash; CONCEPT</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />	
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+        <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/jquery.fileupload.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/jquery.fileupload-ui.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+
+        <!-- navbar -->
+        <nav class="nav-main">
+            <ul>
+                <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
+            </ul>
+        </nav>
+
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul class="disabled">
+                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_FM.png" /></li>
+                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
+            </ul>
+        </nav>
+
+        <!-- projects -->
+        <nav class="nav-projects">
+            <div class="btn-group project-selection">
+                <select id="projectSelect" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" value="0">Please select a project</option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                </select>
+
+                <select th:if="${projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" disabled="true">No projects available</option>
+                </select>
+
+            </div>          
+
+            <div class="project-selection">
+
+                <!-- Content to be showed only on Project Managers -->
+                <div th:if="${currentUser.getRole()} == 'MANAGER'">
+                    <button type="button" class="btn btn-success btn-xs"> New Project</button><button type="button" class="btn btn-link btn-xs">Edit Project</button>
+                </div>
+                <h5 id="projectMembers" class="highlight">Project Members<br/><small></small></h5>
+            </div>
+
+        </nav>
+
+        <!-- chat -->
+        <nav class="nav-chat disabled">
+
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <p class="heading">Chat module</p>
+                <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
+            </div>
+
+            <div class="nav-content">
+                <div class="nav-content-header">
+                    Please select a project
+                </div>
+                <ul>
+                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <!-- chat-hidden -->
+        <nav class="nav-chat-hidden">
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <p class="heading">Chat module</p>
+                <p class="title">Module hidden</p>
+            </div>
+        </nav>
+
+        <!-- FM -->
+        <div class="content">
+
+            <div class="header">
+
+                <a href="/dashboard" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>
+
+                <!-- Profile -->
+                <div class="btn-group pull-right">
+
+                    <div class="row col-md-12 pull-right">
+                        <h5 th:inline="text" class="pull-right">[[${currentUser.getFirstName()}]] [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
+                    </div>
+                    <div class="row col-md-12 pull-right">
+
+                        <form th:action="@{/logout}" method="post" class="pull-right" style="margin-left:4px">
+                            <button type="submit" class="btn btn-default btn-sm ">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                            </button>
+                        </form>
+
+                        <form th:action="@{/preferences}" method="post" class="pull-right" style="margin-left:4px">
+                            <button type="submit" class="btn btn-default btn-sm ">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
+                            </button>
+                        </form>    
+
+                        <form th:action="@{/notifications}" method="post" class="pull-right">
+                            <button type="submit" class="btn btn-success btn-sm ">
+                                Notifications <span class="badge">2</span>
+                            </button>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div id="fmDIVbuttons" class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Upload Files (Images, Documents, etc)</h4>
+
+                        </div>
+                        <div class="panel-body">
+  
+                            <form id="fiaaaleupload" action="/upload" method="POST" enctype="multipart/form-data">
+
+                                <div class="row fileupload-buttonbar">
+                                    <div class="col-md-4">
+                                        <span class="btn btn-success fileinput-button">
+                                            <i class="glyphicon glyphicon-plus icon-white"></i>
+                                            <span>Select files...</span>
+                                            <input id="fileupload" type="file" name="files[]" multiple="true" />
+                                        </span>
+                                        <br/>
+                                        <br/>
+
+                                        <div id="progress" class="progress">
+                                            <div class="progress-bar progress-bar-success"></div>
+                                        </div>
+
+                                        <div id="files" class="files"></div>
+
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div class="panel-footer">
+                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->
+                            Files (123)
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="resources/js/jquery-1.11.2.min.js"></script>
+        <script src="resources/js/jquery.ui.widget.js"></script>
+        <script src="resources/js/jquery.iframe-transport.js"></script>
+        <script src="resources/js/jquery.fileupload.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/togetherjs-min.js"></script>
+        <script src="resources/js/dashboard.js"></script>
+
+    </body>
+</html>

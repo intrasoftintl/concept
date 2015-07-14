@@ -97,7 +97,10 @@ public class WebController {
     
     // File Management APP + ALL
     @RequestMapping(value = "/fm_app", method = RequestMethod.GET)
-    public String fm_app() {
+    public String fm_app(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
         return "fm_app";
     }
     @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
