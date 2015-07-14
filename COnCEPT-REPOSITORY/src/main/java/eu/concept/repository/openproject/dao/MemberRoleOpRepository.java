@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface MemberRoleOpRepository extends JpaRepository<MemberRoleOp,Integer> {
     
-    @Query("select r from MemberRoleOp r,MemberOp  m where m.userId=?1 AND m.projectId=1 AND r.memberId=m.id")
+    @Query("select r from MemberRoleOp r,MemberOp  m where m.user.id=?1 AND m.projectId=1 AND r.memberId=m.id")
     MemberRoleOp findByUserId(int userId);
     
 }
