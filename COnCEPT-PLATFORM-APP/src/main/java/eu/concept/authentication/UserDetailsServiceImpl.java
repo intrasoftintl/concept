@@ -67,7 +67,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         PasswordOp password = passwordService.findPasswordByUserID(userOp.getId());
         //Fetch user role
         MemberRoleOp memberRoleOp = memberRoleOpService.findByUserId(userOp.getId());
-
+        
+        if (null == memberRoleOp){
+            System.out.println("Roles is null.....");
+        }
+        //System.out.println("Role ID: "+memberRoleOp.getRoleId());
         return new CurrentUser(userOp.getId(), userOp.getLogin(), userConcept.getPassword(), COnCEPTRole.getCOnCEPTRole(memberRoleOp),userConcept.getFirstName(),userConcept.getLastName());
     }
 }

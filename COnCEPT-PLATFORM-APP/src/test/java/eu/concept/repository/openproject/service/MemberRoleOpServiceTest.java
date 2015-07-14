@@ -28,7 +28,7 @@ public class MemberRoleOpServiceTest {
     @Test
     @Ignore
     public void findUserProjectsMembershipById() {
-        int userID = 192;
+        int userID = 204;
         MemberRoleOp memberRoleOp = memberRoleOpService.findByUserId(userID);
         if (null == memberRoleOp) {
             logger.severe("No member role found for user with id: " + userID);
