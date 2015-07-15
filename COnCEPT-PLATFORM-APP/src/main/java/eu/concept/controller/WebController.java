@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,6 @@ public class WebController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-        //return "redirect:/login";
         return "index";
     }
 
@@ -63,6 +63,7 @@ public class WebController {
         return "registration";
     }
 
+    //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
@@ -78,7 +79,7 @@ public class WebController {
     public String error() {
         return "error";
     }
-    
+
     // Notifications
     @RequestMapping(value = "/notifications", method = RequestMethod.GET)
     public String notifications(Model model) {
@@ -87,12 +88,13 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "notifications";
     }
-    
+
     // Brief Analysis APP + ALL
     @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
     public String ba_app() {
         return "ba_app";
     }
+
     @RequestMapping(value = "/ba_all", method = RequestMethod.GET)
     public String ba_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -100,7 +102,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "ba_all";
     }
-    
+
     // File Management APP + ALL
     @RequestMapping(value = "/fm_app", method = RequestMethod.GET)
     public String fm_app(Model model) {
@@ -109,6 +111,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "fm_app";
     }
+
     @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
     public String fm_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -116,7 +119,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "fm_all";
     }
-    
+
     // Search Engine ALL
     @RequestMapping(value = "/se_all", method = RequestMethod.GET)
     public String se_all(Model model) {
@@ -125,7 +128,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "se_all";
     }
-    
+
     // Mindmaps ALL
     @RequestMapping(value = "/mm_all", method = RequestMethod.GET)
     public String mm_all(Model model) {
@@ -134,7 +137,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "mm_all";
     }
-    
+
     // Storyboards ALL
     @RequestMapping(value = "/sb_all", method = RequestMethod.GET)
     public String sb_all(Model model) {
@@ -149,6 +152,7 @@ public class WebController {
     public String sk_app() {
         return "sk_app";
     }
+
     @RequestMapping(value = "/sk_all", method = RequestMethod.GET)
     public String sk_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -162,7 +166,7 @@ public class WebController {
     public String md_app() {
         return "md_app";
     }
-    
+
     /*
      *  POST Methods 
      */
@@ -199,7 +203,7 @@ public class WebController {
      *
      * @return An instance of CurrentUser object
      */
-    private static CurrentUser getCurrentUser() {
+    public static CurrentUser getCurrentUser() {
         return (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

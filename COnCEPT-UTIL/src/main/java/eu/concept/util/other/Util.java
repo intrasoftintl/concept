@@ -1,5 +1,8 @@
 package eu.concept.util.other;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -47,15 +50,44 @@ public class Util {
         return sb.toString().substring(0, numchars);
     }
 
+    /**
+     *
+     * This method converts an Inputstream to Byte Array
+     *
+     * @param _is
+     *
+     * @return The byte array of the given inputstream
+     *
+     */
+    public static byte[] convertInputStreamToByteArray(InputStream _is) {
+        try {
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+            int nRead;
+            byte[] data = new byte[0];
+
+            while ((nRead = _is.read(data, 0, data.length)) != -1) {
+                buffer.write(data, 0, nRead);
+            }
+
+            buffer.flush();
+
+            return buffer.toByteArray();
+        } catch (IOException ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
     public static void main(String[] args) {
         String sha1 = Util.createAlgorithm("ttest", "SHA");
         System.out.println("SHA1: " + sha1);
         //String salt = "377aef61316588f56555fe2de599f40a";
         String salt = Util.getRandomHexString(32);
-        
+
         String sha1_salt = Util.createAlgorithm(salt + sha1, "SHA");
         System.out.println("Salt= " + salt);
-        System.out.println("salt+sha1=" +salt + sha1);
+        System.out.println("salt+sha1=" + salt + sha1);
         System.out.println("SHA1(salt+SHA1(palin_text)) =  " + sha1_salt);
 
     }

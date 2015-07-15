@@ -1,17 +1,18 @@
 package eu.concept.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.service.FileManagementService;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -23,74 +24,121 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 public class FileUploadController {
 
+    @Autowired
+    FileManagementService fmService;
+
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public @ResponseBody
     String provideUploadInfo() {
         return "You can upload a file by posting to this same URL.";
     }
 
-//    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-//    public @ResponseBody
-//    String handleFileUpload(@RequestParam("file") MultipartFile file) {
-//        System.out.println("I am in!!!!!!");
-//        if (!file.isEmpty()) {
-//            try {
-//                byte[] bytes = file.getBytes();
-//                BufferedOutputStream stream
-//                        = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
-//                stream.write(bytes);
-//                stream.close();
-//                return "You successfully uploaded " + file.getOriginalFilename() + "!";
-//            } catch (Exception e) {
-//                return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
-//            }
-//        } else {
-//            return "You failed to upload " + file.getOriginalFilename() + " because the file was empty.";
-//        }
-//    }
-    FileMeta fileMeta = null;
-
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody
     LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
+        String projectID = request.getParameter("projectID");
         LinkedList<FileMeta> files = new LinkedList<>();
-        //1. build an iterator
         Iterator<String> itr = request.getFileNames();
-        MultipartFile mpf = null;
-
-        //2. get each file
+        MultipartFile mpf;
+        //Upload each file
         while (itr.hasNext()) {
-
-            //2.1 get next MultipartFile
+            //Get next MultipartFile
             mpf = request.getFile(itr.next());
-            System.out.println(mpf.getOriginalFilename() + " uploaded! " + files.size());
-
-            //2.2 if files > 10 remove the first from the list
-            if (files.size() >= 10) {
-                files.pop();
-            }
-
-            //2.3 create new fileMeta
-            fileMeta = new FileMeta();
-            fileMeta.setFileName(mpf.getOriginalFilename());
-            fileMeta.setFileSize(mpf.getSize() / 1024 + " Kb");
-            fileMeta.setFileType(mpf.getContentType());
-
+            Logger.getLogger(FileUploadController.class.getName()).log(Level.INFO, "Trying to upload file: {0}", mpf.getOriginalFilename());
+            //Create new fileMeta
+            FileMeta fileMeta = new FileMeta(mpf.getOriginalFilename(), mpf.getSize() / 1024 + " Kb", mpf.getContentType());
+            fileMeta.setStatus("SUCCESS");
+            //Create FileManagement object
+            FileManagement fm = new FileManagement();
+            fm.setPid(Integer.valueOf(projectID));
+            fm.setUid(WebController.getCurrentUser().getId());
+            fm.setFilename(fileMeta.getFileName());
+            //Get bytes[] of uploaded file
             try {
                 fileMeta.setBytes(mpf.getBytes());
-
-                // copy file to local disk (make sure the path "e.g. D:/temp/files" exists)            
-                //FileCopyUtils.copy(mpf.getBytes(), new FileOutputStream("D:/temp/files/" + mpf.getOriginalFilename()));
+                fm.setContent(fileMeta.getBytes());
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                fileMeta.setStatus("FAIL");
+                fileMeta.setMessage("Corrupted file");
+                Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Could not process file with name: {0} aborting upload...", fileMeta.getFileName());
             }
-            //2.4 add to files
+            //Store file to db
+            if ("SUCCESS".equals(fileMeta.getStatus()) && !fmService.storeFile(fm)) {
+                fileMeta.setMessage("Could not store file to database");
+                fileMeta.setStatus("FAIL");
+                Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Could not upload file with name: {0}", fileMeta.getFileName());
+            }
             files.add(fileMeta);
         }
-        // result will be like this
-        // [{"fileName":"app_engine-85x77.png","fileSize":"8 Kb","fileType":"image/png"},...]
         return files;
+    }
+
+    @JsonIgnoreProperties({"bytes"})
+    private class FileMeta {
+
+        private String fileName;
+        private String fileSize;
+        private String fileType;
+        private String status;
+        private String message;
+        private byte[] bytes;
+
+        //Default constructor
+        public FileMeta(String fileName, String fileSize, String fileType) {
+            this.fileName = fileName;
+            this.fileSize = fileSize;
+            this.fileType = fileType;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        //setters & getters
+        public String getFileName() {
+            return fileName;
+        }
+
+        public void setFileName(String fileName) {
+            this.fileName = fileName;
+        }
+
+        public String getFileSize() {
+            return fileSize;
+        }
+
+        public void setFileSize(String fileSize) {
+            this.fileSize = fileSize;
+        }
+
+        public String getFileType() {
+            return fileType;
+        }
+
+        public void setFileType(String fileType) {
+            this.fileType = fileType;
+        }
+
+        public byte[] getBytes() {
+            return bytes;
+        }
+
+        public void setBytes(byte[] bytes) {
+            this.bytes = bytes;
+        }
 
     }
+
 }

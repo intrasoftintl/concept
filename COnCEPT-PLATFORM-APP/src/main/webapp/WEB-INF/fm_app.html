@@ -148,9 +148,7 @@
                                 <fieldset>
                                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                 </fieldset>
-                                
                                 <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
-
                                 <div class="row fileupload-buttonbar">
                                     <div class="col-md-12">
                                         <h5>Please select files to upload.</h5>
@@ -160,11 +158,11 @@
                                             <input id="fileupload"  type="file" name="files[]" multiple="true" />
                                         </span>
                                         <div class="files-drag">or drop files here</div>
-                                   
+
                                         <br/>
-                                        
+
                                         <div id="files" class="alert alert-success files" role="alert"><strong>Files uploaded:</strong><br/><br/></div>
-                                        
+
                                     </div>
                                 </div>
 
