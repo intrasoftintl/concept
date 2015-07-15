@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Login &mdash; CONCEPT</title>
+        <title>Password Recovery &mdash; CONCEPT</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />
@@ -54,30 +54,14 @@
                                     <div class="col-md-4">
                                         <div class="form-wrap">
 
-                                            <div th:if="${param.error}" class="alert alert-danger" role="alert">Wrong username or password.</div>
-                                            <div th:if="${new_registration}" class="alert alert-success" role="alert"><p th:text="${new_registration}"></p></div>
-
-
-                                            <h5 class="heading">Log in with your account</h5>
+                                            <h5 class="heading">Enter your email address</h5>
                                             <form role="form" th:action="@{/login}" method="post" id="login-form" autocomplete="off">
                                                 <div class="form-group">
-                                                    <label for="username" class="sr-only">Email</label>
-                                                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" autofocus="true" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="key" class="sr-only">Password</label>
-                                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" />
+                                                    <label for="email" class="sr-only">Email</label>
+                                                    <input type="email" name="mail" id="email" class="form-control" placeholder="Email" value="" />
                                                 </div>
 
-                                              
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" name="remember-me"/> Stay signed in
-                                                    </label>
-                                                </div>
-
-                                                <input type="submit" value="Login" class="btn btn-danger"/>
-                                                <input type="submit" value="Forgot password?" class="btn btn-danger btn-link"/>
+                                                <input type="submit" value="Reset Password" class="btn btn-danger"/>
                                             </form>
                                         </div>
                                     </div>
