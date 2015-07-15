@@ -148,7 +148,7 @@ body{
     position:fixed;
     left:0;
     top:256px;
-    z-index:100000;
+    z-index:1000;
 }
 
 .nav-projects select{
