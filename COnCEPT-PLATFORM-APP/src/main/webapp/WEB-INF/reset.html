@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Password Recovery &mdash; CONCEPT</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+
+        <!-- navbar -->
+        <nav class="nav-main">
+            <ul>
+                <li class="placeholder"></li>
+            </ul>
+
+        </nav>
+
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul class="disabled">
+                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
+            </ul>
+        </nav>
+
+        <!-- placeholder -->
+        <nav class="nav-placeholder">
+            <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
+        </nav>
+
+        <!-- dashboard -->
+        <div class="content-pre">
+            <div class="header">
+                <a href="/" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="dashboard-login">
+
+                        <section id="login">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-wrap">
+
+                                            <h5 class="heading">Enter your email address</h5>
+                                            <form role="form" th:action="@{/login}" method="post" id="login-form" autocomplete="off">
+                                                <div class="form-group">
+                                                    <label for="email" class="sr-only">Email</label>
+                                                    <input type="email" name="mail" id="email" class="form-control" placeholder="Email" value="" />
+                                                </div>
+
+                                                <input type="submit" value="Reset Password" class="btn btn-danger"/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
