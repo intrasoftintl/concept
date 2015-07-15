@@ -49,6 +49,12 @@ public class WebController {
         model.addAttribute("user", new UserCo());
         return "login";
     }
+    
+    // Error
+    @RequestMapping(value = "/reset", method = RequestMethod.GET)
+    public String reset() {
+        return "reset";
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerForm(Model model) {
