@@ -12,16 +12,14 @@ import eu.concept.response.BasicResponseCode;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -59,6 +57,7 @@ public class WebController {
         return "registration";
     }
 
+    //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
@@ -198,7 +197,7 @@ public class WebController {
      *
      * @return An instance of CurrentUser object
      */
-    private static CurrentUser getCurrentUser() {
+    public static CurrentUser getCurrentUser() {
         return (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

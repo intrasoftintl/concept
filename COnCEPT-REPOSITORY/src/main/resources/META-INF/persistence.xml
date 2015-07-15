@@ -7,6 +7,9 @@
     <class>eu.concept.repository.concept.domain.UserCo</class>
     <class>eu.concept.repository.openproject.domain.MemberRoleOp</class>
     <class>eu.concept.repository.openproject.domain.MemberOp</class>
+    <class>eu.concept.repository.concept.domain.Component</class>
+    <class>eu.concept.repository.concept.domain.Likes</class>
+    <class>eu.concept.repository.concept.domain.FileManagement</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.3.6:3306/concept?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="!concept!"/>

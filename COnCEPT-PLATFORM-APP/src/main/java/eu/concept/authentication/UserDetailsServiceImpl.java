@@ -60,18 +60,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             logger.log(Level.WARNING, "Password for user: {0} not found in Concept database....", username);
             throw new UsernameNotFoundException("password not found");
         }
-        
-        //userConcept.
-        
+
         //Fetch password by user id
         PasswordOp password = passwordService.findPasswordByUserID(userOp.getId());
         //Fetch user role
         MemberRoleOp memberRoleOp = memberRoleOpService.findByUserId(userOp.getId());
-        
-        if (null == memberRoleOp){
-            System.out.println("Roles is null.....");
+
+        //Deny Access to NON_MEMBER Role
+        if (COnCEPTRole.getCOnCEPTRole(memberRoleOp).getID() == COnCEPTRole.NON_MEMBER.getID()) {
+            logger.log(Level.WARNING, "Denied access to the COnCEPT-PLATFORM for user {0} inefficient role", username);
+            throw new UsernameNotFoundException("role not permitted");
         }
-        //System.out.println("Role ID: "+memberRoleOp.getRoleId());
-        return new CurrentUser(userOp.getId(), userOp.getLogin(), userConcept.getPassword(), COnCEPTRole.getCOnCEPTRole(memberRoleOp),userConcept.getFirstName(),userConcept.getLastName());
+
+        return new CurrentUser(userOp.getId(), userOp.getLogin(), userConcept.getPassword(), COnCEPTRole.getCOnCEPTRole(memberRoleOp), userConcept.getFirstName(), userConcept.getLastName());
     }
 }

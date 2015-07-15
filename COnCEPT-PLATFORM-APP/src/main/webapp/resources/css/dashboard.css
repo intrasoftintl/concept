@@ -530,6 +530,24 @@ textarea{
     height:calc(100vh - 111px);
 }
 
+/* FM APP */
+.files{
+    display:none;
+}
+
+.files-drag{
+	display: block;
+	font-weight: bold;
+	text-align: center;
+	padding: 4em 0;
+	margin: 1em 0 0 0;
+	color: #aaa;
+	border: 2px dashed #aaa;
+	border-radius: px;
+	cursor: default;
+        text-transform: uppercase;
+}
+
 /* bootstrap override */
 .row { margin:0; }
 .row.disabled{ opacity:0.5; }
@@ -576,11 +594,6 @@ hr {
 
 .btn:focus { outline:none; }
 
-.img-thumbnail:hover{
-    //opacity:0.5;
-    background:#eee;
-}
+.img-thumbnail:hover{ background:#eee; }
 
-table .glyphicon {
-    vertical-align: middle;
-}
+table .glyphicon { vertical-align: middle; }

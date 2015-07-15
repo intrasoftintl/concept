@@ -201,19 +201,10 @@ $(document).ready(function () {
 $('#fileupload').fileupload({
     dataType: 'json',
     done: function (e, data) {
-        $("#files").text("");
         $.each(data.result, function (index, result) {
-            //   $('<p/>').text(result.fileName).appendTo(document.body);
-            $("#files").append(result.fileName+"<br/>");
+            $('.files').append('- ' + result.fileName + '<br/>');
+            $('.files').css("display", "block");
         });
-    },
-    progressall: function (e, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
-        $('#progress .bar').css(
-            'width',
-            progress + '%'
-        );
-    } 
-    
+    }    
 });
 
