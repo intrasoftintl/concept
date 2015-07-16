@@ -162,9 +162,9 @@ public class WebController {
     }
 
     // Metadata APP
-    @RequestMapping(value = "/md_app", method = RequestMethod.GET)
-    public String md_app() {
-        return "md_app";
+    @RequestMapping(value = "/metadata", method = RequestMethod.GET)
+    public String metadata() {
+        return "metadata";
     }
 
     /*
