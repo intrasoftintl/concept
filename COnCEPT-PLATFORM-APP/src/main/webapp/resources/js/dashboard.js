@@ -208,3 +208,11 @@ $('#fileupload').fileupload({
     }    
 });
 
+
+
+(function() {
+	jQuery('.ngg-galleryoverview .ngg-gallery-thumbnail a').each(function() {
+		var alink = jQuery(this).attr('href');
+		jQuery(this).after('<a href="'+alink+'" target="_blank" style="margin:0;">Download</a>')
+	});
+});

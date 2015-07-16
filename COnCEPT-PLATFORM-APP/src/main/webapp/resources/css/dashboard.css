@@ -548,6 +548,11 @@ textarea{
         text-transform: uppercase;
 }
 
+.pull-up{
+    vertical-align: top;
+    margin-top:5px;
+}
+
 /* bootstrap override */
 .row { margin:0; }
 .row.disabled{ opacity:0.5; }
