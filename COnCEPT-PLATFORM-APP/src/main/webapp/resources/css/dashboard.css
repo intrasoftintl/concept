@@ -553,7 +553,7 @@ textarea{
     margin-top:5px;
 }
 
-/* bootstrap override */
+/* BOOTSTRAP OVERRIDE */
 .row { margin:0; }
 .row.disabled{ opacity:0.5; }
 
@@ -602,3 +602,5 @@ hr {
 .img-thumbnail:hover{ background:#eee; }
 
 table .glyphicon { vertical-align: middle; }
+
+.btn-sort{ margin-right:10px; }
