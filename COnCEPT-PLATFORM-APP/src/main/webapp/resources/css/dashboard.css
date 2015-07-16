@@ -527,7 +527,12 @@ body{
 
 /* BA APP */
 textarea{
-    height:calc(100vh - 111px);
+    height:calc(100vh - 151px); //111+40
+}
+
+.ba-title{
+    height:40px;
+    padding:5px;
 }
 
 /* FM APP */
