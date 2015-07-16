@@ -49,6 +49,11 @@ public class FileManagement implements Serializable {
     private byte[] content;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "type")
+    private String type;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "isPublic")
     private short isPublic;
 
@@ -59,12 +64,13 @@ public class FileManagement implements Serializable {
         this.id = id;
     }
 
-    public FileManagement(Integer id, int pid, int uid, String filename, byte[] content, short isPublic) {
+    public FileManagement(Integer id, int pid, int uid, String filename, byte[] content, String type, short isPublic) {
         this.id = id;
         this.pid = pid;
         this.uid = uid;
         this.filename = filename;
         this.content = content;
+        this.type = type;
         this.isPublic = isPublic;
     }
 
@@ -106,6 +112,14 @@ public class FileManagement implements Serializable {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public short getIsPublic() {

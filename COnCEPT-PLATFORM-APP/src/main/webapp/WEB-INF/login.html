@@ -60,6 +60,7 @@
 
                                             <h5 class="heading">Log in with your account</h5>
                                             <form role="form" th:action="@{/login}" method="post" id="login-form" autocomplete="off">
+                                               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                                 <div class="form-group">
                                                     <label for="username" class="sr-only">Email</label>
                                                     <input type="text" name="username" id="username" class="form-control" placeholder="Username" autofocus="true" />
@@ -72,7 +73,7 @@
                                               
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="remember-me"/> Stay signed in
+                                                        <input type="checkbox" name="remember-me" id="remember-me"/> Stay signed in
                                                     </label>
                                                 </div>
 

@@ -1,10 +1,10 @@
 //After html is rendered do the following...
 $(document).ready(function () {
+    //alert("I am loaded!");
     //On page load disable dashboard content
     disableDashboardPage();
     //Trigger event when project list is changed
     $('#projectSelect').change(function () {
-        disableDashboardPage();
         var projectID = $(this).val();
         if (projectID > 0) {
             enableDashboardPage();
@@ -20,11 +20,33 @@ $(document).ready(function () {
                 $("#projectMembers").html("");
                 $("#projectMembers").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
             });
-            $("#fmBut1").attr("href","/fm_app?projectID="+projectID)
+            $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID)
+            //Load Dashboard content
+            loadDashboardContent(projectID);
+
         } else {
             disableDashboardPage();
         }
     });
+
+
+    //Load all widjects of dashboard page based on selected ProjectID
+    function loadDashboardContent(projectID) {
+        //Load content of FileManagement widget
+        $("#fmDIVtable").load("/filemanagement/" + projectID);
+//        
+//        $.ajax({
+//            url: "/dashboard",
+//            type: 'POST',
+//            data: {
+//                "projectID": projectID,
+//                "_csrf": $("#_csrf").val()
+//            },
+//            success: function (data) {
+//            }
+//        });
+    }
+
     //
     //TODO: A more efficient way to disable/enable dashboard widgets (in ex. DOM iter.)
     //
@@ -205,6 +227,6 @@ $('#fileupload').fileupload({
             $('.files').append('- ' + result.fileName + '<br/>');
             $('.files').css("display", "block");
         });
-    }    
+    }
 });
 

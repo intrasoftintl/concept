@@ -53,11 +53,13 @@ public class FileUploadController {
             fm.setPid(Integer.valueOf(projectID));
             fm.setUid(WebController.getCurrentUser().getId());
             fm.setFilename(fileMeta.getFileName());
+            fm.setType(fileMeta.getFileType());
             //Get bytes[] of uploaded file
             try {
                 fileMeta.setBytes(mpf.getBytes());
                 fm.setContent(fileMeta.getBytes());
             } catch (IOException e) {
+                e.printStackTrace();
                 fileMeta.setStatus("FAIL");
                 fileMeta.setMessage("Corrupted file");
                 Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Could not process file with name: {0} aborting upload...", fileMeta.getFileName());

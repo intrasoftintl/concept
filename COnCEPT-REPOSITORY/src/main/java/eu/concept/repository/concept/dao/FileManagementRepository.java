@@ -1,7 +1,7 @@
 package eu.concept.repository.concept.dao;
 
 import eu.concept.repository.concept.domain.FileManagement;
-import java.util.ArrayList;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,7 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface FileManagementRepository extends JpaRepository<FileManagement, Integer> {
 
-    public ArrayList<FileManagement> findByPidAndIsPublic(int Pid, short IsPublic);
-    public ArrayList<FileManagement> findByPid(int Pid);
+    public List<FileManagement> findByPidAndIsPublic(int Pid, short IsPublic);
+    public List<FileManagement> findByPid(int Pid);
+    public FileManagement findById(int Id);
 
 }

@@ -12,12 +12,13 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
-
+        <input id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
                 <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
@@ -53,12 +54,12 @@
                 <div th:if="${currentUser.getRole()} == 'MANAGER'">
                     <button type="button" class="btn btn-success btn-xs"> New Project</button><button id="projectSettings" type="button" class="btn btn-link btn-xs">View Project</button>
                 </div>
-                
+
                 <!-- Content to be showed only on Project Members (Designers, Clients) -->
                 <div th:if="${currentUser.getRole()} == 'MEMBER???'">
                     <button type="button" class="btn btn-link btn-xs">View Project</button>
                 </div>
-                
+
                 <h5 id="projectMembers" class="highlight">Project Members<br/><small></small></h5>
             </div>
 
@@ -104,7 +105,7 @@
                 <div class="btn-group pull-right">
 
                     <div class="row col-md-12 pull-right">
-                        <h5 th:inline="text" class="pull-right">[[${currentUser.getFirstName()}]] [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
+                        <h5 th:inline="text" class="pull-right"> [[${currentUser.getFirstName()}]] [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
                     </div>
                     <div class="row col-md-12 pull-right">
 
@@ -224,28 +225,16 @@
                             </div>
                         </div>
                         <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-6">Recently Uploaded Files</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
+                            <thead>
+                                <tr>
+                                    <th class="col-md-6">Recently Uploaded Files</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
                         </table>
-                        <div id="fmDIVtable" class="panel-body">
-                            <a href=""><img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00004.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00006.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00007.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00008.jpg" alt="..." class="img-thumbnail" /></a>
-                            <a href=""><img src="resources/img/fm_00009.jpg" alt="..." class="img-thumbnail" /></a>
-                        </div>
-                        <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->
-                            Files (123) - <a href="/fm_all">View All</a>
+                        <div id="fmDIVtable">
+
                         </div>
                     </div>
                 </div>
@@ -285,7 +274,7 @@
                                 </tbody>
                             </table>
                         </div>
-                      
+
                         <div class="panel-footer">
                             <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Search Engine</a>-->
                             Saved Search Queries (214) - <a href="/se_all">View All</a>
