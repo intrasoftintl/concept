@@ -513,26 +513,32 @@ body{
     text-shadow: none;
 }
 
+.title{
+    height:36px;
+    padding:3px 10px;
+    border-bottom: 2px solid #eee;
+    background-color: #f2f2f2;
+    font-size:12px;
+    text-transform: uppercase;
+    color:#888;
+    font-family: 'Source Sans Pro', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.title input{
+    margin:0 6px;
+    border:none;
+}
+
 /* SK APP */
 .content .literally{
-    //margin-left:2px;
     width:calc(100vw - 242px);
-    //height: calc(100vh - 32px);
-    height:100vh;
-
-    //position:absolute;
-    //top:32px;
-    //border-top: 2px solid #eee;
+    height:calc(100vh - 36px);
 }
 
 /* BA APP */
 textarea{
-    height:calc(100vh - 151px); //111+40
-}
-
-.ba-title{
-    height:40px;
-    padding:5px;
+    height:calc(100vh - 147px); //111+36
 }
 
 /* FM APP */
@@ -611,3 +617,9 @@ table .notification { vertical-align: middle; }
 table img.notification{ width:60px; margin:0; background: #fff; border-radius:50px; border:4px solid #f2f2f2}
 
 .btn-sort{ margin-right:10px; }
+
+.form-control:focus{
+    border-color: #cccccc;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
