@@ -148,7 +148,7 @@ body{
     position:fixed;
     left:0;
     top:256px;
-    z-index:100000;
+    z-index:1000;
 }
 
 .nav-projects select{
@@ -527,7 +527,12 @@ body{
 
 /* BA APP */
 textarea{
-    height:calc(100vh - 111px);
+    height:calc(100vh - 151px); //111+40
+}
+
+.ba-title{
+    height:40px;
+    padding:5px;
 }
 
 /* FM APP */
@@ -548,7 +553,12 @@ textarea{
         text-transform: uppercase;
 }
 
-/* bootstrap override */
+.pull-up{
+    vertical-align: top;
+    margin-top:5px;
+}
+
+/* BOOTSTRAP OVERRIDE */
 .row { margin:0; }
 .row.disabled{ opacity:0.5; }
 
@@ -597,3 +607,7 @@ hr {
 .img-thumbnail:hover{ background:#eee; }
 
 table .glyphicon { vertical-align: middle; }
+table .notification { vertical-align: middle; }
+table img.notification{ width:60px; margin:0; background: #fff; border-radius:50px; border:4px solid #f2f2f2}
+
+.btn-sort{ margin-right:10px; }

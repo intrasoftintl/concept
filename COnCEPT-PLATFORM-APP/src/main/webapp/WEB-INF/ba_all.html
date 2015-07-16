@@ -29,7 +29,7 @@
                 <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
         </nav>
@@ -135,16 +135,21 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Brief Analysis Documents</h4>
                             <div class="btn-group pull-right">
-                                <a id="fmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add File</a>
+                                <a id="fmBut1" href="/ba_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
+                            </div>
+                            
+                            <div class="btn-group pull-right btn-sort" role="group">
+                                <button type="button" class="btn btn-default btn-sm">Most Recent</button>
+                                <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                         </div>
                         <div class="panel-body no-padding">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="col-md-6">All Brief Analysis Documents</th>
-                                        <th>User</th>
-                                        <th class="col-md-4"></th>
+                                        <th class="col-md-5">All Brief Analysis Documents</th>
+                                        <th class="col-md-2">User</th>
+                                        <th class="col-md-5"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -152,6 +157,7 @@
                                         <td><a href="">BA_00005</a></td>
                                         <td>user3</td>
                                         <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
                                             <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
@@ -161,6 +167,7 @@
                                         <td><a href="">BA_00004</a></td>
                                         <td>user5</td>
                                         <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
                                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
@@ -170,6 +177,7 @@
                                         <td><a href="">BA_00003</a></td>
                                         <td>user1</td>
                                         <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
                                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
@@ -179,6 +187,7 @@
                                         <td><a href="">BA_00002</a></td>
                                         <td>user1</td>
                                         <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
                                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
@@ -188,6 +197,7 @@
                                         <td><a href="">BA_00001</a></td>
                                         <td>user1</td>
                                         <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
                                             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
                                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
@@ -197,7 +207,6 @@
                             </table>
                         </div>
                         <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->
                             Brief Analysis Documents (123)
                         </div>
                     </div>

@@ -9,6 +9,7 @@
 
         <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/lightbox.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
@@ -30,7 +31,7 @@
                 <li><img src="resources/img/ICON_FM.png" /></li>
                 <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MB_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
         </nav>
@@ -135,7 +136,12 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
                             <div class="btn-group pull-right">
-                                <a id="fmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</a>
+                                <a id="fmBut1" href="/fm_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</a>
+                            </div>
+                            
+                            <div class="btn-group pull-right btn-sort" role="group">
+                                <button type="button" class="btn btn-default btn-sm">Most Recent</button>
+                                <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                         </div>
                         <div class="panel-body no-padding">
@@ -149,7 +155,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href=""><img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td><a href="resources/img/fm_00001.jpg" data-lightbox="fm_00001"><img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00001.jpg" download="fm_00001">Download</a></td>
                                         <td class="truncate">user123456789</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -159,7 +165,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href=""><img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td><a href="resources/img/fm_00002.jpg" data-lightbox="fm_00002"><img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00002.jpg" download="fm_00002">Download</a></td>
                                         <td class="truncate">user5</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -169,7 +175,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href=""><img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td><a href="resources/img/fm_00003.jpg" data-lightbox="fm_00003"><img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00003.jpg" download="fm_00003">Download</a></td>
                                         <td class="truncate">user1</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -178,8 +184,8 @@
                                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
                                         </td>
                                     </tr>
-                                                                       <tr>
-                                        <td><a href=""><img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                    <tr>
+                                        <td><a href="resources/img/fm_00001.jpg" data-lightbox="fm_00004"><img src="resources/img/fm_00004.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00004.jpg" download="fm_00004">Download</a></td>
                                         <td class="truncate">user123456789</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -189,7 +195,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href=""><img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td><a href="resources/img/fm_00001.jpg" data-lightbox="fm_00005"><img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00005.jpg" download="fm_00005">Download</a></td>
                                         <td class="truncate">user5</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -199,7 +205,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href=""><img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" /></a></td>
+                                        <td><a href="resources/img/fm_00006.jpg" data-lightbox="fm_00006"><img src="resources/img/fm_00006.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00004.jpg" download="fm_00006">Download</a></td>
                                         <td class="truncate">user1</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -223,6 +229,7 @@
 
         <script src="resources/js/jquery-1.11.2.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/lightbox.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
 
     </body>

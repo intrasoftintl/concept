@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>File Management &mdash; CONCEPT</title>
+        <title>Storyboards &mdash; CONCEPT</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />	
@@ -9,8 +9,6 @@
 
         <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/jquery.fileupload.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/jquery.fileupload-ui.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
@@ -29,7 +27,7 @@
         <nav class="nav-apps">
             <ul class="disabled">
                 <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_FM.png" /></li>
+                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
                 <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
@@ -131,51 +129,67 @@
                 </div>
             </div>
 
-            <div class="row">
-
+            <div class="row">               
                 <div class="col-md-12">
                     <div id="fmDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Upload Files (Images, Documents, etc)</h4>
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Storyboards</h4>
                             <div class="btn-group pull-right">
-                                <a href="/fm_all" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> View All</a>
+                                <a id="mbBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</a>
+                                <a id="mbBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
+                            </div>
+                            
+                            <div class="btn-group pull-right btn-sort" role="group">
+                                <button type="button" class="btn btn-default btn-sm">Most Recent</button>
+                                <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                         </div>
-                        <div class="panel-body">
-
-
-                            <form id="fileuploadForm" action="upload" method="POST" enctype="multipart/form-data">
-                                <fieldset>
-                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                </fieldset>
-                                <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
-                                <div class="row fileupload-buttonbar">
-                                    <div class="col-md-12">
-                                        <h5>Please select files to upload.</h5>
-                                        <span class="btn btn-default fileinput-button">
-                                            <i class="glyphicon glyphicon-plus"></i>
-                                            <span>Select files</span>
-                                            <input id="fileupload"  type="file" name="files[]" multiple="true" />
-                                        </span>
-                                        <div class="files-drag">or drop files here</div>
-
-                                        <br/>
-
-                                        <div id="files" class="alert alert-success files" role="alert"><strong>Files uploaded:</strong><br/><br/></div>
-
-                                    </div>
-                                </div>
-
-
-                            </form>
-
-
+                        <div class="panel-body no-padding">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-5">Most Recent Storyboards</th>
+                                        <th class="col-md-2">User</th>
+                                        <th class="col-md-5"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><a href="#"><img src="resources/img/sb_00001.png" class="img-thumbnail" /></a></td>
+                                        <td class="truncate">user123456789</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
+                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#"><img src="resources/img/sb_00002.png" class="img-thumbnail" /></a></td>
+                                        <td class="truncate">user5</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#"><img src="resources/img/sb_00003.png" class="img-thumbnail" /></a></td>
+                                        <td class="truncate">user1</td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
+                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->
                             Files (123)
                         </div>
-
                     </div>
                 </div>
 
@@ -183,12 +197,8 @@
         </div>
 
         <script src="resources/js/jquery-1.11.2.min.js"></script>
-        <script src="resources/js/jquery.ui.widget.js"></script>
-        <script src="resources/js/jquery.iframe-transport.js"></script>
-        <script src="resources/js/jquery.fileupload.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
-        <script src="resources/js/dashboard.js"></script>
 
     </body>
 </html>
