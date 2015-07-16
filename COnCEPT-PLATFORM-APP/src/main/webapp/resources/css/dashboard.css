@@ -607,5 +607,7 @@ hr {
 .img-thumbnail:hover{ background:#eee; }
 
 table .glyphicon { vertical-align: middle; }
+table .notification { vertical-align: middle; }
+table img.notification{ width:60px; margin:0; background: #fff; border-radius:50px; border:4px solid #f2f2f2}
 
 .btn-sort{ margin-right:10px; }

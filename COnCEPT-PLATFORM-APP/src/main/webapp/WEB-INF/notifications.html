@@ -25,12 +25,12 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul>
-                <li><img src="resources/img/ICON_BA.png" /></li>
-                <li><img src="resources/img/ICON_FM.png" /></li>
-                <li><img src="resources/img/ICON_SE.png" /></li>
-                <li><img src="resources/img/ICON_MM.png" /></li>
-                <li><img src="resources/img/ICON_SB.png" /></li>
-                <li><img src="resources/img/ICON_SK.png" /></li>
+                <li><a href="/ba_app"><img src="resources/img/ICON_BA.png" /></a></li>
+                <li><a href="/fm_app"><img src="resources/img/ICON_FM.png" /></a></li>
+                <li><a href="/se_app"><img src="resources/img/ICON_SE.png" /></a></li>
+                <li><a href="/mm_app"><img src="resources/img/ICON_MM.png" /></a></li>
+                <li><a href="/sb_app"><img src="resources/img/ICON_SB.png" /></a></li>
+                <li><a href="/sk_app"><img src="resources/img/ICON_SK.png" /></a></li>
             </ul>
         </nav>
 
@@ -131,71 +131,131 @@
                 <div class="col-md-12">
                     <div id="fmDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Brief Analysis Documents</h4>
+                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Notifications</h4>
                             <div class="btn-group pull-right">
-                                <a id="fmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add File</a>
+                                <a id="fmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Mark all as read</a>
                             </div>
                         </div>
                         <div class="panel-body no-padding">
                             <table class="table table-striped">
-                                <thead>
+                                <thead> 
                                     <tr>
-                                        <th class="col-md-5">All Brief Analysis Documents</th>
-                                        <th class="col-md-2">User</th>
-                                        <th class="col-md-5"></th>
+                                        <th class="col-md-1">Tool</th>
+                                        <th class="col-md-5">Operation</th>
+                                        <th class="col-md-3">User</th>
+                                        <th class="col-md-3">Timestamp</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><a href="">BA_00005</a></td>
+                                    <tr class="warning">
+                                        <td><img class="notification" src="resources/img/ICON_BA_NOTIFICATION.png"/></td>
+                                        <td><strong>DELETED</strong> a Brief Analysis Document (<a href="">BA_00001</a>)</td>
                                         <td>user3</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                                        </td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
                                     </tr>
-                                    <tr>
-                                        <td><a href="">BA_00004</a></td>
+                                    <tr class="warning">
+                                        <td><img class="notification" src="resources/img/ICON_BA_NOTIFICATION.png"/></td>
+                                        <td><strong>EDITED</strong> a Brief Analysis Document (BA_00001)</td>
                                         <td>user5</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr class="warning">
+                                        <td><img class="notification" src="resources/img/ICON_BA_NOTIFICATION.png"/></td>
+                                        <td><strong>CREATED</strong> a Brief Analysis Document (<a href="">BA_00001</a>)</td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
                                     </tr>
                                     <tr>
-                                        <td><a href="">BA_00003</a></td>
+                                        <td><img class="notification" src="resources/img/ICON_FM_NOTIFICATION.png"/></td>
+                                        <td><strong>DELETED</strong> a File (fm_00001.jpeg) <img class="thumbnail" src="resources/img/fm_00004.jpg"/></td>
                                         <td>user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
                                     </tr>
                                     <tr>
-                                        <td><a href="">BA_00002</a></td>
+                                        <td><img class="notification" src="resources/img/ICON_FM_NOTIFICATION.png"/></td>
+                                        <td><strong>UPLOADED</strong> a File (<a href="">fm_00001.jpeg</a>) <img class="thumbnail" src="resources/img/fm_00004.jpg"/></td>
                                         <td>user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
                                     </tr>
                                     <tr>
-                                        <td><a href="">BA_00001</a></td>
+                                        <td><img class="notification" src="resources/img/ICON_FM_NOTIFICATION.png"/></td>
+                                        <td><strong>UPLOADED</strong> a File (<a href="">fm_00005.jpeg</a>) <img class="thumbnail" src="resources/img/fm_generic.png"/></td>
                                         <td>user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
-                                    </tr>                                    
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SE_NOTIFICATION.png"/></td>
+                                        <td><strong>SEARCHED</strong> for "blue chair" (<a href="">Search Query</a>)</td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SE_NOTIFICATION.png"/></td>
+                                        <td><strong>SEARCHED</strong> for similar images (<a href="">Search Query</a>) <img class="thumbnail" src="resources/img/fm_00001.jpg"/></td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_MM_NOTIFICATION.png"/></td>
+                                        <td><strong>DELETED</strong> a Mindmap (<a href="">MM_00001</a>) <img class="thumbnail" src="resources/img/mm_00001.jpg"/></td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_MM_NOTIFICATION.png"/></td>
+                                        <td><strong>CREATED</strong> a Mindmap (MM_00002) <img class="thumbnail" src="resources/img/mm_00003.jpg"/></td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SB_NOTIFICATION.png"/></td>
+                                        <td><strong>DELETED</strong> a Storyboard (<a href="">SB_00001</a>) <img class="thumbnail" src="resources/img/mm_00001.jpg"/></td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SB_NOTIFICATION.png"/></td>
+                                        <td><strong>CREATED</strong> a Storyboard (SB_00002) <img class="thumbnail" src="resources/img/mm_00003.jpg"/></td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SB_NOTIFICATION.png"/></td>
+                                        <td><strong>CREATED</strong> a Moodboard (MB_00001) <img class="thumbnail" src="resources/img/mm_00003.jpg"/></td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SB_NOTIFICATION.png"/></td>
+                                        <td><strong>SHARED</strong> a Storyboard (<a href="">SB_00001</a>) <img class="thumbnail" src="resources/img/mm_00001.jpg"/></td>
+                                        <td>user3</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SK_NOTIFICATION.png"/></td>
+                                        <td><strong>DELETED</strong> a Sketching (SK_00001) <img class="thumbnail" src="resources/img/sk_00002.png"/></td>
+                                        <td>user3</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SK_NOTIFICATION.png"/></td>
+                                        <td><strong>SHARED</strong> a Sketching (<a href="">SK_00001</a>) <img class="thumbnail" src="resources/img/sk_00002.png"/></td>
+                                        <td>user3</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SK_NOTIFICATION.png"/></td>
+                                        <td><strong>EDITED</strong> a Sketching (<a href="">SK_00001</a>) <img class="thumbnail" src="resources/img/sk_00002.png"/></td>
+                                        <td>user5</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img class="notification" src="resources/img/ICON_SK_NOTIFICATION.png"/></td>
+                                        <td><strong>CREATED</strong> a Sketching (<a href="">SK_00001</a>) <img class="thumbnail" src="resources/img/sk_00001.png"/></td>
+                                        <td>user1</td>
+                                        <td>Thursday, Jul 16 2015 - 15:11</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
