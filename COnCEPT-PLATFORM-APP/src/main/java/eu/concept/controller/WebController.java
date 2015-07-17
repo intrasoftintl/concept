@@ -270,9 +270,13 @@ public class WebController {
     public String fetchFilesByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, getCurrentRole(), limit));
         model.addAttribute("totalFiles", fmService.countFilesByIdAndUserId(project_id, getCurrentRole()));
+        model.addAttribute("projectID", project_id);
         return "fm :: fmContentList";
     }
 
+    
+    //filemanagement_all
+    
 
     /*
      *  Help Methods

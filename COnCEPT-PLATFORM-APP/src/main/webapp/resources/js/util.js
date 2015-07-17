@@ -61,6 +61,10 @@ function projectSelectedAction(projectID) {
         } else {
             $('#projectID').val(projectID);
         }
+        
+        if(isFMPage()){
+             $("#fm_all").load("/filemanagement/" + projectID + "?limit=200");
+        }
 
     } else if (isDashboardPage()) {
         disableDashboardPage();
@@ -80,6 +84,11 @@ function isUploadPage() {
     return location.pathname === "/fm_app";
 }
 
+
+//Return true if current page is FileManagement
+function isFMPage() {
+    return location.pathname === "/fm_all";
+}
 
 //Sample post using jQuery
 //        
