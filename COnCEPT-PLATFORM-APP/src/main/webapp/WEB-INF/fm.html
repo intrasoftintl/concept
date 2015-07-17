@@ -45,8 +45,15 @@
             </tbody>
         </table>
     </div>
-    <div class="panel-footer">
-        Files (<span th:text="${maxFiles}"> </span>) - <a href="/fm_all">View All</a>
+
+    <!-- Load more button -->
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+    </div>
+
+    <!-- Nothing more to load button -->
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
     </div>
     
 </div>
