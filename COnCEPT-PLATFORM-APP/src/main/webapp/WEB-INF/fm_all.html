@@ -19,7 +19,8 @@
         <nav class="nav-main">
             <ul>
                 <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
@@ -137,25 +138,28 @@
                             <div class="btn-group pull-right">
                                 <a id="fmBut1" href="/fm_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</a>
                             </div>
-                            
+
                             <div class="btn-group pull-right btn-sort" role="group">
                                 <button type="button" class="btn btn-default btn-sm">Most Recent</button>
                                 <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                         </div>
-                        
+
                         <div id="fm_all"></div>
-                        
+
                     </div>
                 </div>
 
             </div>
         </div>
 
+        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+
         <script src="resources/js/jquery-1.11.2.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/lightbox.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
+        <script src="resources/js/util.js"></script>
 
     </body>
 </html>

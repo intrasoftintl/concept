@@ -49,6 +49,13 @@ function disableDashboardPage() {
     //Hide Project Members List
     $("#projectMembers").hide();
     $("#projectSettings").hide();
+    
+    $("#ba-placeholder").show();
+    $("#fm-placeholder").show();
+    $("#se-placeholder").show();
+    $("#mm-placeholder").show();
+    $("#sb-placeholder").show();
+    $("#sk-placeholder").show();
 }
 
 function enableDashboardPage() {
@@ -79,6 +86,13 @@ function enableDashboardPage() {
     //Show Project Members List
     $("#projectMembers").show();
     $("#projectSettings").show();
+    
+    $("#ba-placeholder").hide();
+    $("#fm-placeholder").hide();
+    $("#se-placeholder").hide();
+    $("#mm-placeholder").hide();
+    $("#sb-placeholder").hide();
+    $("#sk-placeholder").hide();
 }
 
 
