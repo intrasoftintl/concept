@@ -1,5 +1,3 @@
-var isDashboard = true;
-
 //After html is rendered do the following...
 $(document).ready(function () {
 //On page load disable dashboard content
@@ -7,7 +5,6 @@ $(document).ready(function () {
 }
 
 );
-
 
 //Load all widjects of dashboard page based on selected ProjectID
 function loadDashboardContent(projectID) {
@@ -23,6 +20,7 @@ function loadDashboardContent(projectID) {
 //Disable dashboard page widgets
 
 function disableDashboardPage() {
+    console.log("Disable dashboard modules...")
 //First Row Content to disable
     $("#firstRowContent").addClass("disabled");
     $("#brDIVbuttons").addClass("disabled");
@@ -30,8 +28,8 @@ function disableDashboardPage() {
     $("#brBut1").addClass("disabled");
     $("#brBut2").addClass("disabled");
     $("#fmDIVbuttons").addClass("disabled");
-    $("#fmDIVtable").addClass("disabled");
-    $("#fmDIVtable").empty();
+    $("#fm_dashboard").addClass("disabled");
+    $("#fm_dashboard").empty();
     $("#fmBut1").addClass("disabled");
     $("#fmBut2").addClass("disabled");
     $("#seDIVbuttons").addClass("disabled");
@@ -84,119 +82,4 @@ function enableDashboardPage() {
 }
 
 
-$('#fileupload').fileupload({
-    dataType: 'json',
-    done: function (e, data) {
-        $.each(data.result, function (index, result) {
-            $('.files').append('- ' + result.fileName + '<br/>');
-            $('.files').css("display", "block");
-        });
-    }
-});
-$('#tags').tagsInput({
-    'height': '160px',
-    'width': '238px',
-    'interactive': true,
-    'placeholderColor': '#ccc'
-});
-var data = [
-    {
-        label: 'Product Category', id: 1,
-        children: [
-            {label: 'Kitchenware', id: 11},
-            {label: 'Exhibition', id: 12},
-            {label: 'Lighting', id: 13},
-            {label: 'Furniture', id: 14}
-        ]
-    },
-    {
-        label: 'Product Domain', id: 2,
-        children: [
-            {label: 'Medical', id: 21},
-            {label: 'Cosumer', id: 22},
-            {label: 'Sport', id: 23},
-            {label: 'Market Analysis', id: 24},
-            {label: 'Technology', id: 25},
-            {label: 'Usability', id: 26}
-        ]
-    },
-    {
-        label: 'Product Language', id: 3,
-        children: [
-            {
-                label: 'Style', id: 31,
-                children: [
-                    {
-                        label: 'Period Style', id: 311,
-                        children: [
-                            {label: 'Classic', id: 3112},
-                            {label: 'Chic', id: 3113},
-                            {label: 'Modern', id: 3113},
-                            {label: 'Artdeco', id: 3115}
-                        ]
-                    },
-                    {
-                        label: 'Partial Style', id: 312,
-                        children: [
-                            {label: 'National', id: 3121},
-                            {label: 'Corporate', id: 3122},
-                            {label: 'Target Style', id: 3123}
-                        ]
-                    }
-                ]
-            },
-            {
-                label: 'Material', id: 32,
-                children: [
-                    {label: 'Steel', id: 321},
-                    {label: 'Stone', id: 322}
-                ]
-            },
-            {
-                label: 'Associations and Feelings', id: 33,
-                children: [
-                    {label: 'Cold', id: 331},
-                    {label: 'Warm', id: 332},
-                    {label: 'Aggressive', id: 333}
-                ]
-            }
-        ]
-    }
-];
-$(function () {
-    var $tree = $('#tree');
-    $tree.tree({
-        data: data,
-        autoOpen: true,
-        saveState: true
-    });
-    $tree.bind(
-            'tree.click',
-            function (e) {
-                // Disable single selection
-                e.preventDefault();
-                var selected_node = e.node;
-                if (selected_node.id == undefined) {
-                    console.log('The multiple selection functions require that nodes have an id');
-                }
 
-                if ($tree.tree('isNodeSelected', selected_node)) {
-                    $tree.tree('removeFromSelection', selected_node);
-                }
-                else {
-                    $tree.tree('addToSelection', selected_node);
-                }
-            }
-    );
-});
-//        
-//        $.ajax({
-//            url: "/dashboard",
-//            type: 'POST',
-//            data: {
-//                "projectID": projectID,
-//                "_csrf": $("#_csrf").val()
-//            },
-//            success: function (data) {
-//            }
-//        });
