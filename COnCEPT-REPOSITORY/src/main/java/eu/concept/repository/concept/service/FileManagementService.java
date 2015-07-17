@@ -49,6 +49,7 @@ public class FileManagementService {
      */
     public List<FileManagement> fetchImagesByProjectIdAndUserId(int projectID, String userRole, int limit, int page) {
         List<FileManagement> files;
+        
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(userRole)) {
             files = fileManagement.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
