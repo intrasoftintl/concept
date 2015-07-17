@@ -18,7 +18,8 @@
         <nav class="nav-main">
             <ul>
                 <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
@@ -121,11 +122,8 @@
                             </button>
                         </form>    
 
-                        <form th:action="@{/notifications}" method="post" class="pull-right">
-                            <button type="submit" class="btn btn-success btn-sm ">
-                                Notifications <span class="badge">2</span>
-                            </button>
-                        </form>
+                        <a href="/notifications" th:action="@{/notifications}" class="btn btn-success btn-sm pull-right">Notifications <span class="badge">2</span></a>
+
                     </div>
 
 
@@ -224,18 +222,9 @@
 
                             </div>
                         </div>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="col-md-6">Recently Uploaded Files</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                        <div id="fmDIVtable">
 
-                        </div>
+                        <div id="fm_dashboard"></div>
+
                     </div>
                 </div>
 
@@ -468,6 +457,7 @@
         <script src="resources/js/lightbox.min.js"></script>
         <!--Javascript file handling various actions of dashboard page -->
         <script src="resources/js/dashboard.js"></script>
+        <script src="resources/js/util.js"></script>
 
     </body>
 </html>

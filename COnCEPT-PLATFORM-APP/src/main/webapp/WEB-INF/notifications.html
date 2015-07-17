@@ -18,7 +18,8 @@
         <nav class="nav-main">
             <ul>
                 <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
@@ -125,7 +126,7 @@
 
                 </div>
             </div>
-            
+
             <div class="row">
 
                 <div class="col-md-12">
@@ -144,7 +145,7 @@
                                         <th class="col-md-5">Operation</th>
                                         <th class="col-md-3">User</th>
                                         <th class="col-md-3">Timestamp</th>
-                                        
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -259,20 +260,26 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->
-                            Brief Analysis Documents (123)
+                        
+                        <!-- Load more button -->
+                        <div class="panel-footer" style="text-align:center">
+                            <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+                        </div>
+                        
+                        <!-- Nothing more to load button -->
+                        <div class="panel-footer" style="text-align:center">
+                            <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
                         </div>
                     </div>
                 </div>
 
             </div>
-            
+
         </div>
 
         <script src="resources/js/jquery-1.11.2.min.js"></script>
         <script src="resources/js/bootstrap.min.js"></script>
         <script src="resources/js/togetherjs-min.js"></script>
-        
+
     </body>
 </html>

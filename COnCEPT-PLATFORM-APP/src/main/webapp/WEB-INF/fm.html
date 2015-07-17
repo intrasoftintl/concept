@@ -1,10 +1,19 @@
 <!--View for FileManagement Module -->
 
+<div th:fragment="fmContentList"  th:unless="${#lists.isEmpty(fmContents)}" > 
 
-<!-- Used in dashboard.html and is rendered on fmDIVtable DIV -->
-<div  th:fragment="fmContentList"  th:unless="${#lists.isEmpty(fmContents)}" > 
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="col-md-6">Recently Uploaded Files</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
     <div class="panel-body" >
-        <a data-lightbox="file" th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}}+'?preview=1'"  th:title="${fmContent.filename}"  th:alt="${fmContent.filename}"     class="img-thumbnail" /></a>
+        <a th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  th:title="${fmContent.filename}"  th:alt="${fmContent.filename}"     class="img-thumbnail" /></a>
     </div>
     <div class="panel-footer">
         Files ( <span th:text="${totalFiles}"> </span> ) - <a href="/fm_all">View All</a>
@@ -12,3 +21,32 @@
 </div>
 
 
+<div th:fragment="fmContentAllList"  th:unless="${#lists.isEmpty(fmContents)}" > 
+    <div class="panel-body no-padding" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-5">Recent Uploaded Files</th>
+                    <th class="col-md-2">User</th>
+                    <th class="col-md-5"></th>
+                </tr>
+            </thead>
+            <tbody>            
+                <tr th:each="fmContent : ${fmContents}">
+                    <td><a th:href="@{'/file/'+${fmContent.id}}" data-lightbox="${fmContent.filename}"><img th:src="@{'/file/'+${fmContent.id}}" class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00001.jpg" download="fm_00001">Download</a></td>
+                    <td class="truncate">user123456789</td>
+                    <td>
+                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                        <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
+                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        Files ( <span th:text="${maxFiles}"> </span> ) - <a href="/fm_all">View All</a>
+    </div>
+    
+</div>

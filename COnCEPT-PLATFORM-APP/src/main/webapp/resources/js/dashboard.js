@@ -1,123 +1,88 @@
+var isDashboard = true;
+
 //After html is rendered do the following...
 $(document).ready(function () {
-    //alert("I am loaded!");
-    //On page load disable dashboard content
+//On page load disable dashboard content
     disableDashboardPage();
-    //Trigger event when project list is changed
-    $('#projectSelect').change(function () {
-        var projectID = $(this).val();
-        if (projectID > 0) {
-            console.log("Is triggered");
-            enableDashboardPage();
-            $.ajax({
-                url: "http://localhost:8080/concept/rest/memberships/" + projectID
-            }).then(function (data) {
-                var fullNames = "";
-                for (var i in data)
-                {
-                    fullNames += data[i].user.firstname + " " + data[i].user.lastname + ", ";
-                }
-                $("#projectMembers").text("");
-                $("#projectMembers").html("");
-                $("#projectMembers").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
-            });
-            $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID)
-            //Load Dashboard content
-            loadDashboardContent(projectID);
+}
 
-        } else {
-            disableDashboardPage();
-        }
-    });
+);
 
 
-    //Load all widjects of dashboard page based on selected ProjectID
-    function loadDashboardContent(projectID) {
-        console.log("Loading dashboard content...")
-        //Load content of FileManagement widget
-        $("#fmDIVtable").load("/filemanagement/" + projectID + "?limit=9");
-//        
-//        $.ajax({
-//            url: "/dashboard",
-//            type: 'POST',
-//            data: {
-//                "projectID": projectID,
-//                "_csrf": $("#_csrf").val()
-//            },
-//            success: function (data) {
-//            }
-//        });
-    }
+//Load all widjects of dashboard page based on selected ProjectID
+function loadDashboardContent(projectID) {
+    console.log("Loading dashboard content...")
+    //Load content of FileManagement widget
+    $("#fm_dashboard").load("/filemanagement/" + projectID + "?limit=9");
+}
 
-    //
-    //TODO: A more efficient way to disable/enable dashboard widgets (in ex. DOM iter.)
-    //
+//
+//TODO: A more efficient way to disable/enable dashboard widgets (in ex. DOM iter.)
+//
 
-    //Disable dashboard page widgets
+//Disable dashboard page widgets
 
-    function disableDashboardPage() {
-        //First Row Content to disable
-        $("#firstRowContent").addClass("disabled");
-        $("#brDIVbuttons").addClass("disabled");
-        $("#brDIVtable").addClass("disabled");
-        $("#brBut1").addClass("disabled");
-        $("#brBut2").addClass("disabled");
-        $("#fmDIVbuttons").addClass("disabled");
-        $("#fmDIVtable").addClass("disabled");
-        $("#fmDIVtable").empty();
-        $("#fmBut1").addClass("disabled");
-        $("#fmBut2").addClass("disabled");
-        $("#seDIVbuttons").addClass("disabled");
-        $("#seBut1").addClass("disabled");
-        $("#seBut2").addClass("disabled");
-        //Second Row Content to disable
-        $("#secondRowContent").addClass("disabled");
-        $("#mmDIVbuttons").addClass("disabled");
-        $("#mmBut1").addClass("disabled");
-        $("#mmBut2").addClass("disabled");
-        $("#mbDIVbuttons").addClass("disabled");
-        $("#mbBut1").addClass("disabled");
-        $("#mbBut2").addClass("disabled");
-        $("#skDIVbuttons").addClass("disabled");
-        $("#skBut1").addClass("disabled");
-        $("#skBut2").addClass("disabled");
-        //Hide Project Members List
-        $("#projectMembers").hide();
-        $("#projectSettings").hide();
-    }
+function disableDashboardPage() {
+//First Row Content to disable
+    $("#firstRowContent").addClass("disabled");
+    $("#brDIVbuttons").addClass("disabled");
+    $("#brDIVtable").addClass("disabled");
+    $("#brBut1").addClass("disabled");
+    $("#brBut2").addClass("disabled");
+    $("#fmDIVbuttons").addClass("disabled");
+    $("#fmDIVtable").addClass("disabled");
+    $("#fmDIVtable").empty();
+    $("#fmBut1").addClass("disabled");
+    $("#fmBut2").addClass("disabled");
+    $("#seDIVbuttons").addClass("disabled");
+    $("#seBut1").addClass("disabled");
+    $("#seBut2").addClass("disabled");
+    //Second Row Content to disable
+    $("#secondRowContent").addClass("disabled");
+    $("#mmDIVbuttons").addClass("disabled");
+    $("#mmBut1").addClass("disabled");
+    $("#mmBut2").addClass("disabled");
+    $("#mbDIVbuttons").addClass("disabled");
+    $("#mbBut1").addClass("disabled");
+    $("#mbBut2").addClass("disabled");
+    $("#skDIVbuttons").addClass("disabled");
+    $("#skBut1").addClass("disabled");
+    $("#skBut2").addClass("disabled");
+    //Hide Project Members List
+    $("#projectMembers").hide();
+    $("#projectSettings").hide();
+}
 
-    function enableDashboardPage() {
-        //First Row Content to disable
-        $("#firstRowContent").removeClass("disabled");
-        $("#brDIVbuttons").removeClass("disabled");
-        $("#brDIVtable").removeClass("disabled");
-        $("#brBut1").removeClass("disabled");
-        $("#brBut2").removeClass("disabled");
-        $("#fmDIVbuttons").removeClass("disabled");
-        $("#fmDIVtable").removeClass("disabled");
-        $("#fmBut1").removeClass("disabled");
-        $("#fmBut2").removeClass("disabled");
-        $("#seDIVbuttons").removeClass("disabled");
-        $("#seBut1").removeClass("disabled");
-        $("#seBut2").removeClass("disabled");
-        //Second Row Content to disable
-        $("#secondRowContent").removeClass("disabled");
-        $("#mmDIVbuttons").removeClass("disabled");
-        $("#mmBut1").removeClass("disabled");
-        $("#mmBut2").removeClass("disabled");
-        $("#mbDIVbuttons").removeClass("disabled");
-        $("#mbBut1").removeClass("disabled");
-        $("#mbBut2").removeClass("disabled");
-        $("#skDIVbuttons").removeClass("disabled");
-        $("#skBut1").removeClass("disabled");
-        $("#skBut2").removeClass("disabled");
-        //Show Project Members List
-        $("#projectMembers").show();
-        $("#projectSettings").show();
-    }
+function enableDashboardPage() {
+//First Row Content to disable
+    $("#firstRowContent").removeClass("disabled");
+    $("#brDIVbuttons").removeClass("disabled");
+    $("#brDIVtable").removeClass("disabled");
+    $("#brBut1").removeClass("disabled");
+    $("#brBut2").removeClass("disabled");
+    $("#fmDIVbuttons").removeClass("disabled");
+    $("#fmDIVtable").removeClass("disabled");
+    $("#fmBut1").removeClass("disabled");
+    $("#fmBut2").removeClass("disabled");
+    $("#seDIVbuttons").removeClass("disabled");
+    $("#seBut1").removeClass("disabled");
+    $("#seBut2").removeClass("disabled");
+    //Second Row Content to disable
+    $("#secondRowContent").removeClass("disabled");
+    $("#mmDIVbuttons").removeClass("disabled");
+    $("#mmBut1").removeClass("disabled");
+    $("#mmBut2").removeClass("disabled");
+    $("#mbDIVbuttons").removeClass("disabled");
+    $("#mbBut1").removeClass("disabled");
+    $("#mbBut2").removeClass("disabled");
+    $("#skDIVbuttons").removeClass("disabled");
+    $("#skBut1").removeClass("disabled");
+    $("#skBut2").removeClass("disabled");
+    //Show Project Members List
+    $("#projectMembers").show();
+    $("#projectSettings").show();
+}
 
-
-});
 
 $('#fileupload').fileupload({
     dataType: 'json',
@@ -128,14 +93,12 @@ $('#fileupload').fileupload({
         });
     }
 });
-
 $('#tags').tagsInput({
     'height': '160px',
     'width': '238px',
     'interactive': true,
     'placeholderColor': '#ccc'
 });
-
 var data = [
     {
         label: 'Product Category', id: 1,
@@ -200,8 +163,6 @@ var data = [
         ]
     }
 ];
-
-
 $(function () {
     var $tree = $('#tree');
     $tree.tree({
@@ -214,9 +175,7 @@ $(function () {
             function (e) {
                 // Disable single selection
                 e.preventDefault();
-
                 var selected_node = e.node;
-
                 if (selected_node.id == undefined) {
                     console.log('The multiple selection functions require that nodes have an id');
                 }
@@ -230,8 +189,14 @@ $(function () {
             }
     );
 });
-
-
-
-
-
+//        
+//        $.ajax({
+//            url: "/dashboard",
+//            type: 'POST',
+//            data: {
+//                "projectID": projectID,
+//                "_csrf": $("#_csrf").val()
+//            },
+//            success: function (data) {
+//            }
+//        });

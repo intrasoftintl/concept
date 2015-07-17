@@ -22,39 +22,39 @@
                 <li class="main-md"><img src="resources/img/BUTTON_MD.png" />Metadata</li>
             </ul>
         </nav>
-                
+
         <!-- keywords -->
         <nav class="nav-keywords">
             <div class="nav-header">
                 <img class="icon" src="resources/img/BUTTON_KEYWORDS.png" />
-                
+
                 <p class="heading">KEYWORDS</p>
                 <p class="title">Annotate with keywords</p>
             </div>
-            
+
             <input name="tags" id="tags" value="foo,bar" />
-            
+
             <form th:action="@{/logout}" method="post">
                 <button type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
                     <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
                 </button>
             </form>
         </nav>
-        
+
         <!-- categories -->
         <nav class="nav-categories">
             <div class="nav-header">
                 <img class="icon" src="resources/img/BUTTON_CATEGORIES.png" />
-                
+
                 <p class="heading">CATEGORIES</p>
                 <p class="title">Annotate with categories</p>
             </div>
-            
+
             <div id="tree"></div>
-          
+
         </nav>
-        
-       
+
+
 
         <!-- save-cancel  -->
         <nav class="nav-actions-md">
@@ -75,6 +75,7 @@
         <script src="resources/js/togetherjs-min.js"></script>
         <script src="resources/js/jquery.tagsinput.min.js"></script>
         <script src="resources/js/tree.jquery.js"></script>
+        <script src="resources/js/util.js"></script>
         <script src="resources/js/dashboard.js"></script>
 
     </body>

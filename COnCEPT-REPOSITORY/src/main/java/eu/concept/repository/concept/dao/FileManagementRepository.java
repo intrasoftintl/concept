@@ -2,6 +2,7 @@ package eu.concept.repository.concept.dao;
 
 import eu.concept.repository.concept.domain.FileManagement;
 import java.util.List;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,8 +11,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface FileManagementRepository extends JpaRepository<FileManagement, Integer> {
 
-    public List<FileManagement> findByPidAndIsPublic(int Pid, short IsPublic);
-    public List<FileManagement> findByPid(int Pid);
+    /*
+     *Ftech Queries
+     */
+    public List<FileManagement> findByPidAndIsPublic(int Pid, short IsPublic, Pageable page);
+
+    public List<FileManagement> findByPid(int Pid, Pageable page);
+
     public FileManagement findById(int Id);
+
+    /*
+     *Count Queries
+     */
+    public int countByPidAndIsPublic(int Pid, short IsPublic);
+
+    public int countByPid(int Pid);
 
 }
