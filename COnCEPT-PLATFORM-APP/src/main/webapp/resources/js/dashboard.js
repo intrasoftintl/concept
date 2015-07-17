@@ -21,7 +21,7 @@ function loadDashboardContent(projectID) {
 
 function disableDashboardPage() {
     console.log("Disable dashboard modules...")
-//First Row Content to disable
+    //First Row Content to disable
     $("#firstRowContent").addClass("disabled");
     $("#brDIVbuttons").addClass("disabled");
     $("#brDIVtable").addClass("disabled");
