@@ -1,8 +1,14 @@
+<!--View for FileManagement Module -->
+
+
+<!-- Used in dashboard.html and is rendered on fmDIVtable DIV -->
 <div  th:fragment="fmContentList"  th:unless="${#lists.isEmpty(fmContents)}" > 
     <div class="panel-body" >
         <a data-lightbox="file" th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}}+'?preview=1'"  th:title="${fmContent.filename}"  th:alt="${fmContent.filename}"     class="img-thumbnail" /></a>
     </div>
     <div class="panel-footer">
-        Files ( <span th:text="${maxFiles}"> </span> ) - <a href="/fm_all">View All</a>
+        Files ( <span th:text="${totalFiles}"> </span> ) - <a href="/fm_all">View All</a>
     </div>
 </div>
+
+

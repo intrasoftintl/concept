@@ -94,15 +94,15 @@ public class WebController {
         //,@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
         int projectID = (model.containsAttribute("projectID") ? (Integer) model.asMap().get("projectID") : 0);
-        if (projectID > 0) {
-            logger.info("Trying to load dashboard content for projectID: " + projectID);
-            List<FileManagement> fm_content = fmService.fetchImagesByProjectIdAndUserId(projectID, getCurrentUser().getRole());
-            model.addAttribute("numOfFiles", fm_content.size());
-            model.addAttribute("fm_content", fm_content);
-            logger.info("Files Size: " + fm_content.size());
-        } else {
-            logger.info("Invalid projectID: " + projectID);
-        }
+//        if (projectID > 0) {
+//            logger.info("Trying to load dashboard content for projectID: " + projectID);
+//          //  List<FileManagement> fm_content = fmService.fetchImagesByProjectIdAndUserId(projectID, getCurrentUser().getRole());
+//            model.addAttribute("numOfFiles", fm_content.size());
+//            model.addAttribute("fm_content", fm_content);
+//            logger.info("Files Size: " + fm_content.size());
+//        } else {
+//            logger.info("Invalid projectID: " + projectID);
+//        }
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
@@ -268,9 +268,8 @@ public class WebController {
 
     @RequestMapping(value = "/filemanagement/{project_id}", method = RequestMethod.GET)
     public String fetchFilesByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        System.out.println("Total records: " + fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentUser().getRole()).size());
-        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentUser().getRole()));
-        model.addAttribute("totalFiles", "1024");
+        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, getCurrentRole(), limit));
+        model.addAttribute("totalFiles", fmService.countFilesByIdAndUserId(project_id, getCurrentRole()));
         return "fm :: fmContentList";
     }
 
@@ -285,6 +284,15 @@ public class WebController {
      */
     public static CurrentUser getCurrentUser() {
         return (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    /**
+     * Get current logged-in role
+     *
+     * @return Role name
+     */
+    public static String getCurrentRole() {
+        return getCurrentUser().getRole();
     }
 
     /**

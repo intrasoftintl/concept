@@ -7,6 +7,7 @@ $(document).ready(function () {
     $('#projectSelect').change(function () {
         var projectID = $(this).val();
         if (projectID > 0) {
+            console.log("Is triggered");
             enableDashboardPage();
             $.ajax({
                 url: "http://localhost:8080/concept/rest/memberships/" + projectID
@@ -32,8 +33,9 @@ $(document).ready(function () {
 
     //Load all widjects of dashboard page based on selected ProjectID
     function loadDashboardContent(projectID) {
+        console.log("Loading dashboard content...")
         //Load content of FileManagement widget
-        $("#fmDIVtable").load("/filemanagement/" + projectID+"?limit=9");
+        $("#fmDIVtable").load("/filemanagement/" + projectID + "?limit=9");
 //        
 //        $.ajax({
 //            url: "/dashboard",
@@ -62,6 +64,7 @@ $(document).ready(function () {
         $("#brBut2").addClass("disabled");
         $("#fmDIVbuttons").addClass("disabled");
         $("#fmDIVtable").addClass("disabled");
+        $("#fmDIVtable").empty();
         $("#fmBut1").addClass("disabled");
         $("#fmBut2").addClass("disabled");
         $("#seDIVbuttons").addClass("disabled");
