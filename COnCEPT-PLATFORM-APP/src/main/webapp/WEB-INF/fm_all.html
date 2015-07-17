@@ -19,8 +19,7 @@
         <nav class="nav-main">
             <ul>
                 <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
-                <a onclick="TogetherJS(this);
-                        return false;"><li class="collaboration"></li></a>
+                <a onclick="TogetherJS(this); return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
@@ -144,83 +143,9 @@
                                 <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                         </div>
-                        <div class="panel-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-5">Recent Uploaded Files</th>
-                                        <th class="col-md-2">User</th>
-                                        <th class="col-md-5"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="resources/img/fm_00001.jpg" data-lightbox="fm_00001"><img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00001.jpg" download="fm_00001">Download</a></td>
-                                        <td class="truncate">user123456789</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="resources/img/fm_00002.jpg" data-lightbox="fm_00002"><img src="resources/img/fm_00002.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00002.jpg" download="fm_00002">Download</a></td>
-                                        <td class="truncate">user5</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="resources/img/fm_00003.jpg" data-lightbox="fm_00003"><img src="resources/img/fm_00003.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00003.jpg" download="fm_00003">Download</a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="resources/img/fm_00001.jpg" data-lightbox="fm_00004"><img src="resources/img/fm_00004.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00004.jpg" download="fm_00004">Download</a></td>
-                                        <td class="truncate">user123456789</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="resources/img/fm_00001.jpg" data-lightbox="fm_00005"><img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00005.jpg" download="fm_00005">Download</a></td>
-                                        <td class="truncate">user5</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="resources/img/fm_00006.jpg" data-lightbox="fm_00006"><img src="resources/img/fm_00006.jpg" alt="..." class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00004.jpg" download="fm_00006">Download</a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->
-                            Files (123)
-                        </div>
+                        
+                        <div id="fm_all"></div>
+                        
                     </div>
                 </div>
 

@@ -1,39 +1,9 @@
 //After html is rendered do the following...
-$(document).ready(function () {
-    //alert("I am loaded!");
-    //On page load disable dashboard content
-    disableDashboardPage();
-    //Trigger event when project list is changed
-    $('#projectSelect').change(function () {
-        var projectID = $(this).val();
-        if (projectID > 0) {
-            enableDashboardPage();
-            $.ajax({
-                url: "http://localhost:8080/concept/rest/memberships/" + projectID
-            }).then(function (data) {
-                var fullNames = "";
-                for (var i in data)
-                {
-                    fullNames += data[i].user.firstname + " " + data[i].user.lastname + ", ";
-                }
-                $("#projectMembers").text("");
-                $("#projectMembers").html("");
-                $("#projectMembers").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
-            });
-            $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID)
-            //Load Dashboard content
-            loadDashboardContent(projectID);
-
-        } else {
-            disableDashboardPage();
-        }
-    });
-
 
     //Load all widjects of dashboard page based on selected ProjectID
     function loadDashboardContent(projectID) {
         //Load content of FileManagement widget
-        $("#fmDIVtable").load("/filemanagement/" + projectID);
+        $("#fm_dashboard").load("/filemanagement/" + projectID);
 //        
 //        $.ajax({
 //            url: "/dashboard",
@@ -113,9 +83,6 @@ $(document).ready(function () {
         $("#projectSettings").show();
     }
 
-
-});
-
 $('#tags').tagsInput({
     'height': '160px',
     'width': '238px',
@@ -189,7 +156,7 @@ var data = [
 ];
 
 
-$(function() {
+$(function () {
     var $tree = $('#tree');
     $tree.tree({
         data: data,
@@ -197,24 +164,24 @@ $(function() {
         saveState: true
     });
     $tree.bind(
-        'tree.click',
-        function(e) {
-            // Disable single selection
-            e.preventDefault();
+            'tree.click',
+            function (e) {
+                // Disable single selection
+                e.preventDefault();
 
-            var selected_node = e.node;
+                var selected_node = e.node;
 
-            if (selected_node.id == undefined) {
-                console.log('The multiple selection functions require that nodes have an id');
-            }
+                if (selected_node.id == undefined) {
+                    console.log('The multiple selection functions require that nodes have an id');
+                }
 
-            if ($tree.tree('isNodeSelected', selected_node)) {
-                $tree.tree('removeFromSelection', selected_node);
+                if ($tree.tree('isNodeSelected', selected_node)) {
+                    $tree.tree('removeFromSelection', selected_node);
+                }
+                else {
+                    $tree.tree('addToSelection', selected_node);
+                }
             }
-            else {
-                $tree.tree('addToSelection', selected_node);
-            }
-        }
     );
 });
 
@@ -232,9 +199,9 @@ $('#fileupload').fileupload({
 
 
 
-(function() {
-	jQuery('.ngg-galleryoverview .ngg-gallery-thumbnail a').each(function() {
-		var alink = jQuery(this).attr('href');
-		jQuery(this).after('<a href="'+alink+'" target="_blank" style="margin:0;">Download</a>')
-	});
+(function () {
+    jQuery('.ngg-galleryoverview .ngg-gallery-thumbnail a').each(function () {
+        var alink = jQuery(this).attr('href');
+        jQuery(this).after('<a href="' + alink + '" target="_blank" style="margin:0;">Download</a>')
+    });
 });
