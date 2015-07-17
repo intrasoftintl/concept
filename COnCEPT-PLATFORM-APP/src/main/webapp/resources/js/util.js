@@ -49,6 +49,7 @@ function projectSelectedAction(projectID) {
             }
             $("#projectMembers").empty();
             $("#projectMembers").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
+            $("#projectView").attr("href", "http://192.168.3.5/projects/" + projectID);
         });
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
