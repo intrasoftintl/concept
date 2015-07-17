@@ -623,3 +623,18 @@ table img.notification{ width:60px; margin:0; background: #fff; border-radius:50
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+.panel-body form.actions{
+   display: inline;
+}
+
+.panel-body form.actions .action-button{
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    padding:0;
+    margin:0;
+}

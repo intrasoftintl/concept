@@ -232,6 +232,22 @@ public class WebController {
         return "fm";
     }
 
+    @RequestMapping(value = "/filemanagement/{project_id}", method = RequestMethod.GET)
+    public String fetchFilesByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
+        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, getCurrentRole(), limit));
+        model.addAttribute("totalFiles", fmService.countFilesByIdAndUserId(project_id, getCurrentRole()));
+        model.addAttribute("projectID", project_id);
+        return "fm :: fmContentList";
+    }
+
+    @RequestMapping(value = "/filemanagement_all/{project_id}", method = RequestMethod.GET)
+    public String fetchFilesByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
+        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, getCurrentRole(), limit));
+        model.addAttribute("totalFiles", fmService.countFilesByIdAndUserId(project_id, getCurrentRole()));
+        model.addAttribute("projectID", project_id);
+        return "fm :: fmContentAllList";
+    }
+
     /*
      *  POST Methods 
      */
@@ -266,18 +282,13 @@ public class WebController {
         return "redirect:/" + dashboard(model);
     }
 
-    @RequestMapping(value = "/filemanagement/{project_id}", method = RequestMethod.GET)
-    public String fetchFilesByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, getCurrentRole(), limit));
-        model.addAttribute("totalFiles", fmService.countFilesByIdAndUserId(project_id, getCurrentRole()));
-        model.addAttribute("projectID", project_id);
-        return "fm :: fmContentList";
+    @RequestMapping(value = "/filemanagement_all", method = RequestMethod.POST)
+    public String deleteFileByFM(Model model, @RequestParam(value = "fileID", defaultValue = "0", required = false) int fileID,@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+        fmService.deleteFile(fileID);
+        return "redirect:/fm_all?projectID="+projectID;
     }
 
-    
     //filemanagement_all
-    
-
     /*
      *  Help Methods
      */

@@ -62,7 +62,7 @@ function projectSelectedAction(projectID) {
         }
         
         if(isFMPage()){
-             $("#fm_all").load("/filemanagement/" + projectID + "?limit=200");
+             $("#fm_all").load("/filemanagement_all/" + projectID + "?limit=200");
         }
 
     } else if (isDashboardPage()) {

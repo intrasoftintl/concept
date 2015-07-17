@@ -2,6 +2,7 @@ package eu.concept.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.FileManagementService;
 import java.io.IOException;
 import java.util.Iterator;
@@ -51,7 +52,10 @@ public class FileUploadController {
             //Create FileManagement object
             FileManagement fm = new FileManagement();
             fm.setPid(Integer.valueOf(projectID));
-            fm.setUid(WebController.getCurrentUser().getId());
+            UserCo user = new UserCo();
+            user.setId(WebController.getCurrentUser().getId());
+            fm.setUid(user);
+            //fm.setUid(WebController.getCurrentUser().getId());
             fm.setFilename(fileMeta.getFileName());
             fm.setType(fileMeta.getFileType());
             //Get bytes[] of uploaded file

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
@@ -7,9 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,10 +40,6 @@ public class FileManagement implements Serializable {
     private int pid;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "uid")
-    private int uid;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "filename")
     private String filename;
@@ -56,6 +57,9 @@ public class FileManagement implements Serializable {
     @NotNull
     @Column(name = "isPublic")
     private short isPublic;
+    @JoinColumn(name = "uid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private UserCo uid;
 
     public FileManagement() {
     }
@@ -64,10 +68,9 @@ public class FileManagement implements Serializable {
         this.id = id;
     }
 
-    public FileManagement(Integer id, int pid, int uid, String filename, byte[] content, String type, short isPublic) {
+    public FileManagement(Integer id, int pid, String filename, byte[] content, String type, short isPublic) {
         this.id = id;
         this.pid = pid;
-        this.uid = uid;
         this.filename = filename;
         this.content = content;
         this.type = type;
@@ -88,14 +91,6 @@ public class FileManagement implements Serializable {
 
     public void setPid(int pid) {
         this.pid = pid;
-    }
-
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
     }
 
     public String getFilename() {
@@ -128,6 +123,14 @@ public class FileManagement implements Serializable {
 
     public void setIsPublic(short isPublic) {
         this.isPublic = isPublic;
+    }
+
+    public UserCo getUid() {
+        return uid;
+    }
+
+    public void setUid(UserCo uid) {
+        this.uid = uid;
     }
 
     @Override

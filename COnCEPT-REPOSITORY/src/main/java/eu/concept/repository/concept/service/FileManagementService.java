@@ -18,6 +18,11 @@ public class FileManagementService {
     @Autowired
     private FileManagementRepository fileManagement;
 
+    /**
+     *
+     * @param fm
+     * @return
+     */
     public boolean storeFile(FileManagement fm) {
         try {
             fileManagement.save(fm);
@@ -25,6 +30,15 @@ public class FileManagementService {
             return false;
         }
         return fm.getId() > 0;
+    }
+
+    public boolean deleteFile(int fileID) {
+        try {
+            fileManagement.delete(fileID);
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -57,7 +71,6 @@ public class FileManagementService {
         }
         return files;
     }
-
 
     /**
      *

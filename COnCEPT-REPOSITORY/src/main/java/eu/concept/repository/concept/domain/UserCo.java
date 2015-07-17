@@ -29,6 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "User")
 public class UserCo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
+    private Collection<FileManagement> fileManagementCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
     private Collection<Likes> likesCollection;
     private static final long serialVersionUID = 1L;
     @Id
@@ -181,6 +183,15 @@ public class UserCo implements Serializable {
 
     public void setLikesCollection(Collection<Likes> likesCollection) {
         this.likesCollection = likesCollection;
+    }
+
+    @XmlTransient
+    public Collection<FileManagement> getFileManagementCollection() {
+        return fileManagementCollection;
+    }
+
+    public void setFileManagementCollection(Collection<FileManagement> fileManagementCollection) {
+        this.fileManagementCollection = fileManagementCollection;
     }
     
 }
