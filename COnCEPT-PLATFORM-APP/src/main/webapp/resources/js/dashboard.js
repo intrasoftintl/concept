@@ -48,7 +48,7 @@ function disableDashboardPage() {
     $("#skBut2").addClass("disabled");
     //Hide Project Members List
     $("#projectMembers").hide();
-    $("#projectSettings").hide();
+    $("#projectView").hide();
     
     $("#ba-placeholder").show();
     $("#fm-placeholder").show();
@@ -85,7 +85,7 @@ function enableDashboardPage() {
     $("#skBut2").removeClass("disabled");
     //Show Project Members List
     $("#projectMembers").show();
-    $("#projectSettings").show();
+    $("#projectView").show();
     
     $("#ba-placeholder").hide();
     $("#fm-placeholder").hide();
