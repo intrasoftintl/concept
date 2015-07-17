@@ -53,7 +53,7 @@
 
                 <!-- Content to be showed only on Project Managers -->
                 <div th:if="${currentUser.getRole()} == 'MANAGER'">
-                    <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                    <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
                 </div>
 
                 <!-- Content to be showed only on Project Members (Designers, Clients) -->
