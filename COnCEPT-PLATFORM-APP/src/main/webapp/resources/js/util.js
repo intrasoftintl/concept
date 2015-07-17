@@ -102,3 +102,13 @@ function isFMPage() {
 //            success: function (data) {
 //            }
 //        });
+
+function saveBAContent(){
+    console.log( tinymce.activeEditor.getContent({format : 'raw'}) );
+    console.log( $('#title').val() );
+}
+
+function loadBAContent(){
+    tinymce.activeEditor.setContent('<h2>Que onda?</h2><p>Chabon!</p>', {format : 'raw'});
+    $('#title').val("Document 1"); 
+}
