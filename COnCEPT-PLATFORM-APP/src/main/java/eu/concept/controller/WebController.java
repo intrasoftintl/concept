@@ -11,10 +11,16 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
+import eu.concept.util.other.Util;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,30 +41,37 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class WebController {
-    
+
     private static final Logger logger = Logger.getLogger(WebController.class.getName());
-    
+
     @Autowired
     UserManagementOp userManagementService;
-    
+
     @Autowired
     ProjectServiceOp projectServiceOp;
-    
+
     @Autowired
     FileManagementService fmService;
+    private Object u;
 
 
     /*
      *  GET Methods 
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
+    public String index(Model model) {
+        if (isUserLoggedIn()) {
+            return "redirect:/" + dashboard(model);
+        }
         return "index";
     }
-    
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model) {
         model.addAttribute("user", new UserCo());
+        if (isUserLoggedIn()) {
+            return "redirect:/" + dashboard(model);
+        }
         return "login";
     }
 
@@ -67,7 +80,7 @@ public class WebController {
     public String reset() {
         return "reset";
     }
-    
+
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String registerForm(Model model) {
         model.addAttribute("user", new UserOp());
@@ -116,7 +129,7 @@ public class WebController {
     public String ba_app() {
         return "ba_app";
     }
-    
+
     @RequestMapping(value = "/ba_all", method = RequestMethod.GET)
     public String ba_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -133,7 +146,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "fm_app";
     }
-    
+
     @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
     public String fm_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -174,7 +187,7 @@ public class WebController {
     public String sk_app() {
         return "sk_app";
     }
-    
+
     @RequestMapping(value = "/sk_all", method = RequestMethod.GET)
     public String sk_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -190,13 +203,33 @@ public class WebController {
     }
 
     //Fetch an image
-    @RequestMapping(value = "/image/{image_id}", produces = MediaType.ALL_VALUE)
-    public ResponseEntity<byte[]> getImage(@PathVariable("image_id") int imageId) throws IOException {
+    @RequestMapping(value = "/file/{image_id}", produces = MediaType.ALL_VALUE)
+    public ResponseEntity<byte[]> getImage(@PathVariable("image_id") int imageId, @RequestParam(value = "preview", defaultValue = "0", required = false) int preview) throws IOException {
         FileManagement fm = fmService.fetchImageById(imageId);
-        byte[] imageContent = fm.getContent();
+        byte[] imageContent;
         final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.valueOf(fm.getType()));
+        MediaType fileType = MediaType.valueOf(fm.getType());
+        imageContent = fm.getContent();
+        headers.setContentType(fileType);
+
+        if (!(fm.getType().equals(MediaType.IMAGE_PNG_VALUE) || fm.getType().equals(MediaType.IMAGE_GIF_VALUE) || fm.getType().equals("image/jpeg")) && preview == 1) {
+            URL genericImageURL = new URL("http://localhost:8080/resources/img/fm_generic.png");
+            BufferedImage image = ImageIO.read(genericImageURL);
+            // write image to outputstream
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", baos);
+            baos.flush();
+            // get bytes
+            imageContent = baos.toByteArray();
+            headers.setContentType(MediaType.IMAGE_PNG);
+        }
+
         return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/fm", method = RequestMethod.GET)
+    public String fmPage(Model model) {
+        return "fm";
     }
 
     /*
@@ -207,14 +240,14 @@ public class WebController {
         model.addAttribute(model);
         return "login";
     }
-    
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerSubmit(@ModelAttribute UserOp user, @ModelAttribute PasswordOp password, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("password", password);
         ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
         String redirectToPage = "";
-        
+
         if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
             model.addAttribute("new_registration", appResponse.getMessage());
             return login(model);
@@ -224,30 +257,23 @@ public class WebController {
         }
         logger.log(Level.INFO, "StatusCode: {0} StatusMessage: {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
         return redirectToPage;
-        
+
     }
-    
+
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public String dashboardSubmit(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);
         return "redirect:/" + dashboard(model);
     }
-    
+
     @RequestMapping(value = "/filemanagement/{project_id}", method = RequestMethod.GET)
-    public String fetchFilesByProjectID(Model model, @PathVariable int project_id) {
-        System.out.println("I am in....!");
-        System.out.println("ProjectID: " + project_id);
+    public String fetchFilesByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         System.out.println("Total records: " + fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentUser().getRole()).size());
         model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentUser().getRole()));
-        model.addAttribute("maxFiles", "1024");
+        model.addAttribute("totalFiles", "1024");
         return "fm :: fmContentList";
-        
     }
-    
-    @RequestMapping(value = "/fm", method = RequestMethod.GET)
-    public String fmPage(Model model) {
-        return "fm";
-    }
+
 
     /*
      *  Help Methods
@@ -259,5 +285,19 @@ public class WebController {
      */
     public static CurrentUser getCurrentUser() {
         return (CurrentUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    /**
+     * Check if a user is logged-in to the COnCEPT Platform
+     *
+     * @return True if user is logged-in, otherwise returns false
+     */
+    private boolean isUserLoggedIn() {
+        try {
+            getCurrentUser();
+        } catch (ClassCastException ex) {
+            return false;
+        }
+        return true;
     }
 }

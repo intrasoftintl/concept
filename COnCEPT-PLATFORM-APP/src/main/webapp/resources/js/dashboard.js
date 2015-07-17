@@ -33,7 +33,7 @@ $(document).ready(function () {
     //Load all widjects of dashboard page based on selected ProjectID
     function loadDashboardContent(projectID) {
         //Load content of FileManagement widget
-        $("#fmDIVtable").load("/filemanagement/" + projectID);
+        $("#fmDIVtable").load("/filemanagement/" + projectID+"?limit=9");
 //        
 //        $.ajax({
 //            url: "/dashboard",
@@ -116,6 +116,16 @@ $(document).ready(function () {
 
 });
 
+$('#fileupload').fileupload({
+    dataType: 'json',
+    done: function (e, data) {
+        $.each(data.result, function (index, result) {
+            $('.files').append('- ' + result.fileName + '<br/>');
+            $('.files').css("display", "block");
+        });
+    }
+});
+
 $('#tags').tagsInput({
     'height': '160px',
     'width': '238px',
@@ -189,7 +199,7 @@ var data = [
 ];
 
 
-$(function() {
+$(function () {
     var $tree = $('#tree');
     $tree.tree({
         data: data,
@@ -197,44 +207,28 @@ $(function() {
         saveState: true
     });
     $tree.bind(
-        'tree.click',
-        function(e) {
-            // Disable single selection
-            e.preventDefault();
+            'tree.click',
+            function (e) {
+                // Disable single selection
+                e.preventDefault();
 
-            var selected_node = e.node;
+                var selected_node = e.node;
 
-            if (selected_node.id == undefined) {
-                console.log('The multiple selection functions require that nodes have an id');
-            }
+                if (selected_node.id == undefined) {
+                    console.log('The multiple selection functions require that nodes have an id');
+                }
 
-            if ($tree.tree('isNodeSelected', selected_node)) {
-                $tree.tree('removeFromSelection', selected_node);
+                if ($tree.tree('isNodeSelected', selected_node)) {
+                    $tree.tree('removeFromSelection', selected_node);
+                }
+                else {
+                    $tree.tree('addToSelection', selected_node);
+                }
             }
-            else {
-                $tree.tree('addToSelection', selected_node);
-            }
-        }
     );
 });
 
 
 
-$('#fileupload').fileupload({
-    dataType: 'json',
-    done: function (e, data) {
-        $.each(data.result, function (index, result) {
-            $('.files').append('- ' + result.fileName + '<br/>');
-            $('.files').css("display", "block");
-        });
-    }
-});
 
 
-
-(function() {
-	jQuery('.ngg-galleryoverview .ngg-gallery-thumbnail a').each(function() {
-		var alink = jQuery(this).attr('href');
-		jQuery(this).after('<a href="'+alink+'" target="_blank" style="margin:0;">Download</a>')
-	});
-});
