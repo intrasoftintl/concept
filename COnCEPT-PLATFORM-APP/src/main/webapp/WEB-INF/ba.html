@@ -1,7 +1,4 @@
-<!--View for FileManagement Module -->
-
-<div th:fragment="fmContentList"  th:unless="${#lists.isEmpty(fmContents)}" > 
-
+<div th:fragment="baContentList"  th:unless="${#lists.isEmpty(fmContents)}" >
     <table class="table table-striped">
         <thead>
             <tr>
@@ -12,16 +9,16 @@
         </tbody>
     </table>
 
-    <div class="panel-body">
-        <a th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  th:title="${fmContent.filename}"  th:alt="${fmContent.filename}"     class="img-thumbnail" /></a>
+    <div class="panel-body" >
+        <a th:each="fmContent : ${fmContents}" th:href="@{'/image/'+${fmContent.id}}"><img th:src="@{'/image/'+${fmContent.id}}"  th:title="${fmContent.filename}" src="resources/img/fm_00002.jpg"  th:alt="${fmContent.filename}"     class="img-thumbnail" /></a>
     </div>
+
     <div class="panel-footer">
-        Files (<span th:text="${totalFiles}"> </span>) - <a href="/fm_all">View All</a>
+        Files ( <span th:text="${maxFiles}"> </span> ) - <a href="/fm_all">View All</a>
     </div>
 </div>
 
-
-<div th:fragment="fmContentAllList"  th:unless="${#lists.isEmpty(fmContents)}" > 
+<div th:fragment="baContentAllList"  th:unless="${#lists.isEmpty(fmContents)}" > 
     <div class="panel-body no-padding" >
         <table class="table table-striped">
             <thead>
@@ -33,7 +30,7 @@
             </thead>
             <tbody>            
                 <tr th:each="fmContent : ${fmContents}">
-                    <td><a th:href="@{'/file/'+${fmContent.id}}" data-lightbox="${fmContent.filename}"><img th:src="@{'/file/'+${fmContent.id}}" class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00001.jpg" download="fm_00001">Download</a></td>
+                    <td><a href=""><img src="resources/img/fm_00001.png" class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00001.jpg" download="fm_00001">Download</a></td>
                     <td class="truncate">user123456789</td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -46,7 +43,6 @@
         </table>
     </div>
     <div class="panel-footer">
-        Files (<span th:text="${maxFiles}"> </span>) - <a href="/fm_all">View All</a>
+        Files ( <span th:text="${maxFiles}"> </span> ) - <a href="/fm_all">View All</a>
     </div>
-    
 </div>

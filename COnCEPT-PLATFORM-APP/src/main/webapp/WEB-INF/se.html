@@ -1,0 +1,22 @@
+<div th:fragment="seContentAllList"  th:unless="${#lists.isEmpty(seContents)}" > 
+    <div class="panel-body no-padding" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-6">Recent Search Queries</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr th:each="seContent : ${seContents}">
+                    <td><a href="#"></a></td>
+
+                </tr>  
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        Saved Search Queries (<span th:text="${savedQueries}"></span>) - <a href="/se_all">View All</a>
+    </div>
+</div>

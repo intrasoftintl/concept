@@ -1,0 +1,32 @@
+<div th:fragment="mmContentList"  th:unless="${#lists.isEmpty(mmContents)}" >
+    
+    <div class="panel-body no-padding" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-5">Recent Uploaded Files</th>
+                    <th class="col-md-2">User</th>
+                    <th class="col-md-5"></th>
+                </tr>
+            </thead>
+            <tbody>            
+                <tr th:each="mmContent : ${mmContents}">
+                    <td><a href="#"><img th:src="resources/img/mm_00001.jpg" class="img-thumbnail" /></a></td>
+                    <td class="truncate">user123456789</td>
+                    <td>
+                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+                        <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
+                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="panel-footer">
+        Mindmaps (<span th:text="${maxMindmaps}"></span>) - <a href="/mm_all">View All</a>
+    </div>
+    
+</div>
+

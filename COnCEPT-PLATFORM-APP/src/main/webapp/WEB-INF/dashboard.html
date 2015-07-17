@@ -141,73 +141,10 @@
                                 <a id="brBut1" href="/ba_app" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
                             </div>
                         </div>
-                        <div id="brDIVtable" class="panel-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-5">Timestamp</th>
-                                        <th class="col-md-2">User</th>
-                                        <th class="col-md-5"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="">BA_00005</a></td>
-                                        <td class="truncate">user3323232</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">BA_00004</a></td>
-                                        <td class="truncate">user5</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">BA_00003</a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">BA_00002</a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">BA_00001</a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Text Annotation Tool</a>-->
-                            Brief Analysis Documents (5) - <a href="/ba_all">View All</a>
-                        </div>
+                        
+                        <div id="ba-placeholder" class="panel-body disabled"></div>
+                        <div id="ba_dashboard"></div>
+                        
                     </div>
                 </div>
 
@@ -222,7 +159,8 @@
 
                             </div>
                         </div>
-
+                        
+                        <div id="fm-placeholder" class="panel-body disabled"></div>
                         <div id="fm_dashboard"></div>
 
                     </div>
@@ -237,37 +175,10 @@
                                 <a id="seBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</a>
                             </div>
                         </div>
-                        <div class="panel-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-6">Recent Search Queries</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href="">"chair with blue color"</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/fm_00005.jpg" alt="..." class="img-thumbnail" /></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">"chair without arms"</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">"double handle cup"</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/fm_00001.jpg" alt="..." class="img-thumbnail" /></a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Search Engine</a>-->
-                            Saved Search Queries (214) - <a href="/se_all">View All</a>
-                        </div>
+                        
+                        <div id="se-placeholder" class="panel-body disabled"></div>
+                        <div id="se_dashboard"></div>
+                        
                     </div>
                 </div>
             </div>
@@ -283,52 +194,10 @@
                                 <a id="mmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</a>
                             </div>
                         </div>
-                        <div class="panel-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-5">Recent Mindmaps</th>
-                                        <th class="col-md-2">User</th>
-                                        <th class="col-md-5"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/mm_00001.jpg" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user123456789</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/mm_00002.jpg" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user5</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/mm_00003.jpg" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="panel-footer">
-                            Mind Maps (14) - <a href="/mm_all">View All</a>
-                        </div>
+                        
+                        <div id="mm-placeholder" class="panel-body disabled"></div>
+                        <div id="mm_dashboard"></div>
+                       
                     </div>
                 </div>
 
@@ -342,52 +211,10 @@
                                 <a id="mbBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
                             </div>
                         </div>
-                        <div class="panel-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-5">Recent Storyboards</th>
-                                        <th class="col-md-2">User</th>
-                                        <th class="col-md-5"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/sb_00001.png" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user3</td>
-                                        <td class="truncate">
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/sb_00002.png" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user5</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/sb_00003.png" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="panel-footer">
-                            Story Boards (14) - <a href="/sb_all">View All</a>
-                        </div>
+                        
+                        <div id="sb-placeholder" class="panel-body disabled"></div>
+                        <div id="sb_dashboard"></div>
+                        
                     </div>
                 </div>
 
@@ -400,52 +227,10 @@
                                 <a id="skBut1" href="/sk_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</a>
                             </div>
                         </div>
-                        <div class="panel-body no-padding">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-md-5">Thumbnail</th>
-                                        <th class="col-md-2">User</th>
-                                        <th class="col-md-5"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/sk_00001.png" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user3</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/sk_00002.png" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user5</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-default">0</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href=""><img src="resources/img/sk_00003.png" alt="..." class="img-thumbnail" /></a></td>
-                                        <td class="truncate">user1</td>
-                                        <td>
-                                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>&nbsp; 
-                                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> <span class="label label-warning">2</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="panel-footer">
-                            Sketches (44) - <a href="/sk_all">View All</a>
-                        </div>
+                        
+                        <div id="sk-placeholder" class="panel-body disabled"></div>
+                        <div id="sk_dashboard"></div>
+                        
                     </div>
                 </div>
             </div>
