@@ -35,7 +35,41 @@
             </ul>
         </nav>
 
-        <!-- actions -->
+        <!-- projects -->
+        <nav class="nav-projects">
+            <div class="btn-group project-selection">
+                <select id="projectSelect" th:if="${!projects.isEmpty()}" class="btn btn-default disabled">
+                    <option selected="true" value="0">Please select a project</option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                </select>
+
+                <select th:if="${projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" disabled="true">No projects available</option>
+                </select>
+
+            </div>          
+
+            <div class="project-selection">
+                
+                <!-- Content to be showed only on project members (managers, designers, clients) -->
+                <div th:switch="${currentUser.getRole()}">
+                    <span th:case="'MANAGER'">
+                    <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'DESIGNER'">
+                    <a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'CLIENT'">
+                    <a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                </div>
+                
+                <h5 id="projectMembers" class="highlight">Project Members<br/><small></small></h5>
+            </div>
+            
+        </nav>
+        
+<!--         actions 
         <nav class="nav-actions">
             <a href="#" class="btn btn-success btn-sm btn-block btn-actions">
                 <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save to Concept DB
@@ -46,26 +80,56 @@
                 Saved to Concept DB
             </div>
 
+        </nav>-->
+
+        <!-- chat -->
+        <nav class="nav-chat disabled">
+
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <p class="heading">Chat module</p>
+                <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
+            </div>
+
+            <div class="nav-content">
+                <div class="nav-content-header">
+                    Please select a project
+                </div>
+                <ul>
+                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                </ul>
+            </div>
+
         </nav>
 
-        <!-- placeholder -->
-        <nav class="nav-placeholder">
-            <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
+        <!-- chat-hidden -->
+        <nav class="nav-chat-hidden">
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <p class="heading">Chat module</p>
+                <p class="title">Module hidden</p>
+            </div>
         </nav>
 
         <!-- dashboard -->
         <div class="content">
 
-            <form class="form-inline document-title">
-                <div class="form-group">
+            <form class="form-inline" method="POST">
+                <div class="form-group document-title">
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+
                     <label for="document-title">Brief Analysis Title</label>
-                    <input type="text" class="form-control input-sm" id="document-title" size="50" placeholder="BA_00001"/>
+                    <input type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" value="BA_00001"/>
                     <input type="button" class="btn btn-xs btn-danger" value="Save content" onclick="saveBAContent()" />
                     <input type="button" class="btn btn-xs btn-danger" value="Load content" onclick="loadBAContent()" />
                 </div>
+            
+                <textarea name="document-content"></textarea>
             </form>
 
-            <textarea></textarea>
+            
             
         </div>
 
