@@ -78,6 +78,11 @@ function projectSelectedAction(projectID) {
             $("#projectMembers").show();
             $("#projectView").show();
         }
+        
+        if (isBA_App()) {
+            $("#projectMembers").show();
+            $("#projectView").show();
+        }
 
     } else if (isDashboardPage()) {
         disableDashboardPage();
@@ -92,6 +97,9 @@ function projectSelectedAction(projectID) {
         $("#sort").hide();
         $("#fm-placeholder").show();
         $(".panel-footer").hide();
+        $("#projectMembers").hide();
+        $("#projectView").hide();
+    } else if(isBA_App){
         $("#projectMembers").hide();
         $("#projectView").hide();
     }
@@ -113,6 +121,10 @@ function isFMPage() {
     return location.pathname === "/fm_all";
 }
 
+function isBA_App(){
+    return location.pathname === "/ba_app";
+}
+
 //Sample post using jQuery
 //        
 //        $.ajax({
@@ -128,7 +140,7 @@ function isFMPage() {
 
 function saveBAContent() {
     console.log(tinymce.activeEditor.getContent({format: 'raw'}));
-    console.log($('#title').val());
+    console.log($('#document-title').val());
 }
 
 function loadBAContent() {

@@ -131,7 +131,10 @@ public class WebController {
 
     // Brief Analysis APP + ALL
     @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
-    public String ba_app() {
+    public String ba_app(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
         return "ba_app";
     }
 
