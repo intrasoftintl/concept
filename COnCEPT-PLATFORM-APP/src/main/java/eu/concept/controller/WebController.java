@@ -1,8 +1,10 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.CurrentUser;
+import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.domain.UserCo;
+import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.ProjectOp;
@@ -52,8 +54,11 @@ public class WebController {
 
     @Autowired
     FileManagementService fmService;
-    private Object u;
 
+    @Autowired
+    BriefAnalysisService baService;
+
+    private Object u;
 
     /*
      *  GET Methods 
@@ -135,6 +140,7 @@ public class WebController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
+        model.addAttribute("briefanalysis", new BriefAnalysis());
         return "ba_all";
     }
 
@@ -276,6 +282,26 @@ public class WebController {
 
     }
 
+    @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
+    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
+
+//        ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
+//        String redirectToPage = "";
+        baService.storeFile(ba);
+
+//        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
+//            model.addAttribute("new_registration", appResponse.getMessage());
+//            return login(model);
+//        } else {
+//            redirectToPage = "registration";
+//            model.addAttribute("error", appResponse.getMessage());
+//        }
+//        logger.log(Level.INFO, "StatusCode: {0} StatusMessage: {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
+//        return redirectToPage;
+        return "redirect:/ba_app";
+
+    }
+
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public String dashboardSubmit(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);
@@ -283,9 +309,9 @@ public class WebController {
     }
 
     @RequestMapping(value = "/filemanagement_all", method = RequestMethod.POST)
-    public String deleteFileByFM(Model model, @RequestParam(value = "fileID", defaultValue = "0", required = false) int fileID,@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+    public String deleteFileByFM(Model model, @RequestParam(value = "fileID", defaultValue = "0", required = false) int fileID, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         fmService.deleteFile(fileID);
-        return "redirect:/fm_all?projectID="+projectID;
+        return "redirect:/fm_all?projectID=" + projectID;
     }
 
     //filemanagement_all
