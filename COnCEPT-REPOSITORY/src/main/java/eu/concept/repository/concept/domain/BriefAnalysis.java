@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
@@ -11,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "BriefAnalysis")
 @XmlRootElement
 public class BriefAnalysis implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,8 +54,6 @@ public class BriefAnalysis implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "content")
     private String content;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -68,12 +72,11 @@ public class BriefAnalysis implements Serializable {
         this.id = id;
     }
 
-    public BriefAnalysis(Integer id, int pid, String title, String content, Date createdDate, short isPublic) {
+    public BriefAnalysis(Integer id, int pid, String title, String content, short isPublic) {
         this.id = id;
         this.pid = pid;
         this.title = title;
         this.content = content;
-        this.createdDate = createdDate;
         this.isPublic = isPublic;
     }
 
@@ -157,5 +160,5 @@ public class BriefAnalysis implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.BriefAnalysis[ id=" + id + " ]";
     }
-
+    
 }

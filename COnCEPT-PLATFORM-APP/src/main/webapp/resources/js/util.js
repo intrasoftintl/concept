@@ -53,6 +53,7 @@ function projectSelectedAction(projectID) {
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
             $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID);
+            $("#baBut1").attr("href", "/ba_app?projectID=" + projectID);
             //Enable DashboardPage
             enableDashboardPage();
             //Load Dashboard content
@@ -78,7 +79,7 @@ function projectSelectedAction(projectID) {
             $("#projectMembers").show();
             $("#projectView").show();
         }
-        
+
         if (isBA_App()) {
             $("#projectMembers").show();
             $("#projectView").show();
@@ -92,14 +93,14 @@ function projectSelectedAction(projectID) {
         $("#fm-view-all").addClass("disabled");
         $("#projectMembers").hide();
         $("#projectView").hide();
-    } else if (isFMPage()){
+    } else if (isFMPage()) {
         $(".panel-body").hide();
         $("#sort").hide();
         $("#fm-placeholder").show();
         $(".panel-footer").hide();
         $("#projectMembers").hide();
         $("#projectView").hide();
-    } else if(isBA_App){
+    } else if (isBA_App) {
         $("#projectMembers").hide();
         $("#projectView").hide();
     }
@@ -121,7 +122,7 @@ function isFMPage() {
     return location.pathname === "/fm_all";
 }
 
-function isBA_App(){
+function isBA_App() {
     return location.pathname === "/ba_app";
 }
 

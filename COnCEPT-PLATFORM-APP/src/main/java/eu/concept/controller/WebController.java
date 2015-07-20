@@ -135,6 +135,11 @@ public class WebController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
+
+        if (!model.containsAttribute("briefanalysis")) {
+            model.addAttribute("briefanalysis", new BriefAnalysis());
+        }
+
         return "ba_app";
     }
 
@@ -143,7 +148,6 @@ public class WebController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
-        model.addAttribute("briefanalysis", new BriefAnalysis());
         return "ba_all";
     }
 
@@ -289,8 +293,14 @@ public class WebController {
     public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
 
 //        ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
+        UserCo newUser = new UserCo();
+        newUser.setId(getCurrentUser().getId());
+        ba.setUid(newUser);
+        model.addAttribute("briefanalysis", ba);
+
 //        String redirectToPage = "";
         baService.storeFile(ba);
+        System.out.println("BA ID: "+ba.getId());
 
 //        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
 //            model.addAttribute("new_registration", appResponse.getMessage());
@@ -301,7 +311,7 @@ public class WebController {
 //        }
 //        logger.log(Level.INFO, "StatusCode: {0} StatusMessage: {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
 //        return redirectToPage;
-        return "redirect:/ba_app";
+        return ba_app(model);
 
     }
 

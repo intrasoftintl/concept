@@ -25,7 +25,7 @@ function disableDashboardPage() {
     $("#firstRowContent").addClass("disabled");
     $("#brDIVbuttons").addClass("disabled");
     $("#brDIVtable").addClass("disabled");
-    $("#brBut1").addClass("disabled");
+    $("#baBut1").addClass("disabled");
     $("#brBut2").addClass("disabled");
     $("#fmDIVbuttons").addClass("disabled");
     $("#fm_dashboard").addClass("disabled");
@@ -64,7 +64,7 @@ function enableDashboardPage() {
     $("#firstRowContent").removeClass("disabled");
     $("#brDIVbuttons").removeClass("disabled");
     $("#brDIVtable").removeClass("disabled");
-    $("#brBut1").removeClass("disabled");
+    $("#baBut1").removeClass("disabled");
     $("#brBut2").removeClass("disabled");
     $("#fmDIVbuttons").removeClass("disabled");
     $("#fmDIVtable").removeClass("disabled");

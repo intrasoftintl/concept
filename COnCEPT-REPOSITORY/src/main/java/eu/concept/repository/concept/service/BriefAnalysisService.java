@@ -2,6 +2,7 @@ package eu.concept.repository.concept.service;
 
 import eu.concept.repository.concept.dao.BriefAnalysisRepository;
 import eu.concept.repository.concept.domain.BriefAnalysis;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,12 @@ public class BriefAnalysisService {
 
     public boolean storeFile(BriefAnalysis ba) {
         try {
+
+            System.out.println(ba.getTitle());
+            System.out.println(ba.getContent());
             briefAnalysis.save(ba);
         } catch (Exception ex) {
+            Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
             return false;
         }
         return ba.getId() > 0;
