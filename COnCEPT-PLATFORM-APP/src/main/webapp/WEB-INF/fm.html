@@ -16,7 +16,7 @@
         <a th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  th:title="${fmContent.filename}"  th:alt="${fmContent.filename}"  class="img-thumbnail" /></a>
     </div>
     <div class="panel-footer">
-        Files ( <span th:text="${totalFiles}"> </span> ) - <a th:href="@{/fm_all(projectID=${projectID})}" >View All</a>
+        Files (<span th:text="${totalFiles}"></span>) - <a th:href="@{/fm_all(projectID=${projectID})}" >View All</a>
     </div>
 </div>
 
@@ -46,7 +46,7 @@
                             </button>
                         </form>
                         &nbsp;
-                        <span  th:class="(${fmContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
+                        <span th:class="(${fmContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
                     </td>
                 </tr>  
@@ -56,12 +56,12 @@
    
     <!-- Load more button -->
     <div class="panel-footer" style="text-align:center">
-        Files (<span th:text="${totalFiles}"> </span>) - <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+       <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
     </div>
 
     <!-- Nothing more to load button -->
     <div class="panel-footer" style="text-align:center">
-        Files (<span th:text="${totalFiles}"> </span>) - <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
     </div>
 
 </div>

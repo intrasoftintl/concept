@@ -513,7 +513,7 @@ body{
     text-shadow: none;
 }
 
-.title{
+.document-title{
     height:36px;
     padding:3px 10px;
     border-bottom: 2px solid #eee;
@@ -525,7 +525,7 @@ body{
     letter-spacing: -0.5px;
 }
 
-.title input{
+.document-title input{
     margin:0 6px;
     border:none;
 }

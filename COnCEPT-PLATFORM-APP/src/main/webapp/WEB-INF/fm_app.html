@@ -137,9 +137,6 @@
                     <div id="fmDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Upload Files (Images, Documents, etc)</h4>
-                            <div class="btn-group pull-right">
-                                <a id="fm-view-all" href="/fm_all" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-list" aria-hidden="true"></span> View All</a>
-                            </div>
                         </div>
 
                         <div id="fm-placeholder" class="panel-body disabled"></div>
@@ -174,8 +171,7 @@
 
                         </div>
                         <div class="panel-footer">
-                            <!--<a href=""><span class="glyphicon glyphicon-share" aria-hidden="true"></span> KOS (Knowledge Organization System)</a>-->
-                            Files (123)
+                            Files (<span th:text="${totalFiles}"></span>) - <a th:href="@{/fm_all(projectID=${projectID})}" >View All</a>
                         </div>
 
                     </div>
