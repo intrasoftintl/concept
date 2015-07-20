@@ -52,10 +52,19 @@
 
             <div class="project-selection">
 
-                <!-- Content to be showed only on Project Managers -->
-                <div th:if="${currentUser.getRole()} == 'MANAGER'">
-                    <button type="button" class="btn btn-success btn-xs"> New Project</button><button type="button" class="btn btn-link btn-xs">Edit Project</button>
+                <!-- Content to be showed only on project members (managers, designers, clients) -->
+                <div th:switch="${currentUser.getRole()}">
+                    <span th:case="'MANAGER'">
+                        <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'DESIGNER'">
+                        <a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'CLIENT'">
+                        <a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
                 </div>
+
                 <h5 id="projectMembers" class="highlight">Project Members<br/><small></small></h5>
             </div>
 

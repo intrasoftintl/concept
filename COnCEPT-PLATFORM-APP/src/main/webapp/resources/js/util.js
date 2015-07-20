@@ -66,14 +66,17 @@ function projectSelectedAction(projectID) {
             $("#sort").show();
             $("#fm-placeholder").hide();
             $("#fm-view-all").removeClass("disabled");
+            $("#projectMembers").show();
+            $("#projectView").show();
         }
 
         if (isFMPage()) {
             $("#fm-placeholder").hide();
             $("#sort").show();
-            
             $("#fm_all").load("/filemanagement_all/" + projectID + "?limit=200");
             $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID);
+            $("#projectMembers").show();
+            $("#projectView").show();
         }
 
     } else if (isDashboardPage()) {
@@ -82,11 +85,15 @@ function projectSelectedAction(projectID) {
         $(".panel-body").hide();
         $("#fm-placeholder").show();
         $("#fm-view-all").addClass("disabled");
+        $("#projectMembers").hide();
+        $("#projectView").hide();
     } else if (isFMPage()){
         $(".panel-body").hide();
         $("#sort").hide();
         $("#fm-placeholder").show();
         $(".panel-footer").hide();
+        $("#projectMembers").hide();
+        $("#projectView").hide();
     }
 
 }
