@@ -1,5 +1,6 @@
 package eu.concept.authentication;
 
+import eu.concept.repository.concept.domain.UserCo;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 
@@ -14,12 +15,12 @@ public class CurrentUser extends User {
     private final String firstName;
     private final String lastName;
 
-    public CurrentUser(int userID, String username, String password, COnCEPTRole role,String firstName,String lastName) {
+    public CurrentUser(int userID, String username, String password, COnCEPTRole role, String firstName, String lastName) {
         super(username, password, AuthorityUtils.createAuthorityList(role.toString()));
         this.userID = userID;
         this.roleID = role.getID();
-        this.firstName=firstName;
-        this.lastName=lastName;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public int getId() {
@@ -41,7 +42,10 @@ public class CurrentUser extends User {
     public String getLastName() {
         return lastName;
     }
-    
-    
+
+    //User only by repositories
+    public UserCo getConceptUser() {
+        return new UserCo(this.userID, this.getRole());
+    }
 
 }
