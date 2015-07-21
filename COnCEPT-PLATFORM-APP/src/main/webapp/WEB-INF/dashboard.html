@@ -24,14 +24,30 @@
         </nav>
 
         <!-- apps -->
-        <nav class="nav-apps ">
-            <ul>
+        <nav class="nav-apps " th:switch="${currentUser.getRole()}">
+            <ul th:case="'MANAGER'">
                 <li><a href="/ba_app"><img src="resources/img/ICON_BA.png" /></a></li>
                 <li><a href="/fm_app"><img src="resources/img/ICON_FM.png" /></a></li>
                 <li><a href="/se_app"><img src="resources/img/ICON_SE.png" /></a></li>
                 <li><a href="/mm_app"><img src="resources/img/ICON_MM.png" /></a></li>
                 <li><a href="/sb_app"><img src="resources/img/ICON_SB.png" /></a></li>
                 <li><a href="/sk_app"><img src="resources/img/ICON_SK.png" /></a></li>
+            </ul>
+            <ul th:case="'DESIGNER'">
+                <li><a href="/ba_app"><img src="resources/img/ICON_BA.png" /></a></li>
+                <li><a href="/fm_app"><img src="resources/img/ICON_FM.png" /></a></li>
+                <li><a href="/se_app"><img src="resources/img/ICON_SE.png" /></a></li>
+                <li><a href="/mm_app"><img src="resources/img/ICON_MM.png" /></a></li>
+                <li><a href="/sb_app"><img src="resources/img/ICON_SB.png" /></a></li>
+                <li><a href="/sk_app"><img src="resources/img/ICON_SK.png" /></a></li>
+            </ul>
+            <ul th:case="'CLIENT'">
+                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
         </nav>
 
@@ -146,7 +162,9 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Brief Analysis</h4>
                             <div class="btn-group pull-right">
-                                <a id="ba-add" href="/ba_app" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
+                                <form id="ba-add-form" action="#" method="post" th:action="@{/ba_app}">
+                                    <button onclick="addProjectIDToForm('ba-add-form')" type="submit" id="ba-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</button>
+                                </form>
                             </div>
                         </div>
 
@@ -162,7 +180,8 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
                             <div class="btn-group pull-right">
-                                <form id="uploadForm" action="#" method="post" th:action="@{/fm_app}"> <button  onclick="addProjectIDToForm('uploadForm')" type="submit" id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</button>
+                                <form id="fm-add-form" action="#" method="post" th:action="@{/fm_app}">
+                                    <button onclick="addProjectIDToForm('fm-add-form')" type="submit" id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</button>
                                 </form>
                             </div>
                         </div>
@@ -179,7 +198,9 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Search Engine</h4>
                             <div  class="btn-group pull-right">
-                                <a id="se-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</a>
+                                <form id="se-add-form" action="#" method="post" th:action="@{/se_app}">
+                                    <button onclick="addProjectIDToForm('se-add-form')" type="submit" id="se-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</button>
+                                </form>
                             </div>
                         </div>
 
@@ -198,7 +219,9 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Mindmaps</h4>
                             <div  class="btn-group pull-right">
-                                <a id="mm-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</a>
+                                <form id="mm-add-form" action="#" method="post" th:action="@{/mm_app}">
+                                    <button onclick="addProjectIDToForm('mm-add-form')" type="submit" id="mm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</button>
+                                </form>
                             </div>
                         </div>
 
@@ -214,8 +237,10 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Storyboards</h4>
                             <div  class="btn-group pull-right">
-                                <a id="mb-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</a>
-                                <a id="sb-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
+                                <form id="sb-add-form" action="#" method="post" th:action="@{/sb_app}">
+                                    <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="mb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</button>
+                                    <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="sb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</button>
+                                </form>
                             </div>
                         </div>
 
@@ -231,7 +256,9 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Sketches</h4>
                             <div class="btn-group pull-right">
-                                <a id="sk-add" href="/sk_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</a>
+                                <form id="sk-add-form" action="#" method="post" th:action="@{/sk_app}">
+                                    <button onclick="addProjectIDToForm('sk-add-form')" type="submit" id="sk-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</button>
+                                </form>
                             </div>
                         </div>
 
