@@ -55,7 +55,6 @@ public class Sketch implements Serializable {
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;

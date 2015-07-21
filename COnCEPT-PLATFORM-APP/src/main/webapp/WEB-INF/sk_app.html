@@ -7,9 +7,9 @@
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-        <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/literallycanvas.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
@@ -17,7 +17,7 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a href="/dashboard"><li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
                 <a onclick="TogetherJS(this);
                         return false;"><li class="collaboration"></li></a>
             </ul>
@@ -26,12 +26,12 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK.png" /></li>
+                <li><img src="/resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SB_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SK.png" /></li>
             </ul>
         </nav>
 
@@ -69,7 +69,7 @@
 
         </nav>
 
-        !-- Info Message -->
+        <!-- Info Message -->
         <nav th:if="null != ${success}" class="nav-actions">
 
             <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
@@ -92,7 +92,7 @@
 
             <div class="nav-header">
                 <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
-                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <!--<a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>-->
                 <p class="heading">Chat module</p>
                 <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
             </div>
@@ -125,25 +125,38 @@
                 <div class="form-group document-title">
                     <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
                     <input type="hidden" th:value="${sketch.id}"   th:field="*{id}" class="form-control input-sm" id="sk-id" name="sk-id" size="50" value="SK_00001"/>
-                    
+
                     <label for="document-title">Sketch Title</label>
                     <input th:value="${sketch.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" value="SK_00001"/>
-                    <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editBA"/>
+                    <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editSK" onclick="includeContent()"/>
+                    <input id="document-content"  type="hidden" th:value="${sketch.content}" th:field="*{content}" name="document-content" />
+
                 </div>
-                <div class="literally"><canvas></canvas></div>
+                <div class="literally"><canvas ></canvas></div>
             </form>
-
-            
-
         </div>
 
-        <script src="resources/js/jquery-1.11.2.min.js"></script>
-        <script src="resources/js/bootstrap.min.js"></script>
-        <script src="resources/js/togetherjs-min.js"></script>
-        <script src="resources/js/react-with-addons.min.js"></script>
-        <script src="resources/js/literallycanvas.min.js"></script>
-        <script src="resources/js/sketching.js"></script>
-        <script src="resources/js/util.js"></script>
+        <script src="/resources/js/jquery-1.11.2.min.js"></script>
+        <script src="/resources/js/bootstrap.min.js"></script>
+        <script src="/resources/js/togetherjs-min.js"></script>
+        <script src="/resources/js/react-with-addons.min.js"></script>
+        <script src="/resources/js/literallycanvas.min.js"></script>
+        <script src="/resources/js/sketching.js"></script>
+        <script src="/resources/js/util.js"></script>
 
     </body>
 </html>
+
+<script>
+                        $(document).ready(function () {
+                            loadSKContent($("#document-content").val());
+                        });
+
+
+                        function includeContent() {
+                            saveSKContent();
+//                            alert(localStorage.getItem("drawing"));
+                            $("#document-content").val(localStorage.getItem("drawing"));
+                        }
+
+</script>

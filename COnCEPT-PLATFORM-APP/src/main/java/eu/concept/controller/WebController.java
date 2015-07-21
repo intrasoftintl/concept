@@ -122,19 +122,8 @@ public class WebController {
         return "sb_all";
     }
 
-    // Sketches APP + ALL
-    @RequestMapping(value = "/sk_app", method = RequestMethod.GET)
-    public String sk_app() {
-        return "sk_app";
-    }
 
-    @RequestMapping(value = "/sk_all", method = RequestMethod.GET)
-    public String sk_all(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        return "sk_all";
-    }
+
 
     // Metadata APP
     @RequestMapping(value = "/metadata", method = RequestMethod.GET)
