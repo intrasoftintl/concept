@@ -197,9 +197,9 @@ body{
     height: auto;
     position:fixed;
     left:0;
-    top:244px;
+    bottom:302px;
+    
     z-index:100000;
-
     text-align:center;
 }
 
@@ -451,6 +451,9 @@ body{
     .nav-chat-hidden{
         display: block;
     }  
+    .nav-actions{
+        bottom:50px;
+    }
 }
 
 /* content */

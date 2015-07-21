@@ -1,4 +1,4 @@
-<div th:fragment="baContentList"  th:unless="${#lists.isEmpty(fmContents)}" >
+<div th:fragment="baContentList"  th:unless="${#lists.isEmpty(baContents)}" >
     <div class="panel-body no-padding">
 				    <table class="table table-striped">
         <thead>
@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             <tr th:each="baContent : ${baContents}">
-                <td><a th:href="@{'/ba/'+${baContent.id}}" th:title="${fmContent.filename}" th:alt="${fmContent.filename}"></a></td>
+                <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
                 <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${baContent.createdDate}"></span></td>
                 <td>
                     <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -25,7 +25,7 @@
                     </form>
                     &nbsp;
                     
-                    <span th:class="(${fmContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
+                    <span th:class="(${baContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                     <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
                 </td>
             </tr>
@@ -34,11 +34,11 @@
     </div>
 
     <div class="panel-footer">
-        Brief Analysis Documents (<span th:text="${maxFiles}"> </span>) - <a href="/ba_all">View All</a>
+        Brief Analysis Documents (<span th:text="${totalFiles}"> </span>) - <a href="/ba_all">View All</a>
     </div>
 </div>
 
-<div th:fragment="baContentAllList"  th:unless="${#lists.isEmpty(fmContents)}" >
+<div th:fragment="baContentAllList"  th:unless="${#lists.isEmpty(baContents)}" >
     <div class="panel-body no-padding" >
         <table class="table table-striped">
             <thead>
@@ -50,9 +50,9 @@
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
-                    <td><a th:href="@{'/ba/'+${baContent.id}}" th:title="${fmContent.filename}" th:alt="${fmContent.filename}"></a></td>
+                    <td><a th:href="@{'/ba/'+${baContent.id}}" th:title="${baContent.filename}" th:alt="${baContent.filename}"></a></td>
                     <td class="truncate">
-                        <input name="fileID" type="hidden" th:value="${fmContent.id}"/>
+                        <input name="fileID" type="hidden" th:value="${baContent.id}"/>
                         <input name="projectID" type="hidden" th:value="${projectID}"/>
                     </td>
                     <td>
@@ -62,7 +62,7 @@
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                             
-                        <span th:class="(${fmContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
+                        <span th:class="(${baContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
                     </td>
                 </tr>
@@ -70,6 +70,6 @@
         </table>
     </div>
     <div class="panel-footer">
-        Files ( <span th:text="${maxFiles}"> </span> ) - <a href="/fm_all">View All</a>
+        Files ( <span th:text="${totalFiles}"> </span> ) - <a href="/fm_all">View All</a>
     </div>
 </div>

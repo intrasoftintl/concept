@@ -58,8 +58,16 @@ public class BriefAnalysisService {
         return files;
     }
 
-    public BriefAnalysis fetchVriefAnalysisById(int id) {
+    public BriefAnalysis fetchBriefAnalysisById(int id) {
         return briefAnalysis.findById(id);
+    }
+
+    public int countFilesById(int projectID, String userRole) {
+        if ("CLIENT".equals(userRole)) {
+            return briefAnalysis.countByPidAndIsPublic(projectID, new Short("1"));
+        } else {
+            return briefAnalysis.countByPid(projectID);
+        }
     }
 
 }

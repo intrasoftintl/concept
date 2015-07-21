@@ -1,11 +1,7 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.CurrentUser;
-import eu.concept.repository.concept.domain.BriefAnalysis;
-import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.domain.UserCo;
-import eu.concept.repository.concept.service.BriefAnalysisService;
-import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.domain.UserOp;
@@ -13,24 +9,14 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,11 +36,6 @@ public class WebController {
     @Autowired
     ProjectServiceOp projectServiceOp;
 
-    @Autowired
-    FileManagementService fmService;
-
-    @Autowired
-    BriefAnalysisService baService;
 
     /*
      *  GET Methods 
@@ -93,18 +74,7 @@ public class WebController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
-        int projectID = (model.containsAttribute("projectID") ? (Integer) model.asMap().get("projectID") : 0);
-//        if (projectID > 0) {
-//            logger.info("Trying to load dashboard content for projectID: " + projectID);
-//          //  List<FileManagement> fm_content = fmService.fetchImagesByProjectIdAndUserId(projectID, getCurrentUser().getRole());
-//            model.addAttribute("numOfFiles", fm_content.size());
-//            model.addAttribute("fm_content", fm_content);
-//            logger.info("Files Size: " + fm_content.size());
-//        } else {
-//            logger.info("Invalid projectID: " + projectID);
-//        }
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projectID", 8);
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "dashboard";
@@ -123,55 +93,6 @@ public class WebController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "notifications";
-    }
-
-    // Brief Analysis APP + ALL
-    @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
-    public String ba_app(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        if (!model.containsAttribute("briefanalysis")) {
-            BriefAnalysis ba = new BriefAnalysis();
-
-            model.addAttribute("briefanalysis", new BriefAnalysis());
-        } else {
-
-        }
-        return "ba_app";
-    }
-
-    @RequestMapping(value = "/ba_all", method = RequestMethod.GET)
-    public String ba_all(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        return "ba_all";
-    }
-
-    // File Management APP + ALL
-    @RequestMapping(value = "/fm_app", method = RequestMethod.GET)
-    public String fm_app(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        return "fm_app";
-    }
-
-    // File Management APP + ALL
-    @RequestMapping(value = "/fm_app", method = RequestMethod.POST)
-    public String fm_appPost(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
-        model.addAttribute("projectID", projectID);
-        return fm_app(model);
-    }
-
-    @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
-    public String fm_all(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        return "fm_all";
     }
 
     // Search Engine ALL
@@ -221,51 +142,7 @@ public class WebController {
         return "metadata";
     }
 
-    //Fetch an image
-    @RequestMapping(value = "/file/{image_id}", produces = MediaType.ALL_VALUE)
-    public ResponseEntity<byte[]> getImage(@PathVariable("image_id") int imageId, @RequestParam(value = "preview", defaultValue = "0", required = false) int preview) throws IOException {
-        FileManagement fm = fmService.fetchImageById(imageId);
-        byte[] imageContent;
-        final HttpHeaders headers = new HttpHeaders();
-        MediaType fileType = MediaType.valueOf(fm.getType());
-        imageContent = fm.getContent();
-        headers.setContentType(fileType);
-
-        if (!(fm.getType().equals(MediaType.IMAGE_PNG_VALUE) || fm.getType().equals(MediaType.IMAGE_GIF_VALUE) || fm.getType().equals("image/jpeg")) && preview == 1) {
-            URL genericImageURL = new URL("http://localhost:8080/resources/img/fm_generic.png");
-            BufferedImage image = ImageIO.read(genericImageURL);
-            // write image to outputstream
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", baos);
-            baos.flush();
-            // get bytes
-            imageContent = baos.toByteArray();
-            headers.setContentType(MediaType.IMAGE_PNG);
-        }
-
-        return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/fm", method = RequestMethod.GET)
-    public String fmPage(Model model) {
-        return "fm";
-    }
-
-    @RequestMapping(value = "/filemanagement/{project_id}", method = RequestMethod.GET)
-    public String fetchFilesByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, getCurrentRole(), limit));
-        model.addAttribute("totalFiles", fmService.countFilesByIdAndUserId(project_id, getCurrentRole()));
-        model.addAttribute("projectID", project_id);
-        return "fm :: fmContentList";
-    }
-
-    @RequestMapping(value = "/filemanagement_all/{project_id}", method = RequestMethod.GET)
-    public String fetchFilesByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, getCurrentRole(), limit));
-        model.addAttribute("totalFiles", fmService.countFilesByIdAndUserId(project_id, getCurrentRole()));
-        model.addAttribute("projectID", project_id);
-        return "fm :: fmContentAllList";
-    }
+    //FileManagement
 
     /*
      *  POST Methods 
@@ -295,53 +172,12 @@ public class WebController {
 
     }
 
-    @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
-    public String fetchBriefAnalysisByID(Model model, @PathVariable int ba_id) {
-        BriefAnalysis ba = baService.fetchVriefAnalysisById(ba_id);
-        if (null != ba) {
-            model.addAttribute("projectID", ba.getPid());
-            model.addAttribute("briefanalysis", ba);
-        }
-        return "redirect:/" + ba_app(model);
-    }
-
-    @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
-    public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
-        model.addAttribute("projectID", projectID);
-
-        System.out.println("Project is: " + projectID);
-        return ba_app(model);
-    }
-
-    @RequestMapping(value = "/ba_app_edit", method = RequestMethod.POST)
-    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
-//      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
-
-        System.out.println("ProjectID : " + ba.getPid());
-        UserCo newUser = new UserCo();
-        newUser.setId(getCurrentUser().getId());
-        ba.setPid((Integer) model.asMap().get("projectID"));
-        ba.setUid(newUser);
-        model.addAttribute("briefanalysis", ba);
-        baService.storeFile(ba);
-        System.out.println("BA ID: " + ba.getId());
-
-        return "/ba_app/" + ba.getId();
-    }
-
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public String dashboardSubmit(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);
         return "redirect:/" + dashboard(model);
     }
 
-    @RequestMapping(value = "/filemanagement_all", method = RequestMethod.POST)
-    public String deleteFileByFM(Model model, @RequestParam(value = "fileID", defaultValue = "0", required = false) int fileID, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
-        fmService.deleteFile(fileID);
-        return "redirect:/fm_all?projectID=" + projectID;
-    }
-
-    //filemanagement_all
     /*
      *  Help Methods
      */

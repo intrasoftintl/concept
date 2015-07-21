@@ -7,9 +7,9 @@
         <meta name="viewport" content="width=device-width" />	
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-        <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/literallycanvas.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
@@ -17,7 +17,7 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a href="/dashboard"><li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
                 <a onclick="TogetherJS(this);
                         return false;"><li class="collaboration"></li></a>
             </ul>
@@ -26,12 +26,12 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="resources/img/ICON_BA.png" /></li>
-                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_BA.png" /></li>
+                <li><img src="/resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SB_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
         </nav>
 
@@ -69,24 +69,30 @@
 
         </nav>
 
-        <!--         actions 
-                <nav class="nav-actions">
-                    <a href="#" class="btn btn-success btn-sm btn-block btn-actions">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Save to Concept DB
-                    </a>
-        
-                    <div class="alert alert-warning alert-dismissible btn-actions" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        Saved to Concept DB
-                    </div>
-        
-                </nav>-->
+
+        <!-- Info Message -->
+        <nav th:if="null != ${success}" class="nav-actions">      
+
+            <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span th:text="${success}"> </span>
+            </div>
+        </nav>
+
+        <nav th:if="null != ${error}" class="nav-actions">      
+
+            <div class="alert alert-danger alert-dismissible btn-actions" role="alert" >
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <span>Could not save to Concept DB</span>
+            </div>
+        </nav>
+
 
         <!-- chat -->
         <nav class="nav-chat disabled">
 
             <div class="nav-header">
-                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
                 <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
                 <p class="heading">Chat module</p>
                 <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
@@ -97,7 +103,7 @@
                     Please select a project
                 </div>
                 <ul>
-                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                    <li class="placeholder"><img src="/resources/img/ICON_CHAT.png" /></li>
                 </ul>
             </div>
 
@@ -106,8 +112,8 @@
         <!-- chat-hidden -->
         <nav class="nav-chat-hidden">
             <div class="nav-header">
-                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>
                 <p class="heading">Chat module</p>
                 <p class="title">Module hidden</p>
             </div>
@@ -117,7 +123,7 @@
         <div class="content">
             <form  id="baForm" class="form-inline" method="post" th:action="@{/ba_app_edit}" action="#" th:object="${briefanalysis}">
                 <div class="form-group document-title">
-                     <input type="text" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
+                    <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
                     <input type="hidden" th:value="${briefanalysis.id}"   th:field="*{id}" class="form-control input-sm" id="ba-id" name="ba-id" size="50" value="BA_00001"/>
                     <label for="document-title">Brief Analysis Title</label>
                     <input  th:value="${briefanalysis.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" value="BA_00001"/>
@@ -129,11 +135,11 @@
             </form>
         </div>
 
-        <script src="resources/js/jquery-1.11.2.min.js"></script>
-        <script src="resources/js/bootstrap.min.js"></script>
-        <script src="resources/js/togetherjs-min.js"></script>
-        <script src="resources/js/tinymce/tinymce.min.js"></script>
-        <script src="resources/js/util.js"></script>
+        <script src="/resources/js/jquery-1.11.2.min.js"></script>
+        <script src="/resources/js/bootstrap.min.js"></script>
+        <script src="/resources/js/togetherjs-min.js"></script>
+        <script src="/resources/js/tinymce/tinymce.min.js"></script>
+        <script src="/resources/js/util.js"></script>
         <script>tinymce.init({selector: 'textarea'});</script>
     </body>
 </html> 

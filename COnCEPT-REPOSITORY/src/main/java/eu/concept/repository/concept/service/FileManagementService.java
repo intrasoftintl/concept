@@ -84,7 +84,7 @@ public class FileManagementService {
         return fileManagement.findById(id);
     }
 
-    public int countFilesByIdAndUserId(int projectID, String userRole) {
+    public int countFilesById(int projectID, String userRole) {
         if ("CLIENT".equals(userRole)) {
             return fileManagement.countByPidAndIsPublic(projectID, new Short("1"));
         } else {

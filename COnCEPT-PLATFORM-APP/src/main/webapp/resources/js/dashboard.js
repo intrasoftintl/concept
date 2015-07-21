@@ -11,6 +11,7 @@ function loadDashboardContent(projectID) {
     console.log("Loading dashboard content...")
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
+    $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=9");
 }
 
 //
@@ -125,10 +126,3 @@ function addProjectIDToForm(formName) {
     });
 }
 
-//$("#uploadForm").submit(function (eventObj) {
-//    $('<input />').attr('type', 'hidden')
-//            .attr('name', "projectID")
-//            .attr('value', $("#projectID").val())
-//            .appendTo('#fm-add');
-//    return true;
-//});
