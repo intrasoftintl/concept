@@ -1,44 +1,71 @@
 <div th:fragment="baContentList"  th:unless="${#lists.isEmpty(fmContents)}" >
-    <table class="table table-striped">
+    <div class="panel-body no-padding">
+				    <table class="table table-striped">
         <thead>
             <tr>
-                <th class="col-md-6">Recently Uploaded Files</th>
+                <th class="col-md-5">Recently Created BA Documents</th>
+                <th class="col-md-2">User</th>
+                <th class="col-md-5"></th>
             </tr>
         </thead>
         <tbody>
+            <tr th:each="baContent : ${baContents}">
+                <td><a th:href="@{'/ba/'+${baContent.id}}" th:title="${fmContent.filename}" th:alt="${fmContent.filename}"></a></td>
+                <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${baContent.createdDate}"></span></td>
+                <td>
+                    <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+
+                    <form  role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">
+                        <input name="fileID" type="hidden" th:value="${baContent.id}"/>
+                        <input name="projectID" type="hidden" th:value="${projectID}"/>
+
+                        <button class="action-button">
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
+                    </form>
+                    &nbsp;
+                    
+                    <span th:class="(${fmContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
+                    <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                </td>
+            </tr>
         </tbody>
     </table>
-
-    <div class="panel-body" >
-        <a th:each="fmContent : ${fmContents}" th:href="@{'/image/'+${fmContent.id}}"><img th:src="@{'/image/'+${fmContent.id}}"  th:title="${fmContent.filename}" src="resources/img/fm_00002.jpg"  th:alt="${fmContent.filename}"     class="img-thumbnail" /></a>
     </div>
 
     <div class="panel-footer">
-        Files ( <span th:text="${maxFiles}"> </span> ) - <a href="/fm_all">View All</a>
+        Brief Analysis Documents (<span th:text="${maxFiles}"> </span>) - <a href="/ba_all">View All</a>
     </div>
 </div>
 
-<div th:fragment="baContentAllList"  th:unless="${#lists.isEmpty(fmContents)}" > 
+<div th:fragment="baContentAllList"  th:unless="${#lists.isEmpty(fmContents)}" >
     <div class="panel-body no-padding" >
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-5">Recent Uploaded Files</th>
+                    <th class="col-md-5">Recent Created BA Documents</th>
                     <th class="col-md-2">User</th>
                     <th class="col-md-5"></th>
                 </tr>
             </thead>
-            <tbody>            
-                <tr th:each="fmContent : ${fmContents}">
-                    <td><a href=""><img src="resources/img/fm_00001.png" class="img-thumbnail" /></a><a class="btn btn-default btn-xs pull-up" href="resources/img/fm_00001.jpg" download="fm_00001">Download</a></td>
-                    <td class="truncate">user123456789</td>
+            <tbody>
+                <tr th:each="baContent : ${baContents}">
+                    <td><a th:href="@{'/ba/'+${baContent.id}}" th:title="${fmContent.filename}" th:alt="${fmContent.filename}"></a></td>
+                    <td class="truncate">
+                        <input name="fileID" type="hidden" th:value="${fmContent.id}"/>
+                        <input name="projectID" type="hidden" th:value="${projectID}"/>
+                    </td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
-                        <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
+
+                        <button class="action-button">
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
+                            
+                        <span th:class="(${fmContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
                     </td>
-                </tr>  
+                </tr>
             </tbody>
         </table>
     </div>
