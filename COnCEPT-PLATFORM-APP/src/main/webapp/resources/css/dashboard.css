@@ -472,6 +472,7 @@ body{
 }
 
 
+
 .content-pre{
     background:url('../img/bg.jpg') no-repeat;
     webkit-background-size: cover;
@@ -593,6 +594,8 @@ textarea{
 
 .content-pre .btn-link{ color:#fff; }
 .content-pre .btn-link:hover{ color:#fff; }
+
+.content-error .alert{ border-radius: 0; }
 
 h5.heading{
     text-transform: uppercase;
