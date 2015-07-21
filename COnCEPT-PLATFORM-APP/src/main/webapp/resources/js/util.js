@@ -17,7 +17,7 @@ $(document).ready(function () {
         $('#project-select').val($('#projectID').val()).change();
     }
 
-    if (isUploadPage()) {
+    if (isFM_app()) {
         //Initialize file-upload form
         $('#fileupload').fileupload({
             dataType: 'json',
@@ -64,7 +64,7 @@ function projectSelectedAction(projectID) {
             $('#projectID').val(projectID);
         }
 
-        if (isUploadPage()) {
+        if (isFM_app()) {
             $("#fm-placeholder").hide();
             
             $(".panel-body").show();
@@ -77,7 +77,7 @@ function projectSelectedAction(projectID) {
             $("#project-view").show();
         }
 
-        if (isFMPage()) {
+        if (isFM_all()) {
             $("#fm-placeholder").hide();
             $("#sort").show();
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);    
@@ -94,14 +94,14 @@ function projectSelectedAction(projectID) {
 
     } else if (isDashboardPage()) {
         disableDashboardPage();
-    } else if (isUploadPage()) {
+    } else if (isFM_app()) {
         $(".panel-body").hide();
         $("#fm-placeholder").show();
         $("#fm-all").addClass("disabled");
         $(".panel-footer").hide();
         $("#project-members").hide();
         $("#project-view").hide();
-    } else if (isFMPage()) {
+    } else if (isFM_all()) {
         $(".panel-body").hide();
         $("#sort").hide();
         $("#fm-placeholder").show();
@@ -115,24 +115,29 @@ function projectSelectedAction(projectID) {
     }
 
 }
-//Return true if current page is dashboard
+//Return true if current page is DASHBOARD
 function isDashboardPage() {
     return location.pathname === "/dashboard";
 }
 
+//Return true if current page is BA APP
+function isBA_app() {
+    return location.pathname === "/ba_app";
+}
 
-//Return true if current page is dashboard
-function isUploadPage() {
+//Return true if current page is BA ALL
+function isBA_all() {
+    return location.pathname === "/ba_all";
+}
+
+//Return true if current page is FM APP
+function isFM_app() {
     return location.pathname === "/fm_app";
 }
 
-//Return true if current page is FileManagement
-function isFMPage() {
+//Return true if current page is FM ALL
+function isFM_all() {
     return location.pathname === "/fm_all";
-}
-
-function isBA_App() {
-    return location.pathname === "/ba_app";
 }
 
 //Sample post using jQuery
