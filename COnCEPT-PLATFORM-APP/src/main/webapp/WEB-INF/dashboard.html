@@ -24,14 +24,30 @@
         </nav>
 
         <!-- apps -->
-        <nav class="nav-apps ">
-            <ul>
+        <nav class="nav-apps " th:switch="${currentUser.getRole()}">
+            <ul th:case="'MANAGER'">
                 <li><a href="/ba_app"><img src="resources/img/ICON_BA.png" /></a></li>
                 <li><a href="/fm_app"><img src="resources/img/ICON_FM.png" /></a></li>
                 <li><a href="/se_app"><img src="resources/img/ICON_SE.png" /></a></li>
                 <li><a href="/mm_app"><img src="resources/img/ICON_MM.png" /></a></li>
                 <li><a href="/sb_app"><img src="resources/img/ICON_SB.png" /></a></li>
                 <li><a href="/sk_app"><img src="resources/img/ICON_SK.png" /></a></li>
+            </ul>
+            <ul th:case="'DESIGNER'">
+                <li><a href="/ba_app"><img src="resources/img/ICON_BA.png" /></a></li>
+                <li><a href="/fm_app"><img src="resources/img/ICON_FM.png" /></a></li>
+                <li><a href="/se_app"><img src="resources/img/ICON_SE.png" /></a></li>
+                <li><a href="/mm_app"><img src="resources/img/ICON_MM.png" /></a></li>
+                <li><a href="/sb_app"><img src="resources/img/ICON_SB.png" /></a></li>
+                <li><a href="/sk_app"><img src="resources/img/ICON_SK.png" /></a></li>
+            </ul>
+            <ul th:case="'CLIENT'">
+                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
+                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
         </nav>
 
