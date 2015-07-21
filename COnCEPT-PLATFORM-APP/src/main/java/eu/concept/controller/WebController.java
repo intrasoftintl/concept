@@ -129,13 +129,12 @@ public class WebController {
     @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
     public String ba_app(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        if (model.containsAttribute("ba_id")) {
-            System.out.println("\n\nBA ID is:  " + model.asMap().get("ba_id"));
-        }
 
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         if (!model.containsAttribute("briefanalysis")) {
+            BriefAnalysis ba = new BriefAnalysis();
+
             model.addAttribute("briefanalysis", new BriefAnalysis());
         } else {
 
@@ -298,34 +297,38 @@ public class WebController {
 
     @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByID(Model model, @PathVariable int ba_id) {
-        System.out.println("ProjectID ....");
-        System.out.println("ProjectID: " + model.asMap().get("projectID"));
-
-        model.addAttribute("ba_id", ba_id);
+        BriefAnalysis ba = baService.fetchVriefAnalysisById(ba_id);
+        if (null != ba) {
+            model.addAttribute("projectID", ba.getPid());
+            model.addAttribute("briefanalysis", ba);
+        }
         return "redirect:/" + ba_app(model);
     }
 
     @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
     public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
         model.addAttribute("projectID", projectID);
-        
-        
-        System.out.println("Project is: " +projectID);
+
+        System.out.println("Project is: " + projectID);
         return ba_app(model);
     }
 
-//    @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
-//    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
-////      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
-//
-//        UserCo newUser = new UserCo();
-//        newUser.setId(getCurrentUser().getId());
-//        ba.setUid(newUser);
-//        model.addAttribute("briefanalysis", ba);
-//        baService.storeFile(ba);
-//        System.out.println("BA ID: " + ba.getId());
-//        return ba_app(model);
-//    }
+    @RequestMapping(value = "/ba_app_edit", method = RequestMethod.POST)
+    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
+//      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
+
+        System.out.println("ProjectID : " + ba.getPid());
+        UserCo newUser = new UserCo();
+        newUser.setId(getCurrentUser().getId());
+        ba.setPid((Integer) model.asMap().get("projectID"));
+        ba.setUid(newUser);
+        model.addAttribute("briefanalysis", ba);
+        baService.storeFile(ba);
+        System.out.println("BA ID: " + ba.getId());
+
+        return "/ba_app/" + ba.getId();
+    }
+
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public String dashboardSubmit(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);

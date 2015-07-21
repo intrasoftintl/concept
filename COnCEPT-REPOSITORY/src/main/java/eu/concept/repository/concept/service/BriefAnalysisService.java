@@ -58,4 +58,8 @@ public class BriefAnalysisService {
         return files;
     }
 
+    public BriefAnalysis fetchVriefAnalysisById(int id) {
+        return briefAnalysis.findById(id);
+    }
+
 }
