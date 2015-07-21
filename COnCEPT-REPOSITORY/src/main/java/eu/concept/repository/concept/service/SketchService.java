@@ -1,7 +1,9 @@
 package eu.concept.repository.concept.service;
 
 import eu.concept.repository.concept.dao.BriefAnalysisRepository;
+import eu.concept.repository.concept.dao.SketchRepository;
 import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.Sketch;
 import eu.concept.repository.concept.domain.UserCo;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,24 +17,24 @@ import org.springframework.stereotype.Service;
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Service
-public class BriefAnalysisService {
+public class SketchService {
 
     @Autowired
-    private BriefAnalysisRepository briefAnalysis;
+    private SketchRepository sketch;
 
-    public boolean storeFile(BriefAnalysis ba) {
+    public boolean storeFile(Sketch sk) {
         try {
-            briefAnalysis.save(ba);
+            sketch.save(sk);
         } catch (Exception ex) {
             Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
             return false;
         }
-        return ba.getId() > 0;
+        return sk.getId() > 0;
     }
 
     public boolean deleteFile(int briefAnalysisID) {
         try {
-            briefAnalysis.delete(briefAnalysisID);
+            sketch.delete(briefAnalysisID);
         } catch (Exception ex) {
             Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
             return false;
@@ -40,30 +42,30 @@ public class BriefAnalysisService {
         return true;
     }
 
-    public List<BriefAnalysis> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit) {
+    public List<Sketch> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit) {
         return fetchBriefAnalysisByProjectId(projectID, user, limit, 0);
     }
 
-    public List<BriefAnalysis> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit, int page) {
-        List<BriefAnalysis> files;
+    public List<Sketch> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit, int page) {
+        List<Sketch> sketches;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {
-            files = briefAnalysis.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
+            sketches = sketch.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
         } else {
-            files = briefAnalysis.findByPid(projectID, pageRequest);
+            sketches = sketch.findByPid(projectID, pageRequest);
         }
-        return files;
+        return sketches;
     }
 
-    public BriefAnalysis fetchBriefAnalysisById(int id) {
-        return briefAnalysis.findById(id);
+    public Sketch fetchBriefAnalysisById(int id) {
+        return sketch.findById(id);
     }
 
     public int countFilesById(int projectID, String userRole) {
         if ("CLIENT".equals(userRole)) {
-            return briefAnalysis.countByPidAndIsPublic(projectID, new Short("1"));
+            return sketch.countByPidAndIsPublic(projectID, new Short("1"));
         } else {
-            return briefAnalysis.countByPid(projectID);
+            return sketch.countByPid(projectID);
         }
     }
 

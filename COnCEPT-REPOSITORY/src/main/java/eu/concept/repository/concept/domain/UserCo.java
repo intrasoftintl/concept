@@ -28,12 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "User")
 public class UserCo implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
-    private Collection<BriefAnalysis> briefAnalysisCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
-    private Collection<FileManagement> fileManagementCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "uid")
-    private Collection<Likes> likesCollection;
+
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -192,33 +188,5 @@ public class UserCo implements Serializable {
     @Override
     public String toString() {
         return "eu.concept.repository.concept.domain.User[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Likes> getLikesCollection() {
-        return likesCollection;
-    }
-
-    public void setLikesCollection(Collection<Likes> likesCollection) {
-        this.likesCollection = likesCollection;
-    }
-
-    @XmlTransient
-    public Collection<FileManagement> getFileManagementCollection() {
-        return fileManagementCollection;
-    }
-
-    public void setFileManagementCollection(Collection<FileManagement> fileManagementCollection) {
-        this.fileManagementCollection = fileManagementCollection;
-    }
-
-    @XmlTransient
-    public Collection<BriefAnalysis> getBriefAnalysisCollection() {
-        return briefAnalysisCollection;
-    }
-
-    public void setBriefAnalysisCollection(Collection<BriefAnalysis> briefAnalysisCollection) {
-        this.briefAnalysisCollection = briefAnalysisCollection;
-    }
-    
+    }   
 }
