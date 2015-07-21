@@ -113,7 +113,7 @@ function projectSelectedAction(projectID) {
         $("#project-members").hide();
         $("#project-view").hide();
         $("#fm-add").hide();
-    } else if (isBA_app) {
+    } else if (isBA_app()) {
         $("#project-members").hide();
         $("#project-view").hide();
     }
