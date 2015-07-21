@@ -574,7 +574,7 @@ textarea{
     background-image: linear-gradient(-45deg, #f8f8f8 25%, transparent 25%, transparent 50%, #eee 50%, #eee 75%, transparent 75%, transparent);
     background-size: 4px 4px;
 }
-.panel-body img{ width: calc(100vw/15); margin:5px;}
+.panel-body img{ width: 80px; margin:5px;}
 
 .panel-body td.truncate{
     max-width: 0;

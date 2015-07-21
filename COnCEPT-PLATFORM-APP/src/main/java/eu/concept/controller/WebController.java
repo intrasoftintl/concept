@@ -106,6 +106,7 @@ public class WebController {
 //            logger.info("Invalid projectID: " + projectID);
 //        }
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projectID",8);
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "dashboard";
@@ -292,8 +293,11 @@ public class WebController {
 
     @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByID(Model model, @PathVariable int ba_id) {
+        System.out.println("ProjectID ....");
+        System.out.println("ProjectID: " + model.asMap().get("projectID"));
+
         model.addAttribute("ba_id", ba_id);
-        return "redirect:/" +ba_app(model);
+        return "redirect:/" + ba_app(model);
     }
 
     @RequestMapping(value = "/ba_app", method = RequestMethod.POST)

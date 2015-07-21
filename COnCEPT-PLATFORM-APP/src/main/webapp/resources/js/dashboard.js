@@ -10,7 +10,7 @@ $(document).ready(function () {
 function loadDashboardContent(projectID) {
     console.log("Loading dashboard content...")
     //Load content of FileManagement widget
-    $("#fm_dashboard").load("/filemanagement/" + projectID + "?limit=9");
+    $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
 }
 
 //
@@ -18,84 +18,97 @@ function loadDashboardContent(projectID) {
 //
 
 //Disable dashboard page widgets
-
 function disableDashboardPage() {
     console.log("Disable dashboard modules...")
-    //First Row Content to disable
-    $("#firstRowContent").addClass("disabled");
-    $("#brDIVbuttons").addClass("disabled");
-    $("#brDIVtable").addClass("disabled");
-    $("#baBut1").addClass("disabled");
-    $("#brBut2").addClass("disabled");
-    $("#fmDIVbuttons").addClass("disabled");
-    $("#fm_dashboard").addClass("disabled");
-    $("#fm_dashboard").empty();
-    $("#fmBut1").addClass("disabled");
-    $("#fmBut2").addClass("disabled");
-    $("#seDIVbuttons").addClass("disabled");
-    $("#seBut1").addClass("disabled");
-    $("#seBut2").addClass("disabled");
-    //Second Row Content to disable
-    $("#secondRowContent").addClass("disabled");
-    $("#mmDIVbuttons").addClass("disabled");
-    $("#mmBut1").addClass("disabled");
-    $("#mmBut2").addClass("disabled");
-    $("#mbDIVbuttons").addClass("disabled");
-    $("#mbBut1").addClass("disabled");
-    $("#mbBut2").addClass("disabled");
-    $("#skDIVbuttons").addClass("disabled");
-    $("#skBut1").addClass("disabled");
-    $("#skBut2").addClass("disabled");
-    //Hide Project Members List
-    $("#projectMembers").hide();
-    //$("#projectNew").hide();
-    $("#projectView").hide();
+
+    $("#row1").addClass("disabled");
+    $("#row2").addClass("disabled");
     
+    $("#ba-buttons").addClass("disabled");
+    $("#ba-content").addClass("disabled");
+    $("#ba-add").addClass("disabled");
+    //$("#ba-all").addClass("disabled");
     $("#ba-placeholder").show();
+    
+    $("#fm-buttons").addClass("disabled");
+    $("#fm-content").addClass("disabled");
+    $("#fm-add").addClass("disabled");
+    //$("#fm-all").addClass("disabled");
     $("#fm-placeholder").show();
+    
+    $("#se-buttons").addClass("disabled");
+    $("#se-content").addClass("disabled");
+    $("#se-add").addClass("disabled");
+    //$("#se-all").addClass("disabled");
     $("#se-placeholder").show();
+
+    $("#mm-buttons").addClass("disabled");
+    $("#mm-content").addClass("disabled");
+    $("#mm-add").addClass("disabled");
+    //$("#mm-all").addClass("disabled");
     $("#mm-placeholder").show();
+    
+    $("#sb-buttons").addClass("disabled");
+    $("#sb-content").addClass("disabled");
+    $("#mb-add").addClass("disabled");
+    $("#sb-add").addClass("disabled");
+    //$("#sb-all").addClass("disabled");
     $("#sb-placeholder").show();
+    
+    $("#sk-content").addClass("disabled");
+    $("#sk-buttons").addClass("disabled");
+    $("#sk-add").addClass("disabled");
+    //$("#sk-all").addClass("disabled");
     $("#sk-placeholder").show();
+    
+    // Project Selection
+    $("#project-members").hide();
+    $("#project-view").hide();    
 }
 
 function enableDashboardPage() {
-//First Row Content to disable
-    $("#firstRowContent").removeClass("disabled");
-    $("#brDIVbuttons").removeClass("disabled");
-    $("#brDIVtable").removeClass("disabled");
-    $("#baBut1").removeClass("disabled");
-    $("#brBut2").removeClass("disabled");
-    $("#fmDIVbuttons").removeClass("disabled");
-    $("#fmDIVtable").removeClass("disabled");
-    $("#fmBut1").removeClass("disabled");
-    $("#fmBut2").removeClass("disabled");
-    $("#seDIVbuttons").removeClass("disabled");
-    $("#seBut1").removeClass("disabled");
-    $("#seBut2").removeClass("disabled");
-    //Second Row Content to disable
-    $("#secondRowContent").removeClass("disabled");
-    $("#mmDIVbuttons").removeClass("disabled");
-    $("#mmBut1").removeClass("disabled");
-    $("#mmBut2").removeClass("disabled");
-    $("#mbDIVbuttons").removeClass("disabled");
-    $("#mbBut1").removeClass("disabled");
-    $("#mbBut2").removeClass("disabled");
-    $("#skDIVbuttons").removeClass("disabled");
-    $("#skBut1").removeClass("disabled");
-    $("#skBut2").removeClass("disabled");
-    //Show Project Members List
-    $("#projectMembers").show();
-    //$("#projectNew").show();
-    $("#projectView").show();
+
+    $("#row1").removeClass("disabled");
+    $("#row2").removeClass("disabled");
     
+    $("#ba-buttons").removeClass("disabled");
+    $("#ba-content").removeClass("disabled");
+    $("#ba-add").removeClass("disabled");
+    //$("#ba-all").removeClass("disabled");
     $("#ba-placeholder").hide();
+    
+    $("#fm-buttons").removeClass("disabled");
+    $("#fm-content").removeClass("disabled");
+    $("#fm-add").removeClass("disabled");
+    //$("#fm-all").removeClass("disabled");
     $("#fm-placeholder").hide();
+    
+    $("#se-buttons").removeClass("disabled");
+    $("#se-content").removeClass("disabled");
+    $("#se-add").removeClass("disabled");
+    //$("#se-all").removeClass("disabled");
     $("#se-placeholder").hide();
+
+    $("#mm-buttons").removeClass("disabled");
+    $("#mm-content").removeClass("disabled");
+    $("#mm-add").removeClass("disabled");
+    //$("#mm-all").removeClass("disabled");
     $("#mm-placeholder").hide();
+    
+    $("#sb-buttons").removeClass("disabled");
+    $("#sb-content").removeClass("disabled");
+    $("#mb-add").removeClass("disabled");
+    $("#sb-add").removeClass("disabled");
+    //$("#sb-all").removeClass("disabled");
     $("#sb-placeholder").hide();
+    
+    $("#sk-buttons").removeClass("disabled");
+    $("#sk-content").removeClass("disabled");
+    $("#sk-add").removeClass("disabled");
+    //$("#sk-all").removeClass("disabled");
     $("#sk-placeholder").hide();
+   
+    // Project Selection
+    $("#project-members").show();
+    $("#project-view").show();
 }
-
-
-
