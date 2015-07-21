@@ -8,6 +8,7 @@ import eu.concept.repository.concept.domain.UserCo;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,14 @@ public class BriefAnalysisTest {
     BriefAnalysisService baService;
 
     @Test
-//    @Ignore
+    @Ignore
     public void testFetchFiles() {
         int projectID = 2;
-        
+
         String role = "MANAGER";
-        List<BriefAnalysis> baFiles = baService.fetchBriefAnalysisByProjectId(projectID, new UserCo(191,role), 10);
+        List<BriefAnalysis> baFiles = baService.fetchBriefAnalysisByProjectId(projectID, new UserCo(191, role), 10);
         for (BriefAnalysis ba : baFiles) {
-            Logger.getLogger(BriefAnalysisTest.class.getName()).log(Level.INFO, "BID: {0} Title: {1} IsPublic: {2}", new Object[]{ba.getId(),ba.getTitle(), ba.getIsPublic()});
+            Logger.getLogger(BriefAnalysisTest.class.getName()).log(Level.INFO, "BID: {0} Title: {1} IsPublic: {2}", new Object[]{ba.getId(), ba.getTitle(), ba.getIsPublic()});
         }
 
     }

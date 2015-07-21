@@ -306,18 +306,26 @@ public class WebController {
     }
 
     @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
-    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
-//      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
-
-        UserCo newUser = new UserCo();
-        newUser.setId(getCurrentUser().getId());
-        ba.setUid(newUser);
-        model.addAttribute("briefanalysis", ba);
-        baService.storeFile(ba);
-        System.out.println("BA ID: " + ba.getId());
+    public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
+        model.addAttribute("projectID", projectID);
+        
+        
+        System.out.println("Project is: " +projectID);
         return ba_app(model);
     }
 
+//    @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
+//    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
+////      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
+//
+//        UserCo newUser = new UserCo();
+//        newUser.setId(getCurrentUser().getId());
+//        ba.setUid(newUser);
+//        model.addAttribute("briefanalysis", ba);
+//        baService.storeFile(ba);
+//        System.out.println("BA ID: " + ba.getId());
+//        return ba_app(model);
+//    }
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public String dashboardSubmit(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);

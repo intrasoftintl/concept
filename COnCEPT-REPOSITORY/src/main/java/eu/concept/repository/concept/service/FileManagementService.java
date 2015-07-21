@@ -3,6 +3,7 @@ package eu.concept.repository.concept.service;
 import eu.concept.repository.concept.dao.FileManagementRepository;
 import eu.concept.repository.concept.domain.FileManagement;
 import java.util.List;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public class FileManagementService {
         try {
             fileManagement.save(fm);
         } catch (Exception ex) {
+            Logger.getLogger(FileManagementService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return fm.getId() > 0;
@@ -36,6 +38,7 @@ public class FileManagementService {
         try {
             fileManagement.delete(fileID);
         } catch (Exception ex) {
+            Logger.getLogger(FileManagementService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return true;

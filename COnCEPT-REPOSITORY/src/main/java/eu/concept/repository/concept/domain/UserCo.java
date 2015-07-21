@@ -72,6 +72,17 @@ public class UserCo implements Serializable {
     private String username;
 
 
+    String role="";
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
+    
     public UserCo() {
     }
 
@@ -79,6 +90,11 @@ public class UserCo implements Serializable {
         this.id = id;
     }
 
+        public UserCo(Integer id,String role) {
+        this.id = id;
+        this.role= role;
+    }
+    
     public UserCo(Integer id, String email, String firstName, String lastName, String password, String username, Date createdDate) {
         this.id = id;
         this.email = email;

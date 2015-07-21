@@ -2,8 +2,12 @@ package eu.concept.repository.concept.service;
 
 import eu.concept.repository.concept.dao.BriefAnalysisRepository;
 import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.UserCo;
+import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,9 +37,25 @@ public class BriefAnalysisService {
         try {
             briefAnalysis.delete(briefAnalysisID);
         } catch (Exception ex) {
+            Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
             return false;
         }
         return true;
+    }
+
+    public List<BriefAnalysis> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit) {
+        return fetchBriefAnalysisByProjectId(projectID, user, limit, 0);
+    }
+
+    public List<BriefAnalysis> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit, int page) {
+        List<BriefAnalysis> files;
+        Pageable pageRequest = new PageRequest(page, limit);
+        if ("CLIENT".equals(user.getRole())) {
+            files = briefAnalysis.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
+        } else {
+            files = briefAnalysis.findByPid(projectID, pageRequest);
+        }
+        return files;
     }
 
 }
