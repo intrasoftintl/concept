@@ -6,7 +6,7 @@ var MEMBERSHIPS_REST_URL = "http://localhost:8080/concept/rest/memberships/";
 //After html is rendered do the following...
 $(document).ready(function () {
     //Trigger event when project list is changed
-    $('#projectSelect').change(function () {
+    $('#project-select').change(function () {
         var projectID = $(this).val();
         projectSelectedAction(projectID);
     });
@@ -14,7 +14,7 @@ $(document).ready(function () {
     //If not dashboard page, select current project
     if (!isDashboardPage()) {
         console.log("Selecting current project with id: " + $('#projectID').val());
-        $('#projectSelect').val($('#projectID').val()).change();
+        $('#project-select').val($('#projectID').val()).change();
     }
 
     if (isUploadPage()) {
@@ -46,14 +46,16 @@ function projectSelectedAction(projectID) {
             {
                 fullNames += data[i].user.firstname + " " + data[i].user.lastname + ", ";
             }
-            $("#projectMembers").empty();
-            $("#projectMembers").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
-            $("#projectView").attr("href", "http://192.168.3.5/projects/" + projectID);
+            $("#project-members").empty();
+            $("#project-members").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
+            $("#project-view").attr("href", "http://192.168.3.5/projects/" + projectID);
         });
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
-            $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID);
-            $("#baBut1").attr("href", "/ba_app?projectID=" + projectID);
+            $("#ba-add").attr("href", "/ba_app?projectID=" + projectID);    
+            $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
+            $("#sk-add").attr("href", "/sk_app?projectID=" + projectID);
+            
             //Enable DashboardPage
             enableDashboardPage();
             //Load Dashboard content
@@ -63,26 +65,31 @@ function projectSelectedAction(projectID) {
         }
 
         if (isUploadPage()) {
-            $(".panel-body").show();
-            $("#sort").show();
             $("#fm-placeholder").hide();
-            $("#fm-view-all").removeClass("disabled");
-            $("#projectMembers").show();
-            $("#projectView").show();
+            
+            $(".panel-body").show();
+            $(".panel-footer").show();    
+            $("#sort").show();
+            
+            $("#fm-all").removeClass("disabled");
+            
+            $("#project-members").show();
+            $("#project-view").show();
         }
 
         if (isFMPage()) {
             $("#fm-placeholder").hide();
             $("#sort").show();
-            $("#fm_all").load("/filemanagement_all/" + projectID + "?limit=200");
-            $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID);
-            $("#projectMembers").show();
-            $("#projectView").show();
+            $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);    
+            $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200");
+            
+            $("#project-members").show();
+            $("#project-view").show();
         }
 
         if (isBA_App()) {
-            $("#projectMembers").show();
-            $("#projectView").show();
+            $("#project-members").show();
+            $("#project-view").show();
         }
 
     } else if (isDashboardPage()) {
@@ -90,19 +97,21 @@ function projectSelectedAction(projectID) {
     } else if (isUploadPage()) {
         $(".panel-body").hide();
         $("#fm-placeholder").show();
-        $("#fm-view-all").addClass("disabled");
-        $("#projectMembers").hide();
-        $("#projectView").hide();
+        $("#fm-all").addClass("disabled");
+        $(".panel-footer").hide();
+        $("#project-members").hide();
+        $("#project-view").hide();
     } else if (isFMPage()) {
         $(".panel-body").hide();
         $("#sort").hide();
         $("#fm-placeholder").show();
         $(".panel-footer").hide();
-        $("#projectMembers").hide();
-        $("#projectView").hide();
+        $("#project-members").hide();
+        $("#project-view").hide();
+        $("#fm-add").hide();
     } else if (isBA_App) {
-        $("#projectMembers").hide();
-        $("#projectView").hide();
+        $("#project-members").hide();
+        $("#project-view").hide();
     }
 
 }

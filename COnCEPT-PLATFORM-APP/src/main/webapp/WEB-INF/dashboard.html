@@ -13,7 +13,7 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
-        <input id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input id="csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
@@ -38,7 +38,7 @@
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
-                <select id="projectSelect" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default">
                     <option selected="true" value="0">Please select a project</option>
                     <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
                 </select>
@@ -50,23 +50,23 @@
             </div>          
 
             <div class="project-selection">
-                
+
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                    <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                     <span th:case="'DESIGNER'">
-                    <a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                     <span th:case="'CLIENT'">
-                    <a target="_blank" id="projectView" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                 </div>
-                
-                <h5 id="projectMembers" class="highlight">Project Members<br/><small></small></h5>
+
+                <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
             </div>
-            
+
         </nav>
 
         <!-- chat -->
@@ -133,107 +133,105 @@
                 </div>
             </div>
 
-            <div id="firstRowContent" class="row">
+            <div id="row1" class="row">
 
                 <!-- brief analysis -->
                 <div class="col-md-4 ">
-                    <div id="brDIVbuttons" class="panel panel-default">
+                    <div id="ba-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Brief Analysis</h4>
                             <div class="btn-group pull-right">
-                                <a id="baBut1" href="/ba_app" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
+                                <a id="ba-add" href="/ba_app" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</a>
                             </div>
                         </div>
-                        
+
                         <div id="ba-placeholder" class="panel-body disabled"></div>
-                        <div id="ba_dashboard"></div>
-                        
+                        <div id="ba-dashboard"></div>
+
                     </div>
                 </div>
 
                 <!-- file management -->
                 <div class="col-md-4">
-                    <div id="fmDIVbuttons" class="panel panel-default">
+                    <div id="fm-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
                             <div class="btn-group pull-right">
-
-                                <a id="fmBut1" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</a>
-
+                                <a id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</a>
                             </div>
                         </div>
-                        
+
                         <div id="fm-placeholder" class="panel-body disabled"></div>
-                        <div id="fm_dashboard"></div>
+                        <div id="fm-dashboard"></div>
 
                     </div>
                 </div>
 
                 <!-- search engine -->
                 <div class="col-md-4">
-                    <div id="seDIVbuttons" class="panel panel-default">
+                    <div id="se-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Search Engine</h4>
                             <div  class="btn-group pull-right">
-                                <a id="seBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</a>
+                                <a id="se-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</a>
                             </div>
                         </div>
-                        
+
                         <div id="se-placeholder" class="panel-body disabled"></div>
-                        <div id="se_dashboard"></div>
-                        
+                        <div id="se-dashboard"></div>
+
                     </div>
                 </div>
             </div>
 
-            <div id="secondRowContent" class="row">
+            <div id="row2" class="row">
 
                 <!-- mindmaps -->
                 <div class="col-md-4">
-                    <div id="mmDIVbuttons" class="panel panel-default">
+                    <div id="mm-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Mindmaps</h4>
                             <div  class="btn-group pull-right">
-                                <a id="mmBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</a>
+                                <a id="mm-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</a>
                             </div>
                         </div>
-                        
+
                         <div id="mm-placeholder" class="panel-body disabled"></div>
-                        <div id="mm_dashboard"></div>
-                       
+                        <div id="mm-dashboard"></div>
+
                     </div>
                 </div>
 
                 <!-- storyboards -->
                 <div class="col-md-4">
-                    <div id="mbDIVbuttons" class="panel panel-default">
+                    <div id="sb-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Storyboards</h4>
                             <div  class="btn-group pull-right">
-                                <a id="mbBut1" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</a>
-                                <a id="mbBut2" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
+                                <a id="mb-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</a>
+                                <a id="sb-add" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
                             </div>
                         </div>
-                        
+
                         <div id="sb-placeholder" class="panel-body disabled"></div>
-                        <div id="sb_dashboard"></div>
-                        
+                        <div id="sb-dashboard"></div>
+
                     </div>
                 </div>
 
                 <!-- sketches -->
                 <div class="col-md-4">
-                    <div id="skDIVbuttons"  class="panel panel-default">
+                    <div id="sk-buttons"  class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Sketches</h4>
                             <div class="btn-group pull-right">
-                                <a id="skBut1" href="/sk_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</a>
+                                <a id="sk-add" href="/sk_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</a>
                             </div>
                         </div>
-                        
+
                         <div id="sk-placeholder" class="panel-body disabled"></div>
-                        <div id="sk_dashboard"></div>
-                        
+                        <div id="sk-dashboard"></div>
+
                     </div>
                 </div>
             </div>
