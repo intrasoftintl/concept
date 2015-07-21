@@ -53,7 +53,7 @@ function projectSelectedAction(projectID) {
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
             $("#fmBut1").attr("href", "/fm_app?projectID=" + projectID);
-            $("#baBut1").attr("href", "/ba_app?projectID=" + projectID);
+            $("#baBut1").attr("href", "/ba_app/" + projectID);
             //Enable DashboardPage
             enableDashboardPage();
             //Load Dashboard content

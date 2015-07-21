@@ -13,11 +13,9 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.repository.openproject.service.UserManagementOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
-import eu.concept.util.other.Util;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,8 +56,6 @@ public class WebController {
     @Autowired
     BriefAnalysisService baService;
 
-    private Object u;
-
     /*
      *  GET Methods 
      */
@@ -96,6 +92,7 @@ public class WebController {
     //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
+
         //,@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
         int projectID = (model.containsAttribute("projectID") ? (Integer) model.asMap().get("projectID") : 0);
@@ -133,13 +130,17 @@ public class WebController {
     @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
     public String ba_app(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-
-        if (!model.containsAttribute("briefanalysis")) {
-            model.addAttribute("briefanalysis", new BriefAnalysis());
+        if (model.containsAttribute("ba_id")) {
+            System.out.println("\n\nBA ID is:  " + model.asMap().get("ba_id"));
         }
 
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        if (!model.containsAttribute("briefanalysis")) {
+            model.addAttribute("briefanalysis", new BriefAnalysis());
+        } else {
+
+        }
         return "ba_app";
     }
 
@@ -289,30 +290,23 @@ public class WebController {
 
     }
 
+    @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
+    public String fetchBriefAnalysisByID(Model model, @PathVariable int ba_id) {
+        model.addAttribute("ba_id", ba_id);
+        return "redirect:/" +ba_app(model);
+    }
+
     @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
     public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model) {
+//      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
 
-//        ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
         UserCo newUser = new UserCo();
         newUser.setId(getCurrentUser().getId());
         ba.setUid(newUser);
         model.addAttribute("briefanalysis", ba);
-
-//        String redirectToPage = "";
         baService.storeFile(ba);
-        System.out.println("BA ID: "+ba.getId());
-
-//        if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
-//            model.addAttribute("new_registration", appResponse.getMessage());
-//            return login(model);
-//        } else {
-//            redirectToPage = "registration";
-//            model.addAttribute("error", appResponse.getMessage());
-//        }
-//        logger.log(Level.INFO, "StatusCode: {0} StatusMessage: {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
-//        return redirectToPage;
+        System.out.println("BA ID: " + ba.getId());
         return ba_app(model);
-
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
