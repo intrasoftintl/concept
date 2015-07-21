@@ -6,6 +6,7 @@
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,6 +60,10 @@ public class FileManagement implements Serializable {
     @NotNull
     @Column(name = "isPublic")
     private short isPublic;
+    @Basic(optional = false)
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private UserCo uid;
@@ -68,13 +75,14 @@ public class FileManagement implements Serializable {
         this.id = id;
     }
 
-    public FileManagement(Integer id, int pid, String filename, byte[] content, String type, short isPublic) {
+    public FileManagement(Integer id, int pid, String filename, byte[] content, String type, short isPublic, Date createdDate) {
         this.id = id;
         this.pid = pid;
         this.filename = filename;
         this.content = content;
         this.type = type;
         this.isPublic = isPublic;
+        this.createdDate = createdDate;
     }
 
     public Integer getId() {
@@ -123,6 +131,14 @@ public class FileManagement implements Serializable {
 
     public void setIsPublic(short isPublic) {
         this.isPublic = isPublic;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public UserCo getUid() {

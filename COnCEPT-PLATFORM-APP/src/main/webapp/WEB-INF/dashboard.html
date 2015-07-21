@@ -36,7 +36,7 @@
         </nav>
 
 
-
+        <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
 
 
 
@@ -139,7 +139,7 @@
             </div>
 
             <div id="row1" class="row">
-        <input type="text" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
+
                 <!-- brief analysis -->
                 <div class="col-md-4 ">
                     <div id="ba-buttons" class="panel panel-default">
@@ -162,7 +162,8 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
                             <div class="btn-group pull-right">
-                                <a id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</a>
+                                <form id="uploadForm" action="#" method="post" th:action="@{/fm_app}"> <button  onclick="addProjectIDToForm('uploadForm')" type="submit" id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</button>
+                                </form>
                             </div>
                         </div>
 
@@ -255,3 +256,4 @@
 
     </body>
 </html>
+

@@ -92,8 +92,6 @@ public class WebController {
     //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
-
-        //,@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
         int projectID = (model.containsAttribute("projectID") ? (Integer) model.asMap().get("projectID") : 0);
 //        if (projectID > 0) {
@@ -106,7 +104,7 @@ public class WebController {
 //            logger.info("Invalid projectID: " + projectID);
 //        }
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projectID",8);
+        model.addAttribute("projectID", 8);
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "dashboard";
@@ -160,6 +158,13 @@ public class WebController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "fm_app";
+    }
+
+    // File Management APP + ALL
+    @RequestMapping(value = "/fm_app", method = RequestMethod.POST)
+    public String fm_appPost(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+        model.addAttribute("projectID", projectID);
+        return fm_app(model);
     }
 
     @RequestMapping(value = "/fm_all", method = RequestMethod.GET)

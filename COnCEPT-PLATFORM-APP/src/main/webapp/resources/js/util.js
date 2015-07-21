@@ -54,8 +54,8 @@ function projectSelectedAction(projectID) {
         if (isDashboardPage()) {
 
             $("#projectID").val(projectID);
-            $("#ba-add").attr("href", "/ba_app/"  + projectID);
-            $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
+            $("#ba-add").attr("href", "/ba_app/" + projectID);
+//            $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#sk-add").attr("href", "/sk_app?projectID=" + projectID);
 
             //Enable DashboardPage
@@ -67,29 +67,31 @@ function projectSelectedAction(projectID) {
         }
 
         if (isFM_app()) {
-            $("#fm-placeholder").hide();
-
             $(".panel-body").show();
             $(".panel-footer").show();
             $("#sort").show();
+            //$("#fm-all").removeClass("disabled");
 
-            $("#fm-all").removeClass("disabled");
-
+            $("#fm-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
         }
 
         if (isFM_all()) {
-            $("#fm-placeholder").hide();
             $("#sort").show();
+
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
+            $("#fm-add").show();
             $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200");
+
+
+            $("#fm-placeholder").hide();
 
             $("#project-members").show();
             $("#project-view").show();
         }
 
-        if (isBA_App()) {
+        if (isBA_app()) {
             $("#project-members").show();
             $("#project-view").show();
         }
@@ -111,7 +113,7 @@ function projectSelectedAction(projectID) {
         $("#project-members").hide();
         $("#project-view").hide();
         $("#fm-add").hide();
-    } else if (isBA_App) {
+    } else if (isBA_app) {
         $("#project-members").hide();
         $("#project-view").hide();
     }
