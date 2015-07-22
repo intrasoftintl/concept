@@ -13,13 +13,13 @@ function logger(message) {
 
 //After html is rendered do the following...
 $(document).ready(function () {
-
+    
     //Trigger event when project list is changed
     $('#project-select').change(function () {
         var projectID = $(this).val();
         projectSelectedAction(projectID);
     });
-
+    
     //If not dashboard page, select current project
     if (!isDashboardPage()) {
         console.log("Selecting current project with id: " + $('#projectID').val());
@@ -207,7 +207,4 @@ function deleteWidgetItem(URL) {
         logger("Loading metada for ID: " + metadataID);
         $("#metadata-area").load("/metadata/" + metadataID);
     }
-
-
 }
-
