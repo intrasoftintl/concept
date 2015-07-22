@@ -31,6 +31,7 @@ public class UserCo implements Serializable {
 
 
 
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -190,6 +191,8 @@ public class UserCo implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.User[ id=" + id + " ]";
     }   
+
+
 
 
 }

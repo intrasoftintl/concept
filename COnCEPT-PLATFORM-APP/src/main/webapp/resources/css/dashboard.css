@@ -645,7 +645,7 @@ table img.notification{ width:60px; margin:0; background: #fff; border-radius:50
    display: inline;
 }
 
-.panel-body form.actions .action-button{
+.action-button{
     background-color: transparent;
     background-repeat:no-repeat;
     border: none;

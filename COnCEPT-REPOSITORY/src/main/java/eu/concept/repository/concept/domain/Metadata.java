@@ -6,117 +6,109 @@
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Entity
-@Table(name = "BriefAnalysis")
+@Table(name = "Metadata")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "BriefAnalysis.findAll", query = "SELECT b FROM BriefAnalysis b")})
-public class BriefAnalysis implements Serializable {
+    @NamedQuery(name = "Metadata.findAll", query = "SELECT m FROM Metadata m")})
+public class Metadata implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "pid")
-    private int pid;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "title")
-    private String title;
+    private Long id;
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "content")
-    private String content;
+    @Column(name = "categories")
+    private String categories;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "keywords")
+    private String keywords;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "description")
+    private String description;
     @Basic(optional = false)
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "isPublic")
-    private short isPublic;
-    @JoinColumn(name = "uid", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private UserCo uid;
-    @JoinColumn(name = "mid", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Metadata metadata;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "metadata")
+    private Collection<BriefAnalysis> briefAnalysisCollection;
 
-    public BriefAnalysis() {
+    public Metadata() {
     }
 
-    public BriefAnalysis(Integer id) {
+    public Metadata(Long id) {
         this.id = id;
     }
 
-    public BriefAnalysis(Integer id, int pid, String title, String content, Date createdDate, short isPublic) {
+    public Metadata(Long id, String categories, String keywords, String description, Date createdDate) {
         this.id = id;
-        this.pid = pid;
-        this.title = title;
-        this.content = content;
+        this.categories = categories;
+        this.keywords = keywords;
+        this.description = description;
         this.createdDate = createdDate;
-        this.isPublic = isPublic;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public int getPid() {
-        return pid;
+    public String getCtaegories() {
+        return categories;
     }
 
-    public void setPid(int pid) {
-        this.pid = pid;
+    public void setCtaegories(String categories) {
+        this.categories = categories;
     }
 
-    public String getTitle() {
-        return title;
+    public String getKeywords() {
+        return keywords;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getCreatedDate() {
@@ -127,28 +119,13 @@ public class BriefAnalysis implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public short getIsPublic() {
-        return isPublic;
+    @XmlTransient
+    public Collection<BriefAnalysis> getBriefAnalysisCollection() {
+        return briefAnalysisCollection;
     }
 
-    public void setIsPublic(short isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public UserCo getUid() {
-        return uid;
-    }
-
-    public void setUid(UserCo userCo) {
-        this.uid = userCo;
-    }
-
-    public Metadata getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
+    public void setBriefAnalysisCollection(Collection<BriefAnalysis> briefAnalysisCollection) {
+        this.briefAnalysisCollection = briefAnalysisCollection;
     }
 
     @Override
@@ -161,10 +138,10 @@ public class BriefAnalysis implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BriefAnalysis)) {
+        if (!(object instanceof Metadata)) {
             return false;
         }
-        BriefAnalysis other = (BriefAnalysis) object;
+        Metadata other = (Metadata) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -173,7 +150,7 @@ public class BriefAnalysis implements Serializable {
 
     @Override
     public String toString() {
-        return "eu.concept.repository.concept.domain.BriefAnalysis[ id=" + id + " ]";
+        return "eu.concept.repository.concept.domain.Metadata[ id=" + id + " ]";
     }
     
 }

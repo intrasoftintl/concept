@@ -1,6 +1,7 @@
 package eu.concept.repository.concept.service;
 
 import eu.concept.repository.concept.dao.BriefAnalysisRepository;
+import eu.concept.repository.concept.dao.MetadataRepository;
 import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.UserCo;
 import java.util.List;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -19,9 +21,17 @@ public class BriefAnalysisService {
 
     @Autowired
     private BriefAnalysisRepository briefAnalysis;
+    
+    
+    
+    @Autowired
+    private MetadataRepository metadata;
 
+    @Transactional
     public boolean storeFile(BriefAnalysis ba) {
         try {
+            metadata.save(ba.getMetadata());
+            System.out.println("Metadata id is: "+ba.getMetadata().getId());
             briefAnalysis.save(ba);
         } catch (Exception ex) {
             Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());

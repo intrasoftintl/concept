@@ -3,6 +3,7 @@ package eu.concept.controller.component;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.openproject.domain.ProjectOp;
@@ -102,11 +103,16 @@ public class BriefAnalysisController {
         System.out.println("ProjectID : " + ba.getPid());
         UserCo newUser = new UserCo();
         newUser.setId(getCurrentUser().getId());
-                if (null == ba.getTitle() || ba.getTitle().isEmpty() ){
+        if (null == ba.getTitle() || ba.getTitle().isEmpty()) {
             ba.setTitle("Untitled");
         }
         ba.setPid(projectID);
         ba.setUid(newUser);
+        Metadata metadata = new Metadata(null, "", "", "", null);
+//        metadata.setCtaegories("");
+//        metadata.setDescription("");
+//        metadata.setKeywords("");
+        ba.setMetadata(metadata);
         model.addAttribute("briefanalysis", ba);
         if (baService.storeFile(ba)) {
             System.out.println("I am in!!!!!!\n" + "Saved to Concept DB");

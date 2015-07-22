@@ -174,10 +174,10 @@ function loadMD() {
     $(".nav-chat-hidden").hide();
     $(".nav-apps").hide();
 
-    $(".nav-main-md").show();
-    $(".nav-keywords").show();
-    $(".nav-categories").show();
-    $(".nav-actions-md").show();
+//    $(".nav-main-md").show();
+//    $(".nav-keywords").show();
+//    $(".nav-categories").show();
+//    $(".nav-actions-md").show();
 }
 
 
@@ -202,12 +202,13 @@ function deleteWidgetItem(URL) {
         }
     });
 
-
-    function loadMetadata(metadataID) {
-        logger("Loading metada for ID: " + metadataID);
-        $("#metadata-area").load("/metadata/" + metadataID);
-    }
-
-
 }
 
+
+
+function loadMetadata(metadataID) {
+    logger("Loading metada for ID: " + metadataID);
+    $("#metadata-area").load("/metadata/" + metadataID);
+    //Load metadata content
+    loadMD();
+}
