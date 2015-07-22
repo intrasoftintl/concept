@@ -546,6 +546,11 @@ body{
     height:calc(100vh - 36px);
 }
 
+.literally .lc-options .lc-font-settings {
+    line-height:20px;
+    padding:6px;  
+}
+
 /* BA APP */
 textarea{
     height:calc(100vh - 147px); //111+36
