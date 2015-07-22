@@ -14,7 +14,7 @@ function loadDashboardContent(projectID) {
     //Load content of BriefAnalysis widget
     $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=9");
     //Load content of Sketch widget
-    $("#sk-dashboard").load("/sketch/" + projectID + "?limit=9");
+    $("#sk-dashboard").load("/sketch/" + projectID + "?limit=4");
 }
 
 //

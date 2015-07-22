@@ -1,40 +1,40 @@
 <div th:fragment="baContentList"  th:unless="${#lists.isEmpty(baContents)}" >
     <div class="panel-body no-padding">
-				    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="col-md-5">Recently Created BA Documents</th>
-                <th class="col-md-2">User</th>
-                <th class="col-md-5"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="baContent : ${baContents}">
-                <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
-                <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${baContent.createdDate}"></span></td>
-                <td>
-                    <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-5">Recent Documents</th>
+                    <th class="col-md-2">User</th>
+                    <th class="col-md-5"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="baContent : ${baContents}">
+                    <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
+                    <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${baContent.createdDate}"></span></td>
+                    <td>
+                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
 
-                    <form  role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">
-                        <input name="fileID" type="hidden" th:value="${baContent.id}"/>
-                        <input name="projectID" type="hidden" th:value="${projectID}"/>
+                        <form  role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">
+                            <input name="fileID" type="hidden" th:value="${baContent.id}"/>
+                            <input name="projectID" type="hidden" th:value="${projectID}"/>
+                            <button class="action-button">
+                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            </button>
+                        </form>
+                        &nbsp;
 
-                        <button class="action-button">
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true" onclick="deleteWidgetItem('/ba_app/2')"/>
-                        </button>
-                    </form>
-                    &nbsp;
-                    
-                    <span th:class="(${baContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
-                    <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        <span th:class="(${baContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
+                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
 
     <div class="panel-footer">
-        Brief Analysis Documents (<span th:text="${totalFiles}"> </span>) - <a href="/ba_all">View All</a>
+        Documents (<span th:text="${totalFiles}"> </span>) - <a href="/ba_all">View All</a>
     </div>
 </div>
 
@@ -43,7 +43,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-5">Recent Created BA Documents</th>
+                    <th class="col-md-5">Recent Documents</th>
                     <th class="col-md-2">User</th>
                     <th class="col-md-5"></th>
                 </tr>
@@ -61,7 +61,7 @@
                         <button class="action-button">
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
-                            
+
                         <span th:class="(${baContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
                     </td>

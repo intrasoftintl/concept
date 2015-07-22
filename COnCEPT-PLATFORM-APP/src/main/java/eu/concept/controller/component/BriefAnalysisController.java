@@ -102,6 +102,9 @@ public class BriefAnalysisController {
         System.out.println("ProjectID : " + ba.getPid());
         UserCo newUser = new UserCo();
         newUser.setId(getCurrentUser().getId());
+                if (null == ba.getTitle() || ba.getTitle().isEmpty() ){
+            ba.setTitle("Untitled");
+        }
         ba.setPid(projectID);
         ba.setUid(newUser);
         model.addAttribute("briefanalysis", ba);

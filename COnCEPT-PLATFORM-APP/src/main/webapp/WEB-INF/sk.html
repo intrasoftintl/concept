@@ -4,7 +4,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-5">Recent Uploaded Files</th>
+                    <th class="col-md-5">Recent Sketches</th>
                     <th class="col-md-2">User</th>
                     <th class="col-md-5"></th>
                 </tr>
@@ -30,3 +30,47 @@
     
 </div>
 
+<div th:fragment="skContentAllList"  th:unless="${#lists.isEmpty(skContents)}" > 
+    <div class="panel-body no-padding" >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-5">Recent Sketches</th>
+                    <th class="col-md-2">User</th>
+                    <th class="col-md-5"></th>
+                </tr>
+            </thead>
+            <tbody>            
+                <tr th:each="skContent : ${skContents}">
+                    <td><a th:href="@{'/file/'+${skContent.id}}" data-lightbox="@{'/sk/'+${skContent.id}}"><img th:src="@{'/sk/'+${skContent.id}+'?preview=1'}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a  th:href="@{'/file/'+${skContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${skContent.filename}" >Download</a></td>
+                    <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${skContent.createdDate}"></span></td>
+                    <td>
+                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                        <form  role="form"  class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${skContent}" method="post">
+                            <input name="fileID" type="hidden" th:value="${skContent.id}"/>
+                            <input name="projectID" type="hidden" th:value="${projectID}"/>
+                            
+                            <button class="action-button">
+                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            </button>
+                        </form>
+                        &nbsp;
+                        <span th:class="(${skContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
+                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                    </td>
+                </tr>  
+            </tbody>
+        </table>
+    </div>
+   
+    <!-- Load more button -->
+    <div class="panel-footer" style="text-align:center">
+       <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+    </div>
+
+    <!-- Nothing more to load button -->
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
+    </div>
+
+</div>
