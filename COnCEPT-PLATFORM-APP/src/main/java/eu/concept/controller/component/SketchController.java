@@ -105,16 +105,15 @@ public class SketchController {
         System.out.println("ProjectID : " + sk.getPid());
         UserCo newUser = new UserCo();
         newUser.setId(getCurrentUser().getId());
+        if (null == sk.getTitle() || sk.getTitle().isEmpty() ){
+            sk.setTitle("Untitled");
+        }
         sk.setPid(projectID);
         sk.setUid(newUser);
         model.addAttribute("sketch", sk);
         if (skService.storeFile(sk)) {
-            System.out.println("I am in!!!!!!\n" + "Saved to Concept DB");
             model.addAttribute("success", "Saved to Concept DB");
         }
-
-        System.out.println("SK ID: " + sk.getId());
-
         return "redirect:/sk_app/" + sk.getId();
     }
 

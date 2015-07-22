@@ -167,14 +167,6 @@ function loadBAContent() {
     $('#document-title').val("Document 1");
 }
 
-function saveSKContent() {
-    console.log(localStorage.getItem('drawing'));
-    console.log($('#document-title').val());
-}
-
-function loadSKContent(value) {
-    localStorage.setItem('drawing',value);
-}
 //
 //$('#tags').tagsInput({
 //    'height': '160px',

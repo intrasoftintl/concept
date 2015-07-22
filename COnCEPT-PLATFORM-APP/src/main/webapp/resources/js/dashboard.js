@@ -11,7 +11,10 @@ function loadDashboardContent(projectID) {
     console.log("Loading dashboard content...")
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
+    //Load content of BriefAnalysis widget
     $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=9");
+    //Load content of Sketch widget
+    $("#sk-dashboard").load("/sketch/" + projectID + "?limit=9");
 }
 
 //

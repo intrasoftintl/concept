@@ -125,12 +125,11 @@
                 <div class="form-group document-title">
                     <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
                     <input type="hidden" th:value="${sketch.id}"   th:field="*{id}" class="form-control input-sm" id="sk-id" name="sk-id" size="50" value="SK_00001"/>
-
                     <label for="document-title">Sketch Title</label>
-                    <input th:value="${sketch.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" value="SK_00001"/>
+                    <input th:value="${sketch.title}"  th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled"/>
                     <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editSK" onclick="includeContent()"/>
                     <input id="document-content"  type="hidden" th:value="${sketch.content}" th:field="*{content}" name="document-content" />
-
+                    <input id="content-thumbnail"  type="hidden" th:value="${sketch.contentThumbnail}" th:field="*{contentThumbnail}" name="content-thumbnail" />
                 </div>
                 <div class="literally"><canvas ></canvas></div>
             </form>
@@ -146,17 +145,3 @@
 
     </body>
 </html>
-
-<script>
-                        $(document).ready(function () {
-                            loadSKContent($("#document-content").val());
-                        });
-
-
-                        function includeContent() {
-                            saveSKContent();
-//                            alert(localStorage.getItem("drawing"));
-                            $("#document-content").val(localStorage.getItem("drawing"));
-                        }
-
-</script>

@@ -1,15 +1,26 @@
+//Define global variable
+var lc;
+localStorage.setItem('drawing', '');
 $(document).ready(function () {
+
+
+    //Load currenct selected Sketch
+    loadSKContent($("#document-content").val());
+
 
     // Initialization
     var imageSize = {width: 200, height: 200};
     var imageBounds = {
         x: 0, y: 0, width: imageSize.width, height: imageSize.height
     };
-    var lc = LC.init(document.getElementsByClassName('literally')[0], {
+
+
+    lc = LC.init(document.getElementsByClassName('literally')[0], {
         backgroundColor: 'whiteSmoke',
         imageURLPrefix: '../resources/img/sketching',
         imageSize: 'imageSize'
     });
+
 
     // Local Storage
     var localStorageKey = 'drawing'
@@ -27,13 +38,16 @@ $(document).ready(function () {
         // Get canvas image
         window.open(lc.canvasForExport().toDataURL("image/png"));
 
-        // Get image
-        //window.open(lc.getImage().toDataURL());
-
-        // Get bounded image
-        //window.open(lc.getImage({rect: imageBounds}).toDataURL());
-
     });
 
 });
 
+//Include some content and content-thumbnail on form submission
+function includeContent() {
+    $("#document-content").val(localStorage.getItem("drawing"));
+    $("#content-thumbnail").val(lc.canvasForExport().toDataURL("image/png"));
+}
+
+function loadSKContent(value) {
+    localStorage.setItem('drawing', value);
+}

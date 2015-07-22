@@ -55,6 +55,11 @@ public class Sketch implements Serializable {
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "content_thumbnail")
+    private String contentThumbnail;
+    @Basic(optional = false)
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
@@ -73,11 +78,12 @@ public class Sketch implements Serializable {
         this.id = id;
     }
 
-    public Sketch(Integer id, int pid, String title, String content, Date createdDate, short isPublic) {
+    public Sketch(Integer id, int pid, String title, String content, String contentThumbnail, Date createdDate, short isPublic) {
         this.id = id;
         this.pid = pid;
         this.title = title;
         this.content = content;
+        this.contentThumbnail = contentThumbnail;
         this.createdDate = createdDate;
         this.isPublic = isPublic;
     }
@@ -112,6 +118,14 @@ public class Sketch implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getContentThumbnail() {
+        return contentThumbnail;
+    }
+
+    public void setContentThumbnail(String contentThumbnail) {
+        this.contentThumbnail = contentThumbnail;
     }
 
     public Date getCreatedDate() {

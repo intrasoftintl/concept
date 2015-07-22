@@ -11,8 +11,8 @@
             </thead>
             <tbody>            
                 <tr th:each="skContent : ${skContents}">
-                    <td><a href="#"><img th:src="resources/img/sk_00001.png" class="img-thumbnail" /></a></td>
-                    <td class="truncate">user123456789</td>
+                    <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
+                    <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${skContent.createdDate}"></span></td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
@@ -25,7 +25,7 @@
     </div>
     
     <div class="panel-footer">
-        Sketches (<span th:text="${maxSketches}"></span>) - <a href="/sk_all">View All</a>
+        Sketches (<span th:text="${totalFiles}"></span>) - <a href="/sk_all">View All</a>
     </div>
     
 </div>
