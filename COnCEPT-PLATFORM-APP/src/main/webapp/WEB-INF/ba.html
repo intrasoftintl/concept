@@ -25,7 +25,6 @@
                         <form role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">
                             <input name="fileID" type="hidden" th:value="${baContent.id}"/>
                             <input name="projectID" type="hidden" th:value="${projectID}"/>
-
                             <button class="action-button">
                                 <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                             </button>
@@ -38,6 +37,7 @@
                 </tr>
             </tbody>
         </table>
+
     </div>
 
     <div class="panel-footer">

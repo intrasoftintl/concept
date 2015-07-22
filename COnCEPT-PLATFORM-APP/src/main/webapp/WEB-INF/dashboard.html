@@ -12,13 +12,13 @@
         <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
-    <body>
-        <input id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        
+    <body>        
         
         <div th:include=" :: navigation-main"></div>
         <div th:include=" :: navigation-metadata"></div>
         
+        <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+ 
         <!-- dashboard -->
         <div class="content">
             <div class="header">

@@ -53,13 +53,11 @@ public class BriefAnalysisController {
     //TODO: Show succes/error message on save
     @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByID(Model model, @PathVariable int ba_id) {
-
         BriefAnalysis ba = baService.fetchBriefAnalysisById(ba_id);
         if (null == ba) {
             Logger.getLogger(BriefAnalysis.class.getName()).severe("Could not found BriefAnalysis with id: " + ba_id);
             return "error";
         }
-
         model.addAttribute("briefanalysis", ba);
         model.addAttribute("projectID", ba.getPid());
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -94,8 +92,6 @@ public class BriefAnalysisController {
     @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
     public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
         model.addAttribute("projectID", projectID);
-
-        System.out.println("Project is: " + projectID);
         return ba_app(model);
     }
 
@@ -121,6 +117,15 @@ public class BriefAnalysisController {
         System.out.println("BA ID: " + ba.getId());
 
         return "redirect:/ba_app/" + ba.getId();
+    }
+
+    /*
+     *  DELETE Methods 
+     */
+    @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.DELETE)
+    public String deleteBriefAnalysisByID(Model model, @PathVariable int ba_id) {
+        System.out.println("Request to delete brief analysis with ID: " + ba_id);
+        return "ba_app";
     }
 
 }
