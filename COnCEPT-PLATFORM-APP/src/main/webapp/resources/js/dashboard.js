@@ -21,7 +21,10 @@ function loadDashboardContent(projectID) {
 //Disable dashboard page widgets
 function disableDashboardPage() {
     console.log("Disable dashboard modules...")
-
+        
+    $('.nav-apps ul').addClass("disabled");
+    $('.app-link').addClass("disabled");        
+        
     $("#row1").addClass("disabled");
     $("#row2").addClass("disabled");
 
@@ -68,6 +71,9 @@ function disableDashboardPage() {
 }
 
 function enableDashboardPage() {
+
+    $('.nav-apps ul').removeClass("disabled");
+    $('.app-link').removeClass("disabled"); 
 
     $("#row1").removeClass("disabled");
     $("#row2").removeClass("disabled");

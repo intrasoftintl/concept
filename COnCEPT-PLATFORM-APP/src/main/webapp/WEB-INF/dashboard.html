@@ -24,37 +24,19 @@
         </nav>
 
         <!-- apps -->
-        <nav class="nav-apps " th:switch="${currentUser.getRole()}">
-            <ul th:case="'MANAGER'">
-                <li><a href="/ba_app"><img src="resources/img/ICON_BA.png" /></a></li>
-                <li><a href="/fm_app"><img src="resources/img/ICON_FM.png" /></a></li>
+        <nav class="nav-apps">
+            <ul>
+                <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><a onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="resources/img/ICON_BA.png" /></a></form></li> 
+                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><a onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="resources/img/ICON_FM.png" /></a></form></li>
                 <li><a href="/se_app"><img src="resources/img/ICON_SE.png" /></a></li>
                 <li><a href="/mm_app"><img src="resources/img/ICON_MM.png" /></a></li>
                 <li><a href="/sb_app"><img src="resources/img/ICON_SB.png" /></a></li>
-                <li><a href="/sk_app"><img src="resources/img/ICON_SK.png" /></a></li>
+                <li><form id="sk-app-link-form" action="#" method="post" th:action="@{/sk_app}"><a onclick="addProjectIDToForm('sk-app-link-form')" type="submit" id="sk-app-link" class="app-link"><img src="resources/img/ICON_SK.png" /></a></form></li>
             </ul>
-            <ul th:case="'DESIGNER'">
-                <li><a href="/ba_app"><img src="resources/img/ICON_BA.png" /></a></li>
-                <li><a href="/fm_app"><img src="resources/img/ICON_FM.png" /></a></li>
-                <li><a href="/se_app"><img src="resources/img/ICON_SE.png" /></a></li>
-                <li><a href="/mm_app"><img src="resources/img/ICON_MM.png" /></a></li>
-                <li><a href="/sb_app"><img src="resources/img/ICON_SB.png" /></a></li>
-                <li><a href="/sk_app"><img src="resources/img/ICON_SK.png" /></a></li>
-            </ul>
-            <ul th:case="'CLIENT'">
-                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
-            </ul>
+            
         </nav>
 
-
         <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
-
-
 
         <!-- projects -->
         <nav class="nav-projects">
