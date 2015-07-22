@@ -61,6 +61,15 @@ function projectSelectedAction(projectID) {
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#fm-app-link").attr("href", "/fm_app?projectID=" + projectID);
             
+            $("#se-add").attr("href", "/se_app?projectID=" + projectID);
+            $("#se-app-link").attr("href", "/se_app?projectID=" + projectID);
+            
+            $("#mm-add").attr("href", "/mm_app?projectID=" + projectID);
+            $("#mm-app-link").attr("href", "/mm_app?projectID=" + projectID);
+            
+            $("#sb-add").attr("href", "/sb_app?projectID=" + projectID);
+            $("#sb-app-link").attr("href", "/sb_app?projectID=" + projectID);
+            
             $("#sk-add").attr("href", "/sk_app?projectID=" + projectID);
             $("#sk-app-link").attr("href", "/sk_app?projectID=" + projectID);
 
@@ -104,9 +113,11 @@ function projectSelectedAction(projectID) {
 
     } else if (isDashboardPage()) {
         disableDashboardPage();
-        
-        $("#fm-app-link").removeAttr(href);
         $("#ba-app-link").removeAttr(href);
+        $("#fm-app-link").removeAttr(href);
+        $("#se-app-link").removeAttr(href);
+        $("#mm-app-link").removeAttr(href);
+        $("#sb-app-link").removeAttr(href);
         $("#sk-app-link").removeAttr(href);
         
     } else if (isFM_app()) {
