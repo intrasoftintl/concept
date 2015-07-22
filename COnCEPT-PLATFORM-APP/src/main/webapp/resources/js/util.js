@@ -204,11 +204,10 @@ function deleteWidgetItem(URL) {
 
 }
 
-
-
 function loadMetadata(metadataID) {
     logger("Loading metada for ID: " + metadataID);
     $("#metadata-area").load("/metadata/" + metadataID);
     //Load metadata content
     loadMD();
 }
+
