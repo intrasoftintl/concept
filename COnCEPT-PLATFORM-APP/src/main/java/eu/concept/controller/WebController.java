@@ -123,16 +123,6 @@ public class WebController {
     }
 
 
-
-
-    // Metadata APP
-    @RequestMapping(value = "/metadata", method = RequestMethod.GET)
-    public String metadata() {
-        return "metadata";
-    }
-
-    //FileManagement
-
     /*
      *  POST Methods 
      */

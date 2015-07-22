@@ -13,7 +13,7 @@
                     <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
                     <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${baContent.createdDate}"></span></td>
                     <td>
-                        <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${baContent.id}+')'}">
+                        <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${baContent.metadata.id}+')'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
                         <form role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">

@@ -14,21 +14,111 @@
         <link rel="stylesheet" href="/resources/css/literallycanvas.css" type="text/css" />
         <link rel="stylesheet" href="/resources/css/jquery.tagsinput.min.css" type="text/css" />
         <link rel="stylesheet" href="/resources/css/jqtree.css" type="text/css" />
-
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>        
 
-        <div th:include="sidebar :: sidebar-main" ></div>
+
+        <!-- navbar -->
+        <nav class="nav-main">
+            <ul>
+                <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a onclick="TogetherJS(this);
+                        return false;"><li class="collaboration"></li></a>
+            </ul>
+        </nav>
+
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul>
+                <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="resources/img/ICON_BA.png" /></button></form></li> 
+                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="resources/img/ICON_FM.png" /></button></form></li>
+                <li><form id="se-app-link-form" action="#" method="post" th:action="@{/se_app}"><button onclick="addProjectIDToForm('se-app-link-form')" type="submit" id="se-app-link" class="app-link"><img src="resources/img/ICON_SE.png" /></button></form></li>
+                <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="resources/img/ICON_MM.png" /></button></form></li>
+                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="resources/img/ICON_SB.png" /></button></form></li>
+                <li><form id="sk-app-link-form" action="#" method="post" th:action="@{/sk_app}"><button onclick="addProjectIDToForm('sk-app-link-form')" type="submit" id="sk-app-link" class="app-link"><img src="resources/img/ICON_SK.png" /></button></form></li>
+            </ul>
+
+        </nav>
+
+        <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
+
+        <!-- projects -->
+        <nav class="nav-projects">
+            <div class="btn-group project-selection">
+                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" value="0">Please select a project</option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                </select>
+
+                <select th:if="${projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" disabled="true">No projects available</option>
+                </select>
+
+            </div>          
+
+            <div class="project-selection">
+
+                <!-- Content to be showed only on project members (managers, designers, clients) -->
+                <div th:switch="${currentUser.getRole()}">
+                    <span th:case="'MANAGER'">
+                        <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'DESIGNER'">
+                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'CLIENT'">
+                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                </div>
+
+                <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
+            </div>
+
+        </nav>
+
+        <!-- chat -->
+        <nav class="nav-chat disabled">
+
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <p class="heading">Chat module</p>
+                <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
+            </div>
+
+            <div class="nav-content">
+                <div class="nav-content-header">
+                    Please select a project
+                </div>
+                <ul>
+                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                </ul>
+            </div>
+
+        </nav>
+
+        <!-- chat-hidden -->
+        <nav class="nav-chat-hidden">
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <p class="heading">Chat module</p>
+                <p class="title">Module hidden</p>
+            </div>
+        </nav>
+
+        <!--        <div th:include="metadata :: sidebar-metadata"> </div>-->
+        <!-- Metadata Content -->
         <div id="metadata-area"></div>
 
         <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <!-- dashboard -->
         <div class="content">
-            
+
             <div class="header">
-                
+
                 <!-- Profile -->
                 <div class="btn-group pull-right">
                     <div class="row col-md-12 pull-right">
@@ -174,7 +264,7 @@
         <!--Javascript file handling various actions of dashboard page -->
         <script src="/resources/js/util.js"></script>
         <script src="/resources/js/dashboard.js"></script>
-        <!-- Metadata -->
+        <!--   Metadata -->
         <script src="/resources/js/jquery.tagsinput.min.js"></script>
         <script src="/resources/js/tree.jquery.js"></script>
         <script src="/resources/js/metadata.js"></script>

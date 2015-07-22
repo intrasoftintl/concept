@@ -21,11 +21,12 @@ public class MetadataController {
     /*
      *  GET Methods 
      */
-    @RequestMapping(value = "/metadata/{project_id}", method = RequestMethod.GET)
-    public String fetchBAByProjectID(Model model, @PathVariable long metadata_id) {
+    @RequestMapping(value = "/metadata/{metadata_id}", method = RequestMethod.GET)
+    public String fetchMetadataByID(Model model, @PathVariable long metadata_id) {
+        System.out.println("I am in the metadata!!!");
         model.addAttribute("metadataContent", metadataService.fetchMetadataById(metadata_id));
         System.out.println("Metadata description: " +metadataService.fetchMetadataById(metadata_id).getDescription());
-        return "sidebar :: sidebar-metadata";
+        return "metadata :: sidebar-metadata";
     }
     
 //    @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
@@ -43,10 +44,10 @@ public class MetadataController {
 //        return "ba_app";
 //    }
 //    
-//    @RequestMapping(value = "/sidebar", method = RequestMethod.GET)
-//    public String baPage(Model model) {
-//        return "sidebar";
-//    }
+    @RequestMapping(value = "/metadata", method = RequestMethod.GET)
+    public String metadataPage(Model model) {
+        return "metadata";
+    }
 
     /*
      *  POST Methods 
