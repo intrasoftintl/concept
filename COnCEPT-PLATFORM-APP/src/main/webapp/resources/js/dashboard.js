@@ -77,6 +77,11 @@ function disableDashboardPage() {
     // Project Selection
     $("#project-members").hide();
     $("#project-view").hide();
+    
+    $(".nav-main-md").hide();
+    $(".nav-keywords").hide();
+    $(".nav-categories").hide();
+    $(".nav-actions-md").hide();
 }
 
 function enableDashboardPage() {
@@ -133,6 +138,11 @@ function enableDashboardPage() {
     // Project Selection
     $("#project-members").show();
     $("#project-view").show();
+    
+    $(".nav-main-md").hide();
+    $(".nav-keywords").hide();
+    $(".nav-categories").hide();
+    $(".nav-actions-md").hide();
 }
 
 

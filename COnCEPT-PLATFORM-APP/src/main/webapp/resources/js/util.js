@@ -157,6 +157,21 @@ function loadBAContent() {
     $('#document-title').val("Document 1");
 }
 
+function loadMD(){
+    $(".nav-main").hide();
+    $(".nav-apps").hide();
+    $(".project-selection").hide();
+    $(".nav-chat").hide();
+    $(".nav-chat-hidden").hide();
+    $(".nav-apps").hide();
+    
+    $(".nav-main-md").show();
+    $(".nav-keywords").show();
+    $(".nav-categories").show();
+    $(".nav-actions-md").show();
+}
+
+
 //
 //$('#tags').tagsInput({
 //    'height': '160px',

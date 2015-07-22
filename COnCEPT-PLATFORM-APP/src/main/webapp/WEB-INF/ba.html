@@ -13,9 +13,16 @@
                     <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
                     <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${baContent.createdDate}"></span></td>
                     <td>
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                     
+                        <form role="form" class="actions">
+                            <input name="fileID" type="hidden" th:value="${baContent.id}"/>
+                            <input name="projectID" type="hidden" th:value="${projectID}"/>
 
-                        <form  role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">
+                            <button class="action-button" onclick="loadMD()">
+                                <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                            </button>
+                        </form>
+                        <form role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">
                             <input name="fileID" type="hidden" th:value="${baContent.id}"/>
                             <input name="projectID" type="hidden" th:value="${projectID}"/>
 

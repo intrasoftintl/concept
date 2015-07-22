@@ -645,7 +645,18 @@ table img.notification{ width:60px; margin:0; background: #fff; border-radius:50
    display: inline;
 }
 
-.panel-body form.actions .action-button, .app-link{
+.panel-body form.actions .action-button{
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    padding:4px;
+    margin:0;
+}
+
+.app-link{
     background-color: transparent;
     background-repeat:no-repeat;
     border: none;
