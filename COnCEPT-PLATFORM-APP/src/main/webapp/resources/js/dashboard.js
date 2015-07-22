@@ -8,7 +8,7 @@ $(document).ready(function () {
 
 //Load all widjects of dashboard page based on selected ProjectID
 function loadDashboardContent(projectID) {
-    console.log("Loading dashboard content...")
+    logger("Loading dashboard content...")
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
     //Load content of BriefAnalysis widget
@@ -23,7 +23,7 @@ function loadDashboardContent(projectID) {
 
 //Disable dashboard page widgets
 function disableDashboardPage() {
-    console.log("Disable dashboard modules...")
+    logger("Disabling dashboard modules...")
         
     $('.nav-apps ul').addClass("disabled");
     $('.app-link').addClass("disabled");        

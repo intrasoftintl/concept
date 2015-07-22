@@ -10,15 +10,20 @@
         <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/lightbox.css" type="text/css" />
         <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <!-- Metadata -->
+        <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/jquery.tagsinput.min.css" type="text/css" />
+        <link rel="stylesheet" href="resources/css/jqtree.css" type="text/css" />
+
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>        
-        
-        <div th:include=" :: navigation-main"></div>
-        <div th:include=" :: navigation-metadata"></div>
-        
+
+        <div th:include="metadata :: sidebar-main" ></div>
+        <div id="metadata-area"></div>
+
         <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
- 
+
         <!-- dashboard -->
         <div class="content">
             <div class="header">
@@ -166,8 +171,13 @@
         <script src="resources/js/togetherjs-min.js"></script>
         <script src="resources/js/lightbox.min.js"></script>
         <!--Javascript file handling various actions of dashboard page -->
-        <script src="resources/js/dashboard.js"></script>
         <script src="resources/js/util.js"></script>
+        <script src="resources/js/dashboard.js"></script>
+        <!-- Metadata -->
+        <script src="resources/js/jquery.tagsinput.min.js"></script>
+        <script src="resources/js/tree.jquery.js"></script>
+        <script src="resources/js/metadata.js"></script>
+
 
     </body>
 </html>
