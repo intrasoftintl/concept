@@ -58,11 +58,11 @@
 
         <!-- save-cancel  -->
         <nav class="nav-actions-md">
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-success btn-block btn-actions">
+<!--            <form th:action="@{/logout}" method="post">-->
+                <button onclick="getData()" class="btn btn-success btn-block btn-actions">
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
                 </button>
-            </form>
+<!--            </form>-->
             <form th:action="@{/logout}" method="post">
                 <button type="submit" class="btn btn-danger btn-block btn-actions">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel

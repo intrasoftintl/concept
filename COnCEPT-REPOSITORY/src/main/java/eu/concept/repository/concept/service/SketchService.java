@@ -32,9 +32,9 @@ public class SketchService {
         return sk.getId() > 0;
     }
 
-    public boolean deleteFile(int briefAnalysisID) {
+    public boolean deleteSketch(int sketchID) {
         try {
-            sketch.delete(briefAnalysisID);
+            sketch.delete(sketchID);
         } catch (Exception ex) {
             Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
             return false;

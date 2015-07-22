@@ -60,7 +60,7 @@
 
                                             <h5 class="heading">Log in with your account</h5>
                                             <form role="form" th:action="@{/login}" method="post" id="login-form" autocomplete="off">
-                                               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                               <input th:if="${_csrf}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                                 <div class="form-group">
                                                     <label for="username" class="sr-only">Email</label>
                                                     <input type="text" name="username" id="username" class="form-control" placeholder="Username" autofocus="true" />
