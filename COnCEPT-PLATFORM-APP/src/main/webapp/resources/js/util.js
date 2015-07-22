@@ -197,6 +197,7 @@ function saveSKContent() {
 function loadSKContent(value) {
     localStorage.setItem('drawing',value);
 }
+
 //
 //$('#tags').tagsInput({
 //    'height': '160px',

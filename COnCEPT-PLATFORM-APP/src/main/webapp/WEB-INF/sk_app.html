@@ -128,11 +128,11 @@
 
                     <label for="document-title">Sketch Title</label>
                     <input th:value="${sketch.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" value="SK_00001"/>
-                    <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editSK" onclick="includeContent()"/>
+                    <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editSK" onclick="includeContent()"/>                    
                     <input id="document-content"  type="hidden" th:value="${sketch.content}" th:field="*{content}" name="document-content" />
 
                 </div>
-                <div class="literally"><canvas ></canvas></div>
+                <div class="literally"><canvas></canvas></div>
             </form>
         </div>
 
