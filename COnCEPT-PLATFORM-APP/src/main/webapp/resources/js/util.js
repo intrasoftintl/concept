@@ -52,12 +52,7 @@ function projectSelectedAction(projectID) {
         });
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
-
             $("#projectID").val(projectID);
-            $("#ba-add").attr("href", "/ba_app/" + projectID);
-//            $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
-            $("#sk-add").attr("href", "/sk_app?projectID=" + projectID);
-
             //Enable DashboardPage
             enableDashboardPage();
             //Load Dashboard content
@@ -98,6 +93,13 @@ function projectSelectedAction(projectID) {
 
     } else if (isDashboardPage()) {
         disableDashboardPage();
+        $("#ba-app-link").removeAttr(href);
+        $("#fm-app-link").removeAttr(href);
+        $("#se-app-link").removeAttr(href);
+        $("#mm-app-link").removeAttr(href);
+        $("#sb-app-link").removeAttr(href);
+        $("#sk-app-link").removeAttr(href);
+
     } else if (isFM_app()) {
         $(".panel-body").hide();
         $("#fm-placeholder").show();
@@ -144,18 +146,6 @@ function isFM_all() {
     return location.pathname === "/fm_all";
 }
 
-//Sample post using jQuery
-//        
-//        $.ajax({
-//            url: "/dashboard",
-//            type: 'POST',
-//            data: {
-//                "projectID": projectID,
-//                "_csrf": $("#_csrf").val()
-//            },
-//            success: function (data) {
-//            }
-//        });
 
 function saveBAContent() {
     console.log(tinymce.activeEditor.getContent({format: 'raw'}));

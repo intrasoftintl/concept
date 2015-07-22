@@ -94,6 +94,12 @@ body{
 .nav-apps .disabled { opacity:0.5; }
 .nav-apps ul.disabled li:hover { background:none; cursor:auto;}
 
+.nav-apps form{
+   //display: inline-block;
+   //padding:0;
+   //margin:0;
+}
+
 /* NAV-KEYWORDS CONTAINER */
 .nav-keywords{
     width: 240px;
@@ -578,7 +584,7 @@ textarea{
     background-image: linear-gradient(-45deg, #f8f8f8 25%, transparent 25%, transparent 50%, #eee 50%, #eee 75%, transparent 75%, transparent);
     background-size: 4px 4px;
 }
-.panel-body img{ width: 80px; margin:5px;}
+.panel-body img{ width: 90px; margin:5px;}
 
 .panel-body td.truncate{
     max-width: 0;
@@ -634,11 +640,22 @@ table img.notification{ width:60px; margin:0; background: #fff; border-radius:50
    display: inline;
 }
 
-.panel-body form.actions .action-button{
-    background-color: Transparent;
+.panel-body form.actions .action-button, .app-link{
+    background-color: transparent;
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    padding:0;
+    margin:0;
+}
+
+.app-link.disabled{
+    background-color: transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:default;
     overflow: hidden;
     outline:none;
     padding:0;
