@@ -25,7 +25,7 @@
     </div>
     
     <div class="panel-footer">
-        Sketches (<span th:text="${totalFiles}"></span>) - <a href="/sk_all">View All</a>
+        Sketches (<span th:text="${totalFiles}"></span>) - <a th:href="@{/sk_all(projectID=${projectID})}">View All</a>
     </div>
     
 </div>

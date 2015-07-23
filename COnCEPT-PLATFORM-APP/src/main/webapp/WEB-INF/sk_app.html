@@ -134,6 +134,8 @@
                 <div class="literally"><canvas></canvas></div>
             </form>
         </div>
+        
+        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
         <script src="/resources/js/bootstrap.min.js"></script>

@@ -101,6 +101,18 @@ function projectSelectedAction(projectID) {
             $("#project-view").show();
         }
 
+        if (isSK_app()) {
+            $("#project-members").show();
+            $("#project-view").show();
+        }
+        
+        if (isSK_all()) {
+            $("#sort").show();
+            $("#sk-placeholder").hide();
+            $("#project-members").show();
+            $("#project-view").show();
+        }
+
     } else if (isDashboardPage()) {
         disableDashboardPage();
         $("#ba-app-link").removeAttr(href);
@@ -126,6 +138,12 @@ function projectSelectedAction(projectID) {
         $("#project-view").hide();
         $("#fm-add").hide();
     } else if (isBA_app()) {
+        $("#project-members").hide();
+        $("#project-view").hide();
+    } else if (isSK_app()) {
+        $("#project-members").hide();
+        $("#project-view").hide();
+    } else if (isSK_app()) {
         $("#project-members").hide();
         $("#project-view").hide();
     }
@@ -154,6 +172,16 @@ function isFM_app() {
 //Return true if current page is FM ALL
 function isFM_all() {
     return location.pathname === "/fm_all";
+}
+
+//Return true if current page is FM APP
+function isSK_app() {
+    return location.pathname === "/sk_app";
+}
+
+//Return true if current page is FM ALL
+function isSK_all() {
+    return location.pathname === "/sk_all";
 }
 
 function saveBAContent() {
