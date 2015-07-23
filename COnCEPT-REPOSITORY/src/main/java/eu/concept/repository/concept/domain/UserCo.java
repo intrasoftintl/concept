@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
@@ -29,9 +24,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "User")
 public class UserCo implements Serializable {
 
-
-
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -40,7 +32,6 @@ public class UserCo implements Serializable {
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
@@ -191,8 +182,4 @@ public class UserCo implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.User[ id=" + id + " ]";
     }   
-
-
-
-
 }

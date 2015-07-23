@@ -3,9 +3,9 @@ package eu.concept.controller.component;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.BriefAnalysis;
-import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.BriefAnalysisService;
+import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import java.util.List;
@@ -31,6 +31,9 @@ public class BriefAnalysisController {
 
     @Autowired
     BriefAnalysisService baService;
+
+    @Autowired
+    MetadataService metadataService;
 
     /*
      *  GET Methods 
@@ -100,28 +103,20 @@ public class BriefAnalysisController {
     public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
 //      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
 
-        System.out.println("ProjectID : " + ba.getPid());
-        UserCo newUser = new UserCo();
-        newUser.setId(getCurrentUser().getId());
-        if (null == ba.getTitle() || ba.getTitle().isEmpty()) {
-            ba.setTitle("Untitled");
+        //Create the BriefAnalysis object
+        if (null == ba.getId()) {
+            UserCo newUser = new UserCo();
+            newUser.setId(getCurrentUser().getId());
+            ba.setPid(projectID);
+            ba.setUid(newUser);//care about last edit??
+
         }
-        ba.setPid(projectID);
-        ba.setUid(newUser);
-        Metadata metadata = new Metadata(null, "", "", "", null);
-//        metadata.setCtaegories("");
-//        metadata.setDescription("");
-//        metadata.setKeywords("");
-        ba.setMetadata(metadata);
-        model.addAttribute("briefanalysis", ba);
+
+        //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
-            System.out.println("I am in!!!!!!\n" + "Saved to Concept DB");
             model.addAttribute("success", "Saved to Concept DB");
-
         }
-
-        System.out.println("BA ID: " + ba.getId());
-
+        model.addAttribute("briefanalysis", ba);
         return "redirect:/ba_app/" + ba.getId();
     }
 

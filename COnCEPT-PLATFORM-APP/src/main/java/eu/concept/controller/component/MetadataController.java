@@ -23,7 +23,6 @@ public class MetadataController {
      */
     @RequestMapping(value = "/metadata/{metadata_id}", method = RequestMethod.GET)
     public String fetchMetadataByID(Model model, @PathVariable long metadata_id) {
-        System.out.println("I am in the metadata!!!");
         model.addAttribute("metadataContent", metadataService.fetchMetadataById(metadata_id));
         System.out.println("Metadata description: " +metadataService.fetchMetadataById(metadata_id).getDescription());
         return "metadata :: sidebar-metadata";

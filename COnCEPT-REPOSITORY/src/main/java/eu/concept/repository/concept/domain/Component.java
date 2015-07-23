@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Component.findAll", query = "SELECT c FROM Component c")})
 public class Component implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "component")
+    private Collection<Metadata> metadataCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -106,6 +108,15 @@ public class Component implements Serializable {
     @Override
     public String toString() {
         return "eu.concept.repository.concept.domain.Component[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Metadata> getMetadataCollection() {
+        return metadataCollection;
+    }
+
+    public void setMetadataCollection(Collection<Metadata> metadataCollection) {
+        this.metadataCollection = metadataCollection;
     }
     
 }

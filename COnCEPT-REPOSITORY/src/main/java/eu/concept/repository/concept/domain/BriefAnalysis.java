@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
@@ -31,9 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "BriefAnalysis")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "BriefAnalysis.findAll", query = "SELECT b FROM BriefAnalysis b")})
 public class BriefAnalysis implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -67,9 +59,6 @@ public class BriefAnalysis implements Serializable {
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private UserCo uid;
-    @JoinColumn(name = "mid", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Metadata metadata;
 
     public BriefAnalysis() {
     }
@@ -139,16 +128,8 @@ public class BriefAnalysis implements Serializable {
         return uid;
     }
 
-    public void setUid(UserCo userCo) {
-        this.uid = userCo;
-    }
-
-    public Metadata getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Metadata metadata) {
-        this.metadata = metadata;
+    public void setUid(UserCo uid) {
+        this.uid = uid;
     }
 
     @Override

@@ -6,26 +6,24 @@
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,9 +31,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Metadata")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Metadata.findAll", query = "SELECT m FROM Metadata m")})
 public class Metadata implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,24 +40,33 @@ public class Metadata implements Serializable {
     private Long id;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "cid")
+    private int cid;
+    @Basic(optional = false)
+    @NotNull
     @Lob
+    @Size(min = 1, max = 65535)
     @Column(name = "categories")
     private String categories;
     @Basic(optional = false)
     @NotNull
     @Lob
+    @Size(min = 1, max = 65535)
     @Column(name = "keywords")
     private String keywords;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "description")
     private String description;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "metadata")
-    private Collection<BriefAnalysis> briefAnalysisCollection;
+    @JoinColumn(name = "component", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Component component;
 
     public Metadata() {
     }
@@ -71,8 +75,9 @@ public class Metadata implements Serializable {
         this.id = id;
     }
 
-    public Metadata(Long id, String categories, String keywords, String description, Date createdDate) {
+    public Metadata(Long id, int cid, String categories, String keywords, String description, Date createdDate) {
         this.id = id;
+        this.cid = cid;
         this.categories = categories;
         this.keywords = keywords;
         this.description = description;
@@ -87,11 +92,19 @@ public class Metadata implements Serializable {
         this.id = id;
     }
 
-    public String getCtaegories() {
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public String getCategories() {
         return categories;
     }
 
-    public void setCtaegories(String categories) {
+    public void setCategories(String categories) {
         this.categories = categories;
     }
 
@@ -119,13 +132,12 @@ public class Metadata implements Serializable {
         this.createdDate = createdDate;
     }
 
-    @XmlTransient
-    public Collection<BriefAnalysis> getBriefAnalysisCollection() {
-        return briefAnalysisCollection;
+    public Component getComponent() {
+        return component;
     }
 
-    public void setBriefAnalysisCollection(Collection<BriefAnalysis> briefAnalysisCollection) {
-        this.briefAnalysisCollection = briefAnalysisCollection;
+    public void setComponent(Component component) {
+        this.component = component;
     }
 
     @Override
