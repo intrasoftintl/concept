@@ -232,9 +232,9 @@ function deleteWidgetItem(URL) {
 
 }
 
-function loadMetadata(metadataID) {
-    logger("Loading metada for ID: " + metadataID);
-    $("#metadata-area").load("/metadata/" + metadataID);
+function loadMetadata(componentID,component) {
+    logger("Loading metadata for component: "+component + " with id: " + componentID);
+    $("#metadata-area").load("/metadata?cid=" + componentID+"&component="+component);
      //Load metadata content
     loadMD();
     
