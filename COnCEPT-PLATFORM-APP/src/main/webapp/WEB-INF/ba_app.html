@@ -125,7 +125,7 @@
                 <div class="form-group document-title">
                     <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
                     <input type="hidden" th:value="*{pid}"  name="pid" id="pid" class="form-control"    />
-                    <input  th:if="null != ${briefanalysis.uid}" type="text" th:value="${briefanalysis.uid.id}"  th:field="*{uid.id}"  name="uid" id="uid" class="form-control"    />
+                    <input  th:if="null != ${briefanalysis.uid}" type="hidden" th:value="${briefanalysis.uid.id}"  th:field="*{uid.id}"  name="uid" id="uid" class="form-control"    />
                     <input type="hidden" th:value="${briefanalysis.id}"   th:field="*{id}" class="form-control input-sm" id="ba-id" name="ba-id" size="50" value="BA_00001"/>
                     <label for="document-title">Brief Analysis Title</label>
                     <input  th:value="${briefanalysis.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled"/>

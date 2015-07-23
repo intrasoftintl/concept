@@ -31,7 +31,7 @@ public class BriefAnalysisService {
 
             briefAnalysis.save(ba);
         } catch (Exception ex) {
-            Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
+            Logger.getLogger(BriefAnalysisService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return ba.getId() > 0;
@@ -41,7 +41,7 @@ public class BriefAnalysisService {
         try {
             briefAnalysis.delete(briefAnalysisID);
         } catch (Exception ex) {
-            Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
+            Logger.getLogger(BriefAnalysisService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return true;

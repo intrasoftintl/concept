@@ -1,64 +1,59 @@
-<div th:fragment="sidebar-metadata">
+<div th:fragment="sidebar-metadata"  th:unless="null == ${metadata}" >
 
+    <!-- main-md -->
+    <nav class="nav-main-md">
+        <ul>
+            <li class="main-md"><img src="resources/img/BUTTON_MD.png" />Metadata</li>
+        </ul>
+    </nav>
 
- 
+    <!-- keywords -->
+    <nav class="nav-keywords">
+        <div class="nav-header">
+            <img class="icon" src="resources/img/BUTTON_KEYWORDS.png" />
 
+            <p class="heading">KEYWORDS</p>
+            <p class="title">Annotate with keywords</p>
+        </div>
 
+        <input name="tags" id="tags" value="foo,bar" />
 
-            <!-- main-md -->
-            <nav class="nav-main-md">
-                <ul>
-                    <li class="main-md"><img src="resources/img/BUTTON_MD.png" />Metadata</li>
-                </ul>
-            </nav>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
+            </button>
+        </form>
+    </nav>
 
-            <!-- keywords -->
-            <nav class="nav-keywords">
-                <div class="nav-header">
-                    <img class="icon" src="resources/img/BUTTON_KEYWORDS.png" />
+    <!-- categories -->
+    <nav class="nav-categories">
+        <div class="nav-header">
+            <img class="icon" src="resources/img/BUTTON_CATEGORIES.png" />
 
-                    <p class="heading">KEYWORDS</p>
-                    <p class="title">Annotate with keywords</p>
-                </div>
+            <p class="heading">CATEGORIES</p>
+            <p class="title">Annotate with categories</p>
+        </div>
 
-                <input name="tags" id="tags" value="foo,bar" />
+        <div id="tree"></div>
 
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
-                        <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
-                    </button>
-                </form>
-            </nav>
-
-            <!-- categories -->
-            <nav class="nav-categories">
-                <div class="nav-header">
-                    <img class="icon" src="resources/img/BUTTON_CATEGORIES.png" />
-
-                    <p class="heading">CATEGORIES</p>
-                    <p class="title">Annotate with categories</p>
-                </div>
-
-                <div id="tree"></div>
-
-            </nav>
+    </nav>
 
 
 
-            <!-- save-cancel  -->
-            <nav class="nav-actions-md">
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn btn-success btn-block btn-actions">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
-                    </button>
-                </form>
-                <form th:action="@{/logout}" method="post">
-                    <button type="submit" class="btn btn-danger btn-block btn-actions">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
-                    </button>
-                </form>
-            </nav>
-            
-<!--        <script src="/resources/js/metadata.js"></script>-->
-        
+    <!-- save-cancel  -->
+    <nav class="nav-actions-md">
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-success btn-block btn-actions">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+            </button>
+        </form>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-danger btn-block btn-actions">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+            </button>
+        </form>
+    </nav>
+
+    <!--        <script src="/resources/js/metadata.js"></script>-->
+
 </div>
