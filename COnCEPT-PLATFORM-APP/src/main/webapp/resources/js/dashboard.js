@@ -9,10 +9,10 @@ $(document).ready(function () {
 //Load all widjects of dashboard page based on selected ProjectID
 function loadDashboardContent(projectID) {
     logger("Loading dashboard content...");
+    //Load content of BriefAnalysis widget
+    $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=5");
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
-    //Load content of BriefAnalysis widget
-    $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=9");
     //Load content of Sketch widget
     $("#sk-dashboard").load("/sketch/" + projectID + "?limit=4");
 }

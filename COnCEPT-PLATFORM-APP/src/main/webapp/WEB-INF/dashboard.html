@@ -243,7 +243,7 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Sketches</h4>
                             <div class="btn-group pull-right">
-                                <form id="sk-add-form" action="#" method="post" th:action="@{/sk_app}">
+                                <form id="  " action="#" method="post" th:action="@{/sk_app}">
                                     <button onclick="addProjectIDToForm('sk-add-form')" type="submit" id="sk-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</button>
                                 </form>
                             </div>
@@ -256,6 +256,8 @@
                 </div>
             </div>
         </div>
+        
+        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
         <script src="/resources/js/bootstrap.min.js"></script>

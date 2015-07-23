@@ -49,7 +49,7 @@ public class FileManagementController {
     }
     
     
-        @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
+    @RequestMapping(value = "/fm_all", method = RequestMethod.GET)
     public String fm_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);

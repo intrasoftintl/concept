@@ -53,6 +53,14 @@ public class BriefAnalysisController {
         model.addAttribute("projectID", project_id);
         return "ba :: baContentList";
     }
+    
+    @RequestMapping(value = "/briefanalysis_all/{project_id}", method = RequestMethod.GET)
+    public String fetchBriefAnalysisByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
+        model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        model.addAttribute("totalFiles", baService.countFilesById(project_id, WebController.getCurrentRole()));
+        model.addAttribute("projectID", project_id);
+        return "ba :: baContentAllList";
+    }
 
     //TODO: Show succes/error message on save
     @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
