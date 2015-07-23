@@ -219,7 +219,6 @@ function loadMD() {
     $(".project-selection").hide();
     $(".nav-chat").hide();
     $(".nav-chat-hidden").hide();
-    $(".nav-apps").hide();
 
 //    $(".nav-main-md").show();
 //    $(".nav-keywords").show();

@@ -5,7 +5,7 @@
                 <tr>
                     <th class="col-md-5">Recent Documents</th>
                     <th class="col-md-2">User</th>
-                    <th class="col-md-5"></th>
+                    <th class="col-md-5"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
-                    <td><a th:href="@{'/briefanalysis/'+${baContent.id}}" th:title="${baContent.filename}" th:alt="${baContent.filename}"></a></td>
+                    <td><a th:href="@{'/briefanalysis_all/'+${baContent.id}}" th:title="${baContent.filename}" th:alt="${baContent.filename}"></a></td>
                     <td class="truncate">
                         <input name="fileID" type="hidden" th:value="${baContent.id}"/>
                         <input name="projectID" type="hidden" th:value="${projectID}"/>
