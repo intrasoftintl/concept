@@ -540,6 +540,16 @@ body{
     border:none;
 }
 
+.file-title{
+    font-weight:800;
+}
+.file-user{
+    
+}
+.file-timestamp{
+    color:#aaa;
+}
+
 /* SK APP */
 .content .literally{
     width:calc(100vw - 242px);
@@ -603,6 +613,10 @@ textarea{
 .panel-body .glyphicon:hover { color:#111; cursor:pointer; }
 .panel-body .glyphicon.icon-active{ color:#FF6138; }
 .panel-body .glyphicon.icon-white{ color:#F5F5F5; }
+
+.panel-footer a{
+    cursor: pointer;
+}
 
 .content-pre .btn-link{ color:#fff; }
 .content-pre .btn-link:hover{ color:#fff; }

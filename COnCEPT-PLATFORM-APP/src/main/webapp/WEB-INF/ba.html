@@ -3,9 +3,9 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-5">Recent Documents</th>
-                    <th class="col-md-2">User</th>
-                    <th class="col-md-5"> </th>
+                    <th class="col-md-3">Recent Documents</th>
+                    <th class="col-md-3">User</th>
+                    <th class="col-md-6"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +37,7 @@
         <form id="baAllForm" action="#" method="post" th:action="@{/ba_all}">
             <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
         </form>
-        Documents (<span th:text="${totalFiles}"></span>) - <button class="btn btn-link" onclick="$('#baAllForm').submit();" >View All</button>
-        <!--        Documents (<span th:text="${totalFiles}"> </span>) - <a th:href="@{/ba_all(projectID=${projectID})}">View All</a>-->
+        Documents (<span th:text="${totalFiles}"></span>) - <a onclick="$('#baAllForm').submit();" >View All</a>
     </div>
 </div>
 
@@ -54,11 +53,8 @@
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
-                    <td><a th:href="@{'/briefanalysis_all/'+${baContent.id}}" th:title="${baContent.filename}" th:alt="${baContent.filename}"></a></td>
-                    <td class="truncate">
-                        <input name="fileID" type="hidden" th:value="${baContent.id}"/>
-                        <input name="projectID" type="hidden" th:value="${projectID}"/>
-                    </td>
+                    <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:title="${baContent.title}" th:alt="${baContent.title}"><img class="img-thumbnail" src="/resources/img/fm_generic.png"/></a></td>
+                    <td class="truncate"><span class="file-title" th:text="${baContent.title}"></span><br/><span class="file-user" th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${baContent.createdDate}"></span></td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
 
