@@ -1,3 +1,6 @@
+
+
+
 function initMetadata() {
     logger("Initializing Metadata tags...");
 
@@ -105,13 +108,12 @@ function initMetadata() {
 
     $('#tree').tree('setState', JSON.parse($("#categories").val()));
     logger("Finished Metadata initalization...");
-}
 
 
-function getData() {
 
-
-    //logger( JSON.stringify($('#tree').tree('getState')));
-
-//    alert($("#tags").val());
+    $("#metadataForm").submit(function (event) {
+        logger("Setting KeywordsAndCategories...");
+        $("#keywords").val($("#tags").val());
+        $("#categories").val(JSON.stringify($('#tree').tree('getState')));
+    });
 }

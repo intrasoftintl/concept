@@ -3,6 +3,7 @@ package eu.concept.controller.component;
 import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.service.MetadataService;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +40,7 @@ public class MetadataController {
         if (null == metadata) {
             metadata = new Metadata(null, cid, "", "", "", null);
             metadata.setComponent(new Component(component));
+            metadata.setCategories("{\"open_nodes\":[1,2,3],\"selected_node\":[]}");
             metadataService.storeMetadata(metadata);
         }
         model.addAttribute("metadata", metadata);
@@ -51,8 +53,13 @@ public class MetadataController {
     @RequestMapping(value = "/metadata", method = RequestMethod.POST)
     public String createBriefAnalysis(Model model, @ModelAttribute Metadata metadata) {
         if (null == metadata) {
-            System.out.println("Metadata is nulll :((((");
+            Logger.getLogger(MetadataController.class.getName()).severe("Metadata object is null... aborting saving metadata object..");
+        } else {
+            Logger.getLogger(MetadataController.class.getName()).info("MetadataID is: " + metadata.getId() + " CID: " + metadata.getCid() + " Componenet: " + metadata.getComponent().getId() + " Keywprds: " + metadata.getKeywords() + " categories " + metadata.getCategories());
         }
+
+        //Save Metadata object
+        metadataService.storeMetadata(metadata);
 
 //        model.addAttribute("projectID", projectID);
         return "redirect:/dashboard";

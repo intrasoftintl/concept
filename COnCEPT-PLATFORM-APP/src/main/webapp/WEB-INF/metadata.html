@@ -17,8 +17,6 @@
         </div>
 
         <input name="tags" id="tags" th:value="${metadata.keywords}" />
-        <input type="hidden" name="categories" id="categories" th:value="${metadata.categories}" />
-        
 
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
@@ -42,10 +40,22 @@
 
     <!-- save-cancel  -->
     <nav class="nav-actions-md">
-        <form  th:object="${metadata}" th:action="@{/metadata}" method="post">
 
-            <input th:value="${metadata.id}" />
-            
+        <form id="metadataForm" th:object="${metadata}" th:action="@{/metadata}" method="post">
+
+            <!-- Metadata ID -->
+            <input th:type="hidden" th:name="id" th:field="*{id}"  />
+            <!-- Component ID -->
+            <input th:type="hidden" th:name="cid" th:field="*{cid}" />
+            <!-- Component name -->
+            <input th:type="hidden" th:name="component" th:field="*{component.id}"/>
+            <!-- Metadata keywords-->
+            <input th:type="hidden" th:name="keyword" th:field="${metadata.keywords}"  id="keywords"/>
+            <!-- Metadata categories-->
+            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>
+            <!-- Metadata description-->
+            <input th:type="hidden" th:name="description" th:field="*{description}"  />
+
             <button type="submit" class="btn btn-success btn-block btn-actions">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
             </button>
