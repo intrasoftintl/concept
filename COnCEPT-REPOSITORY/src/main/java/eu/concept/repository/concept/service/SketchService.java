@@ -25,7 +25,7 @@ public class SketchService {
         try {
             sketch.save(sk);
         } catch (Exception ex) {
-            Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
+            Logger.getLogger(SketchService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return sk.getId() > 0;
@@ -35,17 +35,17 @@ public class SketchService {
         try {
             sketch.delete(sketchID);
         } catch (Exception ex) {
-            Logger.getLogger(BriefAnalysis.class.getName()).severe(ex.getMessage());
+            Logger.getLogger(SketchService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return true;
     }
 
-    public List<Sketch> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit) {
-        return fetchBriefAnalysisByProjectId(projectID, user, limit, 0);
+    public List<Sketch> fetchSketchesByProjectId(int projectID, UserCo user, int limit) {
+        return fetchSketchesByProjectId(projectID, user, limit, 0);
     }
 
-    public List<Sketch> fetchBriefAnalysisByProjectId(int projectID, UserCo user, int limit, int page) {
+    public List<Sketch> fetchSketchesByProjectId(int projectID, UserCo user, int limit, int page) {
         List<Sketch> sketches;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {

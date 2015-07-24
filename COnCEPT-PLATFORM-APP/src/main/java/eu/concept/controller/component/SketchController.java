@@ -46,20 +46,19 @@ public class SketchController {
 
     @RequestMapping(value = "/sketch/{project_id}", method = RequestMethod.GET)
     public String fetchSKByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("skContents", skService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        model.addAttribute("skContents", skService.fetchSketchesByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", skService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         return "sk :: skContentList";
     }
     
     @RequestMapping(value = "/sketches_all/{project_id}", method = RequestMethod.GET)
-    public String fetchBriefAnalysisByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("skContents", skService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+    public String fetchSketchesByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
+        model.addAttribute("skContents", skService.fetchSketchesByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", skService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         return "sk :: skContentAllList";
     }
-
 
     //TODO: Show succes/error message on save
     @RequestMapping(value = "/sk_app/{sk_id}", method = RequestMethod.GET)
@@ -124,6 +123,14 @@ public class SketchController {
             model.addAttribute("success", "Saved to Concept DB");
         }
         return "redirect:/sk_app/" + sk.getId();
+    }
+    
+    @RequestMapping(value = "/sk_all", method = RequestMethod.POST)
+    public String sk_all_post(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "sk_all";
     }
 
 }
