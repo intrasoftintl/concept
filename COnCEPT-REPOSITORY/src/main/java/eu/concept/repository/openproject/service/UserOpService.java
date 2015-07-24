@@ -24,4 +24,9 @@ public class UserOpService {
     public UserOp findUserByUsername(String username) {
         return userDAO.findByLogin(username);
     }
+
+    public UserOp findUserById(int id) {
+        return userDAO.findOne(id);
+    }
+
 }

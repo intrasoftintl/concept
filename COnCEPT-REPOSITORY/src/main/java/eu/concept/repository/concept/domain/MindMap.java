@@ -1,5 +1,6 @@
 package eu.concept.repository.concept.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -22,8 +23,9 @@ import javax.validation.constraints.Size;
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Entity
-@Table(name = "BriefAnalysis")
-public class BriefAnalysis implements Serializable {
+@Table(name = "MindMap")
+public class MindMap implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,9 +44,13 @@ public class BriefAnalysis implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Size(min = 1, max = 2147483647)
     @Column(name = "content")
     private String content;
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "content_thumbnail")
+    private String contentThumbnail;
     @Basic(optional = false)
     @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -55,20 +61,21 @@ public class BriefAnalysis implements Serializable {
     private short isPublic;
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private UserCo uid;
+    private UserCo userCo;
 
-    public BriefAnalysis() {
+    public MindMap() {
     }
 
-    public BriefAnalysis(Integer id) {
+    public MindMap(Integer id) {
         this.id = id;
     }
 
-    public BriefAnalysis(Integer id, int pid, String title, String content, Date createdDate, short isPublic) {
+    public MindMap(Integer id, int pid, String title, String content, String contentThumbnail, Date createdDate, short isPublic) {
         this.id = id;
         this.pid = pid;
         this.title = title;
         this.content = content;
+        this.contentThumbnail = contentThumbnail;
         this.createdDate = createdDate;
         this.isPublic = isPublic;
     }
@@ -96,13 +103,22 @@ public class BriefAnalysis implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-
+    
+    
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getContentThumbnail() {
+        return contentThumbnail;
+    }
+
+    public void setContentThumbnail(String contentThumbnail) {
+        this.contentThumbnail = contentThumbnail;
     }
 
     public Date getCreatedDate() {
@@ -121,12 +137,14 @@ public class BriefAnalysis implements Serializable {
         this.isPublic = isPublic;
     }
 
-    public UserCo getUid() {
-        return uid;
+    
+    public UserCo getUserCo() {
+        return userCo;
     }
 
-    public void setUid(UserCo uid) {
-        this.uid = uid;
+
+    public void setUserCo(UserCo userCo) {
+        this.userCo = userCo;
     }
 
     @Override
@@ -139,10 +157,10 @@ public class BriefAnalysis implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof BriefAnalysis)) {
+        if (!(object instanceof MindMap)) {
             return false;
         }
-        BriefAnalysis other = (BriefAnalysis) object;
+        MindMap other = (MindMap) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -151,7 +169,7 @@ public class BriefAnalysis implements Serializable {
 
     @Override
     public String toString() {
-        return "eu.concept.repository.concept.domain.BriefAnalysis[ id=" + id + " ]";
+        return "eu.concept.repository.concept.domain.MindMap[ id=" + id + " ]";
     }
-    
+
 }

@@ -1,24 +1,21 @@
 package eu.concept.repository.concept.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Christos Paraskeva
+ * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Entity
 @Table(name = "User")
@@ -60,18 +57,18 @@ public class UserCo implements Serializable {
     @Column(name = "username")
     private String username;
 
+    String role = "";
 
-    String role="";
-
+    @JsonIgnore
     public String getRole() {
         return role;
     }
 
+    @JsonIgnore
     public void setRole(String role) {
         this.role = role;
     }
-    
-    
+
     public UserCo() {
     }
 
@@ -79,11 +76,11 @@ public class UserCo implements Serializable {
         this.id = id;
     }
 
-        public UserCo(Integer id,String role) {
+    public UserCo(Integer id, String role) {
         this.id = id;
-        this.role= role;
+        this.role = role;
     }
-    
+
     public UserCo(Integer id, String email, String firstName, String lastName, String password, String username, Date createdDate) {
         this.id = id;
         this.email = email;
@@ -102,58 +99,72 @@ public class UserCo implements Serializable {
         this.id = id;
     }
 
+    @JsonIgnore
     public Date getCreatedDate() {
         return createdDate;
     }
 
+    @JsonIgnore
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
+    @JsonIgnore
     public String getEmail() {
         return email;
     }
 
+    @JsonIgnore
     public void setEmail(String email) {
         this.email = email;
     }
 
+    @JsonIgnore
     public String getFirstName() {
         return firstName;
     }
 
+    @JsonIgnore
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    @JsonIgnore
     public String getLastName() {
         return lastName;
     }
 
+    @JsonIgnore
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonIgnore
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @JsonIgnore
     public Boolean getStatus() {
         return status;
     }
 
+    @JsonIgnore
     public void setStatus(Boolean status) {
         this.status = status;
     }
 
+    @JsonIgnore
     public String getUsername() {
         return username;
     }
 
+    @JsonIgnore
     public void setUsername(String username) {
         this.username = username;
     }
@@ -181,5 +192,6 @@ public class UserCo implements Serializable {
     @Override
     public String toString() {
         return "eu.concept.repository.concept.domain.User[ id=" + id + " ]";
-    }   
+    }
+
 }

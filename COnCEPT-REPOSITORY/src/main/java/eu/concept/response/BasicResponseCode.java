@@ -7,5 +7,7 @@ package eu.concept.response;
 public enum BasicResponseCode implements ResponseCode{
     SUCCESS,
     INVALIDATE,
-    EXCEPTION        
+    EXCEPTION,
+    PERMISSION,
+    UNKNOWN
 }

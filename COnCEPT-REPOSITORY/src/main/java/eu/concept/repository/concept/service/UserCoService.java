@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author Christos Paraskeva
+ * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Repository
 @Transactional

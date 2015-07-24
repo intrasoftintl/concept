@@ -1,6 +1,5 @@
 package eu.concept.repository.concept.service;
 
-import eu.concept.repository.concept.dao.BriefAnalysisRepository;
 import eu.concept.repository.concept.dao.SketchRepository;
 import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.Sketch;

@@ -19,13 +19,9 @@ public class BriefAnalysisService {
 
     @Autowired
     private BriefAnalysisRepository briefAnalysis;
-    
-    
-    
+
 //    @Autowired
 //    private MetadataRepository metadata;
-
-
     public boolean storeFile(BriefAnalysis ba) {
         try {
 
@@ -57,7 +53,9 @@ public class BriefAnalysisService {
         if ("CLIENT".equals(user.getRole())) {
             files = briefAnalysis.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
         } else {
+
             files = briefAnalysis.findByPid(projectID, pageRequest);
+            System.out.println("Files size: " + files.size());
         }
         return files;
     }

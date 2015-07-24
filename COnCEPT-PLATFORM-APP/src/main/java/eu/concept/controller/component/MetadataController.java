@@ -6,6 +6,7 @@ import eu.concept.repository.concept.service.MetadataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,21 +32,6 @@ public class MetadataController {
         return "metadata :: sidebar-metadata";
     }
 
-//    @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
-//    public String ba_app(Model model) {
-//        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-//        model.addAttribute("projects", projects);
-//        model.addAttribute("currentUser", getCurrentUser());
-//        if (!model.containsAttribute("briefanalysis")) {
-//            BriefAnalysis ba = new BriefAnalysis();
-//            
-//            model.addAttribute("briefanalysis", new BriefAnalysis());
-//        } else {
-//            
-//        }
-//        return "ba_app";
-//    }
-//    
     @RequestMapping(value = "/metadata", method = RequestMethod.GET)
     public String metadataPage(Model model, @RequestParam(value = "cid", defaultValue = "0", required = false) int cid, @RequestParam(value = "component", defaultValue = "", required = false) String component) {
 
@@ -56,15 +42,19 @@ public class MetadataController {
             metadataService.storeMetadata(metadata);
         }
         model.addAttribute("metadata", metadata);
-        return "metadata :: sidebar-metadata ";
+        return "metadata :: sidebar-metadata";
     }
 
     /*
      *  POST Methods 
      */
-//    @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
-//    public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
+    @RequestMapping(value = "/metadata", method = RequestMethod.POST)
+    public String createBriefAnalysis(Model model, @ModelAttribute Metadata metadata) {
+        if (null == metadata) {
+            System.out.println("Metadata is nulll :((((");
+        }
+
 //        model.addAttribute("projectID", projectID);
-//        return ba_app(model);
-//    }
+        return "redirect:/dashboard";
+    }
 }
