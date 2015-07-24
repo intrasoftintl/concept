@@ -38,14 +38,6 @@ public class BriefAnalysisController {
     /*
      *  GET Methods 
      */
-    @RequestMapping(value = "/ba_all", method = RequestMethod.GET)
-    public String ba_all(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        return "ba_all";
-    }
-
     @RequestMapping(value = "/briefanalysis/{project_id}", method = RequestMethod.GET)
     public String fetchBAByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
@@ -53,7 +45,7 @@ public class BriefAnalysisController {
         model.addAttribute("projectID", project_id);
         return "ba :: baContentList";
     }
-    
+
     @RequestMapping(value = "/briefanalysis_all/{project_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
@@ -126,6 +118,14 @@ public class BriefAnalysisController {
         }
         model.addAttribute("briefanalysis", ba);
         return "redirect:/ba_app/" + ba.getId();
+    }
+
+    @RequestMapping(value = "/ba_all", method = RequestMethod.POST)
+    public String ba_all(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "ba_all";
     }
 
     /*

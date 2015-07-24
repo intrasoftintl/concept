@@ -75,7 +75,6 @@ function projectSelectedAction(projectID) {
             $(".panel-body").show();
             $(".panel-footer").show();
             $("#sort").show();
-            //$("#fm-all").removeClass("disabled");
 
             $("#fm-placeholder").hide();
             $("#project-members").show();
@@ -106,7 +105,7 @@ function projectSelectedAction(projectID) {
 
             $("#ba-add").attr("href", "/ba_app?projectID=" + projectID);
             $("#ba-add").show();
-            $("#ba-all").load("/filemanagement_all/" + projectID + "?limit=200");
+            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200");
 
             $("#ba-placeholder").hide();
 
@@ -256,12 +255,5 @@ function loadMetadata(componentID, component) {
     //Load metadata content
     logger("Switching Dashboard sidebat to Metadata sidebar");
     loadMD();
-
-
-//    setTimeout(function(){
-//    logger("I am done!");
-//    }, 4000);
-
-
 }
 

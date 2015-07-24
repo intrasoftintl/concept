@@ -34,7 +34,11 @@
     </div>
 
     <div class="panel-footer">
-        Documents (<span th:text="${totalFiles}"> </span>) - <a th:href="@{/ba_all(projectID=${projectID})}">View All</a>
+        <form id="baAllForm" action="#" method="post" th:action="@{/ba_all}">
+            <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+        </form>
+        Documents (<span th:text="${totalFiles}"></span>) - <button class="btn btn-link" onclick="$('#baAllForm').submit();" >View All</button>
+        <!--        Documents (<span th:text="${totalFiles}"> </span>) - <a th:href="@{/ba_all(projectID=${projectID})}">View All</a>-->
     </div>
 </div>
 
@@ -74,15 +78,15 @@
             </tbody>
         </table>
     </div>
-    
+
     <!-- Load more button -->
     <div class="panel-footer" style="text-align:center">
-       <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
     </div>
 
     <!-- Nothing more to load button -->
     <div class="panel-footer" style="text-align:center">
         <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
     </div>
-    
+
 </div>
