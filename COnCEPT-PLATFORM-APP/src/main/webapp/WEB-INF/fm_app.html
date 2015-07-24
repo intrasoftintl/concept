@@ -155,7 +155,7 @@
 
                             <form id="fileuploadForm" action="upload" method="POST" enctype="multipart/form-data">
                                 <fieldset>
-                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <input th:if="${_csrf}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                                 </fieldset>
                                 <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
                                 <div class="row fileupload-buttonbar">

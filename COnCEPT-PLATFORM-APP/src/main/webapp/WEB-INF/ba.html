@@ -3,9 +3,9 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-5">Recent Documents</th>
-                    <th class="col-md-2">User</th>
-                    <th class="col-md-5"> </th>
+                    <th class="col-md-3">Recent Documents</th>
+                    <th class="col-md-3">User</th>
+                    <th class="col-md-6"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +37,7 @@
         <form id="baAllForm" action="#" method="post" th:action="@{/ba_all}">
             <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
         </form>
-        Documents (<span th:text="${totalFiles}"></span>) - <button class="btn btn-link" onclick="$('#baAllForm').submit();" >View All</button>
-        <!--        Documents (<span th:text="${totalFiles}"> </span>) - <a th:href="@{/ba_all(projectID=${projectID})}">View All</a>-->
+        Documents (<span th:text="${totalFiles}"></span>) - <a onclick="$('#baAllForm').submit();" >View All</a>
     </div>
 </div>
 

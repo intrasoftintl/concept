@@ -25,7 +25,10 @@
     </div>
     
     <div class="panel-footer">
-        Sketches (<span th:text="${totalFiles}"></span>) - <a th:href="@{/sk_all(projectID=${projectID})}">View All</a>
+        <form id="skAllForm" action="#" method="post" th:action="@{/sk_all}">
+            <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+        </form>
+        Sketches (<span th:text="${totalFiles}"></span>) - <a onclick="$('#skAllForm').submit();" >View All</a>
     </div>
     
 </div>
