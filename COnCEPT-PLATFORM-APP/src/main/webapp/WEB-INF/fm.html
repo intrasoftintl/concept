@@ -1,6 +1,6 @@
 <!--View for FileManagement Module -->
 
-<div th:fragment="fmContentList"  th:unless="${#lists.isEmpty(fmContents)}" > 
+<div th:fragment="fmContentList" th:unless="${#lists.isEmpty(fmContents)}" > 
 
     <table class="table table-striped">
         <thead>
@@ -21,8 +21,7 @@
 </div>
 
 
-<div th:fragment="fmContentAllList"  th:unless="${#lists.isEmpty(fmContents)}" > 
-   
+<div th:fragment="fmContentAllList" th:unless="${#lists.isEmpty(fmContents)}" > 
     <div class="panel-body no-padding" >
         <table class="table table-striped">
             <thead>
@@ -41,7 +40,6 @@
                         <form  role="form"  class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${fmContent}" method="post">
                             <input name="fileID" type="hidden" th:value="${fmContent.id}"/>
                             <input name="projectID" type="hidden" th:value="${projectID}"/>
-                            
                             <button class="action-button">
                                 <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                             </button>

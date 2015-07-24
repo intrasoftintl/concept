@@ -5,7 +5,7 @@
                 <tr>
                     <th class="col-md-5">Recent Documents</th>
                     <th class="col-md-2">User</th>
-                    <th class="col-md-5"></th>
+                    <th class="col-md-5"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -16,7 +16,7 @@
                         <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\')'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
-                        <form role="form" class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${baContent}" method="post">
+                        <form role="form" class="actions" action="#" th:action="@{/briefanalysis}" th:object="${baContent}" method="post">
                             <input name="fileID" type="hidden" th:value="${baContent.id}"/>
                             <input name="projectID" type="hidden" th:value="${projectID}"/>
                             <button class="action-button">
@@ -34,7 +34,7 @@
     </div>
 
     <div class="panel-footer">
-        Documents (<span th:text="${totalFiles}"> </span>) - <a href="/ba_all">View All</a>
+        Documents (<span th:text="${totalFiles}"> </span>) - <a th:href="@{/ba_all(projectID=${projectID})}">View All</a>
     </div>
 </div>
 
@@ -50,7 +50,7 @@
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
-                    <td><a th:href="@{'/ba/'+${baContent.id}}" th:title="${baContent.filename}" th:alt="${baContent.filename}"></a></td>
+                    <td><a th:href="@{'/briefanalysis_all/'+${baContent.id}}" th:title="${baContent.filename}" th:alt="${baContent.filename}"></a></td>
                     <td class="truncate">
                         <input name="fileID" type="hidden" th:value="${baContent.id}"/>
                         <input name="projectID" type="hidden" th:value="${projectID}"/>
@@ -58,9 +58,14 @@
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
 
-                        <button class="action-button">
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                        </button>
+                        <form  role="form"  class="actions" action="#" th:action="@{/briefanalysis}" th:object="${baContent}" method="post">
+                            <input name="fileID" type="hidden" th:value="${baContent.id}"/>
+                            <input name="projectID" type="hidden" th:value="${projectID}"/>
+                            <button class="action-button">
+                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            </button>
+                        </form>
+                        &nbsp;
 
                         <span th:class="(${baContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
@@ -69,7 +74,15 @@
             </tbody>
         </table>
     </div>
-    <div class="panel-footer">
-        Files ( <span th:text="${totalFiles}"> </span> ) - <a href="/fm_all">View All</a>
+    
+    <!-- Load more button -->
+    <div class="panel-footer" style="text-align:center">
+       <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
     </div>
+
+    <!-- Nothing more to load button -->
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
+    </div>
+    
 </div>

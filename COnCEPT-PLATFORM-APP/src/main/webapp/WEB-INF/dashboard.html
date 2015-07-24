@@ -147,7 +147,7 @@
                 <div class="col-md-4 ">
                     <div id="ba-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Brief Analysis</h4>
+                            <h4 class="panel-title pull-left">Brief Analysis</h4>
                             <div class="btn-group pull-right">
                                 <form id="ba-add-form" action="#" method="post" th:action="@{/ba_app}">
                                     <button onclick="addProjectIDToForm('ba-add-form')" type="submit" id="ba-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Create New</button>
@@ -165,7 +165,7 @@
                 <div class="col-md-4">
                     <div id="fm-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
+                            <h4 class="panel-title pull-left">File Management</h4>
                             <div class="btn-group pull-right">
                                 <form id="fm-add-form" action="#" method="post" th:action="@{/fm_app}">
                                     <button onclick="addProjectIDToForm('fm-add-form')" type="submit" id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</button>
@@ -183,7 +183,7 @@
                 <div class="col-md-4">
                     <div id="se-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Search Engine</h4>
+                            <h4 class="panel-title pull-left">Search Engine</h4>
                             <div  class="btn-group pull-right">
                                 <form id="se-add-form" action="#" method="post" th:action="@{/se_app}">
                                     <button onclick="addProjectIDToForm('se-add-form')" type="submit" id="se-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</button>
@@ -204,7 +204,7 @@
                 <div class="col-md-4">
                     <div id="mm-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Mindmaps</h4>
+                            <h4 class="panel-title pull-left">Mindmaps</h4>
                             <div  class="btn-group pull-right">
                                 <form id="mm-add-form" action="#" method="post" th:action="@{/mm_app}">
                                     <button onclick="addProjectIDToForm('mm-add-form')" type="submit" id="mm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</button>
@@ -222,7 +222,7 @@
                 <div class="col-md-4">
                     <div id="sb-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Storyboards</h4>
+                            <h4 class="panel-title pull-left">Storyboards</h4>
                             <div  class="btn-group pull-right">
                                 <form id="sb-add-form" action="#" method="post" th:action="@{/sb_app}">
                                     <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="mb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</button>
@@ -239,9 +239,9 @@
 
                 <!-- sketches -->
                 <div class="col-md-4">
-                    <div id="sk-buttons"  class="panel panel-default">
+                    <div id="sk-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Sketches</h4>
+                            <h4 class="panel-title pull-left">Sketches</h4>
                             <div class="btn-group pull-right">
                                 <form id="sk-add-form" action="#" method="post" th:action="@{/sk_app}">
                                     <button onclick="addProjectIDToForm('sk-add-form')" type="submit" id="sk-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</button>
@@ -257,19 +257,21 @@
             </div>
         </div>
 
+        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
         <script src="/resources/js/bootstrap.min.js"></script>
         <script src="/resources/js/togetherjs-min.js"></script>
         <script src="/resources/js/lightbox.min.js"></script>
-        <!--Javascript file handling various actions of dashboard page -->
+
+        <!-- Javascript file handling various actions of dashboard page -->
         <script src="/resources/js/util.js"></script>
         <script src="/resources/js/dashboard.js"></script>
-        <!--   Metadata -->
+
+        <!-- Metadata -->
         <script src="/resources/js/jquery.tagsinput.min.js"></script>
         <script src="/resources/js/tree.jquery.js"></script>
         <script src="/resources/js/metadata.js"></script>
 
-
     </body>
 </html>
-

@@ -101,6 +101,19 @@ function projectSelectedAction(projectID) {
             $("#project-view").show();
         }
 
+        if (isBA_all()) {
+            $("#sort").show();
+
+            $("#ba-add").attr("href", "/ba_app?projectID=" + projectID);
+            $("#ba-add").show();
+            $("#ba-all").load("/filemanagement_all/" + projectID + "?limit=200");
+
+            $("#ba-placeholder").hide();
+
+            $("#project-members").show();
+            $("#project-view").show();
+        }
+
         if (isSK_app()) {
             $("#project-members").show();
             $("#project-view").show();
@@ -140,10 +153,16 @@ function projectSelectedAction(projectID) {
     } else if (isBA_app()) {
         $("#project-members").hide();
         $("#project-view").hide();
-    } else if (isSK_app()) {
+    } else if (isBA_all()) {
+        $(".panel-body").hide();
+        $("#ba-placeholder").show();
+        $(".panel-footer").hide();
         $("#project-members").hide();
         $("#project-view").hide();
     } else if (isSK_app()) {
+        $("#project-members").hide();
+        $("#project-view").hide();
+    } else if (isSK_all()) {
         $("#project-members").hide();
         $("#project-view").hide();
     }
@@ -200,7 +219,6 @@ function loadMD() {
     $(".project-selection").hide();
     $(".nav-chat").hide();
     $(".nav-chat-hidden").hide();
-    $(".nav-apps").hide();
 
 //    $(".nav-main-md").show();
 //    $(".nav-keywords").show();
