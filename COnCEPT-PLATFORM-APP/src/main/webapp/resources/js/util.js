@@ -120,6 +120,11 @@ function projectSelectedAction(projectID) {
 
         if (isSK_all()) {
             $("#sort").show();
+            
+            $("#sk-add").attr("href", "/sk_app?projectID=" + projectID);
+            $("#sk-add").show();
+            $("#sk-all").load("/sketches_all/" + projectID + "?limit=200");
+            
             $("#sk-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
@@ -162,8 +167,13 @@ function projectSelectedAction(projectID) {
         $("#project-members").hide();
         $("#project-view").hide();
     } else if (isSK_all()) {
+        $(".panel-body").hide();
+        $("#sort").hide();
+        $("#sk-placeholder").show();
+        $(".panel-footer").hide();
         $("#project-members").hide();
         $("#project-view").hide();
+        $("#sk-add").hide();
     }
 
 }

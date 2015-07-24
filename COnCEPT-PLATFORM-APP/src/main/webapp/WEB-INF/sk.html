@@ -45,11 +45,11 @@
             </thead>
             <tbody>            
                 <tr th:each="skContent : ${skContents}">
-                    <td><a th:href="@{'/file/'+${skContent.id}}" data-lightbox="@{'/sk/'+${skContent.id}}"><img th:src="@{'/sk/'+${skContent.id}+'?preview=1'}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a  th:href="@{'/file/'+${skContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${skContent.filename}" >Download</a></td>
-                    <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${skContent.createdDate}"></span></td>
+                    <td><a th:href="@{'/file/'+${skContent.id}}" data-lightbox="@{'/sk/'+${skContent.id}}"><img th:src="@{'/sk/'+${skContent.id}+'?preview=1'}" th:title="${skContent.title}"  class="img-thumbnail" /></a><a  th:href="@{'/file/'+${skContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${skContent.title}" >Download</a></td>
+                    <td class="truncate"><span class="file-title" th:text="${skContent.filename}"></span><br/><span class="file-user" th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${skContent.createdDate}"></span></td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                        <form  role="form"  class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${skContent}" method="post">
+                        <form  role="form"  class="actions" action="#" th:action="@{/sketches_all}" th:object="${skContent}" method="post">
                             <input name="fileID" type="hidden" th:value="${skContent.id}"/>
                             <input name="projectID" type="hidden" th:value="${projectID}"/>
                             

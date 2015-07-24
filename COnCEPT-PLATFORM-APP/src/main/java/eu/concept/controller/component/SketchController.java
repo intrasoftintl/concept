@@ -51,6 +51,15 @@ public class SketchController {
         model.addAttribute("projectID", project_id);
         return "sk :: skContentList";
     }
+    
+    @RequestMapping(value = "/sketches_all/{project_id}", method = RequestMethod.GET)
+    public String fetchBriefAnalysisByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
+        model.addAttribute("skContents", skService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        model.addAttribute("totalFiles", skService.countFilesById(project_id, WebController.getCurrentRole()));
+        model.addAttribute("projectID", project_id);
+        return "sk :: skContentAllList";
+    }
+
 
     //TODO: Show succes/error message on save
     @RequestMapping(value = "/sk_app/{sk_id}", method = RequestMethod.GET)
