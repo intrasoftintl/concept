@@ -37,7 +37,7 @@
             </thead>
             <tbody>            
                 <tr th:each="fmContent : ${fmContents}">
-                    <td><a th:href="@{'/file/'+${fmContent.id}}" data-lightbox="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}+'?preview=1'}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a  th:href="@{'/file/'+${fmContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${fmContent.filename}" >Download</a></td>
+                    <td><a th:href="@{'/file/'+${fmContent.id}}" data-lightbox="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}+'?preview=1'}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a th:href="@{'/file/'+${fmContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${fmContent.filename}" >Download</a></td>
                     <td class="truncate"><span class="file-title" th:text="${fmContent.filename}"></span><br/><span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${fmContent.createdDate}"></span></td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
