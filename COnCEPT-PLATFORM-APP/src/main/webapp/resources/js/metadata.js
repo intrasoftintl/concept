@@ -1,6 +1,3 @@
-
-
-
 function initMetadata() {
     logger("Initializing Metadata tags...");
 

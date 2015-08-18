@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "Metadata")
 public class Metadata implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -151,5 +152,5 @@ public class Metadata implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.Metadata[ id=" + id + " ]";
     }
-    
+
 }

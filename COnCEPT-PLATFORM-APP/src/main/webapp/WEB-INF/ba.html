@@ -1,6 +1,6 @@
 <div th:fragment="baContentList"  th:unless="${#lists.isEmpty(baContents)}" >
     <div class="panel-body no-padding">
-        <table class="table table-striped">
+        <table id="ba_table" class="table table-striped">
             <thead>
                 <tr>
                     <th class="col-md-3">Recent Documents</th>
@@ -13,7 +13,7 @@
                     <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
                     <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${baContent.createdDate}"></span></td>
                     <td>
-                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\')'   }    ">
+                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
                         <form role="form" class="actions" action="#" th:action="@{/briefanalysis}" th:object="${baContent}" method="post">

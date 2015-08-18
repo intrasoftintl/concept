@@ -120,11 +120,11 @@ function projectSelectedAction(projectID) {
 
         if (isSK_all()) {
             $("#sort").show();
-            
+
             $("#sk-add").attr("href", "/sk_app?projectID=" + projectID);
             $("#sk-add").show();
             $("#sk-all").load("/sketches_all/" + projectID + "?limit=200");
-            
+
             $("#sk-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
@@ -223,17 +223,29 @@ function loadBAContent() {
 }
 
 function loadMD() {
+    $("#metadata-area").show();
     $(".nav-main").hide();
     $(".nav-apps").hide();
     $(".project-selection").hide();
     $(".nav-chat").hide();
     $(".nav-chat-hidden").hide();
-
-//    $(".nav-main-md").show();
-//    $(".nav-keywords").show();
-//    $(".nav-categories").show();
-//    $(".nav-actions-md").show();
 }
+
+
+function unloadMD() {
+    logger("Unloading metadata sidebar...");
+    $("#metadata-area").hide();
+    $(".nav-main").show();
+    $(".nav-apps").show();
+    $(".project-selection").show();
+    $(".nav-chat").show();
+    $(".nav-chat-hidden").show();
+//    $("#metadata-area").find("tr").removeClass('warning');
+    
+    $("#ba_table tr ").removeClass('warning');
+
+}
+
 
 
 //Sample post using jQuery
@@ -259,11 +271,12 @@ function deleteWidgetItem(URL) {
 
 }
 
-function loadMetadata(componentID, component) {
+function loadMetadata(componentID, component, event) {
+    $(event).parent().parent().addClass('warning');
     logger("Loading metadata for component: " + component + " with id: " + componentID);
     $("#metadata-area").load("/metadata?cid=" + componentID + "&component=" + component);
     //Load metadata content
-    logger("Switching Dashboard sidebat to Metadata sidebar");
+    logger("Switching Dashboard sidebar to Metadata sidebar");
     loadMD();
 }
 
