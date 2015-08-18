@@ -56,7 +56,9 @@
                     <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:title="${baContent.title}" th:alt="${baContent.title}"><img class="img-thumbnail" src="/resources/img/fm_generic.png"/></a></td>
                     <td class="truncate"><span class="file-title" th:text="${baContent.title}"></span><br/><span class="file-user" th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${baContent.createdDate}"></span></td>
                     <td>
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\',this)'   }    ">
+                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                        </button>
 
                         <form  role="form"  class="actions" action="#" th:action="@{/briefanalysis}" th:object="${baContent}" method="post">
                             <input name="fileID" type="hidden" th:value="${baContent.id}"/>
