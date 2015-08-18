@@ -2,6 +2,8 @@
 $(document).ready(function () {
 //On page load disable dashboard content
     disableDashboardPage();
+    console.log("Selecting current project with id: " + $('#projectID').val());
+    $('#project-select').val($('#projectID').val()).change();
 }
 
 );
@@ -24,10 +26,10 @@ function loadDashboardContent(projectID) {
 //Disable dashboard page widgets
 function disableDashboardPage() {
     logger("Disabling dashboard modules...")
-        
+
     $('.nav-apps ul').addClass("disabled");
-    $('.app-link').addClass("disabled");        
-        
+    $('.app-link').addClass("disabled");
+
     $("#row1").addClass("disabled");
     $("#row2").addClass("disabled");
 
@@ -71,7 +73,7 @@ function disableDashboardPage() {
     // Project Selection
     $("#project-members").hide();
     $("#project-view").hide();
-    
+
     $(".nav-main-md").hide();
     $(".nav-keywords").hide();
     $(".nav-categories").hide();
@@ -81,7 +83,7 @@ function disableDashboardPage() {
 function enableDashboardPage() {
 
     $('.nav-apps ul').removeClass("disabled");
-    $('.app-link').removeClass("disabled"); 
+    $('.app-link').removeClass("disabled");
 
     $("#row1").removeClass("disabled");
     $("#row2").removeClass("disabled");
@@ -126,7 +128,7 @@ function enableDashboardPage() {
     // Project Selection
     $("#project-members").show();
     $("#project-view").show();
-    
+
     $(".nav-main-md").hide();
     $(".nav-keywords").hide();
     $(".nav-categories").hide();

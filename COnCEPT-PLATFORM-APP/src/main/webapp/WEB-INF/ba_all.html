@@ -35,7 +35,7 @@
             </ul>
         </nav>
 
-         <!-- projects -->
+        <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
                 <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default">
@@ -105,7 +105,14 @@
 
             <div class="header">
 
-                <a href="/dashboard" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>
+                <form th:action="@{/dashboard}" method="post" >
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+                    <button type="submit" class="btn btn-default btn-sm btn-link ">
+                        <span class="btn btn-link btn-xs back-button" aria-hidden="true"></span>&larr; Back
+                    </button>
+                </form>
+
+                <!--                <a href="/dashboard" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>-->
 
                 <!-- Profile -->
                 <div class="btn-group pull-right">
@@ -155,15 +162,15 @@
                                 <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                         </div>
-                    
+
                         <div id="ba-placeholder" class="panel-body disabled"></div>
                         <div id="ba-all"></div>
-                    
+
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
         <script src="resources/js/jquery-1.11.2.min.js"></script>

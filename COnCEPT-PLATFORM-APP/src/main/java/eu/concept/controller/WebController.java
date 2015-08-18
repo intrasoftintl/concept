@@ -74,6 +74,11 @@ public class WebController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
+
+        if (!model.containsAttribute("projectID")) {
+            model.addAttribute("projectID", "0");
+        }
+
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
@@ -154,7 +159,8 @@ public class WebController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.POST)
     public String dashboardSubmit(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);
-        return "redirect:/" + dashboard(model);
+        return dashboard(model);
+        //return "redirect:/" + dashboard(model);
     }
 
     /*

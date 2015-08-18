@@ -132,12 +132,14 @@ function projectSelectedAction(projectID) {
 
     } else if (isDashboardPage()) {
         disableDashboardPage();
-        $("#ba-app-link").removeAttr(href);
-        $("#fm-app-link").removeAttr(href);
-        $("#se-app-link").removeAttr(href);
-        $("#mm-app-link").removeAttr(href);
-        $("#sb-app-link").removeAttr(href);
-        $("#sk-app-link").removeAttr(href);
+        if ($('#projectID').val() > 0) {
+            $("#ba-app-link").removeAttr(href);
+            $("#fm-app-link").removeAttr(href);
+            $("#se-app-link").removeAttr(href);
+            $("#mm-app-link").removeAttr(href);
+            $("#sb-app-link").removeAttr(href);
+            $("#sk-app-link").removeAttr(href);
+        }
 
     } else if (isFM_app()) {
         $(".panel-body").hide();
@@ -241,7 +243,7 @@ function unloadMD() {
     $(".nav-chat").show();
     $(".nav-chat-hidden").show();
 //    $("#metadata-area").find("tr").removeClass('warning');
-    
+
     $("#ba_table tr ").removeClass('warning');
 
 }
