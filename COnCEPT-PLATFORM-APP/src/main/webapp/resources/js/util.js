@@ -241,8 +241,8 @@ function unloadMD() {
     $(".nav-apps").show();
     $(".project-selection").show();
     $(".nav-chat").show();
-    $(".nav-chat-hidden").show();
-//    $("#metadata-area").find("tr").removeClass('warning');
+    
+    //$("#metadata-area").find("tr").removeClass('warning');
     
     $("#ba_table tr ").removeClass('warning');
     
