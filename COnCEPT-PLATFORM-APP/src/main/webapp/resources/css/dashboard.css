@@ -477,7 +477,10 @@ body{
     text-align:center;
 }
 
-
+.content-disabled{
+    opacity:0.2;
+    pointer-events: none;
+}
 
 .content-pre{
     background:url('../img/bg.jpg') no-repeat;

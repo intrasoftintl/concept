@@ -231,6 +231,8 @@ function loadMD() {
     $(".project-selection").hide();
     $(".nav-chat").hide();
     $(".nav-chat-hidden").hide();
+    
+    $(".content").addClass("content-disabled");
 }
 
 
@@ -241,11 +243,9 @@ function unloadMD() {
     $(".nav-apps").show();
     $(".project-selection").show();
     $(".nav-chat").show();
-    $(".nav-chat-hidden").show();
-//    $("#metadata-area").find("tr").removeClass('warning');
-
-    $("#ba_table tr ").removeClass('warning');
-
+    $("#ba_table tr ").removeClass('warning');   
+    
+    $(".content").removeClass("content-disabled");
 }
 
 
