@@ -229,6 +229,8 @@ function loadMD() {
     $(".project-selection").hide();
     $(".nav-chat").hide();
     $(".nav-chat-hidden").hide();
+    
+    $(".content").addClass("content-disabled");
 }
 
 
@@ -243,7 +245,8 @@ function unloadMD() {
 //    $("#metadata-area").find("tr").removeClass('warning');
     
     $("#ba_table tr ").removeClass('warning');
-
+    
+    $(".content").removeClass("content-disabled");
 }
 
 
