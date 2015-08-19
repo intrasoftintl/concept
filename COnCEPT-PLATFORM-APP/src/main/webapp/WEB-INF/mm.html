@@ -15,7 +15,11 @@
                     <td class="truncate">user123456789</td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> &nbsp;
+
+                        <button class="action-button" th:attr="onclick=@{ 'deleteMM(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
+                        
                         <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
                     </td>
