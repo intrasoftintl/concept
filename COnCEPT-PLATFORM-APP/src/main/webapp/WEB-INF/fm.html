@@ -1,7 +1,6 @@
 <!--View for FileManagement Module -->
 
 <div th:fragment="fmContentList" th:unless="${#lists.isEmpty(fmContents)}" > 
-
     <table class="table table-striped">
         <thead>
             <tr>
@@ -27,7 +26,7 @@
 
 <div th:fragment="fmContentAllList" th:unless="${#lists.isEmpty(fmContents)}" > 
     <div class="panel-body no-padding" >
-        <table class="table table-striped">
+        <table id="fm_table" class="table table-striped">
             <thead>
                 <tr>
                     <th class="col-md-3">Recent Files</th>

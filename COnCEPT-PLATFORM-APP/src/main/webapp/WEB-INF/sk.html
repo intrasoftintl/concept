@@ -1,7 +1,7 @@
 <div th:fragment="skContentList"  th:unless="${#lists.isEmpty(skContents)}" >
 
     <div class="panel-body no-padding" >
-        <table class="table table-striped">
+        <table id="sk_table" class="table table-striped">
             <thead>
                 <tr>
                     <th class="col-md-5">Recent Sketches</th>
@@ -14,7 +14,10 @@
                     <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
                     <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${skContent.createdDate}"></span></td>
                     <td>
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\',this)'   }    ">
+                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                        </button>
+                        
                         <button class="action-button" th:attr="onclick=@{ 'deleteSK(' + ${skContent.id}  +','+ ${skContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
@@ -37,7 +40,7 @@
 
 <div th:fragment="skContentAllList"  th:unless="${#lists.isEmpty(skContents)}" > 
     <div class="panel-body no-padding" >
-        <table class="table table-striped">
+        <table id="sk_table" class="table table-striped">
             <thead>
                 <tr>
                     <th class="col-md-3">Recent Sketches</th>
@@ -50,7 +53,9 @@
                     <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
                     <td class="truncate"><span class="file-title" th:text="${skContent.title}"></span><br/><span class="file-user" th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${skContent.createdDate}"></span></td>
                     <td>
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\',this)'   }    ">
+                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                        </button>
                         <button class="action-button" th:attr="onclick=@{ 'deleteSKItem(' + ${skContent.id}  +','+ ${skContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>

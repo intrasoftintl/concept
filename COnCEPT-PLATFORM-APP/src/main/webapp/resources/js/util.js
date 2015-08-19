@@ -244,6 +244,11 @@ function unloadMD() {
     $(".project-selection").show();
     $(".nav-chat").show();
     $("#ba_table tr ").removeClass('warning');
+    $("#fm_table tr ").removeClass('warning');
+    $("#ba_table tr ").removeClass('warning');
+    $("#mm_table tr ").removeClass('warning');
+    $("#sb_table tr ").removeClass('warning');
+    $("#sk_table tr ").removeClass('warning');
 
     $(".content").removeClass("content-disabled");
 }
