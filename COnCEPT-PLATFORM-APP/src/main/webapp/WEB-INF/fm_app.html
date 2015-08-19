@@ -72,7 +72,7 @@
                 </div>
 
                 <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
-                
+
             </div>
 
         </nav>
@@ -186,7 +186,10 @@
 
                         </div>
                         <div class="panel-footer">
-                            <a th:href="@{/fm_all(projectID=${projectID})}" >View All</a>
+                            <form id="fmAllForm" action="#" method="post" th:action="@{/fm_all}">
+                                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+                            </form>
+                            <a onclick="$('#fmAllForm').submit();" >View All</a>
                         </div>
 
                     </div>

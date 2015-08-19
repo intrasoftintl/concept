@@ -479,8 +479,10 @@ body{
 }
 
 .content-disabled{
-    opacity:0.4;
+    opacity:0.6;
     pointer-events: none;
+    //overflow:hidden !important;
+    //height:100vh;
 }
 
 .content-pre{
