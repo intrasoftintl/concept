@@ -128,13 +128,11 @@ public class BriefAnalysisController {
         return "ba_all";
     }
 
-    /*
-     *  DELETE Methods 
-     */
-    @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.DELETE)
-    public String deleteBriefAnalysisByID(Model model, @PathVariable int ba_id) {
-        System.out.println("Request to delete brief analysis with ID: " + ba_id);
-        return "ba_app";
+
+    @RequestMapping(value = "/ba_app_delete", method = RequestMethod.GET)
+    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id,@RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id) {
+        baService.deleteBriefAnalysis(ba_id);
+        return fetchBAByProjectID(model,projetct_id,5);
     }
 
 }

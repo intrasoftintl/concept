@@ -33,7 +33,7 @@ public class BriefAnalysisService {
         return ba.getId() > 0;
     }
 
-    public boolean deleteFile(int briefAnalysisID) {
+    public boolean deleteBriefAnalysis(int briefAnalysisID) {
         try {
             briefAnalysis.delete(briefAnalysisID);
         } catch (Exception ex) {

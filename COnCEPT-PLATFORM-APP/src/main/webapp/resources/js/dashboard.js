@@ -19,10 +19,17 @@ function loadDashboardContent(projectID) {
     $("#sk-dashboard").load("/sketch/" + projectID + "?limit=4");
 }
 
+
+
+//Delete a Brief Analysis object
+function deleteBA(ba_id,project_id) {
+    $("#ba-dashboard").load("/ba_app_delete?ba_id=" + ba_id + "&project_id="+project_id);
+}
+
+
 //
 //TODO: A more efficient way to disable/enable dashboard widgets (in ex. DOM iter.)
 //
-
 //Disable dashboard page widgets
 function disableDashboardPage() {
     logger("Disabling dashboard modules...")

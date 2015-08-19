@@ -13,6 +13,8 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Christos Paraskeva
  */
 @RestController
-@RequestMapping("/concept/api")
+@RequestMapping("/conceptRest/api")
 public class RestAPIController {
+
+    private final Logger restLogger = Logger.getLogger(RestAPIController.class.getName());
 
     @Autowired
     ProjectServiceOp service;
@@ -57,34 +61,36 @@ public class RestAPIController {
     /**
      * Fetch a MindMap from database based on a specific id
      *
-     * @param id The MindMap object id
+     * @param mid
      * @param uid
      * @return ApplicationResponse object
      */
     @RequestMapping(value = "/mindmap/{id}", method = RequestMethod.GET)
     public ApplicationResponse fetchMindMap(@PathVariable("id") int mid, @RequestParam(value = "uid", defaultValue = "0", required = false) int uid) {
+        restLogger.info("Trying to fetch MindMap with mid: " + mid + " and uid: " + uid);
+        String responseMessage = "Successfully retrieved mindmap with id: " + mid;
+        BasicResponseCode responseCode = BasicResponseCode.SUCCESS;
         MindMap mindmap = mindmapService.fetchMindMapById(mid);
+        MemberRoleOp memberRole;
         //MindMap not found exception
         if (null == mindmap) {
-            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "MindMap with id: " + mid + " could not be found in COnCEPT database", null);
+            responseMessage = "MindMap with id: " + mid + " could not be found in COnCEPT database";
+            responseCode = BasicResponseCode.EXCEPTION;
+        } //Non valid member user role
+        else if (null == (memberRole = roleService.findByUserId(uid)) || memberRole.getRoleId() == COnCEPTRole.NON_MEMBER.getID()) {
+            responseMessage = "User with id: " + uid + " is not member of the COnCEPT platform";
+            responseCode = BasicResponseCode.INVALIDATE;
+
+        } //Inefficient privileges
+        else if (mindmap.getIsPublic() == 0 && memberRole.getRoleId() == COnCEPTRole.CLIENT.getID()) {
+            responseMessage = "Role name: CLIENT is not allowed to perform CRUD actions...";
+            responseCode = BasicResponseCode.PERMISSION;
         }
-
-        MemberRoleOp memberRole = roleService.findByUserId(uid);
-
-        //Non valid member user role
-        if (null == memberRole || memberRole.getRoleId() == COnCEPTRole.NON_MEMBER.getID()) {
-            return new ApplicationResponse(BasicResponseCode.INVALIDATE, "User with id: " + mid + " is not member of the COnCEPT platform", null);
-        }
-
-        //Inefficient privileges
-        if (mindmap.getIsPublic() == 0 && memberRole.getRoleId() == COnCEPTRole.CLIENT.getID()) {
-            return new ApplicationResponse(BasicResponseCode.PERMISSION, "Role name: CLIENT is not allowed to perform CRUD actions...", null);
-        }
-
-        //Remove user object
-        return new ApplicationResponse(BasicResponseCode.SUCCESS, "Successfully retrieved mindmap with id: " + mid, mindmap);
+        //Print response message
+        restLogger.log(Level.INFO, "Response code: {0} Response message: {1}", new Object[]{responseCode.name(), responseMessage});
+        //Return Response
+        return new ApplicationResponse(responseCode, responseMessage, mindmap);
     }
-
 
     /**
      * Creates/update a MindMap to COnCEPT db
@@ -94,17 +100,20 @@ public class RestAPIController {
      */
     @RequestMapping(value = "/mindmap", method = RequestMethod.POST, consumes = "application/json")
     public ApplicationResponse createMindMap(@RequestBody MindMap mindmap) {
-        if (null == mindmap || null == mindmap.getUserCo()) {
-            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Not a valid MinMap object... ", null);
-        }
-        
-       mindmap = mindmapService.store(mindmap);
-        if (null != mindmap && mindmap.getId()>0) {
-            System.out.println("Mindmap ID: "+mindmap.getId());
-            return new ApplicationResponse(BasicResponseCode.SUCCESS, "Successfully stored mindmap to COnCEPT db...: ", mindmap);
-        }
+        restLogger.info("Trying to create/update a mindmap...");
+        String responseMessage = "Could not store mindmap to COnCEPT db... ";
+        BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
 
-        return new ApplicationResponse(BasicResponseCode.UNKNOWN, "Could not store mindmap to COnCEPT db...: ", mindmap);
+        if (null == mindmap || null == mindmap.getUserCo()) {
+            responseMessage = "Not a valid MinMap object... ";
+            responseCode = BasicResponseCode.EXCEPTION;
+        } else if (null != (mindmap = mindmapService.store(mindmap)) && mindmap.getId() > 0) {
+            responseMessage = "Successfully stored mindmap to COnCEPT db...";
+            responseCode = BasicResponseCode.SUCCESS;
+        }
+        //Print response message
+        restLogger.log(Level.INFO, "Response code: {0} Response message: {1}", new Object[]{responseCode.name(), responseMessage});
+        return new ApplicationResponse(responseCode, responseMessage, mindmap);
 
     }
 
@@ -126,5 +135,4 @@ public class RestAPIController {
 //        return new ResponseEntity(null, httpHeaders, HttpStatus.CREATED);
 //
 //    }
-
 }

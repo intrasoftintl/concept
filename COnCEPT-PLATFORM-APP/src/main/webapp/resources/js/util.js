@@ -1,7 +1,7 @@
 //Static variables
 var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
-var MEMBERSHIPS_REST_URL = "http://localhost:8080/concept/api/memberships/";
+var MEMBERSHIPS_REST_URL = "http://localhost:8080/conceptRest/api/memberships/";
 
 
 //COnCEPT Logger

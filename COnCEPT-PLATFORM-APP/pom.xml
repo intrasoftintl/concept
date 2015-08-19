@@ -138,40 +138,10 @@
                         </goals>
                     </execution>
                 </executions>
-                                                
-                <!-- <configuration>
-                    <arguments>
-                        <argument> - -spring.profiles.active=prod</argument>
-                    </arguments> 
-                </configuration> -->
             </plugin>               
             
         </plugins>
-<!--        <resources>
-                        <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-                        <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>build.properties</include>
-                </includes>
-            </resource>
-                        <resource>
-                <directory>src/main/webapp</directory>
-            </resource>
-            <resource>
-                <directory>src/main/webapp</directory>
-            </resource>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.html</include>
-                </includes>
-            </resource>
-        </resources>    -->
+
     </build>
     <name>COnCEPT-PLATFORM-APP</name>
 </project>
