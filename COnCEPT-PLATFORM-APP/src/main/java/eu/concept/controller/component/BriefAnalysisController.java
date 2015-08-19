@@ -101,8 +101,6 @@ public class BriefAnalysisController {
 
     @RequestMapping(value = "/ba_app_edit", method = RequestMethod.POST)
     public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
-//      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
-
         //Create the BriefAnalysis object
         if (null == ba.getId()) {
             UserCo newUser = new UserCo();
@@ -111,7 +109,6 @@ public class BriefAnalysisController {
             ba.setUid(newUser);//care about last edit??
 
         }
-
         //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
             model.addAttribute("success", "Saved to Concept DB");
@@ -128,11 +125,16 @@ public class BriefAnalysisController {
         return "ba_all";
     }
 
-
     @RequestMapping(value = "/ba_app_delete", method = RequestMethod.GET)
-    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id,@RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id) {
+    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
         baService.deleteBriefAnalysis(ba_id);
-        return fetchBAByProjectID(model,projetct_id,5);
+        return fetchBAByProjectID(model, projetct_id, limit);
+    }
+
+    @RequestMapping(value = "/ba_app_delete_all", method = RequestMethod.GET)
+    public String deleteBriefAnalysisAllByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+        baService.deleteBriefAnalysis(ba_id);
+        return fetchBriefAnalysisByProjectIDAll(model, projetct_id, limit);
     }
 
 }

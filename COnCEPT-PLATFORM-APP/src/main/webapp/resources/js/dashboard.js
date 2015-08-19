@@ -23,7 +23,7 @@ function loadDashboardContent(projectID) {
 
 //Delete a Brief Analysis object
 function deleteBA(ba_id,project_id) {
-    $("#ba-dashboard").load("/ba_app_delete?ba_id=" + ba_id + "&project_id="+project_id);
+    $("#ba-dashboard").load("/ba_app_delete?ba_id=" + ba_id + "&project_id="+project_id+"&limit=5");
 }
 
 

@@ -60,13 +60,9 @@
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
 
-                        <form  role="form"  class="actions" action="#" th:action="@{/briefanalysis}" th:object="${baContent}" method="post">
-                            <input name="fileID" type="hidden" th:value="${baContent.id}"/>
-                            <input name="projectID" type="hidden" th:value="${projectID}"/>
-                            <button class="action-button">
-                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                            </button>
-                        </form>
+                        <button class="action-button" th:attr="onclick=@{ 'deleteBAItem(' + ${baContent.id}  +','+ ${baContent.pid}+ ')' }" >
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
                         &nbsp;
 
                         <span th:class="(${baContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 

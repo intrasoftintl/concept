@@ -1,7 +1,6 @@
 package eu.concept.repository.concept.service;
 
 import eu.concept.repository.concept.dao.SketchRepository;
-import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.Sketch;
 import eu.concept.repository.concept.domain.UserCo;
 import java.util.List;
@@ -21,7 +20,7 @@ public class SketchService {
     @Autowired
     private SketchRepository sketch;
 
-    public boolean storeFile(Sketch sk) {
+    public boolean storeSketch(Sketch sk) {
         try {
             sketch.save(sk);
         } catch (Exception ex) {
@@ -56,7 +55,7 @@ public class SketchService {
         return sketches;
     }
 
-    public Sketch fetchBriefAnalysisById(int id) {
+    public Sketch fetchSketchById(int id) {
         return sketch.findById(id);
     }
 

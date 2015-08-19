@@ -5,7 +5,6 @@ import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.Sketch;
 import eu.concept.repository.concept.domain.UserCo;
-import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.SketchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
@@ -51,7 +50,7 @@ public class SketchController {
         model.addAttribute("projectID", project_id);
         return "sk :: skContentList";
     }
-    
+
     @RequestMapping(value = "/sketches_all/{project_id}", method = RequestMethod.GET)
     public String fetchSketchesByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         model.addAttribute("skContents", skService.fetchSketchesByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
@@ -64,7 +63,7 @@ public class SketchController {
     @RequestMapping(value = "/sk_app/{sk_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByID(Model model, @PathVariable int sk_id) {
 
-        Sketch sk = skService.fetchBriefAnalysisById(sk_id);
+        Sketch sk = skService.fetchSketchById(sk_id);
         if (null == sk) {
             Logger.getLogger(BriefAnalysis.class.getName()).severe("Could not found Sketch with id: " + sk_id);
             return "error";
@@ -109,28 +108,39 @@ public class SketchController {
 
     @RequestMapping(value = "/sk_app_edit", method = RequestMethod.POST)
     public String createBriefAnalysis(@ModelAttribute Sketch sk, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
-//      ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
         System.out.println("ProjectID : " + sk.getPid());
         UserCo newUser = new UserCo();
         newUser.setId(getCurrentUser().getId());
-        if (null == sk.getTitle() || sk.getTitle().isEmpty() ){
+        if (null == sk.getTitle() || sk.getTitle().isEmpty()) {
             sk.setTitle("Untitled");
         }
         sk.setPid(projectID);
         sk.setUid(newUser);
         model.addAttribute("sketch", sk);
-        if (skService.storeFile(sk)) {
+        if (skService.storeSketch(sk)) {
             model.addAttribute("success", "Saved to Concept DB");
         }
         return "redirect:/sk_app/" + sk.getId();
     }
-    
+
     @RequestMapping(value = "/sk_all", method = RequestMethod.POST)
     public String sk_all_post(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "sk_all";
+    }
+
+    @RequestMapping(value = "/sk_app_delete", method = RequestMethod.GET)
+    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "sk_id", defaultValue = "0", required = false) int sk_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
+        skService.deleteSketch(sk_id);
+        return fetchSKByProjectID(model, projetct_id, limit);
+    }
+
+    @RequestMapping(value = "/sk_app_delete_all", method = RequestMethod.GET)
+    public String deleteBriefAnalysisAllByID(Model model, @RequestParam(value = "sk_id", defaultValue = "0", required = false) int sk_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+        skService.deleteSketch(sk_id);
+        return fetchSketchesByProjectIDAll(model, projetct_id, limit);
     }
 
 }

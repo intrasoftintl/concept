@@ -231,7 +231,7 @@ function loadMD() {
     $(".project-selection").hide();
     $(".nav-chat").hide();
     $(".nav-chat-hidden").hide();
-    
+
     $(".content").addClass("content-disabled");
 }
 
@@ -243,8 +243,8 @@ function unloadMD() {
     $(".nav-apps").show();
     $(".project-selection").show();
     $(".nav-chat").show();
-    $("#ba_table tr ").removeClass('warning');   
-    
+    $("#ba_table tr ").removeClass('warning');
+
     $(".content").removeClass("content-disabled");
 }
 
@@ -259,7 +259,7 @@ function deleteWidgetItem(URL) {
         url: 'http://localhost:8080/ba_app/2',
         type: 'DELETE',
         data: {
-//            "projectID": projectID,
+            "projectID": projectID,
             "_csrf": $("#_csrf").val()
         },
         success: function (data) {
@@ -282,3 +282,12 @@ function loadMetadata(componentID, component, event) {
     loadMD();
 }
 
+function deleteBAItem(ba_id, project_id) {
+    console.log("i am in...");
+    $("#ba-all").load("/ba_app_delete_all?ba_id=" + ba_id + "&project_id="+project_id+"&limit=200");
+}
+
+function deleteSKItem(sk_id, project_id) {
+    console.log("i am in...");
+    $("#ba-all").load("/sk_app_delete_all?sk_id=" + ba_id + "&project_id="+project_id+"&limit=200");
+}
