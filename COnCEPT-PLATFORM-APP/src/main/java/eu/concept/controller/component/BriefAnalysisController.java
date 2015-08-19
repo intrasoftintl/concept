@@ -90,6 +90,18 @@ public class BriefAnalysisController {
         return "ba";
     }
 
+    @RequestMapping(value = "/ba_app_delete", method = RequestMethod.GET)
+    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
+        baService.deleteBriefAnalysis(ba_id);
+        return fetchBAByProjectID(model, projetct_id, limit);
+    }
+
+    @RequestMapping(value = "/ba_app_delete_all", method = RequestMethod.GET)
+    public String deleteBriefAnalysisAllByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+        baService.deleteBriefAnalysis(ba_id);
+        return fetchBriefAnalysisByProjectIDAll(model, projetct_id, limit);
+    }
+
     /*
      *  POST Methods 
      */
@@ -123,18 +135,6 @@ public class BriefAnalysisController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "ba_all";
-    }
-
-    @RequestMapping(value = "/ba_app_delete", method = RequestMethod.GET)
-    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
-        baService.deleteBriefAnalysis(ba_id);
-        return fetchBAByProjectID(model, projetct_id, limit);
-    }
-
-    @RequestMapping(value = "/ba_app_delete_all", method = RequestMethod.GET)
-    public String deleteBriefAnalysisAllByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
-        baService.deleteBriefAnalysis(ba_id);
-        return fetchBriefAnalysisByProjectIDAll(model, projetct_id, limit);
     }
 
 }

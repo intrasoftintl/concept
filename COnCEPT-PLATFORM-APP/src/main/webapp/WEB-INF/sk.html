@@ -1,5 +1,5 @@
 <div th:fragment="skContentList"  th:unless="${#lists.isEmpty(skContents)}" >
-    
+
     <div class="panel-body no-padding" >
         <table class="table table-striped">
             <thead>
@@ -15,11 +15,9 @@
                     <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${skContent.createdDate}"></span></td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-
                         <button class="action-button" th:attr="onclick=@{ 'deleteSK(' + ${skContent.id}  +','+ ${skContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
-                        
                         <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
                     </td>
@@ -27,14 +25,14 @@
             </tbody>
         </table>
     </div>
-    
+
     <div class="panel-footer">
         <form id="skAllForm" action="#" method="post" th:action="@{/sk_all}">
             <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
         </form>
         Sketches (<span th:text="${totalFiles}"></span>) - <a onclick="$('#skAllForm').submit();" >View All</a>
     </div>
-    
+
 </div>
 
 <div th:fragment="skContentAllList"  th:unless="${#lists.isEmpty(skContents)}" > 
@@ -53,14 +51,9 @@
                     <td class="truncate"><span class="file-title" th:text="${skContent.title}"></span><br/><span class="file-user" th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${skContent.createdDate}"></span></td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                        <form  role="form"  class="actions" action="#" th:action="@{/sketches_all}" th:object="${skContent}" method="post">
-                            <input name="fileID" type="hidden" th:value="${skContent.id}"/>
-                            <input name="projectID" type="hidden" th:value="${projectID}"/>
-                            
-                            <button class="action-button">
-                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                            </button>
-                        </form>
+                        <button class="action-button" th:attr="onclick=@{ 'deleteSKItem(' + ${skContent.id}  +','+ ${skContent.pid}+ ')' }" >
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
                         &nbsp;
                         <span th:class="(${skContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
@@ -69,10 +62,10 @@
             </tbody>
         </table>
     </div>
-   
+
     <!-- Load more button -->
     <div class="panel-footer" style="text-align:center">
-       <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
     </div>
 
     <!-- Nothing more to load button -->

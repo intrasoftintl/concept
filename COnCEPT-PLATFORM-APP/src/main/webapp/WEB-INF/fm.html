@@ -41,13 +41,9 @@
                     <td class="truncate"><span class="file-title" th:text="${fmContent.filename}"></span><br/><span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${fmContent.createdDate}"></span></td>
                     <td>
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
-                        <form  role="form"  class="actions" action="#" th:action="@{/filemanagement_all}" th:object="${fmContent}" method="post">
-                            <input name="fileID" type="hidden" th:value="${fmContent.id}"/>
-                            <input name="projectID" type="hidden" th:value="${projectID}"/>
-                            <button class="action-button">
-                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                            </button>
-                        </form>
+                      <button class="action-button" th:attr="onclick=@{ 'deleteFMItem(' + ${fmContent.id}  +','+ ${fmContent.pid}+ ')' }" >
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
                         &nbsp;
                         <span th:class="(${fmContent.isPublic} > 0 ) ? 'glyphicon  glyphicon-eye-open icon-active' : 'glyphicon  glyphicon-eye-open'"  aria-hidden="true"></span>&nbsp; 
                         <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>

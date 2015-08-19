@@ -95,6 +95,18 @@ public class SketchController {
         return "sk";
     }
 
+    @RequestMapping(value = "/sk_app_delete", method = RequestMethod.GET)
+    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "sk_id", defaultValue = "0", required = false) int sk_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
+        skService.deleteSketch(sk_id);
+        return fetchSKByProjectID(model, projetct_id, limit);
+    }
+
+    @RequestMapping(value = "/sk_app_delete_all", method = RequestMethod.GET)
+    public String deleteBriefAnalysisAllByID(Model model, @RequestParam(value = "sk_id", defaultValue = "0", required = false) int sk_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+        skService.deleteSketch(sk_id);
+        return fetchSketchesByProjectIDAll(model, projetct_id, limit);
+    }
+
     /*
      *  POST Methods 
      */
@@ -129,18 +141,6 @@ public class SketchController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "sk_all";
-    }
-
-    @RequestMapping(value = "/sk_app_delete", method = RequestMethod.GET)
-    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "sk_id", defaultValue = "0", required = false) int sk_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
-        skService.deleteSketch(sk_id);
-        return fetchSKByProjectID(model, projetct_id, limit);
-    }
-
-    @RequestMapping(value = "/sk_app_delete_all", method = RequestMethod.GET)
-    public String deleteBriefAnalysisAllByID(Model model, @RequestParam(value = "sk_id", defaultValue = "0", required = false) int sk_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
-        skService.deleteSketch(sk_id);
-        return fetchSketchesByProjectIDAll(model, projetct_id, limit);
     }
 
 }

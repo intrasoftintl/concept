@@ -283,11 +283,14 @@ function loadMetadata(componentID, component, event) {
 }
 
 function deleteBAItem(ba_id, project_id) {
-    console.log("i am in...");
     $("#ba-all").load("/ba_app_delete_all?ba_id=" + ba_id + "&project_id="+project_id+"&limit=200");
 }
 
+function deleteFMItem(fm_id, project_id) {
+    console.log("i am in....")
+    $("#fm-all").load("/fm_app_delete_all?fm_id=" + fm_id + "&project_id="+project_id+"&limit=200");
+}
+
 function deleteSKItem(sk_id, project_id) {
-    console.log("i am in...");
-    $("#ba-all").load("/sk_app_delete_all?sk_id=" + ba_id + "&project_id="+project_id+"&limit=200");
+    $("#sk-all").load("/sk_app_delete_all?sk_id=" + sk_id + "&project_id="+project_id+"&limit=200");
 }

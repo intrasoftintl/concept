@@ -27,7 +27,7 @@ function deleteBA(ba_id,project_id) {
 }
 
 //Delete a Mindmap object
-function deleteMM(ba_id,project_id) {
+function deleteMM(mm_id,project_id) {
     $("#mm-dashboard").load("/mm_app_delete?mm_id=" + mm_id + "&project_id="+project_id);
 }
 

@@ -94,6 +94,12 @@ public class FileManagementController {
         return "fm";
     }
 
+    @RequestMapping(value = "/fm_app_delete_all", method = RequestMethod.GET)
+    public String deleteFileByFM(Model model, @RequestParam(value = "fm_id", defaultValue = "0", required = false) int fileID, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+        fmService.deleteFile(fileID);
+        return fetchFilesByProjectIDAll(model, project_id, limit);
+    }
+
     /*
      *  POST Methods 
      */
@@ -101,12 +107,6 @@ public class FileManagementController {
     public String fm_appPost(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);
         return fm_app(model);
-    }
-
-    @RequestMapping(value = "/filemanagement_all", method = RequestMethod.POST)
-    public String deleteFileByFM(Model model, @RequestParam(value = "fileID", defaultValue = "0", required = false) int fileID, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
-        fmService.deleteFile(fileID);
-        return "redirect:/fm_all?projectID=" + projectID;
     }
 
     @RequestMapping(value = "/fm_all", method = RequestMethod.POST)

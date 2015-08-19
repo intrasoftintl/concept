@@ -56,7 +56,6 @@
                         <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
-
                         <button class="action-button" th:attr="onclick=@{ 'deleteBAItem(' + ${baContent.id}  +','+ ${baContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
