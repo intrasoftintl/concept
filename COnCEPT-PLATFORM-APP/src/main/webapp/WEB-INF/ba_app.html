@@ -17,7 +17,12 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                    <a href="/dashboard"><li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <form th:action="@{/dashboard}" method="post" >
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+                    <a href="#" onclick="$(this).closest('form').submit()">
+                        <li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
+                    </a>
+                </form>
                 <a onclick="TogetherJS(this);
                         return false;"><li class="collaboration"></li></a>
             </ul>

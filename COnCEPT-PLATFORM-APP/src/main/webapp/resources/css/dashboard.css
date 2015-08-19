@@ -42,6 +42,7 @@ body{
                  -o-transition: background-color 0.1s ease-out;
                  transition: background-color 0.1s ease-out;
 }
+
 .nav-main ul li:hover{ color:#fff; background:#ECF0F1; color:#E74C3C; }
 
 .nav-main ul li.main{ border-bottom:2px solid #eee; width:202px; height:36px; background-color: #f2f2f2; color: #444; font-size:12px; }
