@@ -638,7 +638,7 @@ hr {
     border-top:1px solid #fff;   
 }
 
-.back-button{ margin-left:20px; font-size:14px; }
+.back-button{ margin-left:10px; font-size:14px; }
 .back-button:hover{ text-decoration:none; }
 
 .alert-danger, .alert-success { text-shadow: none; }
@@ -694,4 +694,8 @@ table img.notification{ width:60px; margin:0; background: #fff; border-radius:50
     outline:none;
     padding:0;
     margin:0;
+}
+
+*:focus {
+    outline: 0;
 }
