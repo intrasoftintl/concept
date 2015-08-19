@@ -1,7 +1,7 @@
 <div th:fragment="mmContentList"  th:unless="${#lists.isEmpty(mmContents)}" >
     
     <div class="panel-body no-padding" >
-        <table class="table table-striped">
+        <table id="mm_table" class="table table-striped">
             <thead>
                 <tr>
                     <th class="col-md-5">Recent Uploaded Files</th>
