@@ -26,6 +26,21 @@ function deleteBA(ba_id,project_id) {
     $("#ba-dashboard").load("/ba_app_delete?ba_id=" + ba_id + "&project_id="+project_id);
 }
 
+//Delete a Mindmap object
+function deleteMM(ba_id,project_id) {
+    $("#mm-dashboard").load("/mm_app_delete?mm_id=" + mm_id + "&project_id="+project_id);
+}
+
+//Delete a Storyboard object
+function deleteSB(sb_id,project_id) {
+    $("#sb-dashboard").load("/sb_app_delete?sb_id=" + sb_id + "&project_id="+project_id);
+}
+
+//Delete a Sketch object
+function deleteSK(sk_id,project_id) {
+    $("#sk-dashboard").load("/sk_app_delete?sk_id=" + sk_id + "&project_id="+project_id);
+}
+
 
 //
 //TODO: A more efficient way to disable/enable dashboard widgets (in ex. DOM iter.)
