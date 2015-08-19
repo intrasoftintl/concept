@@ -74,8 +74,9 @@ public class WebController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
-
         if (!model.containsAttribute("projectID")) {
+            
+            System.out.println("I am not innnnnnnnnnnnnnnn..................");
             model.addAttribute("projectID", "0");
         }
 
