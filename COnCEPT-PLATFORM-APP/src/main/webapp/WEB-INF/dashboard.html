@@ -28,24 +28,12 @@
                         <li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
                     </a>
                 </form>
-                
-                <!--<a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>-->
-                
+                                
                 <a onclick="TogetherJS(this);
                         return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
-        
-        
-        
-        
-                        <form th:action="@{/dashboard}" method="post" >
-                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
-                    <button type="submit" class="btn-link" style="padding:0;margin:0;">
-                        <img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard
-                    </button>
-                </form>
-
+    
         <!-- apps -->
         <nav class="nav-apps">
             <ul>
