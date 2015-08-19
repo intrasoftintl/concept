@@ -21,7 +21,7 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <a href="/dashboard"><li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>
+                <a href="/dashboard"><li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li></a>               
                 <a onclick="TogetherJS(this);
                         return false;"><li class="collaboration"></li></a>
             </ul>
@@ -106,20 +106,16 @@
 
         <!-- Metadata Content -->
         <div id="metadata-area"></div>
-        
+
         <!-- dashboard -->
         <div class="content">
 
             <div class="header">
 
-                <form th:action="@{/dashboard}" method="post" >
+                <form th:action="@{/dashboard}" method="post" class="pull-left">
                     <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
-                    <button type="submit" class="btn btn-default btn-sm btn-link ">
-                        <span class="btn btn-link btn-xs back-button" aria-hidden="true"></span>&larr; Back
-                    </button>
+                    <button type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>
                 </form>
-
-                <!--                <a href="/dashboard" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>-->
 
                 <!-- Profile -->
                 <div class="btn-group pull-right">
@@ -190,6 +186,6 @@
         <script src="/resources/js/jquery.tagsinput.min.js"></script>
         <script src="/resources/js/tree.jquery.js"></script>
         <script src="/resources/js/metadata.js"></script>
-        
+
     </body>
 </html>
