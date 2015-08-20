@@ -6,7 +6,7 @@
             <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
             <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
             <p class="heading">Chat</p>
-            <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
+            <p class="title" th:inline="text">Logged in as <span id="chat-user" style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
         </div>
 
         <div class="nav-content">
@@ -27,7 +27,7 @@
 
             <ul class="chat-actions">
                 <li>
-                    <input id="chat-text" class="chat-text" type="text" name="chat-message" rows="1" onkeypress="keyPressedOnTextField(event)" />
+                    <input id="chat-text" class="chat-text" type="text" name="chat-message" rows="1" onkeypress="keyPressedOnTextField(event)" autocomplete="off" />
                     <button id="chat-message" class="btn btn-xs btn-success chat-button" name="sendMessage" onclick="sendMessage()">Send</button>
 
                 </li>

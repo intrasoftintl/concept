@@ -404,7 +404,7 @@ body{
 }
 
 .nav-chat .nav-content ul li:hover{
-    opacity:0.75;
+    //opacity:0.75;
 }
 
 .nav-chat .nav-content p.heading{
@@ -452,25 +452,26 @@ body{
 }
 
 .nav-chat .nav-content ul li.chat-message{
-    background:#fff;
+    background:#f8f8f8;
     color:blue;
     height:auto;
     margin:0;
-    padding:8px;
+    padding:10px;
 }
 
 .nav-chat .nav-content .chat-list{
     height:210px;
     margin:0;
     padding:0;
+    background:#f2f2f2;
 }
 
 .nav-chat .nav-content .chat-list .chat-message{
     border:0;
     margin:0;
-    padding:4px;
-    font-size:14px;
-    color:#ccc;
+    padding:10px;
+    font-size:13px;
+    color:#aaa;
 }
 
 .nav-chat .nav-content .chat-list .chat-user {
@@ -482,13 +483,13 @@ body{
 }
 
 .nav-chat .nav-content .chat-actions{
-    height:40px;
+    //height:60px;
     margin:0;
     padding:0;
 }
 
 .nav-chat .nav-content .chat-actions li{
-    height:30px;
+    height:40px;
     margin:0;
     padding:0;
     vertical-align:middle;
@@ -499,7 +500,7 @@ body{
     padding:0px;
     margin:5px;
     height:30px;
-    font-size:14px;
+    font-size:13px;
     border:1px solid #eee;
     //font-weight: 300;
 
