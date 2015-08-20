@@ -48,7 +48,18 @@ function deactivateChat() {
  */
 function sendMessage() {
     var message = $("#chat-message").val();
-    logger("Sendinf message: " + message);
+    logger("Sending message: " + message);
     $("#chat-message").val("");
     stompClient.send(TOPIC_NAME, {priority: 9}, message);
+}
+
+
+
+//Function to trigger Serach process when a user press enter on a text field   
+function keyPressedOnTextField(e) {
+    var key = e.keyCode || e.which;
+    //On enter pressed send message
+    if (key == 13) {
+        sendMessage();
+    }
 }
