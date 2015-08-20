@@ -12,21 +12,25 @@ var TOPIC_NAME;
  * @param project_id The id of the project to connect to the chat
  * @returns void
  */
-function activateChat(project_id) {
-    var messageList = $("#chat-list");
-    // Define a connection to a new socket endpoint
-    var socket = new SockJS(SOCKET_ENDPOINT);
-    // Define topic name
-    TOPIC_NAME = "/topic/project/" + project_id;
-    stompClient = Stomp.over(socket);
-    stompClient.connect({}, function (frame) {
-        // Subscribe to the /topic/message endpoint
-        stompClient.subscribe(TOPIC_NAME, function (data) {
-            var message = data.body;
-            messageList.append("<li>" + message + "</li>");
-        });
-    });
+function activateChat() {
+    var project_id = $("#projectID").val();
 
+    if (project_id > 0) {
+        logger("Activate Chat session for project with id: " + project_id)
+        var messageList = $("#chat-list");
+        // Define a connection to a new socket endpoint
+        var socket = new SockJS(SOCKET_ENDPOINT);
+        // Define topic name
+        TOPIC_NAME = "/topic/project/" + project_id;
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            // Subscribe to the /topic/message endpoint
+            stompClient.subscribe(TOPIC_NAME, function (data) {
+                var message = data.body;
+                messageList.append("<li>" + message + "</li>");
+            });
+        });
+    }
 }
 
 /*
@@ -62,4 +66,18 @@ function keyPressedOnTextField(e) {
     if (key == 13) {
         sendMessage();
     }
+}
+
+
+function enableChat() {
+    logger("Enabling COnCEPT-Chat...");
+    $("#concept-chat").removeClass("disabled");
+    activateChat();
+}
+
+
+function disableChat() {
+    logger("Disabling COnCEPT-Chat...");
+    $("#concept-chat").addClass("disabled");
+    deactivateChat();
 }

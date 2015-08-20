@@ -321,16 +321,3 @@ function addProjectIDToForm(formName) {
 }
 
 $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
-
-//COnCEPT Chat API
-
-function enableChat() {
-    logger("Enabling COnCEPT-Chat...");
-    $("#concept-chat").removeClass("disabled");
-}
-
-
-function disableChat() {
-    logger("Disabling COnCEPT-Chat...");
-    $("#concept-chat").addClass("disabled");
-}

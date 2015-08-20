@@ -513,7 +513,7 @@ body{
     padding:5px 10px;   
 }
 
-@media (max-height: 700px) {
+/*@media (max-height: 700px) {
     .nav-chat{
         display: none;
     }
@@ -523,7 +523,7 @@ body{
     .nav-actions{
         bottom:50px;
     }
-}
+}*/
 
 /* content */
 .content{
