@@ -1,4 +1,4 @@
-// COnCEPT-Chat Mdoule v0.1 
+// COnCEPT-Chat Mdoule v0.2 
 //  Using SockJS & STOMP prorocol                                                                                                                                                                                                                                                                                             
 
 
@@ -14,7 +14,6 @@ var TOPIC_NAME;
  */
 function activateChat() {
     var project_id = $("#projectID").val();
-
     if (project_id > 0) {
         logger("Activate Chat session for project with id: " + project_id)
         var messageList = $("#chat-list");
@@ -33,7 +32,6 @@ function activateChat() {
                 } else {
                     messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user\">" + message_parts[0] + " </span>" + message_parts[1] + "</li>");
                 }
-
             });
         });
     }
@@ -45,7 +43,7 @@ function activateChat() {
  * @returns {undefined}
  */
 function deactivateChat() {
-    if ('undefined' !== stompClient) {
+    if (undefined !== stompClient) {
         stompClient.disconnect(function () {
             logger("Disconnected from COnCEPT-Chat");
         });
@@ -57,8 +55,6 @@ function deactivateChat() {
  * @returns {undefined}
  */
 function sendMessage() {
-//    var message = "<span class=\"chat-user\">" + $("#chat-user").text() + " </span>" + $("#chat-message").val();
-
     var message = $("#chat-user").text() + "$@$" + $("#chat-message").val();
     logger("Sending message: " + message);
     $("#chat-message").val("");
@@ -78,14 +74,17 @@ function keyPressedOnTextField(e) {
 
 
 function enableChat() {
+    //Deactivated previous chat session
+    deactivateChat();
     logger("Enabling COnCEPT-Chat...");
     $("#concept-chat").removeClass("disabled");
+    $("#chat-list").empty();
     activateChat();
 }
-
 
 function disableChat() {
     logger("Disabling COnCEPT-Chat...");
     $("#concept-chat").addClass("disabled");
+    $("#chat-list").empty();
     deactivateChat();
 }

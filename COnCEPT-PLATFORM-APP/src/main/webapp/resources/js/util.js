@@ -229,11 +229,6 @@ function saveBAContent() {
     console.log($('#document-title').val());
 }
 
-function loadBAContent() {
-    tinymce.activeEditor.setContent('<h2>Que onda?</h2><p>Chabon!</p>', {format: 'raw'});
-    $('#document-title').val("Document 1");
-}
-
 function loadMD() {
     $("#metadata-area").show();
     $(".nav-main").hide();
