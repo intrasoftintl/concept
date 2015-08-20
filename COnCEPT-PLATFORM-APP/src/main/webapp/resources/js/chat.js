@@ -13,7 +13,7 @@ var TOPIC_NAME;
  * @returns void
  */
 function activateChat(project_id) {
-    var messageList = $("#messages");
+    var messageList = $("#chat-list");
     // Define a connection to a new socket endpoint
     var socket = new SockJS(SOCKET_ENDPOINT);
     // Define topic name
@@ -28,6 +28,12 @@ function activateChat(project_id) {
     });
 
 }
+
+/*
+ * Deactivate current session to COnCEPT-Chat
+ * 
+ * @returns {undefined}
+ */
 function deactivateChat() {
     if ('undefined' !== stompClient) {
         stompClient.disconnect(function () {
@@ -36,12 +42,13 @@ function deactivateChat() {
     }
 }
 
-
 /**
  * 
- * @param {String} Message to send to Chat
  * @returns {undefined}
  */
-function sendMessage(message) {
+function sendMessage() {
+    var message = $("#chat-message").val();
+    logger("Sendinf message: " + message);
+    $("#chat-message").val("");
     stompClient.send(TOPIC_NAME, {priority: 9}, message);
 }
