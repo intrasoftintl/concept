@@ -309,3 +309,4 @@ function addProjectIDToForm(formName) {
     });
 
 }
+$(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);

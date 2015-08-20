@@ -451,6 +451,68 @@ body{
     opacity:1;
 }
 
+.nav-chat .nav-content ul li.chat-message{
+    background:#fff;
+    color:blue;
+    height:auto;
+    margin:0;
+    padding:8px;
+}
+
+.nav-chat .nav-content .chat-list{
+    height:210px;
+    margin:0;
+    padding:0;
+}
+
+.nav-chat .nav-content .chat-list .chat-message{
+    border:0;
+    margin:0;
+    padding:4px;
+    font-size:14px;
+    color:#ccc;
+}
+
+.nav-chat .nav-content .chat-list .chat-user {
+    color:#aaa;
+}
+
+.nav-chat .nav-content .chat-list .chat-user-you {
+    color:#8AC249;
+}
+
+.nav-chat .nav-content .chat-actions{
+    height:40px;
+    margin:0;
+    padding:0;
+}
+
+.nav-chat .nav-content .chat-actions li{
+    height:30px;
+    margin:0;
+    padding:0;
+    vertical-align:middle;
+}
+
+.nav-chat .nav-content .chat-actions .chat-text{
+    width:170px;
+    padding:0px;
+    margin:5px;
+    height:30px;
+    font-size:14px;
+    border:1px solid #eee;
+    //font-weight: 300;
+
+}
+.nav-chat .nav-content .chat-actions input.chat-text{
+    background:#fff;
+    padding:5px 10px;
+}
+.nav-chat .nav-content .chat-actions .chat-button{
+    width:auto; 
+    padding:5px 10px;   
+}
+
 @media (max-height: 700px) {
     .nav-chat{
         display: none;

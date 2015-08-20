@@ -1,20 +1,37 @@
 <div th:fragment="chat-list"  th:unless="${#lists.isEmpty(chat)}" >
     <!-- chat -->
-        <nav class="nav-chat disabled">
+        <nav class="nav-chat">
 
             <div class="nav-header">
                 <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
                 <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
-                <p class="heading">Chat module</p>
+                <p class="heading">Chat</p>
                 <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
             </div>
 
             <div class="nav-content">
                 <div class="nav-content-header">
-                    Please select a project
+                    Welcome <span style="color:#eee; font-weight:800" th:text="${currentUser.getUsername()}"></span>
                 </div>
-                <ul>
+<!--                <ul>
                     <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                </ul>-->
+                <ul class="chat-list">
+                    <li class="chat-message"><span class="chat-user">cparaskeva </span>Hello George, How are you?</li>
+                    <li class="chat-message"><span class="chat-user-you">gtsiolis </span>I am fine Chris! And you?</li>
+                    <li class="chat-message"><span class="chat-user">cparaskeva </span>Very well, thank you.</li>
+                    <li class="chat-message"><span class="chat-user-you">gtsiolis </span>Chris, have you finished searching the new soft materials we were talking about yesterday?</li>
+                    <li class="chat-message"><span class="chat-user">cparaskeva </span>Yeap! I found some interesting providers.</li>
+                    <li class="chat-message"><span class="chat-user-you">gtsiolis </span>Ok Thanks! Let me know when you are available during the day so we can meet and talk about this a bit.</li>    
+                </ul>
+                
+                <ul class="chat-actions">
+                    <li>
+                    <form>
+                        <input class="chat-text" type="text" name="chat-message" rows="1" />
+                        <input type="submit" class="btn btn-xs btn-success chat-button" value="Send" name="sendMessage"/>
+                    </form>
+                    </li>
                 </ul>
             </div>
 
