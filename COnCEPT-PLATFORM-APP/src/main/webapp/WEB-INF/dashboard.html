@@ -23,7 +23,8 @@
         <nav class="nav-main">
             <ul>
                 <form id="dashboard-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('dashboard-form');$(this).closest('form').submit()">
+                    <a href="#" onclick="addProjectIDToForm('dashboard-form');
+                            $(this).closest('form').submit()">
                         <li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
                     </a>
                 </form>                              
@@ -31,7 +32,7 @@
                         return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
-    
+
         <!-- apps -->
         <nav class="nav-apps">
             <ul>
@@ -248,6 +249,11 @@
         <script src="/resources/js/jquery.tagsinput.min.js"></script>
         <script src="/resources/js/tree.jquery.js"></script>
         <script src="/resources/js/metadata.js"></script>
+
+        <!-- COnCEPT-Chat JS -->
+        <script type="text/javascript" src="/resources/js/sockjs.min.js"></script>
+        <script type="text/javascript" src="/resources/js/stomp.min.js"></script>
+
 
     </body>
 </html>

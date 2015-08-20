@@ -103,7 +103,6 @@ function disableDashboardPage() {
 }
 
 function enableDashboardPage() {
-
     $('.nav-apps ul').removeClass("disabled");
     $('.app-link').removeClass("disabled");
 

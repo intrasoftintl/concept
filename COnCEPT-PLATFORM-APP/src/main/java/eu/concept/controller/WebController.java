@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.websocket.ContainerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -176,33 +177,15 @@ public class WebController {
         return dashboard(model);
     }
 
-    @RequestMapping(value = "/metadata", method = RequestMethod.POST)
-    public String createBriefAnalysis(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
-        if (null == metadata) {
-            Logger.getLogger(MetadataController.class.getName()).severe("Metadata object is null... aborting saving metadata object..");
-        } else {
-            Logger.getLogger(MetadataController.class.getName()).info("MetadataID is: " + metadata.getId() + " CID: " + metadata.getCid() + " Componenet: " + metadata.getComponent().getId() + " Keywprds: " + metadata.getKeywords() + " categories " + metadata.getCategories() + " Project id is: " + project_id);
-        }
-        //Save Metadata object
-        metadataService.storeMetadata(metadata);
-        redirectAttributes.addFlashAttribute("projectID", project_id);
-        return "redirect:/dashboard";
+    @Autowired
+    SimpMessagingTemplate template;
+    
+    @RequestMapping(value = "/dummy", method = RequestMethod.GET)
+    public String greet(String greeting) {
+        String text = "[Debug]:" + greeting;
+        this.template.convertAndSend("/topic/project1", text);
+        return "dashboard";
     }
-//    )
-//    {
-//        if (null == metadata) {
-//            Logger.getLogger(MetadataController.class.getName()).severe("Metadata object is null... aborting saving metadata object..");
-//        } else {
-//            Logger.getLogger(MetadataController.class.getName()).info("MetadataID is: " + metadata.getId() + " CID: " + metadata.getCid() + " Componenet: " + metadata.getComponent().getId() + " Keywprds: " + metadata.getKeywords() + " categories " + metadata.getCategories() + " Project id is: " + project_id);
-//        }
-//        //Save Metadata object
-//        metadataService.storeMetadata(metadata);
-//        model.addAttribute("projectID", project_id);
-////        return "redirect:/dashboard";
-//       
-//      
-//       
-//    }
 
     /*
      *  Help Methods

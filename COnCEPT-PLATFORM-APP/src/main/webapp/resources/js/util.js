@@ -2,6 +2,7 @@
 var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
 var MEMBERSHIPS_REST_URL = "http://localhost:8080/conceptRest/api/memberships/";
+var PROJECTS_REST_URL = "http://192.168.3.5/projects/";
 
 
 //COnCEPT Logger
@@ -58,7 +59,7 @@ function projectSelectedAction(projectID) {
             }
             $("#project-members").empty();
             $("#project-members").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
-            $("#project-view").attr("href", "http://192.168.3.5/projects/" + projectID);
+            $("#project-view").attr("href", PROJECTS_REST_URL + projectID);
         });
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
@@ -130,52 +131,61 @@ function projectSelectedAction(projectID) {
             $("#project-view").show();
         }
 
-    } else if (isDashboardPage()) {
-        disableDashboardPage();
-        if ($('#projectID').val() > 0) {
-            $("#ba-app-link").removeAttr(href);
-            $("#fm-app-link").removeAttr(href);
-            $("#se-app-link").removeAttr(href);
-            $("#mm-app-link").removeAttr(href);
-            $("#sb-app-link").removeAttr(href);
-            $("#sk-app-link").removeAttr(href);
+        //Enable Chat Session     
+        enableChat();
+
+    } else {
+        //Disable Chat Session
+        disableChat();
+
+        if (isDashboardPage()) {
+            disableDashboardPage();
+            if ($('#projectID').val() > 0) {
+                $("#ba-app-link").removeAttr(href);
+                $("#fm-app-link").removeAttr(href);
+                $("#se-app-link").removeAttr(href);
+                $("#mm-app-link").removeAttr(href);
+                $("#sb-app-link").removeAttr(href);
+                $("#sk-app-link").removeAttr(href);
+            }
+
+        } else if (isFM_app()) {
+            $(".panel-body").hide();
+            $("#fm-placeholder").show();
+            $("#fm-all").addClass("disabled");
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+        } else if (isFM_all()) {
+            $(".panel-body").hide();
+            $("#sort").hide();
+            $("#fm-placeholder").show();
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+            $("#fm-add").hide();
+        } else if (isBA_app()) {
+            $("#project-members").hide();
+            $("#project-view").hide();
+        } else if (isBA_all()) {
+            $(".panel-body").hide();
+            $("#ba-placeholder").show();
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+        } else if (isSK_app()) {
+            $("#project-members").hide();
+            $("#project-view").hide();
+        } else if (isSK_all()) {
+            $(".panel-body").hide();
+            $("#sort").hide();
+            $("#sk-placeholder").show();
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+            $("#sk-add").hide();
         }
 
-    } else if (isFM_app()) {
-        $(".panel-body").hide();
-        $("#fm-placeholder").show();
-        $("#fm-all").addClass("disabled");
-        $(".panel-footer").hide();
-        $("#project-members").hide();
-        $("#project-view").hide();
-    } else if (isFM_all()) {
-        $(".panel-body").hide();
-        $("#sort").hide();
-        $("#fm-placeholder").show();
-        $(".panel-footer").hide();
-        $("#project-members").hide();
-        $("#project-view").hide();
-        $("#fm-add").hide();
-    } else if (isBA_app()) {
-        $("#project-members").hide();
-        $("#project-view").hide();
-    } else if (isBA_all()) {
-        $(".panel-body").hide();
-        $("#ba-placeholder").show();
-        $(".panel-footer").hide();
-        $("#project-members").hide();
-        $("#project-view").hide();
-    } else if (isSK_app()) {
-        $("#project-members").hide();
-        $("#project-view").hide();
-    } else if (isSK_all()) {
-        $(".panel-body").hide();
-        $("#sort").hide();
-        $("#sk-placeholder").show();
-        $(".panel-footer").hide();
-        $("#project-members").hide();
-        $("#project-view").hide();
-        $("#sk-add").hide();
     }
 
 }
@@ -280,7 +290,7 @@ function deleteWidgetItem(URL) {
 function loadMetadata(componentID, component, project_id, event) {
     $(event).parent().parent().addClass('warning');
     logger("Loading metadata for component: " + component + " with id: " + componentID + " for project with id: " + project_id);
-    $("#metadata-area").load("/metadata?cid=" + componentID + "&component=" + component+"&project_id="+project_id);
+    $("#metadata-area").load("/metadata?cid=" + componentID + "&component=" + component + "&project_id=" + project_id);
     //Load metadata content
     logger("Switching Dashboard sidebar to Metadata sidebar");
     loadMD();
@@ -309,4 +319,18 @@ function addProjectIDToForm(formName) {
     });
 
 }
+
 $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+
+//COnCEPT Chat API
+
+function enableChat() {
+    logger("Enabling COnCEPT-Chat...");
+    $("#concept-chat").removeClass("disabled");
+}
+
+
+function disableChat() {
+    logger("Disabling COnCEPT-Chat...");
+    $("#concept-chat").addClass("disabled");
+}

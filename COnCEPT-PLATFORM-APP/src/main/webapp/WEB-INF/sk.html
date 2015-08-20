@@ -14,7 +14,7 @@
                     <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
                     <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${skContent.createdDate}"></span></td>
                     <td>
-                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\',this)'   }    ">
+                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\','+${skContent.pid}+',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
                         
@@ -53,7 +53,7 @@
                     <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
                     <td class="truncate"><span class="file-title" th:text="${skContent.title}"></span><br/><span class="file-user" th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${skContent.createdDate}"></span></td>
                     <td>
-                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\',this)'   }    ">
+                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\','+${skContent.pid}+',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
                         <button class="action-button" th:attr="onclick=@{ 'deleteSKItem(' + ${skContent.id}  +','+ ${skContent.pid}+ ')' }" >
