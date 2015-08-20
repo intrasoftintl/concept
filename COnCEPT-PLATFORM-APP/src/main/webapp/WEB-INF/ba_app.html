@@ -17,10 +17,9 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <form th:action="@{/dashboard}" method="post" >
-                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
-                    <a href="#" onclick="$(this).closest('form').submit()">
-                        <li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
+                <form id="ba-form" th:action="@{/dashboard}" method="post" >
+                    <a href="#" onclick="addProjectIDToForm('ba-form');$(this).closest('form').submit()">
+                        <li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
                     </a>
                 </form>
                 <a onclick="TogetherJS(this);
@@ -136,7 +135,7 @@
                     <input th:value="${briefanalysis.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled"/>
                     <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editBA"/>
                     <!-- <input type="button" class="btn btn-xs btn-danger" value="Save content" onclick="saveBAContent()" /> -->
-                    <input type="button" class="btn btn-xs btn-danger" value="Load content" onclick="loadBAContent()" />
+                    <!-- <input type="button" class="btn btn-xs btn-danger" value="Load content" onclick="loadBAContent()" /> -->
                 </div>
                 <textarea th:text="${briefanalysis.content}" th:field="*{content}" name="document-content"></textarea>
             </form>
