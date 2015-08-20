@@ -298,3 +298,13 @@ function deleteFMItem(fm_id, project_id) {
 function deleteSKItem(sk_id, project_id) {
     $("#sk-all").load("/sk_app_delete_all?sk_id=" + sk_id + "&project_id="+project_id+"&limit=200");
 }
+
+function addProjectIDToForm(formName) {
+    $("#" + formName).submit(function (eventObj) {
+        $('<input />').attr('type', 'hidden')
+                .attr('name', "projectID")
+                .attr('value', $("#projectID").val())
+                .appendTo("#" + formName);
+        return true;
+    });
+}

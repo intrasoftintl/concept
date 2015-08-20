@@ -156,13 +156,3 @@ function enableDashboardPage() {
     $(".nav-categories").hide();
     $(".nav-actions-md").hide();
 }
-
-function addProjectIDToForm(formName) {
-    $("#" + formName).submit(function (eventObj) {
-        $('<input />').attr('type', 'hidden')
-                .attr('name', "projectID")
-                .attr('value', $("#projectID").val())
-                .appendTo("#" + formName);
-        return true;
-    });
-}
