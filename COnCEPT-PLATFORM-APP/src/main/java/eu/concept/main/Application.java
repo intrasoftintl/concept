@@ -16,6 +16,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.jta.JtaTransactionManager;
@@ -33,6 +34,7 @@ import org.springframework.transaction.jta.JtaTransactionManager;
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 @Configuration
 @EnableTransactionManagement
+@EnableScheduling//Used for chat
 public class Application extends SpringBootServletInitializer {
 
     @Bean
@@ -80,7 +82,6 @@ public class Application extends SpringBootServletInitializer {
 //        factory.setMaxRequestSize("500MB");
 //        return factory.createMultipartConfig();
 //    }
-
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(Application.class);

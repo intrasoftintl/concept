@@ -43,6 +43,8 @@
 
         <form id="metadataForm" th:object="${metadata}" th:action="@{/metadata}" method="post">
 
+            <!-- Project ID -->
+            <input th:type="hidden" th:name="project_id" th:value="${project_id}"/>
             <!-- Metadata ID -->
             <input th:type="hidden" th:name="id" th:field="*{id}"  />
             <!-- Component ID -->
@@ -61,7 +63,7 @@
             </button>
         </form>
         <button class="btn btn-default btn-block btn-actions" onclick="unloadMD()">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Go Back
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Go Back
         </button>
     </nav>
 

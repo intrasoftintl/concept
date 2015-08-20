@@ -277,24 +277,24 @@ function deleteWidgetItem(URL) {
 
 }
 
-function loadMetadata(componentID, component, event) {
+function loadMetadata(componentID, component, project_id, event) {
     $(event).parent().parent().addClass('warning');
-    logger("Loading metadata for component: " + component + " with id: " + componentID);
-    $("#metadata-area").load("/metadata?cid=" + componentID + "&component=" + component);
+    logger("Loading metadata for component: " + component + " with id: " + componentID + " for project with id: " + project_id);
+    $("#metadata-area").load("/metadata?cid=" + componentID + "&component=" + component+"&project_id="+project_id);
     //Load metadata content
     logger("Switching Dashboard sidebar to Metadata sidebar");
     loadMD();
 }
 
 function deleteBAItem(ba_id, project_id) {
-    $("#ba-all").load("/ba_app_delete_all?ba_id=" + ba_id + "&project_id="+project_id+"&limit=200");
+    $("#ba-all").load("/ba_app_delete_all?ba_id=" + ba_id + "&project_id=" + project_id + "&limit=200");
 }
 
 function deleteFMItem(fm_id, project_id) {
     console.log("i am in....")
-    $("#fm-all").load("/fm_app_delete_all?fm_id=" + fm_id + "&project_id="+project_id+"&limit=200");
+    $("#fm-all").load("/fm_app_delete_all?fm_id=" + fm_id + "&project_id=" + project_id + "&limit=200");
 }
 
 function deleteSKItem(sk_id, project_id) {
-    $("#sk-all").load("/sk_app_delete_all?sk_id=" + sk_id + "&project_id="+project_id+"&limit=200");
+    $("#sk-all").load("/sk_app_delete_all?sk_id=" + sk_id + "&project_id=" + project_id + "&limit=200");
 }

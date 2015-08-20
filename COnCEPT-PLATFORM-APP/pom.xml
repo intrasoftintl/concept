@@ -53,7 +53,13 @@
             <version>${org.springframework.boot}</version>
         </dependency>   
 
-
+        <!-- Dependencies for WebSockets-->
+        
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>${org.springframework.boot}</version>
+        </dependency>   
 
         <!-- Apache Commons Upload --> 
         <dependency>

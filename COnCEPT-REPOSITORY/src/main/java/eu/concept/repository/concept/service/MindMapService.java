@@ -20,8 +20,6 @@ public class MindMapService {
     @Autowired
     private MindMapRepository mindmapRepo;
 
-//    @Autowired
-//    private MetadataRepository metadata;
     public MindMap store(MindMap mp) {
         try {
 

@@ -1,7 +1,10 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.CurrentUser;
+import eu.concept.controller.component.MetadataController;
+import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.UserCo;
+import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.domain.UserOp;
@@ -12,6 +15,7 @@ import eu.concept.response.BasicResponseCode;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.websocket.ContainerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -35,6 +40,9 @@ public class WebController {
 
     @Autowired
     ProjectServiceOp projectServiceOp;
+
+    @Autowired
+    MetadataService metadataService;
 
 
     /*
@@ -70,16 +78,21 @@ public class WebController {
         return "registration";
     }
 
+    @RequestMapping(value = "/chat", method = RequestMethod.GET)
+    public String chat(Model model) {
+//        ContainerProvider.getWebSocketContainer().
+        return "dummyChat";
+    }
+
     //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
+
+        System.out.println("Project ID is : " + model.asMap().get("projectID"));
         if (!model.containsAttribute("projectID")) {
-            
-            System.out.println("I am not innnnnnnnnnnnnnnn..................");
             model.addAttribute("projectID", "0");
         }
-
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
@@ -161,8 +174,35 @@ public class WebController {
     public String dashboardSubmit(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         model.addAttribute("projectID", projectID);
         return dashboard(model);
-        //return "redirect:/" + dashboard(model);
     }
+
+    @RequestMapping(value = "/metadata", method = RequestMethod.POST)
+    public String createBriefAnalysis(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
+        if (null == metadata) {
+            Logger.getLogger(MetadataController.class.getName()).severe("Metadata object is null... aborting saving metadata object..");
+        } else {
+            Logger.getLogger(MetadataController.class.getName()).info("MetadataID is: " + metadata.getId() + " CID: " + metadata.getCid() + " Componenet: " + metadata.getComponent().getId() + " Keywprds: " + metadata.getKeywords() + " categories " + metadata.getCategories() + " Project id is: " + project_id);
+        }
+        //Save Metadata object
+        metadataService.storeMetadata(metadata);
+        redirectAttributes.addFlashAttribute("projectID", project_id);
+        return "redirect:/dashboard";
+    }
+//    )
+//    {
+//        if (null == metadata) {
+//            Logger.getLogger(MetadataController.class.getName()).severe("Metadata object is null... aborting saving metadata object..");
+//        } else {
+//            Logger.getLogger(MetadataController.class.getName()).info("MetadataID is: " + metadata.getId() + " CID: " + metadata.getCid() + " Componenet: " + metadata.getComponent().getId() + " Keywprds: " + metadata.getKeywords() + " categories " + metadata.getCategories() + " Project id is: " + project_id);
+//        }
+//        //Save Metadata object
+//        metadataService.storeMetadata(metadata);
+//        model.addAttribute("projectID", project_id);
+////        return "redirect:/dashboard";
+//       
+//      
+//       
+//    }
 
     /*
      *  Help Methods
