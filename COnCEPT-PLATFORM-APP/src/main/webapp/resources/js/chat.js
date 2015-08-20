@@ -27,7 +27,13 @@ function activateChat() {
             // Subscribe to the /topic/message endpoint
             stompClient.subscribe(TOPIC_NAME, function (data) {
                 var message = data.body;
-                messageList.append("<li>" + message + "</li>");
+                message_parts = message.split("$@$");
+                if (message_parts[0] === $("#chat-user").text()) {
+                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user-you\">" + message_parts[0] + " </span>" + message_parts[1] + "</li>");
+                } else {
+                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user\">" + message_parts[0] + " </span>" + message_parts[1] + "</li>");
+                }
+
             });
         });
     }
@@ -51,7 +57,9 @@ function deactivateChat() {
  * @returns {undefined}
  */
 function sendMessage() {
-    var message = $("#chat-message").val();
+//    var message = "<span class=\"chat-user\">" + $("#chat-user").text() + " </span>" + $("#chat-message").val();
+
+    var message = $("#chat-user").text() + "$@$" + $("#chat-message").val();
     logger("Sending message: " + message);
     $("#chat-message").val("");
     stompClient.send(TOPIC_NAME, {priority: 9}, message);
