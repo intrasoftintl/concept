@@ -56,7 +56,6 @@
             </div>          
 
             <div class="project-selection">
-                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
 
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
