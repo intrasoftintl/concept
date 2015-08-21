@@ -14,6 +14,7 @@
     <class>eu.concept.repository.concept.domain.Sketch</class>
     <class>eu.concept.repository.concept.domain.Metadata</class>
     <class>eu.concept.repository.concept.domain.MindMap</class>
+    <class>eu.concept.repository.concept.domain.Notification</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://192.168.3.6:3306/concept?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="!concept!"/>
