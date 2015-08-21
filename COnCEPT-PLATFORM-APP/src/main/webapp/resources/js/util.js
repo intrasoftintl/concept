@@ -323,4 +323,15 @@ $('#chat-button').attr('disabled',true);
             $('#chat-button').attr('disabled', false);            
         else
             $('#chat-button').attr('disabled',true);
-    })
+    });
+    
+var $cont = $('.chat-list');
+$cont[0].scrollTop = $cont[0].scrollHeight;
+
+$('#chat-message').keyup(function(e) {
+    if (e.keyCode == 13) {
+        $cont[0].scrollTop = $cont[0].scrollHeight;
+        $(this).val('');
+    }
+})
+.focus();

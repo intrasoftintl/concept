@@ -472,6 +472,7 @@ body{
     padding:10px;
     font-size:13px;
     color:#aaa;
+    border-bottom:1px solid #eee;
 }
 
 .nav-chat .nav-content .chat-list .chat-user {
