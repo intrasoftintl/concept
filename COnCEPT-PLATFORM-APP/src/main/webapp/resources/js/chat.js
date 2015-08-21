@@ -78,6 +78,8 @@ function enableChat() {
     deactivateChat();
     logger("Enabling COnCEPT-Chat...");
     $("#concept-chat").removeClass("disabled");
+    $("#chat-placeholder-header").hide();
+    $("#chat-placeholder").hide();
     $("#chat-list").empty();
     activateChat();
 }
@@ -85,6 +87,8 @@ function enableChat() {
 function disableChat() {
     logger("Disabling COnCEPT-Chat...");
     $("#concept-chat").addClass("disabled");
+    $("#chat-placeholder-header").show();
+    $("#chat-placeholder").show();
     $("#chat-list").empty();
     deactivateChat();
 }
