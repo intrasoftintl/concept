@@ -444,7 +444,7 @@ body{
     background-image: linear-gradient(-45deg, #f8f8f8 25%, transparent 25%, transparent 50%, #eee 50%, #eee 75%, transparent 75%, transparent);
 
     border:none;
-    width:236px; height:226px; text-align:center; padding-top:25%;
+    width:auto; height:226px; text-align:center; padding-top:25%;
 }
 
 .nav-chat .nav-content ul li.placeholder:hover{
@@ -477,7 +477,7 @@ body{
 }
 
 .nav-chat .nav-content .chat-list .chat-user {
-    color:#444;
+    color:#777;
 }
 
 .nav-chat .nav-content .chat-list .chat-user-you {
