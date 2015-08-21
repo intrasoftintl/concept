@@ -15,15 +15,12 @@ var TOPIC_NAME;
  * @returns void
  */
 function activateChat() {
-    var date = new Date();
-    var hour = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
+
     var project_id = $("#projectID").val();
     if (project_id > 0) {
         logger("Activate Chat session for project with id: " + project_id)
         var messageList = $("#chat-list");
-        messageList.append("<li  class=\"chat-message\">You have joined the chat<span class=\"chat-timestamp\">" + hour + ":" + min + ":" + sec + "</span></li>");
+        messageList.append("<li  class=\"chat-message\">You have joined the chat<span class=\"chat-timestamp\">" + getChatTimestamp() + "</span></li>");
         // Define a connection to a new socket endpoint
         var socket = new SockJS(SOCKET_ENDPOINT);
         // Define topic name
@@ -34,15 +31,28 @@ function activateChat() {
             stompClient.subscribe(TOPIC_NAME, function (data) {
                 var message = data.body;
                 message_parts = message.split("$@$");
+                logger(message);
+                logger(message_parts[0]);
+                logger($("#chat-user").text());
                 if (message_parts[0] === $("#chat-user").text()) {
-                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user-you\">" + message_parts[0] + " </span>" + message_parts[1] + "<span class=\"chat-timestamp\">" + hour + ":" + min + ":" + sec + "</span></li>");
+                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user-you\">" + message_parts[0] + " </span>" + message_parts[1] + "<span class=\"chat-timestamp\">" + getChatTimestamp()+ "</span></li>");
                 } else {
-                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user\">" + message_parts[0] + " </span>" + message_parts[1] + "</li>");
+                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user\">" + message_parts[0] + " </span >" + message_parts[1]+ "<span class=\"chat-timestamp\">" + getChatTimestamp() +"</span>" + "</li>");
                 }
             });
         });
     }
 }
+
+
+function getChatTimestamp() {
+    var date = new Date();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    return hour + ":" + min + ":" + sec ;
+}
+
 
 /*
  * Deactivate current session to COnCEPT-Chat
