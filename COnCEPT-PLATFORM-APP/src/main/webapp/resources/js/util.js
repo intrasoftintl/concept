@@ -316,3 +316,11 @@ function addProjectIDToForm(formName) {
 }
 
 $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+
+$('#chat-button').attr('disabled',true);
+    $('#chat-message').keyup(function(){
+        if($(this).val().length !=0)
+            $('#chat-button').attr('disabled', false);            
+        else
+            $('#chat-button').attr('disabled',true);
+    })
