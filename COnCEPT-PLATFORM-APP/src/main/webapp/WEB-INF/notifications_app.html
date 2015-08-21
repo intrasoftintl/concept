@@ -108,7 +108,7 @@
             </div>
 
             <!-- Notifications List -->
-            <div th:include="notifications :: notifications-list" th:unless="${!#lists.isEmpty(nfContents)}"></div>
+            <div th:include="notifications :: notifications-list" th:unless="${#lists.isEmpty(nfContents)}"></div>
 
             <!-- Empty List DIV -->
             <div  th:if="${nfContents.isEmpty()}" >

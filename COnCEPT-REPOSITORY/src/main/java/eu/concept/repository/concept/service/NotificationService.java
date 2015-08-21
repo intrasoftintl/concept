@@ -22,7 +22,6 @@ public class NotificationService {
 
     public boolean storeNotification(Notification notification) {
         try {
-
             notificationRepo.save(notification);
         } catch (Exception ex) {
             Logger.getLogger(NotificationService.class.getName()).severe(ex.getMessage());
@@ -42,7 +41,7 @@ public class NotificationService {
         return notifications;
     }
 
-    public int countFilesById(int projectID, String userRole) {
+    public int countNotificationsById(int projectID) {
         return notificationRepo.countByPid(projectID);
     }
 
