@@ -1,41 +1,48 @@
 <div th:fragment="chat-list"  th:unless="${#lists.isEmpty(chat)}" >
-    <!-- chat -->
-    <nav id="concept-chat" class="nav-chat disabled">
 
-        <div class="nav-header">
-            <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-            <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
-            <p class="heading">Chat</p>
-            <p class="title" th:inline="text">Logged in as <span id="chat-user" style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
-        </div>
+    <div th:if="${projects.isEmpty()}">
+        <!-- chat -->
+        <nav id="concept-chat" class="nav-chat disabled">
 
-        <div class="nav-content">
-            <!--            <div class="nav-content-header">
-                            Welcome <span style="color:#eee; font-weight:800" th:text="${currentUser.getUsername()}"></span>
-                        </div>-->
-            <!--                <ul>
-                                <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
-                            </ul>-->
-            <ul id="chat-list" class="chat-list">
-            </ul>
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <p class="heading">Chat</p>
+                <p class="title" th:inline="text">Logged in as <span id="chat-user" style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
+            </div>
 
-            <ul class="chat-actions">
-                <li>
-                    <input id="chat-message" class="chat-text" type="text" name="chat-message" rows="1" onkeypress="keyPressedOnTextField(event)" autocomplete="off" />
-                    <button id="chat-button" class="btn btn-xs btn-success chat-button" name="sendMessage" onclick="sendMessage()">Send</button>
-                </li>
-            </ul>
-        </div>
+            <div class="nav-content">
+                <!--            <div class="nav-content-header">
+                                Welcome <span style="color:#eee; font-weight:800" th:text="${currentUser.getUsername()}"></span>
+                            </div>-->
+                <!--                <ul>
+                                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                                </ul>-->
+                <ul id="chat-list" class="chat-list">
+                </ul>
 
-    </nav>
+                <ul class="chat-actions">
+                    <li>
+                        <input id="chat-message" class="chat-text" type="text" name="chat-message" rows="1" onkeypress="keyPressedOnTextField(event)" autocomplete="off" />
+                        <button id="chat-button" class="btn btn-xs btn-success chat-button" name="sendMessage" onclick="sendMessage()">Send</button>
+                    </li>
+                </ul>
+            </div>
 
-    <!-- chat-hidden -->
-    <nav class="nav-chat-hidden">
-        <div class="nav-header">
-            <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-            <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
-            <p class="heading">Chat module</p>
-            <p class="title">Module hidden</p>
-        </div>
-    </nav>
+        </nav>
+
+    </div>
+
+    <div th:if="${!projects.isEmpty()}">
+        <!-- chat-hidden -->
+        <nav class="nav-chat-hidden">
+            <div class="nav-header">
+                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <p class="heading">Chat module</p>
+                <p class="title">Module hidden</p>
+            </div>
+        </nav>
+    </div>
+
 </div>
