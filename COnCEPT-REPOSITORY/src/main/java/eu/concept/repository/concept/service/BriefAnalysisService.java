@@ -20,8 +20,6 @@ public class BriefAnalysisService {
     @Autowired
     private BriefAnalysisRepository briefAnalysis;
 
-//    @Autowired
-//    private MetadataRepository metadata;
     public boolean storeFile(BriefAnalysis ba) {
         try {
 

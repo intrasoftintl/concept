@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     //If not dashboard page, select current project
     if (!isDashboardPage()) {
-        console.log("Selecting current project with id: " + $('#projectID').val());
+        logger("Selecting current project with id: " + $('#projectID').val());
         $('#project-select').val($('#projectID').val()).change();
     }
 
@@ -317,21 +317,23 @@ function addProjectIDToForm(formName) {
 
 $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
 
-$('#chat-button').attr('disabled',true);
-    $('#chat-message').keyup(function(){
-        if($(this).val().length !=0)
-            $('#chat-button').attr('disabled', false);            
-        else
-            $('#chat-button').attr('disabled',true);
-    });
-    
-var $cont = $('.chat-list');
-$cont[0].scrollTop = $cont[0].scrollHeight;
+$('#chat-button').attr('disabled', true);
+$('#chat-message').keyup(function () {
+    if ($(this).val().length != 0)
+        $('#chat-button').attr('disabled', false);
+    else
+        $('#chat-button').attr('disabled', true);
+});
 
-$('#chat-message').keyup(function(e) {
+function chatScrollDown() {
+    var $cont = $('.chat-list');
+    $cont[0].scrollTop = $cont[0].scrollHeight;
+    $cont[0].scrollTop = $cont[0].scrollHeight;
+}
+
+$('#chat-message').keyup(function (e) {
     if (e.keyCode == 13) {
-        $cont[0].scrollTop = $cont[0].scrollHeight;
+        chatScrollDown();
         $(this).val('');
     }
-})
-.focus();
+}).focus();

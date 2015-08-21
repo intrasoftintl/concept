@@ -18,7 +18,8 @@
         <nav class="nav-main">
             <ul>
                 <form id="sk-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('sk-form');$(this).closest('form').submit()">
+                    <a href="#" onclick="addProjectIDToForm('sk-form');
+                            $(this).closest('form').submit()">
                         <li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
                     </a>
                 </form>
@@ -91,36 +92,8 @@
         </nav>
 
 
-        <!-- chat -->
-        <nav class="nav-chat disabled">
-
-            <div class="nav-header">
-                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
-                <!--<a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>-->
-                <p class="heading">Chat module</p>
-                <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
-            </div>
-
-            <div class="nav-content">
-                <div class="nav-content-header">
-                    Please select a project
-                </div>
-                <ul>
-                    <li class="placeholder"><img src="/resources/img/ICON_CHAT.png" /></li>
-                </ul>
-            </div>
-
-        </nav>
-
-        <!-- chat-hidden -->
-        <nav class="nav-chat-hidden">
-            <div class="nav-header">
-                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
-                <a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>
-                <p class="heading">Chat module</p>
-                <p class="title">Module hidden</p>
-            </div>
-        </nav>
+        <!-- Chat DIV -->
+        <div th:include="chat :: chat-list"></div>
 
 
         <!-- dashboard -->
@@ -144,13 +117,21 @@
 
         <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
+        <!-- Core JS libraries -->
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
         <script src="/resources/js/bootstrap.min.js"></script>
         <script src="/resources/js/togetherjs-min.js"></script>
         <script src="/resources/js/react-with-addons.min.js"></script>
         <script src="/resources/js/literallycanvas.min.js"></script>
         <script src="/resources/js/sketching.js"></script>
+
+        <!-- Javascript file handling various actions of dashboard page -->
         <script src="/resources/js/util.js"></script>
+
+        <!-- COnCEPT-Chat JS -->
+        <script src="/resources/js/sockjs.min.js"></script>
+        <script src="/resources/js/stomp.min.js"></script>
+        <script src="/resources/js/chat.js"></script>
 
     </body>
 </html>

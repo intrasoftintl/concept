@@ -3,11 +3,14 @@ package eu.concept.controller.component;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.Notification;
 import eu.concept.repository.concept.domain.Sketch;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.SketchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.util.other.NotificationTool;
+import eu.concept.util.other.NotificationTool.ACTION;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,8 +122,8 @@ public class SketchController {
     }
 
     @RequestMapping(value = "/sk_app_edit", method = RequestMethod.POST)
-    public String createBriefAnalysis(@ModelAttribute Sketch sk, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
-        System.out.println("ProjectID : " + sk.getPid());
+    public String editSketch(@ModelAttribute Sketch sk, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+        ACTION action = (null == sk.getId() ? NotificationTool.ACTION.EDITED : NotificationTool.ACTION.CREATED);
         UserCo newUser = new UserCo();
         newUser.setId(getCurrentUser().getId());
         if (null == sk.getTitle() || sk.getTitle().isEmpty()) {
@@ -129,7 +132,10 @@ public class SketchController {
         sk.setPid(projectID);
         sk.setUid(newUser);
         model.addAttribute("sketch", sk);
+
+        //Success Create/Edit
         if (skService.storeSketch(sk)) {
+//            WebController.getNotificationService().storeNotification(new Notification(null, projectID, NotificationTool.SK.getImageLink(), action.toString(), "", null));
             model.addAttribute("success", "Saved to Concept DB");
         }
         return "redirect:/sk_app/" + sk.getId();

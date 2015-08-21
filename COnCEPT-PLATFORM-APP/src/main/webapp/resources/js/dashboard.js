@@ -2,11 +2,9 @@
 $(document).ready(function () {
 //On page load disable dashboard content
     disableDashboardPage();
-    console.log("Selecting current project with id: " + $('#projectID').val());
+    logger("Selecting current project with id: " + $('#projectID').val());
     $('#project-select').val($('#projectID').val()).change();
-}
-
-);
+});
 
 //Load all widjects of dashboard page based on selected ProjectID
 function loadDashboardContent(projectID) {
@@ -19,28 +17,25 @@ function loadDashboardContent(projectID) {
     $("#sk-dashboard").load("/sketch/" + projectID + "?limit=4");
 }
 
-
-
 //Delete a Brief Analysis object
-function deleteBA(ba_id,project_id) {
-    $("#ba-dashboard").load("/ba_app_delete?ba_id=" + ba_id + "&project_id="+project_id+"&limit=5");
+function deleteBA(ba_id, project_id) {
+    $("#ba-dashboard").load("/ba_app_delete?ba_id=" + ba_id + "&project_id=" + project_id + "&limit=5");
 }
 
 //Delete a Mindmap object
-function deleteMM(mm_id,project_id) {
-    $("#mm-dashboard").load("/mm_app_delete?mm_id=" + mm_id + "&project_id="+project_id);
+function deleteMM(mm_id, project_id) {
+    $("#mm-dashboard").load("/mm_app_delete?mm_id=" + mm_id + "&project_id=" + project_id);
 }
 
 //Delete a Storyboard object
-function deleteSB(sb_id,project_id) {
-    $("#sb-dashboard").load("/sb_app_delete?sb_id=" + sb_id + "&project_id="+project_id);
+function deleteSB(sb_id, project_id) {
+    $("#sb-dashboard").load("/sb_app_delete?sb_id=" + sb_id + "&project_id=" + project_id);
 }
 
 //Delete a Sketch object
-function deleteSK(sk_id,project_id) {
-    $("#sk-dashboard").load("/sk_app_delete?sk_id=" + sk_id + "&project_id="+project_id);
+function deleteSK(sk_id, project_id) {
+    $("#sk-dashboard").load("/sk_app_delete?sk_id=" + sk_id + "&project_id=" + project_id);
 }
-
 
 //
 //TODO: A more efficient way to disable/enable dashboard widgets (in ex. DOM iter.)
@@ -51,10 +46,8 @@ function disableDashboardPage() {
 
     $('.nav-apps ul').addClass("disabled");
     $('.app-link').addClass("disabled");
-
     $("#row1").addClass("disabled");
     $("#row2").addClass("disabled");
-
     $("#ba-buttons").addClass("disabled");
     $("#ba-content").addClass("disabled");
     $('#ba-dashboard').hide();
