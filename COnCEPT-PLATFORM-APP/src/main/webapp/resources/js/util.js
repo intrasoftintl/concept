@@ -316,3 +316,22 @@ function addProjectIDToForm(formName) {
 }
 
 $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);
+
+$('#chat-button').attr('disabled',true);
+    $('#chat-message').keyup(function(){
+        if($(this).val().length !=0)
+            $('#chat-button').attr('disabled', false);            
+        else
+            $('#chat-button').attr('disabled',true);
+    });
+    
+var $cont = $('.chat-list');
+$cont[0].scrollTop = $cont[0].scrollHeight;
+
+$('#chat-message').keyup(function(e) {
+    if (e.keyCode == 13) {
+        $cont[0].scrollTop = $cont[0].scrollHeight;
+        $(this).val('');
+    }
+})
+.focus();
