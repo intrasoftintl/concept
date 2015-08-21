@@ -5,6 +5,7 @@ import eu.concept.controller.component.MetadataController;
 import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.MetadataService;
+import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.domain.UserOp;
@@ -44,6 +45,9 @@ public class WebController {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    static NotificationService notificationService;
 
 
     /*
@@ -179,7 +183,7 @@ public class WebController {
 
     @Autowired
     SimpMessagingTemplate template;
-    
+
     @RequestMapping(value = "/dummy", method = RequestMethod.GET)
     public String greet(String greeting) {
         String text = "[Debug]:" + greeting;
@@ -220,5 +224,9 @@ public class WebController {
             return false;
         }
         return true;
+    }
+
+    public static NotificationService getNotificationService() {
+        return notificationService;
     }
 }

@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     //If not dashboard page, select current project
     if (!isDashboardPage()) {
-        console.log("Selecting current project with id: " + $('#projectID').val());
+        logger("Selecting current project with id: " + $('#projectID').val());
         $('#project-select').val($('#projectID').val()).change();
     }
 

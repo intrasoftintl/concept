@@ -81,6 +81,7 @@
 
         </nav>
 
+        <!-- Chat DIV -->
         <div th:include="chat :: chat-list"></div>
 
         <!-- Metadata Content -->
@@ -237,6 +238,7 @@
 
         <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
+        <!-- Core JS libraries -->
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
         <script src="/resources/js/bootstrap.min.js"></script>
         <script src="/resources/js/togetherjs-min.js"></script>
