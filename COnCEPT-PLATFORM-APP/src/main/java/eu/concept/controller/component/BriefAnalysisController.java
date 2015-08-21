@@ -77,7 +77,6 @@ public class BriefAnalysisController {
         model.addAttribute("currentUser", getCurrentUser());
         if (!model.containsAttribute("briefanalysis")) {
             BriefAnalysis ba = new BriefAnalysis();
-
             model.addAttribute("briefanalysis", new BriefAnalysis());
         } else {
 

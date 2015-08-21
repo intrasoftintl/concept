@@ -109,7 +109,11 @@
                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
                             </button>
                         </form>
-                        <a href="/notifications" th:action="@{/notifications}" class="btn btn-success btn-sm pull-right">Notifications <span class="badge">2</span></a>
+
+                        <!-- Notifications Button -->
+                        <form id="nf-app-link-form" action="#" method="post" th:action="@{/notifications_app}"><button onclick="addProjectIDToForm('nf-app-link-form')" type="submit" id="sk-app-link" class="btn btn-success btn-sm pull-right">Notifications <span class="badge">2</span></button></form>
+
+                   
                     </div>
 
                 </div>
@@ -250,7 +254,7 @@
         <!-- COnCEPT-Chat JS -->
         <script type="text/javascript" src="/resources/js/sockjs.min.js"></script>
         <script type="text/javascript" src="/resources/js/stomp.min.js"></script>
-                <script type="text/javascript" src="/resources/js/chat.js"></script>
+        <script type="text/javascript" src="/resources/js/chat.js"></script>
 
 
     </body>

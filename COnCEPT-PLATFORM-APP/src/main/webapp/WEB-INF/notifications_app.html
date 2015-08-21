@@ -75,14 +75,14 @@
             </div>
 
         </nav>
-        
+
         <div th:include="chat :: chat-list"></div>
-        
+
         <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <!-- notifications -->
         <div class="content">
-            
+
             <div class="header">
 
                 <!-- Profile -->
@@ -106,14 +106,38 @@
 
                 </div>
             </div>
-            
-            <div th:include="notifications :: notifications-list"></div>
-           
+
+            <!-- Notifications List -->
+            <div th:include="notifications :: notifications-list" th:unless="${!#lists.isEmpty(nfContents)}"></div>
+
+            <!-- Empty List DIV -->
+            <div  th:if="${nfContents.isEmpty()}" >
+                //Notifications List Empty
+            </div>
+
         </div>
 
-        <script src="resources/js/jquery-1.11.2.min.js"></script>
-        <script src="resources/js/bootstrap.min.js"></script>
-        <script src="resources/js/togetherjs-min.js"></script>
+        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+
+        <script src="/resources/js/jquery-1.11.2.min.js"></script>
+        <script src="/resources/js/bootstrap.min.js"></script>
+        <script src="/resources/js/togetherjs-min.js"></script>
+        <script src="/resources/js/lightbox.min.js"></script>
+
+        <!-- Javascript file handling various actions of dashboard page -->
+        <script src="/resources/js/util.js"></script>
+        <script src="/resources/js/dashboard.js"></script>
+
+        <!-- Metadata -->
+        <script src="/resources/js/jquery.tagsinput.min.js"></script>
+        <script src="/resources/js/tree.jquery.js"></script>
+        <script src="/resources/js/metadata.js"></script>
+
+        <!-- COnCEPT-Chat JS -->
+        <script type="text/javascript" src="/resources/js/sockjs.min.js"></script>
+        <script type="text/javascript" src="/resources/js/stomp.min.js"></script>
+        <script type="text/javascript" src="/resources/js/chat.js"></script>
+
 
     </body>
 </html>
