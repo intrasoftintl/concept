@@ -35,10 +35,11 @@ function activateChat() {
                 logger(message_parts[0]);
                 logger($("#chat-user").text());
                 if (message_parts[0] === $("#chat-user").text()) {
-                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user-you\">" + message_parts[0] + " </span>" + message_parts[1] + "<span class=\"chat-timestamp\">" + getChatTimestamp()+ "</span></li>");
+                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user-you\">" + message_parts[0] + " </span>" + message_parts[1] + "<span class=\"chat-timestamp\">" + getChatTimestamp() + "</span></li>");
                 } else {
-                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user\">" + message_parts[0] + " </span >" + message_parts[1]+ "<span class=\"chat-timestamp\">" + getChatTimestamp() +"</span>" + "</li>");
+                    messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user\">" + message_parts[0] + " </span >" + message_parts[1] + "<span class=\"chat-timestamp\">" + getChatTimestamp() + "</span>" + "</li>");
                 }
+                chatScrollDown();
             });
         });
     }
@@ -50,7 +51,7 @@ function getChatTimestamp() {
     var hour = date.getHours();
     var min = date.getMinutes();
     var sec = date.getSeconds();
-    return hour + ":" + min + ":" + sec ;
+    return hour + ":" + min + ":" + sec;
 }
 
 
