@@ -469,7 +469,8 @@ body{
 .nav-chat .nav-content .chat-list .chat-message{
     border:0;
     margin:0;
-    padding:10px;
+    padding:10px 10px 40px 10px;
+    height:auto;
     font-size:13px;
     color:#aaa;
     border-bottom:1px solid #eee;
@@ -481,6 +482,16 @@ body{
 
 .nav-chat .nav-content .chat-list .chat-user-you {
     color:#8AC249;
+}
+
+.nav-chat .nav-content .chat-list .chat-timestamp {
+    color:red;
+    float:right;
+    margin:10px;
+    color:#ccc;
+    margin:0;
+    padding-top:30px;
+    font-size:12px;
 }
 
 .nav-chat .nav-content .chat-actions{
