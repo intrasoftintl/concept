@@ -16,157 +16,84 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <form id="ba-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('ba-form');$(this).closest('form').submit()">
+                <form id="dashboard-form" th:action="@{/dashboard}" method="post" >
+                    <a href="#" onclick="addProjectIDToForm('dashboard-form');
+                            $(this).closest('form').submit()">
                         <li class="main"><img src="/resources/img/BUTTON_BACK.png" />Dashboard</li>
                     </a>
-                </form>
+                </form>                              
                 <a onclick="TogetherJS(this);
                         return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
         <!-- apps -->
-        <nav class="nav-apps">
-            <ul class="disabled">
-                <li><img src="/resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_FM_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_SK_DISABLED.png" /></li>
+        <nav class="nav-apps disabled">
+            <ul>
+                <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="/resources/img/ICON_BA.png" /></button></form></li> 
+                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="/resources/img/ICON_FM.png" /></button></form></li>
+                <li><form id="se-app-link-form" action="#" method="post" th:action="@{/se_app}"><button onclick="addProjectIDToForm('se-app-link-form')" type="submit" id="se-app-link" class="app-link"><img src="/resources/img/ICON_SE.png" /></button></form></li>
+                <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="/resources/img/ICON_MM.png" /></button></form></li>
+                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="/resources/img/ICON_SB.png" /></button></form></li>
+                <li><form id="sk-app-link-form" action="#" method="post" th:action="@{/sk_app}"><button onclick="addProjectIDToForm('sk-app-link-form')" type="submit" id="sk-app-link" class="app-link"><img src="/resources/img/ICON_SK.png" /></button></form></li>
             </ul>
-        </nav>
-
-        <!-- projects -->
-        <nav class="nav-projects">
-            <div class="btn-group project-selection">
-                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default disabled">
-                    <option selected="true" value="0">Please select a project</option>
-                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
-                </select>
-
-                <select th:if="${projects.isEmpty()}" class="btn btn-default">
-                    <option selected="true" disabled="true">No projects available</option>
-                </select>
-
-            </div>          
-
-            <div class="project-selection">
-
-                <!-- Content to be showed only on project members (managers, designers, clients) -->
-                <div th:switch="${currentUser.getRole()}">
-                    <span th:case="'MANAGER'">
-                        <a href="http://192.168.3.5/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
-                    </span>
-                    <span th:case="'DESIGNER'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
-                    </span>
-                    <span th:case="'CLIENT'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
-                    </span>
-                </div>
-
-                <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
-            </div>
 
         </nav>
 
-
-        <!-- Info Message -->
-        <nav th:if="null != ${success}" class="nav-actions">      
-
-            <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <span th:text="${success}"> </span>
-            </div>
-        </nav>
-
-        <nav th:if="null != ${error}" class="nav-actions">      
-
-            <div class="alert alert-danger alert-dismissible btn-actions" role="alert" >
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <span>Could not save to Concept DB</span>
-            </div>
-        </nav>
-
-
-        <!-- chat -->
-        <nav class="nav-chat disabled">
-
-            <div class="nav-header">
-                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
-                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
-                <p class="heading">Chat module</p>
-                <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
-            </div>
-
-            <div class="nav-content">
-                <div class="nav-content-header">
-                    Please select a project
-                </div>
-                <ul>
-                    <li class="placeholder"><img src="/resources/img/ICON_CHAT.png" /></li>
-                </ul>
-            </div>
-
-        </nav>
-
-        <!-- chat-hidden -->
-        <nav class="nav-chat-hidden">
-            <div class="nav-header">
-                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
-                <a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>
-                <p class="heading">Chat module</p>
-                <p class="title">Module hidden</p>
-            </div>
-        </nav>
+        <!-- Chat DIV -->
+        <div th:include="chat :: chat-list"></div>
 
         <!-- dashboard -->
         <div class="content">
-            <form  id="ba-form" class="form-inline" method="post" th:action="@{/ba_app_edit}" action="#" th:object="${briefanalysis}">
-                <div class="form-group document-title">
-                    <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
-                    <input type="hidden" th:value="*{pid}"  name="pid" id="pid" class="form-control"    />
-                    <input th:if="null != ${briefanalysis.uid}" type="hidden" th:value="${briefanalysis.uid.id}"  th:field="*{uid.id}"  name="uid" id="uid" class="form-control"    />
-                    <input type="hidden" th:value="${briefanalysis.id}"   th:field="*{id}" class="form-control input-sm" id="ba-id" name="ba-id" size="50" value="BA_00001"/>
-                    <label for="document-title">Brief Analysis Title</label>
-                    <input th:value="${briefanalysis.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled"/>
-                    <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editBA"/>
-                    <!-- <input type="button" class="btn btn-xs btn-danger" value="Save content" onclick="saveBAContent()" /> -->
-                    <!-- <input type="button" class="btn btn-xs btn-danger" value="Load content" onclick="loadBAContent()" /> -->
+
+            <div class="header">
+                <a href="/" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="dashboard-login">
+
+                        <section id="login">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-wrap">
+
+                                            <div th:if="${param.error}" class="alert alert-danger" role="alert">Error. Please try again.</div>
+                                            <div th:if="${new_password}" class="alert alert-success" role="alert"><p th:text="${new_password}"></p></div>
+
+
+                                            <h5 class="heading">Change your password</h5>
+                                            <form role="form" th:action="@{/change-password}" method="post" id="login-form" autocomplete="off">
+                                                <input th:if="${_csrf}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                                <div class="form-group">
+                                                    <label for="key" class="sr-only">Current Password</label>
+                                                    <input type="password" name="current-password" id="current-password" class="form-control" placeholder="Current Password" />
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label for="key" class="sr-only">New Password</label>
+                                                    <input type="password" name="new-password" id="new-password" class="form-control" placeholder="New Password" />
+                                                </div>
+
+                                                <input type="submit" value="Change Password" class="btn btn-danger"/>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
                 </div>
-                <textarea th:text="${briefanalysis.content}" th:field="*{content}" name="document-content"></textarea>
-            </form>
+            </div>
         </div>
 
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
         <script src="/resources/js/bootstrap.min.js"></script>
         <script src="/resources/js/togetherjs-min.js"></script>
-        <script src="/resources/js/tinymce/tinymce.min.js"></script>
         <script src="/resources/js/util.js"></script>
-        <script>tinymce.init({selector: 'textarea'});</script>
     </body>
 </html> 
-
-
-
-<!--
-<script type="text/javascript">
-    $('#baForm').submit(function (ev) {
-        
-
-     $.ajax({
-            type: $('#baForm').attr('method'),
-            url: $('#baForm').attr('action'),
-            data: $('#baForm').serialize(),
-            success: function (data) {
-                alert('ok');
-            }
-        });
-
-
-        ev.preventDefault();
-    });
-</script>-->
-
