@@ -20,7 +20,7 @@ function activateChat() {
     if (project_id > 0) {
         logger("Activate Chat session for project with id: " + project_id)
         var messageList = $("#chat-list");
-        messageList.append("<li  class=\"chat-message\">You have joined the chat<span class=\"chat-timestamp\">" + getChatTimestamp() + "</span></li>");
+        messageList.append("<li class=\"chat-message\">You have joined the chat<span class=\"chat-timestamp\">" + getChatTimestamp() + "</span></li>");
         // Define a connection to a new socket endpoint
         var socket = new SockJS(SOCKET_ENDPOINT);
         // Define topic name
