@@ -39,7 +39,7 @@ $(document).ready(function () {
             }
         });
     }
-
+   
 });
 
 
@@ -88,7 +88,6 @@ function projectSelectedAction(projectID) {
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#fm-add").show();
             $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200");
-
 
             $("#fm-placeholder").hide();
 
@@ -169,10 +168,12 @@ function projectSelectedAction(projectID) {
             $("#project-view").hide();
         } else if (isBA_all()) {
             $(".panel-body").hide();
+            $("#sort").hide();
             $("#ba-placeholder").show();
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#ba-add").hide();
         } else if (isSK_app()) {
             $("#project-members").hide();
             $("#project-view").hide();
@@ -337,3 +338,10 @@ $('#chat-message').keyup(function (e) {
         $(this).val('');
     }
 }).focus();
+
+$("#notification").ready(
+    function(){
+        setTimeout(function () {
+        $("#notification").hide()
+    }, 4000);
+ });

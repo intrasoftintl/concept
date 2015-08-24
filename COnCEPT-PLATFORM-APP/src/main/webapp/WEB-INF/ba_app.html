@@ -70,14 +70,10 @@
                 </div>
                 <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
             </div>
-
         </nav>
 
-
-
         <!-- Success Message -->
-        <nav th:if="null != ${success}" class="nav-actions">      
-
+        <nav id="notification" th:if="null != ${success}" class="nav-actions" onload="hideMessage()">
             <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span th:text="${success}"> </span>
@@ -85,7 +81,7 @@
         </nav>
 
         <!-- Error Message -->
-        <nav th:if="null == ${error}" class="nav-actions">      
+        <nav id="notification" th:if="null != ${error}" class="nav-actions" onload="hideMessage()">      
             <div class="alert alert-danger alert-dismissible btn-actions" role="alert" >
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span th:text="${error}"> </span>
@@ -106,8 +102,6 @@
                     <label for="document-title">Brief Analysis Title</label>
                     <input th:value="${briefanalysis.title}"   th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled"/>
                     <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editBA"/>
-                    <!-- <input type="button" class="btn btn-xs btn-danger" value="Save content" onclick="saveBAContent()" /> -->
-                    <!-- <input type="button" class="btn btn-xs btn-danger" value="Load content" onclick="loadBAContent()" /> -->
                 </div>
                 <textarea th:text="${briefanalysis.content}" th:field="*{content}" name="document-content"></textarea>
             </form>
@@ -119,6 +113,7 @@
         <script src="/resources/js/tinymce/tinymce.min.js"></script>
         <script src="/resources/js/util.js"></script>
         <script>tinymce.init({selector: 'textarea'});</script>
+        
         <!-- COnCEPT-Chat JS -->
         <script src="/resources/js/sockjs.min.js"></script>
         <script src="/resources/js/stomp.min.js"></script>
