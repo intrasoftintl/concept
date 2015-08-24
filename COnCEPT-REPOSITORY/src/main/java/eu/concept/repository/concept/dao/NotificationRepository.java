@@ -15,7 +15,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
      *Ftech Queries
      */
 
-    public List<Notification> findByPid(int Pid, Pageable page);
+    public List<Notification> findByPidOrderByCreatedDateDesc(int Pid, Pageable page);
 
 
     /*

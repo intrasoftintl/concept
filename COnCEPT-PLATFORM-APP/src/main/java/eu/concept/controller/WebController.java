@@ -46,8 +46,7 @@ public class WebController {
     @Autowired
     MetadataService metadataService;
 
-    @Autowired
-    static NotificationService notificationService;
+
 
 
     /*
@@ -233,7 +232,4 @@ public class WebController {
         return true;
     }
 
-    public static NotificationService getNotificationService() {
-        return notificationService;
-    }
 }

@@ -42,9 +42,6 @@ public class Sketch implements Serializable {
     @Column(name = "title")
     private String title;
     @Basic(optional = false)
-    @NotNull
-    @Lob
-    @Size(min = 1, max = 2147483647)
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
@@ -52,9 +49,8 @@ public class Sketch implements Serializable {
     @Lob
     @Column(name = "content_thumbnail")
     private String contentThumbnail;
-    @Basic(optional = false)
-    @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date",columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdDate;
     @Basic(optional = false)
     @NotNull

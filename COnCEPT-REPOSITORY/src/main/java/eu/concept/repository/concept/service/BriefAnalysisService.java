@@ -49,10 +49,10 @@ public class BriefAnalysisService {
         List<BriefAnalysis> files;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {
-            files = briefAnalysis.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
+            files = briefAnalysis.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
 
-            files = briefAnalysis.findByPid(projectID, pageRequest);
+            files = briefAnalysis.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
             System.out.println("Files size: " + files.size());
         }
         return files;
