@@ -1,16 +1,23 @@
 <div th:fragment="sidebar-metadata"  th:unless="null == ${metadata}" >
 
-    <!-- main-md -->
+
+
+
+    <!-- navbar -->
     <nav class="nav-main-md">
         <ul>
-            <li class="main-md"><img src="resources/img/BUTTON_MD.png" />Metadata</li>
+                <a href="#" onclick="unloadMD()">
+                    <li class="main-md"><img src="/resources/img/BUTTON_BACK.png" />Metadata</li>
+                </a>
         </ul>
     </nav>
+
+
 
     <!-- keywords -->
     <nav class="nav-keywords">
         <div class="nav-header">
-            <img class="icon" src="resources/img/BUTTON_KEYWORDS.png" />
+            <img class="icon" src="/resources/img/BUTTON_KEYWORDS.png" />
 
             <p class="heading">KEYWORDS</p>
             <p class="title">Annotate with keywords</p>
@@ -28,7 +35,7 @@
     <!-- categories -->
     <nav class="nav-categories">
         <div class="nav-header">
-            <img class="icon" src="resources/img/BUTTON_CATEGORIES.png" />
+            <img class="icon" src="/resources/img/BUTTON_CATEGORIES.png" />
 
             <p class="heading">CATEGORIES</p>
             <p class="title">Annotate with categories</p>
@@ -62,11 +69,13 @@
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
             </button>
         </form>
+        
+        <!--
         <button class="btn btn-default btn-block btn-actions" onclick="unloadMD()">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Go Back
         </button>
+        -->
     </nav>
-
 
     <!-- Immediate load metadata -->
     <script> initMetadata()</script>

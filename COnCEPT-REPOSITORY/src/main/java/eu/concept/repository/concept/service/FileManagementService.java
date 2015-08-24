@@ -68,9 +68,9 @@ public class FileManagementService {
         List<FileManagement> files;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(userRole)) {
-            files = fileManagement.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
+            files = fileManagement.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
-            files = fileManagement.findByPid(projectID, pageRequest);
+            files = fileManagement.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
         return files;
     }

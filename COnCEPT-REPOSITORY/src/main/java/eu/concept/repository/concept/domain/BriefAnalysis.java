@@ -24,6 +24,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "BriefAnalysis")
 public class BriefAnalysis implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +43,7 @@ public class BriefAnalysis implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 0, max = 2147483647)
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
@@ -153,5 +154,5 @@ public class BriefAnalysis implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.BriefAnalysis[ id=" + id + " ]";
     }
-    
+
 }

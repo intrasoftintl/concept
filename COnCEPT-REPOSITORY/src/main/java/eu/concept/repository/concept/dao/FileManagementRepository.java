@@ -14,9 +14,9 @@ public interface FileManagementRepository extends JpaRepository<FileManagement, 
     /*
      *Ftech Queries
      */
-    public List<FileManagement> findByPidAndIsPublic(int Pid, short IsPublic, Pageable page);
+    public List<FileManagement> findByPidAndIsPublicOrderByCreatedDateDesc(int Pid, short IsPublic, Pageable page);
 
-    public List<FileManagement> findByPid(int Pid, Pageable page);
+    public List<FileManagement> findByPidOrderByCreatedDateDesc(int Pid, Pageable page);
 
     public FileManagement findById(int Id);
 

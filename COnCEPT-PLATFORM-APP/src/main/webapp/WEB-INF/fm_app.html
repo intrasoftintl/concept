@@ -7,11 +7,11 @@
         <meta name="viewport" content="width=device-width" />	
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-        <link rel="stylesheet" href="resources/css/literallycanvas.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/jquery.fileupload.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/jquery.fileupload-ui.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/literallycanvas.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/jquery.fileupload.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/jquery.fileupload-ui.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
@@ -20,8 +20,9 @@
         <nav class="nav-main">
             <ul>
                 <form id="fm-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('sk-form');$(this).closest('form').submit()">
-                        <li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
+                    <a href="#" onclick="addProjectIDToForm('fm-form');
+                            $(this).closest('form').submit()">
+                        <li class="main"><img src="/resources/img/BUTTON_BACK.png" />Dashboard</li>
                     </a>
                 </form>
                 <a onclick="TogetherJS(this);
@@ -32,12 +33,12 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_FM.png" /></li>
-                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_FM.png" /></li>
+                <li><img src="/resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SB_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
         </nav>
 
@@ -80,8 +81,8 @@
         <nav class="nav-chat disabled">
 
             <div class="nav-header">
-                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
+                <!--<a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>-->
                 <p class="heading">Chat module</p>
                 <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
             </div>
@@ -91,7 +92,7 @@
                     Please select a project
                 </div>
                 <ul>
-                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                    <li class="placeholder"><img src="/resources/img/ICON_CHAT.png" /></li>
                 </ul>
             </div>
 
@@ -100,8 +101,8 @@
         <!-- chat-hidden -->
         <nav class="nav-chat-hidden">
             <div class="nav-header">
-                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>
                 <p class="heading">Chat module</p>
                 <p class="title">Module hidden</p>
             </div>
@@ -112,7 +113,11 @@
 
             <div class="header">
 
-                <a href="/dashboard" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>
+                <form th:action="@{/dashboard}" method="post" class="pull-left">
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+                    <button type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>
+                </form>
+
 
                 <!-- Profile -->
                 <div class="btn-group pull-right">
@@ -197,13 +202,17 @@
             </div>
         </div>
 
-        <script src="resources/js/jquery-1.11.2.min.js"></script>
-        <script src="resources/js/jquery.ui.widget.js"></script>
-        <script src="resources/js/jquery.iframe-transport.js"></script>
-        <script src="resources/js/jquery.fileupload.js"></script>
-        <script src="resources/js/bootstrap.min.js"></script>
-        <script src="resources/js/togetherjs-min.js"></script>
-        <script src="resources/js/util.js"></script>
+        <script src="/resources/js/jquery-1.11.2.min.js"></script>
+        <script src="/resources/js/jquery.ui.widget.js"></script>
+        <script src="/resources/js/jquery.iframe-transport.js"></script>
+        <script src="/resources/js/jquery.fileupload.js"></script>
+        <script src="/resources/js/bootstrap.min.js"></script>
+        <script src="/resources/js/togetherjs-min.js"></script>
+        <script src="/resources/js/util.js"></script>
+        <!-- COnCEPT-Chat JS -->
+        <script src="/resources/js/sockjs.min.js"></script>
+        <script src="/resources/js/stomp.min.js"></script>
+        <script src="/resources/js/chat.js"></script>
 
     </body>
 </html>

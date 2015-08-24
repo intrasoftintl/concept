@@ -48,9 +48,9 @@ public class SketchService {
         List<Sketch> sketches;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {
-            sketches = sketch.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
+            sketches = sketch.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
-            sketches = sketch.findByPid(projectID, pageRequest);
+            sketches = sketch.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
         return sketches;
     }

@@ -22,7 +22,7 @@
                 <form th:action="@{/dashboard}" method="post" >
                     <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
                     <a href="#" onclick="$(this).closest('form').submit()">
-                        <li class="main"><img src="resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
+                        <li class="main"><img src="/resources/img/BUTTON_BACK.png" />Dashboard</li>
                     </a>
                 </form>
                 <a onclick="TogetherJS(this);
@@ -33,12 +33,12 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MM.png" /></li>
-                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_MM.png" /></li>
+                <li><img src="/resources/img/ICON_SB_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SK_DISABLED.png" /></li>
             </ul>
         </nav>
 
@@ -71,8 +71,8 @@
         <nav class="nav-chat disabled">
 
             <div class="nav-header">
-                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-                <!--<a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>-->
+                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
+                <!--<a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>-->
                 <p class="heading">Chat module</p>
                 <p class="title" th:inline="text">Logged in as <span style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
             </div>
@@ -82,7 +82,7 @@
                     Please select a project
                 </div>
                 <ul>
-                    <li class="placeholder"><img src="resources/img/ICON_CHAT.png" /></li>
+                    <li class="placeholder"><img src="/resources/img/ICON_CHAT.png" /></li>
                 </ul>
             </div>
 
@@ -91,8 +91,8 @@
         <!-- chat-hidden -->
         <nav class="nav-chat-hidden">
             <div class="nav-header">
-                <img class="icon" src="resources/img/BUTTON_COMMUNICATION.png" />
-                <a href="#"><img class="icon settings" src="resources/img/BUTTON_SETTINGS.png" /></a>
+                <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
+                <a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>
                 <p class="heading">Chat module</p>
                 <p class="title">Module hidden</p>
             </div>
@@ -164,7 +164,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><a href="#"><img src="resources/img/mm_00001.jpg" class="img-thumbnail" /></a></td>
+                                        <td><a href="#"><img src="/resources/img/mm_00001.jpg" class="img-thumbnail" /></a></td>
                                         <td class="truncate">user123456789</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -174,7 +174,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href="#"><img src="resources/img/mm_00002.jpg" class="img-thumbnail" /></a></td>
+                                        <td><a href="#"><img src="/resources/img/mm_00002.jpg" class="img-thumbnail" /></a></td>
                                         <td class="truncate">user5</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -184,7 +184,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href="#"><img src="resources/img/mm_00003.jpg" class="img-thumbnail" /></a></td>
+                                        <td><a href="#"><img src="/resources/img/mm_00003.jpg" class="img-thumbnail" /></a></td>
                                         <td class="truncate">user1</td>
                                         <td>
                                             <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
@@ -205,9 +205,9 @@
             </div>
         </div>
 
-        <script src="resources/js/jquery-1.11.2.min.js"></script>
-        <script src="resources/js/bootstrap.min.js"></script>
-        <script src="resources/js/togetherjs-min.js"></script>
+        <script src="/resources/js/jquery-1.11.2.min.js"></script>
+        <script src="/resources/js/bootstrap.min.js"></script>
+        <script src="/resources/js/togetherjs-min.js"></script>
 
     </body>
 </html>

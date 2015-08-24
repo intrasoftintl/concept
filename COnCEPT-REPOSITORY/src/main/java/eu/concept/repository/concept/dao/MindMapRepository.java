@@ -14,9 +14,9 @@ public interface MindMapRepository extends JpaRepository<MindMap, Integer> {
     /*
      *Ftech Queries
      */
-    public List<MindMap> findByPidAndIsPublic(int Pid, short IsPublic, Pageable page);
+    public List<MindMap> findByPidAndIsPublicOrderByCreatedDateDesc(int Pid, short IsPublic, Pageable page);
 
-    public List<MindMap> findByPid(int Pid, Pageable page);
+    public List<MindMap> findByPidOrderByCreatedDateDesc(int Pid, Pageable page);
 
     public MindMap findById(int Id);
 

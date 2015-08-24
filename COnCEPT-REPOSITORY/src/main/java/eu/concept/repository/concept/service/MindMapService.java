@@ -49,9 +49,9 @@ public class MindMapService {
         List<MindMap> files;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {
-            files = mindmapRepo.findByPidAndIsPublic(projectID, new Short("1"), pageRequest);
+            files = mindmapRepo.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
-            files = mindmapRepo.findByPid(projectID, pageRequest);
+            files = mindmapRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
         return files;
     }

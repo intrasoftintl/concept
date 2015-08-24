@@ -14,9 +14,9 @@ public interface SketchRepository extends JpaRepository<Sketch, Integer> {
     /*
      *Ftech Queries
      */
-    public List<Sketch> findByPidAndIsPublic(int Pid, short IsPublic, Pageable page);
+    public List<Sketch> findByPidAndIsPublicOrderByCreatedDateDesc(int Pid, short IsPublic, Pageable page);
 
-    public List<Sketch> findByPid(int Pid, Pageable page);
+    public List<Sketch> findByPidOrderByCreatedDateDesc(int Pid, Pageable page);
 
     public Sketch findById(int Id);
 

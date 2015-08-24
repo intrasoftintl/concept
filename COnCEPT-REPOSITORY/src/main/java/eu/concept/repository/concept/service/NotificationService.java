@@ -37,7 +37,7 @@ public class NotificationService {
     public List<Notification> fetchNotificationsByProjectId(int projectID, UserCo user, int limit, int page) {
         List<Notification> notifications;
         Pageable pageRequest = new PageRequest(page, limit);
-        notifications = notificationRepo.findByPid(projectID, pageRequest);
+        notifications = notificationRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         return notifications;
     }
 
