@@ -77,7 +77,7 @@
         <!-- Info Message -->
         <nav th:if="null != ${success}" class="nav-actions">
 
-            <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
+            <div class="alert alert-warning alert-dismissible btn-actions" role="alert" onload="hideMessage()">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span th:text="${success}"> </span>
             </div>
@@ -85,7 +85,7 @@
 
         <nav th:if="null != ${error}" class="nav-actions">
 
-            <div class="alert alert-danger alert-dismissible btn-actions" role="alert" >
+            <div class="alert alert-danger alert-dismissible btn-actions" role="alert" onload="hideMessage()">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span>Could not save to Concept DB</span>
             </div>

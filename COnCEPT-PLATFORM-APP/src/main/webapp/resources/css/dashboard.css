@@ -217,6 +217,10 @@ body{
     width:216px;
 }
 
+.nav-actions .disabled{
+    display:none;
+}
+
 /* NAV-ACTIONS-MD CONTAINER */
 .nav-actions-md{
     width: 240px;
