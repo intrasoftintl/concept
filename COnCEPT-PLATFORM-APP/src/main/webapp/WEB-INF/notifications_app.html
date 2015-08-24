@@ -74,6 +74,7 @@
 
         </nav>
 
+        <!-- Chat DIV -->
         <div th:include="chat :: chat-list"></div>
 
         <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
