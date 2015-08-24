@@ -92,7 +92,7 @@ body{
 .nav-apps li{ border:0; margin:0; padding:0; }
 .nav-apps ul li:hover{ color:#fff; background:#eee; color:#E74C3C; cursor: pointer; }
 .nav-apps img{ width:80px; padding:10px; margin:0; }
-.nav-apps .disabled { opacity:0.5; }
+.nav-apps .disabled { opacity:0.5; pointer-events: none; }
 .nav-apps ul.disabled li:hover { background:none; cursor:auto;}
 
 .nav-apps form{
@@ -672,7 +672,7 @@ textarea{
 
 /* BOOTSTRAP OVERRIDE */
 .row { margin:0; }
-.row.disabled{ opacity:0.5; }
+.row.disabled{ opacity:0.5; pointer-events: none; }
 
 .panel-title{ padding-top: 8px; }
 .panel-body.no-padding { padding:0; }
@@ -680,6 +680,7 @@ textarea{
     height:100px; 
     background-image: linear-gradient(-45deg, #f8f8f8 25%, transparent 25%, transparent 50%, #eee 50%, #eee 75%, transparent 75%, transparent);
     background-size: 4px 4px;
+    pointer-events: none;
 }
 .panel-body img{ width: 90px; margin:5px;}
 
@@ -772,6 +773,7 @@ table img.notification{ width:60px; margin:0; background: #fff; border-radius:50
     outline:none;
     padding:0;
     margin:0;
+    pointer-events: none;
 }
 
 *:focus {
