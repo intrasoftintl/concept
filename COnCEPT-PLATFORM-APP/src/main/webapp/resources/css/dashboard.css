@@ -497,7 +497,6 @@ body{
 }
 
 .nav-chat .nav-content .chat-actions{
-    //height:60px;
     margin:0;
     padding:0;
 }
@@ -507,17 +506,17 @@ body{
     margin:0;
     padding:0;
     vertical-align:middle;
+    border-top:1px solid #eee;
 }
 
 .nav-chat .nav-content .chat-actions .chat-text{
-    width:150px;
+    width:160px;
     padding:0px;
     margin:5px;
     height:30px;
     font-size:13px;
     border:1px solid #eee;
-    //font-weight: 300;
-
+    border-radius:4px;
 }
 .nav-chat .nav-content .chat-actions input.chat-text{
     background:#fff;
