@@ -73,7 +73,7 @@
         </nav>
 
         <!-- Success Message -->
-        <nav id="notification" th:if="null != ${success}" class="nav-actions" onload="hideMessage()">
+        <nav id="notification" th:if="null != ${success}" class="nav-actions" >
             <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span th:text="${success}"> </span>
@@ -81,7 +81,7 @@
         </nav>
 
         <!-- Error Message -->
-        <nav id="notification" th:if="null != ${error}" class="nav-actions" onload="hideMessage()">      
+        <nav id="notification" th:if="null != ${error}" class="nav-actions" >      
             <div class="alert alert-danger alert-dismissible btn-actions" role="alert" >
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <span th:text="${error}"> </span>
