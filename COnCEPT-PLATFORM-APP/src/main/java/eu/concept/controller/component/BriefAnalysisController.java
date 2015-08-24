@@ -2,12 +2,14 @@ package eu.concept.controller.component;
 
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
+
 import eu.concept.repository.concept.domain.BriefAnalysis;
-import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.MetadataService;
+import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.util.other.NotificationTool;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class BriefAnalysisController {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    NotificationService notificationService;
 
     /*
      *  GET Methods 
@@ -90,9 +95,14 @@ public class BriefAnalysisController {
     }
 
     @RequestMapping(value = "/ba_app_delete", method = RequestMethod.GET)
-    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
-        baService.deleteBriefAnalysis(ba_id);
-        return fetchBAByProjectID(model, projetct_id, limit);
+    public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "ba_id", defaultValue = "0", required = false) int ba_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
+        BriefAnalysis ba = baService.fetchBriefAnalysisById(ba_id);
+        //On success delete & store notification to Concept db...
+        if (null != ba && baService.deleteBriefAnalysis(ba_id)) {
+            notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", "/resources/img/fm_generic.png", WebController.getCurrentUserCo());
+        }
+
+        return fetchBAByProjectID(model, project_id, limit);
     }
 
     @RequestMapping(value = "/ba_app_delete_all", method = RequestMethod.GET)
@@ -111,32 +121,39 @@ public class BriefAnalysisController {
     }
 
     @RequestMapping(value = "/ba_app_edit", method = RequestMethod.POST)
-    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID,final RedirectAttributes redirectAttributes) {
+    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, final RedirectAttributes redirectAttributes) {
+        NotificationTool.NOTIFICATION_OPERATION action = (null == ba.getId() ? NotificationTool.NOTIFICATION_OPERATION.CREATED : NotificationTool.NOTIFICATION_OPERATION.EDITED);
+
+        //Set current user create/edit
+        ba.setUid(WebController.getCurrentUserCo());
+
         //Create the BriefAnalysis object
         if (null == ba.getId()) {
-            UserCo newUser = new UserCo();
-            newUser.setId(getCurrentUser().getId());
             ba.setPid(projectID);
-            ba.setUid(newUser);//care about last edit??
         }
 
         //Set Default title name
         if (null == ba.getTitle() || ba.getTitle().isEmpty()) {
             ba.setTitle("Untitled");
         }
-        
+
         //Set Default content value
         if (null == ba.getContent() || ba.getContent().isEmpty()) {
             ba.setContent("");
-        }        
-        
+        }
 
         //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
-           Logger.getLogger(BriefAnalysisController.class.getName()).info("Success stored message!");
-            redirectAttributes.addFlashAttribute("success", "Saved to Concept DB");
+            //Create a notification for current action
+            notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", "/resources/img/fm_generic.png", WebController.getCurrentUserCo());
+            redirectAttributes.addFlashAttribute("success", "BriefAnalysis saved!");
+        } else {
+            redirectAttributes.addFlashAttribute("error", "BriefAnalysis couldn't be saved.");
         }
+
+        //Add BA object to model
         model.addAttribute("briefanalysis", ba);
+
         return "redirect:/ba_app/" + ba.getId();
     }
 
