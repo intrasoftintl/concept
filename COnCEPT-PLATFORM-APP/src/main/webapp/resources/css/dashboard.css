@@ -73,6 +73,8 @@ body{
     overflow:hidden !important;
 }
 .nav-main-md ul li.main-md{ border-bottom:2px solid #eee; width:238px; height:36px; background-color: #FFD34E; color: #DB9E36; font-size:12px; }
+.nav-main-md ul li.main-md:hover{ opacity:0.5; }
+.nav-main-md ul li.main-md img{ height:32px; position:relative; top:-2px}
 .nav-main-md ul{ margin:0; padding:0; list-style:none; cursor: auto; height:36px; }
 .nav-main-md ul li{ float:left; line-height:36px; padding:0 12px; font-weight:bold; text-decoration:none; color: #5d676f; }
 
