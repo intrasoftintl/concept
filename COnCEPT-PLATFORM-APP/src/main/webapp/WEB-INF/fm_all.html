@@ -158,7 +158,9 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">File Management</h4>
                             <div class="btn-group pull-right">
-                                <a id="fm-add" href="/fm_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</a>
+                                <form id="fm-add-form" action="#" method="post" th:action="@{/fm_app}">
+                                    <button onclick="addProjectIDToForm('fm-add-form')" type="submit" id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</button>
+                                </form>
                             </div>
 
                             <div id="sort" class="btn-group pull-right btn-sort" role="group">

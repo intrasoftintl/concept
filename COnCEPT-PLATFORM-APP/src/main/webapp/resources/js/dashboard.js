@@ -93,6 +93,10 @@ function disableDashboardPage() {
     $(".nav-keywords").hide();
     $(".nav-categories").hide();
     $(".nav-actions-md").hide();
+
+    //Disable notifications button
+    $("#notifications-btn").hide();
+
 }
 
 function enableDashboardPage() {
@@ -147,4 +151,8 @@ function enableDashboardPage() {
     $(".nav-keywords").hide();
     $(".nav-categories").hide();
     $(".nav-actions-md").hide();
+
+
+    //Enable notifications button
+    $("#notifications-btn").show();
 }

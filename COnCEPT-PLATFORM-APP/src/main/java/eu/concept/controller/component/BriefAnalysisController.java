@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -76,7 +77,6 @@ public class BriefAnalysisController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         if (!model.containsAttribute("briefanalysis")) {
-            BriefAnalysis ba = new BriefAnalysis();
             model.addAttribute("briefanalysis", new BriefAnalysis());
         } else {
 
@@ -111,14 +111,13 @@ public class BriefAnalysisController {
     }
 
     @RequestMapping(value = "/ba_app_edit", method = RequestMethod.POST)
-    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+    public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID,final RedirectAttributes redirectAttributes) {
         //Create the BriefAnalysis object
         if (null == ba.getId()) {
             UserCo newUser = new UserCo();
             newUser.setId(getCurrentUser().getId());
             ba.setPid(projectID);
             ba.setUid(newUser);//care about last edit??
-
         }
 
         //Set Default title name
@@ -132,10 +131,10 @@ public class BriefAnalysisController {
         }        
         
 
-
         //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
-            model.addAttribute("success", "Saved to Concept DB");
+           Logger.getLogger(BriefAnalysisController.class.getName()).info("Success stored message!");
+            redirectAttributes.addFlashAttribute("success", "Saved to Concept DB");
         }
         model.addAttribute("briefanalysis", ba);
         return "redirect:/ba_app/" + ba.getId();

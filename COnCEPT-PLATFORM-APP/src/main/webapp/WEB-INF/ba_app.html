@@ -18,7 +18,8 @@
         <nav class="nav-main">
             <ul>
                 <form id="ba-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('ba-form');$(this).closest('form').submit()">
+                    <a href="#" onclick="addProjectIDToForm('ba-form');
+                            $(this).closest('form').submit()">
                         <li class="main"><img src="/resources/img/BUTTON_BACK.png" />Dashboard</li>
                     </a>
                 </form>
@@ -67,14 +68,14 @@
                         <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                 </div>
-
                 <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
             </div>
 
         </nav>
 
 
-        <!-- Info Message -->
+
+        <!-- Success Message -->
         <nav th:if="null != ${success}" class="nav-actions">      
 
             <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
@@ -83,11 +84,11 @@
             </div>
         </nav>
 
-        <nav th:if="null != ${error}" class="nav-actions">      
-
+        <!-- Error Message -->
+        <nav th:if="null == ${error}" class="nav-actions">      
             <div class="alert alert-danger alert-dismissible btn-actions" role="alert" >
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <span>Could not save to Concept DB</span>
+                <span th:text="${error}"> </span>
             </div>
         </nav>
 
