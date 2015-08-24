@@ -117,6 +117,13 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "notifications";
     }
+    
+    // Preferences
+    @RequestMapping(value = "/preferences", method = RequestMethod.GET)
+    public String preferences(Model model) {
+        model.addAttribute("currentUser", getCurrentUser());
+        return "preferences";
+    }
 
     // Search Engine ALL
     @RequestMapping(value = "/se_all", method = RequestMethod.GET)
