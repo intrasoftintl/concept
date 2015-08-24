@@ -11,14 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,9 +23,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "Notification")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n")})
 public class Notification implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,12 +46,18 @@ public class Notification implements Serializable {
     private String operation;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "message")
+    private String message;
+    @Basic(optional = false)
+    @NotNull
     @Lob
+    @Size(min = 1, max = 2147483647)
     @Column(name = "thumbnail")
     private String thumbnail;
     @Basic(optional = false)
     @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createdDate;
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -70,11 +70,12 @@ public class Notification implements Serializable {
         this.id = id;
     }
 
-    public Notification(Long id, int pid, String toolImg, String operation, String thumbnail, Date createdDate) {
+    public Notification(Long id, int pid, String toolImg, String operation, String message, String thumbnail, Date createdDate) {
         this.id = id;
         this.pid = pid;
         this.toolImg = toolImg;
         this.operation = operation;
+        this.message = message;
         this.thumbnail = thumbnail;
         this.createdDate = createdDate;
     }
@@ -109,6 +110,14 @@ public class Notification implements Serializable {
 
     public void setOperation(String operation) {
         this.operation = operation;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getThumbnail() {
@@ -157,7 +166,7 @@ public class Notification implements Serializable {
 
     @Override
     public String toString() {
-        return "eu.concept.repository.concept.dao.Notification[ id=" + id + " ]";
+        return "eu.concept.repository.concept.domain.Notification[ id=" + id + " ]";
     }
     
 }

@@ -22,18 +22,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="nfContent : ${nfContents}">                              
+                            <tr th:each="nfContent : ${nfContents}"  th:class="( ${#dates.format(#calendars.createToday(), 'yyyy-MM-dd')}   == ${#strings.toString(  nfContent.createdDate )  } ? 'warning' : '' )">                              
                                 <td><img class="notification" th:src="@{'/resources/img/'+ ${nfContent.toolImg} + '.png' } " /></td>
-                                <td><strong> <span th:text="${nfContent.operation}"> </span>  </strong> a File (fm_00001.jpeg)<img class="thumbnail" th:src="${nfContent.thumbnail}" /></td>
+                                <td><strong> <span th:text="${nfContent.operation}"> </span></strong> <span th:text="${nfContent.message}"> </span>  <img class="thumbnail" th:src="${nfContent.thumbnail}" /></td>
                                 <td> <span  th:text="@{${nfContent.uid.firstName} + ' '+ ${nfContent.uid.lastName} + ' (' +  ${nfContent.uid.username} +')'}"></span></td>                                
                                 <td><span  th:text="${nfContent.createdDate}"></span></td>
                             </tr>
-                            <tr class="warning">
-                                <td><img class="notification" src="/resources/img/ICON_BA_NOTIFICATION.png"/></td>
-                                <td><strong>DELETED</strong> a Brief Analysis Document (BA_00001)</td>
-                                <td>user3</td>
-                                <td>Thursday, Jul 16 2015 - 15:11</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>

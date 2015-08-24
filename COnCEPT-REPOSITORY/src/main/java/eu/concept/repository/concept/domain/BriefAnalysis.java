@@ -48,7 +48,7 @@ public class BriefAnalysis implements Serializable {
     private String content;
     @Basic(optional = false)
     @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createdDate;
     @Basic(optional = false)
     @NotNull

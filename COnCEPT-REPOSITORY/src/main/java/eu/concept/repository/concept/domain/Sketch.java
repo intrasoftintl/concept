@@ -49,7 +49,7 @@ public class Sketch implements Serializable {
     @Lob
     @Column(name = "content_thumbnail")
     private String contentThumbnail;
-    @Column(name = "created_date",columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_date")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date createdDate;
     @Basic(optional = false)

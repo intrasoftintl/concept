@@ -1,11 +1,8 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.CurrentUser;
-import eu.concept.controller.component.MetadataController;
-import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.MetadataService;
-import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.domain.UserOp;
@@ -16,7 +13,6 @@ import eu.concept.response.BasicResponseCode;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.websocket.ContainerProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -36,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class WebController {
 
     private static final Logger logger = Logger.getLogger(WebController.class.getName());
+    private static UserCo currentUserCo;
 
     @Autowired
     UserManagementOp userManagementService;
@@ -45,9 +41,6 @@ public class WebController {
 
     @Autowired
     MetadataService metadataService;
-
-
-
 
     /*
      *  GET Methods 
@@ -117,7 +110,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "notifications";
     }
-    
+
     // Preferences
     @RequestMapping(value = "/preferences", method = RequestMethod.GET)
     public String preferences(Model model) {
@@ -230,6 +223,14 @@ public class WebController {
             return false;
         }
         return true;
+    }
+
+    public static UserCo getCurrentUserCo() {
+        if (null == currentUserCo) {
+            currentUserCo = new UserCo();
+            currentUserCo.setId(getCurrentUser().getId());
+        }
+        return currentUserCo;
     }
 
 }

@@ -57,7 +57,7 @@ public class FileManagement implements Serializable {
     private short isPublic;
     @Basic(optional = false)
     @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createdDate;
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)

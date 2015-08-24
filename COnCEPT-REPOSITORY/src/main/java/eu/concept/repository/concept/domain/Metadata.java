@@ -50,7 +50,7 @@ public class Metadata implements Serializable {
     private String description;
     @Basic(optional = false)
     @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createdDate;
     @JoinColumn(name = "component", referencedColumnName = "id")
     @ManyToOne(optional = false)

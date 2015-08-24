@@ -53,7 +53,7 @@ public class MindMap implements Serializable {
     private String contentThumbnail;
     @Basic(optional = false)
     @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createdDate;
     @Basic(optional = false)
     @NotNull

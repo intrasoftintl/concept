@@ -14,7 +14,7 @@ public enum NotificationTool {
     SB("ICON_SB_NOTIFICATION");
 
     
-   public enum ACTION{
+   public enum NOTIFICATION_OPERATION{
         DELETED,
         EDITED,
         CREATED,
