@@ -120,6 +120,19 @@ public class BriefAnalysisController {
             ba.setUid(newUser);//care about last edit??
 
         }
+
+        //Set Default title name
+        if (null == ba.getTitle() || ba.getTitle().isEmpty()) {
+            ba.setTitle("Untitled");
+        }
+        
+        //Set Default content value
+        if (null == ba.getContent() || ba.getContent().isEmpty()) {
+            ba.setContent("");
+        }        
+        
+
+
         //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
             model.addAttribute("success", "Saved to Concept DB");

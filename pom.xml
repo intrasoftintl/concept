@@ -15,15 +15,14 @@
         <module>COnCEPT-UTIL</module>
         <module>COnCEPT-PLATFORM-APP</module>
         <module>COnCEPT-REPOSITORY</module>
-        <module>COnCEPT-CHAT</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.source.charset>UTF-8</project.source.charset>
         <project.source.encoding>UTF-8</project.source.encoding>
-        <java.source.version>1.7</java.source.version>
-        <java.target.version>1.7</java.target.version>
+        <java.source.version>1.8</java.source.version>
+        <java.target.version>1.8</java.target.version>
         <!--JUnit -->
         <junit.version>4.7</junit.version>            	
     </properties>
