@@ -98,7 +98,8 @@
             <form  id="sk-form" class="form-inline" method="post" th:action="@{/sk_app_edit}" action="#" th:object="${sketch}">
                 <div class="form-group document-title">
                     <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
-                    <input type="hidden" th:value="${sketch.id}"   th:field="*{id}" class="form-control input-sm" id="sk-id" name="sk-id" size="50" value="SK_00001"/>
+                    <input type="hidden" th:value="${sketch.id}" th:field="*{id}" class="form-control input-sm" id="sk-id" name="sk-id" size="50" value="SK_00001"/>
+                    <input type="hidden" th:value="*{pid}" name="pid" id="pid" class="form-control"/>
                     <label for="document-title">Sketch Title</label>
                     <input th:value="${sketch.title}"  th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled"/>
                     <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editSK" onclick="includeContent()"/>
