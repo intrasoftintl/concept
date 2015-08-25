@@ -149,10 +149,10 @@ public class BriefAnalysisController {
         //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
             //Create a notification for current action
-            notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
-            redirectAttributes.addFlashAttribute("success", "BriefAnalysis saved!");
+            notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", "/resources/img/fm_generic.png", WebController.getCurrentUserCo());
+            redirectAttributes.addFlashAttribute("success", "Document saved!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "BriefAnalysis couldn't be saved.");
+            redirectAttributes.addFlashAttribute("error", "Document couldn't be saved.");
         }
 
         //Add BA object to model

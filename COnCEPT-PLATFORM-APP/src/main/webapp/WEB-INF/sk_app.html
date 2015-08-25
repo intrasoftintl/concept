@@ -74,37 +74,32 @@
 
         </nav>
 
-        <!-- Info Message -->
-        <nav th:if="null != ${success}" class="nav-actions">
-
-            <div class="alert alert-warning alert-dismissible btn-actions" role="alert" onload="hideMessage()">
+        <!-- Success Message -->
+        <nav id="notification" th:if="null != ${success}" class="nav-actions">
+            <div class="alert alert-warning alert-dismissible btn-actions" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <span th:text="${success}"> </span>
+                <span th:text="${success}"></span>
             </div>
         </nav>
 
-        <nav th:if="null != ${error}" class="nav-actions">
-
-            <div class="alert alert-danger alert-dismissible btn-actions" role="alert" onload="hideMessage()">
+        <!-- Error Message -->
+        <nav id="notification" th:if="null != ${error}" class="nav-actions">
+            <div class="alert alert-danger alert-dismissible btn-actions" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <span>Could not save to Concept DB</span>
+                <span th:text="${error}"></span>
             </div>
         </nav>
-
 
         <!-- Chat DIV -->
         <div th:include="chat :: chat-list"></div>
 
-
         <!-- dashboard -->
         <div class="content">
             <form  id="sk-form" class="form-inline" method="post" th:action="@{/sk_app_edit}" action="#" th:object="${sketch}">
-                <fieldset>
-                    <input th:if="${_csrf}" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                </fieldset>
                 <div class="form-group document-title">
                     <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"    />
-                    <input type="hidden" th:value="${sketch.id}"   th:field="*{id}" class="form-control input-sm" id="sk-id" name="sk-id" size="50" value="SK_00001"/>
+                    <input type="hidden" th:value="${sketch.id}" th:field="*{id}" class="form-control input-sm" id="sk-id" name="sk-id" size="50" value="SK_00001"/>
+                    <input type="hidden" th:value="*{pid}" name="pid" id="pid" class="form-control"/>
                     <label for="document-title">Sketch Title</label>
                     <input th:value="${sketch.title}"  th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled"/>
                     <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editSK" onclick="includeContent()"/>
@@ -114,8 +109,6 @@
                 <div class="literally"><canvas></canvas></div>
             </form>
         </div>
-
-        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
         <!-- Core JS libraries -->
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
