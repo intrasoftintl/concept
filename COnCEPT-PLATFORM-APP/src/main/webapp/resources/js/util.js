@@ -33,8 +33,13 @@ $(document).ready(function () {
             dataType: 'json',
             done: function (e, data) {
                 $.each(data.result, function (index, result) {
-                    $('.files').append('- ' + result.fileName + '<br/>');
-                    $('.files').css("display", "block");
+                    if(result.status === 'FAIL'){
+                        $('.files').append('- ' + result.fileName + '(ERROR) <br/>');
+                        $('.files').css("display", "block");
+                    } else{
+                        $('.files').append('- ' + result.fileName + '<br/>');
+                        $('.files').css("display", "block");
+                    }
                 });
             }
         });
