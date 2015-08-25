@@ -22,13 +22,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="nfContent : ${nfContents}"  th:class="( ${#dates.format(#calendars.createToday(), 'yyyy-MM-dd')}   == ${#strings.toString(  nfContent.createdDate )  } ? 'warning' : '' )">                              
+                            <tr th:each="nfContent : ${nfContents}"  th:class="( ${#dates.format(#calendars.createToday(), 'yyyy-MM-dd')}   == ${ #strings.substring(nfContent.createdDate,0,10)   } ? 'warning' : '' )">                              
                                 <td><img class="notification" th:src="@{'/resources/img/'+ ${nfContent.toolImg} + '.png' } " /></td>
                                 <td><strong> <span th:text="${nfContent.operation}"> </span></strong> <span th:text="${nfContent.message}"> </span>  <img class="thumbnail" th:src="${nfContent.thumbnail}" /></td>
                                 <td> <span  th:text="@{${nfContent.uid.firstName} + ' '+ ${nfContent.uid.lastName} + ' (' +  ${nfContent.uid.username} +')'}"></span></td>                                
-                                <td><span  th:text="${nfContent.createdDate}"></span></td>
+                                <td><span  th:text="${#strings.substring(nfContent.createdDate,0,16)}"></span></td>
                             </tr>
-
                         </tbody>
                     </table>
                 </div>

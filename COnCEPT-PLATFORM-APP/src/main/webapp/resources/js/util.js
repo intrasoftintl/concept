@@ -3,6 +3,7 @@ var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
 var MEMBERSHIPS_REST_URL = "http://localhost:8080/conceptRest/api/memberships/";
 var PROJECTS_REST_URL = "http://192.168.3.5/projects/";
+var NOTIFICATIONS_REST_URL = "http://localhost:8080/conceptRest/api/notifications_count/";
 
 
 //COnCEPT Logger
@@ -33,10 +34,10 @@ $(document).ready(function () {
             dataType: 'json',
             done: function (e, data) {
                 $.each(data.result, function (index, result) {
-                    if(result.status === 'FAIL'){
+                    if (result.status === 'FAIL') {
                         $('.files').append('- ' + result.fileName + '(ERROR) <br/>');
                         $('.files').css("display", "block");
-                    } else{
+                    } else {
                         $('.files').append('- ' + result.fileName + '<br/>');
                         $('.files').css("display", "block");
                     }
@@ -44,13 +45,25 @@ $(document).ready(function () {
             }
         });
     }
-   
+
 });
 
 
 //
 // Public API 
 //
+
+
+function setNotifications(project_id) {
+    if (project_id > 0) {
+        $.ajax({
+            url: NOTIFICATIONS_REST_URL + project_id
+        }).then(function (data) {
+            $("#notifications-count").html(data);
+
+        });
+    }
+}
 
 function projectSelectedAction(projectID) {
     if (projectID > 0) {
@@ -137,6 +150,9 @@ function projectSelectedAction(projectID) {
 
         //Enable Chat Session     
         enableChat();
+
+        //Set Notifications Number
+        setNotifications(projectID);
 
     } else {
         //Disable Chat Session
@@ -345,8 +361,8 @@ $('#chat-message').keyup(function (e) {
 }).focus();
 
 $("#notification").ready(
-    function(){
-        setTimeout(function () {
-        $("#notification").hide()
-    }, 4000);
- });
+        function () {
+            setTimeout(function () {
+                $("#notification").hide()
+            }, 4000);
+        });

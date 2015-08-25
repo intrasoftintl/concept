@@ -15,7 +15,7 @@
         <!-- th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  -->
         <img th:each="fmContent : ${fmContents}" th:src="${fmContent.content}" rel="lightbox[concept]" data-lightbox="${fmContent.pid}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail popout" />
     </div>
-    
+
     <div class="panel-footer">
         <form id="fmAllForm" action="#" method="post" th:action="@{/fm_all}">
             <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
@@ -38,12 +38,12 @@
             <tbody>            
                 <tr th:each="fmContent : ${fmContents}">
                     <td><a th:href="@{'/file/'+${fmContent.id}}" data-lightbox="${fmContent.pid}"><img th:src="${fmContent.content}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a th:href="@{'/file/'+${fmContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${fmContent.filename}" >Download</a></td>
-                    <td class="truncate"><span class="file-title" th:text="${fmContent.filename}"></span><br/><span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${fmContent.createdDate}"></span></td>
+                    <td class="truncate"><span class="file-title" th:text="${fmContent.filename}"></span><br/><span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(fmContent.createdDate,0,16)}"></span></td>
                     <td>
-                      <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${fmContent.id}  +',\'FM\','+${fmContent.pid}+',this)'   }    ">
+                        <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${fmContent.id}  +',\'FM\','+${fmContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
-                      </button>
-                      <button class="action-button" th:attr="onclick=@{ 'deleteFMItem(' + ${fmContent.id}  +','+ ${fmContent.pid}+ ')' }" >
+                        </button>
+                        <button class="action-button" th:attr="onclick=@{ 'deleteFMItem(' + ${fmContent.id}  +','+ ${fmContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                         &nbsp;

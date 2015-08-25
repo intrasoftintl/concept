@@ -25,8 +25,6 @@ public class NotificationController {
     @Autowired
     NotificationService notificationService;
 
-    
-    
     /*
      *  GET Methods 
      */
@@ -49,5 +47,4 @@ public class NotificationController {
         model.addAttribute("totalNotifications", notificationService.countNotificationsById(projectID));
         return notifcations_app(model);
     }
-
 }

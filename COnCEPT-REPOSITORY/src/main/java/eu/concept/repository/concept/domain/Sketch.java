@@ -50,7 +50,7 @@ public class Sketch implements Serializable {
     @Column(name = "content_thumbnail")
     private String contentThumbnail;
     @Column(name = "created_date")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date createdDate;
     @Basic(optional = false)
     @NotNull

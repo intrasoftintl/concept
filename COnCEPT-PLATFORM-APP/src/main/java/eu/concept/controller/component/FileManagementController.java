@@ -5,8 +5,10 @@ import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.service.FileManagementService;
+import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.util.other.NotificationTool;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,6 +43,9 @@ public class FileManagementController {
 
     @Autowired
     COnCEPTProperties conceptProperties;
+
+    @Autowired
+    NotificationService notificationService;
 
 
     /*
@@ -102,7 +107,10 @@ public class FileManagementController {
 
     @RequestMapping(value = "/fm_app_delete_all", method = RequestMethod.GET)
     public String deleteFileByFM(Model model, @RequestParam(value = "fm_id", defaultValue = "0", required = false) int fileID, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
-        fmService.deleteFile(fileID);
+        FileManagement fm = fmService.fetchImageById(fileID);
+        if (null != fm && fmService.deleteFile(fileID)) {
+            notificationService.storeNotification(project_id, NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a file (" + fm.getFilename() + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
+        }
         return fetchFilesByProjectIDAll(model, project_id, limit);
     }
 

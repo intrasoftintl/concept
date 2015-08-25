@@ -1,8 +1,11 @@
 package eu.concept.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.service.FileManagementService;
+import eu.concept.repository.concept.service.NotificationService;
+import eu.concept.util.other.NotificationTool;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -10,6 +13,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +33,12 @@ public class FileUploadController {
 
     @Autowired
     FileManagementService fmService;
+
+    @Autowired
+    NotificationService notificationService;
+
+    @Autowired
+    COnCEPTProperties conceptProperties;
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public @ResponseBody
@@ -74,6 +84,11 @@ public class FileUploadController {
                 Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Could not upload file with name: {0}", fileMeta.getFileName());
             }
             files.add(fileMeta);
+
+            if (files.size() > 0) {
+                notificationService.storeNotification(Integer.valueOf(projectID), NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.UPLOADED, files.size() + " file(s) (" + files.stream().map(s -> s.fileName).collect(Collectors.joining()) + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
+            }
+
         }
         return files;
     }

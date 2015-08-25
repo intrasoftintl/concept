@@ -4,6 +4,7 @@ import eu.concept.authentication.COnCEPTRole;
 import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.MindMapService;
+import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.UserCoService;
 import eu.concept.repository.openproject.domain.MemberOp;
 import eu.concept.repository.openproject.domain.MemberRoleOp;
@@ -52,9 +53,17 @@ public class RestAPIController {
     @Autowired
     MemberRoleOpService roleService;
 
+    @Autowired
+    NotificationService notificationService;
+
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
         return members.fetchMemberhipsByProjectId(project_id);
+    }
+
+    @RequestMapping(value = "/notifications_count/{project_id}", method = RequestMethod.GET)
+    public long createBriefAnalysis(@PathVariable int project_id) {
+        return notificationService.countNotificationsById(project_id);
     }
 
     //MindMap API

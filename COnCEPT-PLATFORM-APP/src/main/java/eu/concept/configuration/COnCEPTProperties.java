@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class COnCEPTProperties {
 
     private String fmgenericimageurl;
+    private String fmuploadgenericimageurl;
 
     public String getFMGenericImageURL() {
         return fmgenericimageurl;
@@ -21,4 +22,11 @@ public class COnCEPTProperties {
         this.fmgenericimageurl = _fmgenericimageurl;
     }
 
+    public String getFMUploadGenericImageURL() {
+        return fmuploadgenericimageurl;
+    }
+
+    public void setfmuploadgenericimageurl(String _fmuploadgenericimageurl) {
+        this.fmuploadgenericimageurl = _fmuploadgenericimageurl;
+    }
 }

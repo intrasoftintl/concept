@@ -22,6 +22,6 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
      *Count Queries
      */
 
-    public int countByPid(int Pid);
+    public long countByPid(int Pid);
 
 }

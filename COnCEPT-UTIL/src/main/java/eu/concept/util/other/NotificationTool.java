@@ -18,7 +18,8 @@ public enum NotificationTool {
         DELETED,
         EDITED,
         CREATED,
-        SHARED;
+        SHARED,
+        UPLOADED;
     }
     
     private final String toolImgLink;

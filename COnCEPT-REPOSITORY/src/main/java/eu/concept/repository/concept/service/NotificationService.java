@@ -44,7 +44,7 @@ public class NotificationService {
         return notifications;
     }
     
-    public int countNotificationsById(int projectID) {
+    public long countNotificationsById(int projectID) {
         return notificationRepo.countByPid(projectID);
     }
     

@@ -12,7 +12,7 @@
             <tbody>            
                 <tr th:each="skContent : ${skContents}">
                     <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
-                    <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${skContent.createdDate}"></span></td>
+                    <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${#strings.substring(skContent.createdDate,0,16)}"></span></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\','+${skContent.pid}+',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
@@ -51,7 +51,7 @@
             <tbody>            
                 <tr th:each="skContent : ${skContents}">
                     <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
-                    <td class="truncate"><span class="file-title" th:text="${skContent.title}"></span><br/><span class="file-user" th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${skContent.createdDate}"></span></td>
+                    <td class="truncate"><span class="file-title" th:text="${skContent.title}"></span><br/><span class="file-user" th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(skContent.createdDate,0,16)}"></span></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\','+${skContent.pid}+',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
