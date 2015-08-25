@@ -196,4 +196,5 @@ public class UserCo implements Serializable {
         return "eu.concept.repository.concept.domain.User[ id=" + id + " ]";
     }
 
+
 }

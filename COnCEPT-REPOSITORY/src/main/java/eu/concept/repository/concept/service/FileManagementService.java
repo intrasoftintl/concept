@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FileManagementService {
-
+    
     @Autowired
     private FileManagementRepository fileManagement;
 
@@ -33,7 +33,7 @@ public class FileManagementService {
         }
         return fm.getId() > 0;
     }
-
+    
     public boolean deleteFile(int fileID) {
         try {
             fileManagement.delete(fileID);
@@ -52,7 +52,7 @@ public class FileManagementService {
      * @return
      */
     public List<FileManagement> fetchImagesByProjectIdAndUserId(int projectID, String userRole, int limit) {
-
+        
         return fetchImagesByProjectIdAndUserId(projectID, userRole, limit, 0);
     }
 
@@ -72,6 +72,11 @@ public class FileManagementService {
         } else {
             files = fileManagement.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
+
+        files.replaceAll(fm -> {
+            fm.setContent(fm.getContent().contains("image") ? fm.getContent() : "/resources/img/fm_generic.png");
+            return fm;
+        });        
         return files;
     }
 
@@ -83,7 +88,7 @@ public class FileManagementService {
     public FileManagement fetchImageById(int id) {
         return fileManagement.findById(id);
     }
-
+    
     public int countFilesById(int projectID, String userRole) {
         if ("CLIENT".equals(userRole)) {
             return fileManagement.countByPidAndIsPublic(projectID, new Short("1"));
@@ -91,5 +96,5 @@ public class FileManagementService {
             return fileManagement.countByPid(projectID);
         }
     }
-
+    
 }

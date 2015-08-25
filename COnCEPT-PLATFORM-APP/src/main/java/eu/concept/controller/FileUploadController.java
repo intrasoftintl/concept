@@ -2,9 +2,10 @@ package eu.concept.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eu.concept.repository.concept.domain.FileManagement;
-import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.FileManagementService;
 import java.io.IOException;
+import java.util.Base64;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -12,6 +13,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,18 +54,17 @@ public class FileUploadController {
             //Create FileManagement object
             FileManagement fm = new FileManagement();
             fm.setPid(Integer.valueOf(projectID));
-            UserCo user = new UserCo();
-            user.setId(WebController.getCurrentUser().getId());
-            fm.setUid(user);
+            fm.setUid(WebController.getCurrentUserCo());
             //fm.setUid(WebController.getCurrentUser().getId());
             fm.setFilename(fileMeta.getFileName());
             fm.setType(fileMeta.getFileType());
             //Get bytes[] of uploaded file
             try {
+                //DatatypeConverter.printBase64Binary(image.getMinimizedContent())
                 fileMeta.setBytes(mpf.getBytes());
-                fm.setContent(fileMeta.getBytes());
+                String fileContent = "data:".concat(fileMeta.getFileType().concat(";base64,").concat(Base64.getEncoder().encodeToString(mpf.getBytes())));
+                fm.setContent(fileContent);
             } catch (IOException e) {
-                e.printStackTrace();
                 fileMeta.setStatus("FAIL");
                 fileMeta.setMessage("Corrupted file");
                 Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Could not process file with name: {0} aborting upload...", fileMeta.getFileName());

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,6 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "FileManagement")
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "FileManagement.findAll", query = "SELECT f FROM FileManagement f")})
 public class FileManagement implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +48,9 @@ public class FileManagement implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Lob
+    @Size(min = 1, max = 2147483647)
     @Column(name = "content")
-    private byte[] content;
+    private String content;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
@@ -57,7 +62,7 @@ public class FileManagement implements Serializable {
     private short isPublic;
     @Basic(optional = false)
     @Column(name = "created_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
@@ -70,7 +75,7 @@ public class FileManagement implements Serializable {
         this.id = id;
     }
 
-    public FileManagement(Integer id, int pid, String filename, byte[] content, String type, short isPublic, Date createdDate) {
+    public FileManagement(Integer id, int pid, String filename, String content, String type, short isPublic, Date createdDate) {
         this.id = id;
         this.pid = pid;
         this.filename = filename;
@@ -104,11 +109,11 @@ public class FileManagement implements Serializable {
         this.filename = filename;
     }
 
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

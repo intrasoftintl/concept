@@ -10,8 +10,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -54,8 +56,9 @@ public class FileManagementController {
         FileManagement fm = fmService.fetchImageById(imageId);
         byte[] imageContent;
         final HttpHeaders headers = new HttpHeaders();
-        MediaType fileType = MediaType.valueOf(fm.getType());
-        imageContent = fm.getContent();
+        MediaType fileType = MediaType.valueOf(fm.getType());   
+        
+        imageContent =   DatatypeConverter.parseBase64Binary(fm.getContent().replaceAll("data:".concat(fm.getType()).concat(";base64,"), ""));   //fm.getContent();
         headers.setContentType(fileType);
 
         if (!(fm.getType().equals(MediaType.IMAGE_PNG_VALUE) || fm.getType().equals(MediaType.IMAGE_GIF_VALUE) || fm.getType().equals("image/jpeg")) && preview == 1) {
