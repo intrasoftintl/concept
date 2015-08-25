@@ -147,6 +147,11 @@ function projectSelectedAction(projectID) {
             $("#project-members").show();
             $("#project-view").show();
         }
+        
+        if (isNF_app()) {
+            $("#project-members").show();
+            $("#project-view").show();
+        }
 
         //Enable Chat Session     
         enableChat();
@@ -244,6 +249,11 @@ function isSK_app() {
 //Return true if current page is FM ALL
 function isSK_all() {
     return location.pathname === "/sk_all";
+}
+
+//Return true if current page is NF ALL
+function isNF_app() {
+    return location.pathname === "/notifications_app";
 }
 
 function saveBAContent() {

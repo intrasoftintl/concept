@@ -784,3 +784,29 @@ table img.notification{ width:60px; margin:0; background: #fff; border-radius:50
 *:focus {
     outline: 0;
 }
+
+
+#check:checked ~ label #cover{
+    display:block;
+}
+
+#cover{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(0,0,0,0.5);
+    display:none;
+    }
+    #box{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    width:400px;
+    height:400px;
+    border:10px solid white;
+    }

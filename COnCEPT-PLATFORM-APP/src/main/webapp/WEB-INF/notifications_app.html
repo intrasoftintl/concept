@@ -43,7 +43,7 @@
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
-                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default disabled">
+                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default">
                     <option selected="true" value="0">Please select a project</option>
                     <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
                 </select>
@@ -55,6 +55,7 @@
             </div>          
 
             <div class="project-selection">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
 
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
@@ -79,7 +80,7 @@
 
         <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
-        <!-- notifications -->
+        <!-- dashboard -->
         <div class="content">
 
             <div class="header">
@@ -100,7 +101,13 @@
                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
                             </button>
                         </form>
-                        <a href="/notifications" th:action="@{/notifications}" class="btn btn-success btn-sm pull-right btn-danger">Notifications <span id="notifications-count" class="badge"></span></a>
+                        
+                        <!-- Notifications Button -->
+                        <form id="nf-app-link-form-2" action="#" method="post" th:action="@{/notifications_app}">
+                            <button id="notifications-btn-2" onclick="addProjectIDToForm('nf-app-link-form-2')" type="submit" class="btn btn-danger btn-sm pull-right">
+                                Notifications <span id="notifications-count" class="badge">0</span>
+                            </button>
+                        </form>
                     </div>
 
                 </div>
