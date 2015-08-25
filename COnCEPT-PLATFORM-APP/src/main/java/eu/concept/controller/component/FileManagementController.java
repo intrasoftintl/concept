@@ -1,5 +1,6 @@
 package eu.concept.controller.component;
 
+import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.FileManagement;
@@ -10,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Base64;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
@@ -39,6 +39,10 @@ public class FileManagementController {
     @Autowired
     FileManagementService fmService;
 
+    @Autowired
+    COnCEPTProperties conceptProperties;
+
+
     /*
      *  GET Methods 
      */
@@ -56,13 +60,12 @@ public class FileManagementController {
         FileManagement fm = fmService.fetchImageById(imageId);
         byte[] imageContent;
         final HttpHeaders headers = new HttpHeaders();
-        MediaType fileType = MediaType.valueOf(fm.getType());   
-        
-        imageContent =   DatatypeConverter.parseBase64Binary(fm.getContent().replaceAll("data:".concat(fm.getType()).concat(";base64,"), ""));   //fm.getContent();
+        MediaType fileType = MediaType.valueOf(fm.getType());
+        imageContent = DatatypeConverter.parseBase64Binary(fm.getContent().replaceAll("data:".concat(fm.getType()).concat(";base64,"), ""));
         headers.setContentType(fileType);
 
         if (!(fm.getType().equals(MediaType.IMAGE_PNG_VALUE) || fm.getType().equals(MediaType.IMAGE_GIF_VALUE) || fm.getType().equals("image/jpeg")) && preview == 1) {
-            URL genericImageURL = new URL("http://localhost:8080/resources/img/fm_generic.png");
+            URL genericImageURL = new URL(conceptProperties.getFMGenericImageURL());
             BufferedImage image = ImageIO.read(genericImageURL);
             // write image to outputstream
             ByteArrayOutputStream baos = new ByteArrayOutputStream();

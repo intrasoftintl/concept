@@ -1,6 +1,7 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.CurrentUser;
+import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.openproject.domain.PasswordOp;
@@ -42,6 +43,7 @@ public class WebController {
     @Autowired
     MetadataService metadataService;
 
+    
     /*
      *  GET Methods 
      */

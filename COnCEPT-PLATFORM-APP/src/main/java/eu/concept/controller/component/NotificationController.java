@@ -1,12 +1,9 @@
 package eu.concept.controller.component;
 
-import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
-import eu.concept.repository.concept.domain.Notification;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
-import eu.concept.util.other.NotificationTool;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

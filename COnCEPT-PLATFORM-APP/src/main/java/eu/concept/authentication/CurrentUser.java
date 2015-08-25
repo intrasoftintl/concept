@@ -1,7 +1,6 @@
 package eu.concept.authentication;
 
 import eu.concept.repository.concept.domain.UserCo;
-import eu.concept.repository.concept.domain.UserCo;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 

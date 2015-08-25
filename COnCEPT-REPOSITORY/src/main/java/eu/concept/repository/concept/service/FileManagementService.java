@@ -72,7 +72,6 @@ public class FileManagementService {
         } else {
             files = fileManagement.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
-
         files.replaceAll(fm -> {
             fm.setContent(fm.getContent().contains("image") ? fm.getContent() : "/resources/img/fm_generic.png");
             return fm;

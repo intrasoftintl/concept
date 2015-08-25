@@ -1,5 +1,6 @@
 package eu.concept.controller.component;
 
+import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 
@@ -40,6 +41,9 @@ public class BriefAnalysisController {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    COnCEPTProperties conceptProperties;
 
     /*
      *  GET Methods 
@@ -99,7 +103,7 @@ public class BriefAnalysisController {
         BriefAnalysis ba = baService.fetchBriefAnalysisById(ba_id);
         //On success delete & store notification to Concept db...
         if (null != ba && baService.deleteBriefAnalysis(ba_id)) {
-            notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", "/resources/img/fm_generic.png", WebController.getCurrentUserCo());
+            notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
         }
 
         return fetchBAByProjectID(model, project_id, limit);
@@ -145,7 +149,7 @@ public class BriefAnalysisController {
         //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
             //Create a notification for current action
-            notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", "/resources/img/fm_generic.png", WebController.getCurrentUserCo());
+            notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
             redirectAttributes.addFlashAttribute("success", "BriefAnalysis saved!");
         } else {
             redirectAttributes.addFlashAttribute("error", "BriefAnalysis couldn't be saved.");

@@ -55,12 +55,10 @@ public class FileUploadController {
             FileManagement fm = new FileManagement();
             fm.setPid(Integer.valueOf(projectID));
             fm.setUid(WebController.getCurrentUserCo());
-            //fm.setUid(WebController.getCurrentUser().getId());
             fm.setFilename(fileMeta.getFileName());
             fm.setType(fileMeta.getFileType());
             //Get bytes[] of uploaded file
             try {
-                //DatatypeConverter.printBase64Binary(image.getMinimizedContent())
                 fileMeta.setBytes(mpf.getBytes());
                 String fileContent = "data:".concat(fileMeta.getFileType().concat(";base64,").concat(Base64.getEncoder().encodeToString(mpf.getBytes())));
                 fm.setContent(fileContent);
