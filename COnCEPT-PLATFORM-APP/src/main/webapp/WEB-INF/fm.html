@@ -12,8 +12,9 @@
     </table>
 
     <div class="panel-body" style="text-align:center">
-        <!-- th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  -->
-        <img th:each="fmContent : ${fmContents}" th:src="${fmContent.content}" rel="lightbox[concept]" data-lightbox="${fmContent.pid}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail popout" />
+    <!-- th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  -->
+    <img th:each="fmContent : ${fmContents}" th:src="${fmContent.content}" rel="lightbox[concept]" data-lightbox="${fmContent.pid}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail popout" />
+    
     </div>
 
     <div class="panel-footer">
