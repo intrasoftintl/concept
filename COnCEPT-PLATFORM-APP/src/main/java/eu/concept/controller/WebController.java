@@ -1,7 +1,6 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.CurrentUser;
-import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.openproject.domain.PasswordOp;
@@ -43,7 +42,6 @@ public class WebController {
     @Autowired
     MetadataService metadataService;
 
-    
     /*
      *  GET Methods 
      */
@@ -75,12 +73,6 @@ public class WebController {
         model.addAttribute("user", new UserOp());
         model.addAttribute("password", new PasswordOp());
         return "registration";
-    }
-
-    @RequestMapping(value = "/chat", method = RequestMethod.GET)
-    public String chat(Model model) {
-//        ContainerProvider.getWebSocketContainer().
-        return "dummyChat";
     }
 
     //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
@@ -118,6 +110,13 @@ public class WebController {
     public String preferences(Model model) {
         model.addAttribute("currentUser", getCurrentUser());
         return "preferences";
+    }
+
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
+    public String changePassword(Model model, @RequestParam(value = "currentPassword", defaultValue = "", required = false) String currentPassword, @RequestParam(value = "newPassword", defaultValue = "", required = false) String newPassword) {
+        ApplicationResponse appResponse = userManagementService.changeUserPassword(getCurrentUser().getId(), currentPassword, newPassword);
+        System.out.println(appResponse.getCode() + ":  " + appResponse.getMessage());
+        return preferences(model);
     }
 
     // Search Engine ALL
