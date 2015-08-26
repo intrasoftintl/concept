@@ -76,10 +76,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-wrap">
-
-                                            <div th:if="${param.error}" class="alert alert-danger" role="alert">Error. Please try again.</div>
-                                            <div th:if="${new_password}" class="alert alert-success" role="alert"><p th:text="${new_password}"></p></div>
-
+                                            <div th:if="${cpResponse}" th:class=" (${#strings.equals(cpResponse.code, 'SUCCESS')} ? 'alert alert-success'   : 'alert alert-danger') " role="alert"><p th:text="${cpResponse.message}"></p></div>
 
                                             <h5 class="heading">Change your password</h5>
                                             <form role="form" th:action="@{/change-password}" method="post" id="login-form" autocomplete="off">

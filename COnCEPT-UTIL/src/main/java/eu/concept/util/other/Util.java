@@ -80,7 +80,7 @@ public class Util {
     }
 
     public static void main(String[] args) {
-        String sha1 = Util.createAlgorithm("ttest", "SHA");
+        String sha1 = Util.createAlgorithm("user6", "SHA");
         System.out.println("SHA1: " + sha1);
         //String salt = "377aef61316588f56555fe2de599f40a";
         String salt = Util.getRandomHexString(32);

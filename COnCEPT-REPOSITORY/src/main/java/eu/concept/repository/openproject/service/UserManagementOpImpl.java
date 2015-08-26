@@ -75,9 +75,52 @@ public class UserManagementOpImpl implements UserManagementOp {
         //Store Password to database
         passwordOpRepository.save(password);
         //Store UserCo to Concept Database
-        UserCo conceptUser = new UserCo(addedUser.getId(), addedUser.getMail(), addedUser.getFirstname(), addedUser.getLastname(), password_sha1, addedUser.getLogin(),cal.getTime());
+        UserCo conceptUser = new UserCo(addedUser.getId(), addedUser.getMail(), addedUser.getFirstname(), addedUser.getLastname(), password_sha1, addedUser.getLogin(), cal.getTime());
         userCoRepository.save(conceptUser);
         return new ApplicationResponse(BasicResponseCode.SUCCESS, "User with username: " + user.getLogin() + " has been created!", null);
+    }
+
+    @Transactional
+    @Override
+    public ApplicationResponse changeUserPassword(int userID, String currentPassword, String newPassword) {
+
+        String currentPassHashed = Util.createAlgorithm(currentPassword, "SHA");
+        UserCo user = userCoRepository.findById(userID);
+
+        if (null == user) {
+            logger.log(Level.WARNING, "User with id  {0} not found in COnCEPT database", userID);
+            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Current password is not correct for user: " + user.getUsername(), null);
+        }
+
+        if (!user.getPassword().equals(currentPassHashed)) {
+            logger.log(Level.WARNING, "Current password is not correct for user {0} ... aborting change user password", user.getUsername());
+            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Current password is not correct for user: " + user.getUsername(), null);
+        }
+
+        //Check password length | throws Password too short Exception
+        if (newPassword.length() < 5) {
+            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Password is too short (5 chars min)", null);
+        }
+
+        //Hashed password
+        String changePassword = Util.createAlgorithm(newPassword, "SHA");
+
+        //Change password for UserCo
+        user.setPassword(changePassword);
+        PasswordOp passwordOp = passwordOpRepository.findByuserId(user.getId());
+
+        if (null == passwordOp) {
+            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Openproject database is corrupted...", null);
+        }
+        String password_sha_salt = Util.createAlgorithm(passwordOp.getSalt() + changePassword, "SHA");
+        passwordOp.setHashedPassword(password_sha_salt);
+
+        //Change password in COnCEPT database
+        userCoRepository.save(user);
+        //Change password in OpenProject database
+        passwordOpRepository.save(passwordOp);
+
+        return new ApplicationResponse(BasicResponseCode.SUCCESS, "Password changed for user:  " + user.getUsername(), null);
     }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -18,11 +19,11 @@ import org.springframework.stereotype.Service;
 public class SketchService {
 
     @Autowired
-    private SketchRepository sketch;
+    private SketchRepository sketchRepo;
 
     public boolean storeSketch(Sketch sk) {
         try {
-            sketch.save(sk);
+            sketchRepo.save(sk);
         } catch (Exception ex) {
             Logger.getLogger(SketchService.class.getName()).severe(ex.getMessage());
             return false;
@@ -32,7 +33,7 @@ public class SketchService {
 
     public boolean deleteSketch(int sketchID) {
         try {
-            sketch.delete(sketchID);
+            sketchRepo.delete(sketchID);
         } catch (Exception ex) {
             Logger.getLogger(SketchService.class.getName()).severe(ex.getMessage());
             return false;
@@ -48,23 +49,30 @@ public class SketchService {
         List<Sketch> sketches;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {
-            sketches = sketch.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
+            sketches = sketchRepo.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
-            sketches = sketch.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
+            sketches = sketchRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
         return sketches;
     }
 
     public Sketch fetchSketchById(int id) {
-        return sketch.findById(id);
+        return sketchRepo.findById(id);
     }
 
     public int countFilesById(int projectID, String userRole) {
         if ("CLIENT".equals(userRole)) {
-            return sketch.countByPidAndIsPublic(projectID, new Short("1"));
+            return sketchRepo.countByPidAndIsPublic(projectID, new Short("1"));
         } else {
-            return sketch.countByPid(projectID);
+            return sketchRepo.countByPid(projectID);
         }
+    }
+
+    @Transactional
+    public int changePublicStatus(int sk_id, short isPublic) {
+        return sketchRepo.setPublicStatus(sk_id, (short) (isPublic == 0 ? 1 : 0));
+        //return sketchRepo.setPublicStatus(sk_id, new Short("1"));
+
     }
 
 }
