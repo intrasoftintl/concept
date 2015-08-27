@@ -410,8 +410,15 @@ $('#chat-message').keyup(function (e) {
 }).focus();
 
 $("#notification").ready(
-        function () {
-            setTimeout(function () {
-                $("#notification").hide()
-            }, 4000);
-        });
+    function () {
+        setTimeout(function () {
+            $("#notification").hide()
+        }, 4000);
+    }
+);
+
+$('img').click(function(e){
+   var src = $(this).attr('src');
+    $.colorbox({href:src});
+    return false;
+});
