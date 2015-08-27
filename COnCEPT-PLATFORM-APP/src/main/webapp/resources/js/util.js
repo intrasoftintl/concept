@@ -1,9 +1,10 @@
 //Static variables
 var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
-var MEMBERSHIPS_REST_URL = "http://localhost:8080/conceptRest/api/memberships/";
-var PROJECTS_REST_URL = "http://192.168.3.5/projects/";
-var NOTIFICATIONS_REST_URL = "http://localhost:8080/conceptRest/api/notifications_count/";
+var MEMBERSHIPS_REST_URL = "/conceptRest/api/memberships/";
+var PROJECTS_REST_URL = "/projects/";
+var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
+var SHARE_REST_URL = "/conceptRest/api/share/";
 
 
 //COnCEPT Logger
@@ -64,6 +65,35 @@ function setNotifications(project_id) {
         });
     }
 }
+
+
+function setIsPublic(componentCode, componentID) {
+    var isPublic = $("#" + componentCode + componentID).hasClass("icon-active") ? 1 : 0;
+
+    $.ajax({
+        url: SHARE_REST_URL + componentID,
+        type: 'POST',
+        data: {
+            "componentCode": componentCode,
+            "isPublic": isPublic
+        },
+    }).then(function (data) {
+        if (data == 0) {
+            logger('Could not change isPublic state for component with id: ' + componentCode + componentID);
+        } else {
+
+            if (isPublic) {
+                $("#" + componentCode + componentID).removeClass("icon-active");
+            }
+            else {
+                $("#" + componentCode + componentID).addClass("icon-active");
+            }
+
+        }
+    });
+
+}
+
 
 function projectSelectedAction(projectID) {
     if (projectID > 0) {
@@ -147,7 +177,7 @@ function projectSelectedAction(projectID) {
             $("#project-members").show();
             $("#project-view").show();
         }
-        
+
         if (isNF_app()) {
             $("#project-members").show();
             $("#project-view").show();

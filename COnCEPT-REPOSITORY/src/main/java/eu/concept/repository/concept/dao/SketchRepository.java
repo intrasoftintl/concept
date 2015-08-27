@@ -4,6 +4,8 @@ import eu.concept.repository.concept.domain.Sketch;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -12,7 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface SketchRepository extends JpaRepository<Sketch, Integer> {
 
     /*
-     *Ftech Queries
+     * Ftech Queries
      */
     public List<Sketch> findByPidAndIsPublicOrderByCreatedDateDesc(int Pid, short IsPublic, Pageable page);
 
@@ -21,7 +23,14 @@ public interface SketchRepository extends JpaRepository<Sketch, Integer> {
     public Sketch findById(int Id);
 
     /*
-     *Count Queries
+     * Modify Queries
+     */
+    @Modifying
+    @Query("update Sketch sk set sk.isPublic=?2 where sk.id=?1")
+    public int setPublicStatus(int Id, short IsPublic);
+
+    /*
+     * Count Queries
      */
     public int countByPidAndIsPublic(int Pid, short IsPublic);
 

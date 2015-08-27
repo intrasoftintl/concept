@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -112,13 +112,6 @@ public class WebController {
         return "preferences";
     }
 
-    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
-    public String changePassword(Model model, @RequestParam(value = "currentPassword", defaultValue = "", required = false) String currentPassword, @RequestParam(value = "newPassword", defaultValue = "", required = false) String newPassword) {
-        ApplicationResponse appResponse = userManagementService.changeUserPassword(getCurrentUser().getId(), currentPassword, newPassword);
-        System.out.println(appResponse.getCode() + ":  " + appResponse.getMessage());
-        return preferences(model);
-    }
-
     // Search Engine ALL
     @RequestMapping(value = "/se_all", method = RequestMethod.GET)
     public String se_all(Model model) {
@@ -181,15 +174,24 @@ public class WebController {
         return dashboard(model);
     }
 
-    @Autowired
-    SimpMessagingTemplate template;
-
-    @RequestMapping(value = "/dummy", method = RequestMethod.GET)
-    public String greet(String greeting) {
-        String text = "[Debug]:" + greeting;
-        this.template.convertAndSend("/topic/project1", text);
-        return "dashboard";
+    //Change user password
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
+    public String changePassword(Model model, @RequestParam(value = "currentPassword", defaultValue = "", required = false) String currentPassword, @RequestParam(value = "newPassword", defaultValue = "", required = false) String newPassword, final RedirectAttributes redirectAttributes) {
+        ApplicationResponse appResponse = userManagementService.changeUserPassword(getCurrentUser().getId(), currentPassword, newPassword);
+        redirectAttributes.addFlashAttribute("cpResponse", appResponse);
+        logger.log(Level.INFO, "{0}:  {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
+        return "redirect:/preferences";
     }
+
+//    @Autowired
+//    SimpMessagingTemplate template;
+//
+//    @RequestMapping(value = "/dummy", method = RequestMethod.GET)
+//    public String greet(String greeting) {
+//        String text = "[Debug]:" + greeting;
+//        this.template.convertAndSend("/topic/project1", text);
+//        return "dashboard";
+//    }
 
     /*
      *  Help Methods
@@ -226,6 +228,11 @@ public class WebController {
         return true;
     }
 
+    /**
+     * Retrieve the current logged-in user (as a UserCo object)
+     *
+     * @return An instance of UserCo
+     */
     public static UserCo getCurrentUserCo() {
         if (null == currentUserCo) {
             currentUserCo = new UserCo();

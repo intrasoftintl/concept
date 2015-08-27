@@ -5,6 +5,7 @@ import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.MindMapService;
 import eu.concept.repository.concept.service.NotificationService;
+import eu.concept.repository.concept.service.SketchService;
 import eu.concept.repository.concept.service.UserCoService;
 import eu.concept.repository.openproject.domain.MemberOp;
 import eu.concept.repository.openproject.domain.MemberRoleOp;
@@ -55,6 +56,11 @@ public class RestAPIController {
 
     @Autowired
     NotificationService notificationService;
+    
+    
+    @Autowired
+    SketchService sketchService;
+    
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -109,6 +115,8 @@ public class RestAPIController {
      */
     @RequestMapping(value = "/mindmap", method = RequestMethod.POST, consumes = "application/json")
     public ApplicationResponse createMindMap(@RequestBody MindMap mindmap) {
+        System.out.println("MindMap ID: "+mindmap.getId());
+        
         restLogger.info("Trying to create/update a mindmap...");
         String responseMessage = "Could not store mindmap to COnCEPT db... ";
         BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
@@ -125,6 +133,20 @@ public class RestAPIController {
         return new ApplicationResponse(responseCode, responseMessage, mindmap);
 
     }
+    
+    
+    
+    
+    //Change isPublic Mode
+    
+        @RequestMapping(value = "/share/{component_id}", method = RequestMethod.POST)
+    public int changeIsPublicStatus(@PathVariable int component_id ,  @RequestParam(value = "isPublic", defaultValue = "0", required = false) short isPublic) {
+       return  sketchService.changePublicStatus(component_id, isPublic);
+    }
+    
+    
+    
+    
 
 //    @RequestMapping(value = "/mindmap", method = RequestMethod.GET)
 //    public ResponseEntity<String> deleteMindMap() {
