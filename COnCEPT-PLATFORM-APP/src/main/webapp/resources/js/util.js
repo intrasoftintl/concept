@@ -151,6 +151,8 @@ function projectSelectedAction(projectID) {
         if (isNF_app()) {
             $("#project-members").show();
             $("#project-view").show();
+            $("#nf-button").show();
+            $("#nf-placeholder").show();
         }
 
         //Enable Chat Session     
@@ -211,6 +213,13 @@ function projectSelectedAction(projectID) {
             $("#project-members").hide();
             $("#project-view").hide();
             $("#sk-add").hide();
+        } else if (isNF_app()) {
+            $("#nf-placeholder").show();
+            $(".panel-body").hide();
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+            $("#nf-button").hide();
         }
 
     }
