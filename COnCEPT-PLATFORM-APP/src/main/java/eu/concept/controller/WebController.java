@@ -31,7 +31,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class WebController {
 
     private static final Logger logger = Logger.getLogger(WebController.class.getName());
-    private static UserCo currentUserCo;
 
     @Autowired
     UserManagementOp userManagementService;
@@ -234,10 +233,9 @@ public class WebController {
      * @return An instance of UserCo
      */
     public static UserCo getCurrentUserCo() {
-        if (null == currentUserCo) {
-            currentUserCo = new UserCo();
-            currentUserCo.setId(getCurrentUser().getId());
-        }
+        UserCo currentUserCo;
+        currentUserCo = new UserCo();
+        currentUserCo.setId(getCurrentUser().getId());
         return currentUserCo;
     }
 

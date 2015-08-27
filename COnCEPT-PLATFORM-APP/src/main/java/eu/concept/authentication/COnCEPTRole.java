@@ -8,9 +8,9 @@ import eu.concept.repository.openproject.domain.MemberRoleOp;
  */
 public enum COnCEPTRole {
 
-    MANAGER(3),
-    DESIGNER(4),
-    CLIENT(5),
+    MANAGER(12),
+    DESIGNER(13),
+    CLIENT(14),
     NON_MEMBER(0);
 
     private final int ID;
@@ -25,13 +25,13 @@ public enum COnCEPTRole {
 
     public static COnCEPTRole getCOnCEPTRole(MemberRoleOp role) {
         switch ((null == role ? 0 : role.getRoleId())) {
-            case 3:
+            case 12:
                 return MANAGER;
 
-            case 4:
+            case 13:
                 return DESIGNER;
 
-            case 5:
+            case 14:
                 return CLIENT;
 
             default:
