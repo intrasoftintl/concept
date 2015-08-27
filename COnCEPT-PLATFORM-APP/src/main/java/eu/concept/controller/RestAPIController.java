@@ -2,6 +2,7 @@ package eu.concept.controller;
 
 import eu.concept.authentication.COnCEPTRole;
 import eu.concept.repository.concept.domain.MindMap;
+import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.MindMapService;
 import eu.concept.repository.concept.service.NotificationService;
@@ -56,11 +57,12 @@ public class RestAPIController {
 
     @Autowired
     NotificationService notificationService;
-    
-    
+
     @Autowired
     SketchService sketchService;
-    
+
+    @Autowired
+    BriefAnalysisService briefAnalysisService;
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -115,11 +117,14 @@ public class RestAPIController {
      */
     @RequestMapping(value = "/mindmap", method = RequestMethod.POST, consumes = "application/json")
     public ApplicationResponse createMindMap(@RequestBody MindMap mindmap) {
-        System.out.println("MindMap ID: "+mindmap.getId());
-        
+
         restLogger.info("Trying to create/update a mindmap...");
         String responseMessage = "Could not store mindmap to COnCEPT db... ";
         BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
+        
+        if (null != mindmap && mindmap.getContent().isEmpty()) {
+            mindmap.setContent("<map name=\"3\" version=\"tango\"><topic central=\"true\" text=\"COnCEPT Mindmap\" id=\"1\"/></map>");
+        }
 
         if (null == mindmap || null == mindmap.getUserCo()) {
             responseMessage = "Not a valid MinMap object... ";
@@ -133,20 +138,30 @@ public class RestAPIController {
         return new ApplicationResponse(responseCode, responseMessage, mindmap);
 
     }
-    
-    
-    
-    
-    //Change isPublic Mode
-    
-        @RequestMapping(value = "/share/{component_id}", method = RequestMethod.POST)
-    public int changeIsPublicStatus(@PathVariable int component_id ,  @RequestParam(value = "isPublic", defaultValue = "0", required = false) short isPublic) {
-       return  sketchService.changePublicStatus(component_id, isPublic);
+
+    //Change isPublic Status
+    @RequestMapping(value = "/share/{component_id}", method = RequestMethod.POST)
+    public int changeIsPublicStatus(@PathVariable int component_id, @RequestParam(value = "isPublic", defaultValue = "0", required = false) short isPublic, @RequestParam(value = "componentCode", defaultValue = "", required = false) String componentCode) {
+
+        switch (componentCode) {
+
+            case "BA":
+                return briefAnalysisService.changePublicStatus(component_id, isPublic);
+
+            case "FM":
+                return fmService.changePublicStatus(component_id, isPublic);
+
+            case "MM":
+                return mindmapService.changePublicStatus(component_id, isPublic);
+
+            case "SK":
+                return sketchService.changePublicStatus(component_id, isPublic);
+
+            default:
+                return 0;
+        }
+
     }
-    
-    
-    
-    
 
 //    @RequestMapping(value = "/mindmap", method = RequestMethod.GET)
 //    public ResponseEntity<String> deleteMindMap() {

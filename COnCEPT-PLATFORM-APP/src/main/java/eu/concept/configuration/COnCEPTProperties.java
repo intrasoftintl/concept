@@ -13,6 +13,24 @@ public class COnCEPTProperties {
 
     private String fmgenericimageurl;
     private String fmuploadgenericimageurl;
+    private String mindmapcreateurl;
+    private String mindmapediturl;
+
+    public String getmindmapcreateurl() {
+        return mindmapcreateurl;
+    }
+
+    public void setmindmapcreateurl(String mindmapcreateurl) {
+        this.mindmapcreateurl = mindmapcreateurl;
+    }
+
+    public String getMindmapEditurl() {
+        return mindmapediturl;
+    }
+
+    public void setMindmapEditURL(String mindmapediturl) {
+        this.mindmapediturl = mindmapediturl;
+    }
 
     public String getFMGenericImageURL() {
         return fmgenericimageurl;
@@ -29,4 +47,5 @@ public class COnCEPTProperties {
     public void setfmuploadgenericimageurl(String _fmuploadgenericimageurl) {
         this.fmuploadgenericimageurl = _fmuploadgenericimageurl;
     }
+
 }

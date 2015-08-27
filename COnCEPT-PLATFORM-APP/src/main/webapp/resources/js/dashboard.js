@@ -13,8 +13,10 @@ function loadDashboardContent(projectID) {
     $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=5");
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
+    //Load content of MindMap widget
+    $("#mm-dashboard").load("/mindmap/" + projectID + "?limit=5");
     //Load content of Sketch widget
-    $("#sk-dashboard").load("/sketch/" + projectID + "?limit=4");
+    $("#sk-dashboard").load("/sketch/" + projectID + "?limit=5");
 }
 
 //Delete a Brief Analysis object
