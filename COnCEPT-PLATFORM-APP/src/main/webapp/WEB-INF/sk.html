@@ -1,41 +1,46 @@
-<div th:fragment="skContentList"  th:unless="${#lists.isEmpty(skContents)}" >
+<div th:fragment="skContentList">
+    <div class="panel-body no-padding"  th:if="${!#lists.isEmpty(skContents)}">
 
-    <div class="panel-body no-padding" >
-        <table id="sk_table" class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="col-md-3">Recent Sketches</th>
-                    <th class="col-md-4">User</th>
-                    <th class="col-md-5"></th>
-                </tr>
-            </thead>
-            <tbody>            
-                <tr th:each="skContent : ${skContents}">
-                    <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
-                    <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${#strings.substring(skContent.createdDate,0,16)}"></span></td>
-                    <td>
-                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\','+${skContent.pid}+',this)'   }    ">
-                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
-                        </button>
+        <div class="panel-body no-padding" >
+            <table id="sk_table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">Recent Sketches</th>
+                        <th class="col-md-4">User</th>
+                        <th class="col-md-5"></th>
+                    </tr>
+                </thead>
+                <tbody>            
+                    <tr th:each="skContent : ${skContents}">
+                        <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
+                        <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${#strings.substring(skContent.createdDate,0,16)}"></span></td>
+                        <td>
+                            <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${skContent.id}  +',\'SK\','+${skContent.pid}+',this)'   }    ">
+                                <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                            </button>
 
-                        <button class="action-button" th:attr="onclick=@{ 'deleteSK(' + ${skContent.id}  +','+ ${skContent.pid}+ ')' }" >
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                        </button>
-                        <span th:id="@{'SK' + ${skContent.id} }" th:attr="onclick=@{'setIsPublic(\'SK\','+${skContent.id} } +')' " th:classappend="(${skContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                        <!--                        <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; -->
-                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
+                            <button class="action-button" th:attr="onclick=@{ 'deleteSK(' + ${skContent.id}  +','+ ${skContent.pid}+ ')' }" >
+                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            </button>
+                            <span th:id="@{'SK' + ${skContent.id} }" th:attr="onclick=@{'setIsPublic(\'SK\','+${skContent.id} } +')' " th:classappend="(${skContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                            <!--                        <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; -->
+                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                        </td>
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel-footer">
+            <form id="skAllForm" action="#" method="post" th:action="@{/sk_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+            </form>
+            Sketches (<span th:text="${totalFiles}"></span>) - <a onclick="$('#skAllForm').submit();" >View All</a>
+        </div>
+
     </div>
 
-    <div class="panel-footer">
-        <form id="skAllForm" action="#" method="post" th:action="@{/sk_all}">
-            <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
-        </form>
-        Sketches (<span th:text="${totalFiles}"></span>) - <a onclick="$('#skAllForm').submit();" >View All</a>
-    </div>
+    <div id="sk-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(skContents)}" ></div>
 
 </div>
 

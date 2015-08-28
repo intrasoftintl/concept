@@ -1,28 +1,31 @@
-<!--View for FileManagement Module -->
+<div th:fragment="fmContentList">
+    <div class="panel-body no-padding"  th:if="${!#lists.isEmpty(fmContents)}">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-6">Recent Files</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
-<div th:fragment="fmContentList" th:unless="${#lists.isEmpty(fmContents)}" > 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="col-md-6">Recent Files</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+        <div class="panel-body" style="text-align:center">
+            <!-- th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  -->
+            <img th:each="fmContent : ${fmContents}" th:src="${fmContent.content}" rel="lightbox[concept]" data-lightbox="${fmContent.pid}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail popout" />
 
-    <div class="panel-body" style="text-align:center">
-        <!-- th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  -->
-        <img th:each="fmContent : ${fmContents}" th:src="${fmContent.content}" rel="lightbox[concept]" data-lightbox="${fmContent.pid}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail popout" />
+        </div>
 
+        <div class="panel-footer">
+            <form id="fmAllForm" action="#" method="post" th:action="@{/fm_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+            </form>
+            Files (<span th:text="${totalFiles}"></span>) - <a onclick="$('#fmAllForm').submit();" >View All</a>
+        </div>
     </div>
 
-    <div class="panel-footer">
-        <form id="fmAllForm" action="#" method="post" th:action="@{/fm_all}">
-            <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
-        </form>
-        Files (<span th:text="${totalFiles}"></span>) - <a onclick="$('#fmAllForm').submit();" >View All</a>
-    </div>
+    <div id="fm-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(fmContents)}" ></div>
+
 </div>
 
 

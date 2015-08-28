@@ -1,36 +1,40 @@
-<div th:fragment="sbContentList"  th:unless="${#lists.isEmpty(sbContents)}" >
-    
-    <div class="panel-body no-padding" >
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="col-md-5">Recent Uploaded Files</th>
-                    <th class="col-md-2">User</th>
-                    <th class="col-md-5"></th>
-                </tr>
-            </thead>
-            <tbody>            
-                <tr th:each="sbContent : ${sbContents}">
-                    <td><a href="#"><img th:src="/resources/img/sb_00001.png" class="img-thumbnail" /></a></td>
-                    <td class="truncate">user123456789</td>
-                    <td>
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
-                        
-                        <button class="action-button" th:attr="onclick=@{ 'deleteSB(' + ${sbContent.id}  +','+ ${sbContent.pid}+ ')' }" >
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                        </button>
-                        
-                        <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
-                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
-    </div>
-    
-    <div class="panel-footer">
-        Storyboards (<span th:text="${maxStoryboards}"></span>) - <a href="/sb_all">View All</a>
-    </div>
-    
-</div>
+<div th:fragment="sbContentList">
+    <div class="panel-body no-padding"  th:if="${!#lists.isEmpty(bmContents)}">
 
+        <div class="panel-body no-padding" >
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-5">Recent Uploaded Files</th>
+                        <th class="col-md-2">User</th>
+                        <th class="col-md-5"></th>
+                    </tr>
+                </thead>
+                <tbody>            
+                    <tr th:each="sbContent : ${sbContents}">
+                        <td><a href="#"><img th:src="/resources/img/sb_00001.png" class="img-thumbnail" /></a></td>
+                        <td class="truncate">user123456789</td>
+                        <td>
+                            <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> &nbsp;
+
+                            <button class="action-button" th:attr="onclick=@{ 'deleteSB(' + ${sbContent.id}  +','+ ${sbContent.pid}+ ')' }" >
+                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            </button>
+
+                            <span class="glyphicon glyphicon-eye-open icon-active" aria-hidden="true"></span>&nbsp; 
+                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                        </td>
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel-footer">
+            Storyboards (<span th:text="${maxStoryboards}"></span>) - <a href="/sb_all">View All</a>
+        </div>
+
+    </div>
+
+    <div id="sb-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(sbContents)}" ></div>
+
+</div>
