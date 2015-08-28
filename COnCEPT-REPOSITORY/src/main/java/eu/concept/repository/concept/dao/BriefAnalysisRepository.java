@@ -4,6 +4,8 @@ import eu.concept.repository.concept.domain.BriefAnalysis;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -20,6 +22,14 @@ public interface BriefAnalysisRepository extends JpaRepository<BriefAnalysis, In
     public List<BriefAnalysis> findByPidOrderByCreatedDateDesc(int Pid, Pageable page);
 
     public BriefAnalysis findById(int Id);
+    
+    /*
+     * Modify Queries
+     */
+    @Modifying
+    @Query("update BriefAnalysis ba set ba.isPublic=?2 where ba.id=?1")
+    public int setPublicStatus(int Id, short IsPublic);
+    
 
     /*
      *Count Queries

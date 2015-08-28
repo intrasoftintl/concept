@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -66,6 +67,11 @@ public class MindMapService {
         } else {
             return mindmapRepo.countByPid(projectID);
         }
+    }
+
+    @Transactional
+    public int changePublicStatus(int sk_id, short isPublic) {
+        return mindmapRepo.setPublicStatus(sk_id, (short) (isPublic == 0 ? 1 : 0));
     }
 
 }

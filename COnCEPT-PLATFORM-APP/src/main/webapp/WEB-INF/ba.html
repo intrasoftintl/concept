@@ -1,5 +1,12 @@
-<div th:fragment="baContentList"  th:unless="${#lists.isEmpty(baContents)}" >
-    <div class="panel-body no-padding">
+<!--<div th:fragment="baContentList"  th:unless="${#lists.isEmpty(baContents)}" >-->
+<div th:fragment="baContentList"  >
+
+    <!-- Start -->
+    <div class="panel-body no-padding"  th:if="${!#lists.isEmpty(baContents)}">
+
+
+
+
         <table id="ba_table" class="table table-striped">
             <thead>
                 <tr>
@@ -28,15 +35,33 @@
             </tbody>
         </table>
 
+
+
+        <div class="panel-footer">
+            <form id="baAllForm" action="#" method="post" th:action="@{/ba_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+            </form>
+            Documents (<span th:text="${totalFiles}"></span>) - <a onclick="$('#baAllForm').submit();" >View All</a>
+        </div>
+
     </div>
 
-    <div class="panel-footer">
-        <form id="baAllForm" action="#" method="post" th:action="@{/ba_all}">
-            <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
-        </form>
-        Documents (<span th:text="${totalFiles}"></span>) - <a onclick="$('#baAllForm').submit();" >View All</a>
+    <div id="ba-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(baContents)}" >
     </div>
+
+
 </div>
+
+
+
+
+
+
+<!-- Start -->
+
+
+
+
 
 <div th:fragment="baContentAllList"  th:unless="${#lists.isEmpty(baContents)}" >
     <div class="panel-body no-padding" >

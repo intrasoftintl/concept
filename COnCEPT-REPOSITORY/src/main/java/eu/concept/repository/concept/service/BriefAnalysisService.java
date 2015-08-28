@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -18,12 +19,12 @@ import org.springframework.stereotype.Service;
 public class BriefAnalysisService {
 
     @Autowired
-    private BriefAnalysisRepository briefAnalysis;
+    private BriefAnalysisRepository briefAnalysisRepo;
 
     public boolean storeFile(BriefAnalysis ba) {
         try {
 
-            briefAnalysis.save(ba);
+            briefAnalysisRepo.save(ba);
         } catch (Exception ex) {
             Logger.getLogger(BriefAnalysisService.class.getName()).severe(ex.getMessage());
             return false;
@@ -33,7 +34,7 @@ public class BriefAnalysisService {
 
     public boolean deleteBriefAnalysis(int briefAnalysisID) {
         try {
-            briefAnalysis.delete(briefAnalysisID);
+            briefAnalysisRepo.delete(briefAnalysisID);
         } catch (Exception ex) {
             Logger.getLogger(BriefAnalysisService.class.getName()).severe(ex.getMessage());
             return false;
@@ -49,25 +50,30 @@ public class BriefAnalysisService {
         List<BriefAnalysis> files;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {
-            files = briefAnalysis.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
+            files = briefAnalysisRepo.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
 
-            files = briefAnalysis.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
+            files = briefAnalysisRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
             System.out.println("Files size: " + files.size());
         }
         return files;
     }
 
     public BriefAnalysis fetchBriefAnalysisById(int id) {
-        return briefAnalysis.findById(id);
+        return briefAnalysisRepo.findById(id);
     }
 
     public int countFilesById(int projectID, String userRole) {
         if ("CLIENT".equals(userRole)) {
-            return briefAnalysis.countByPidAndIsPublic(projectID, new Short("1"));
+            return briefAnalysisRepo.countByPidAndIsPublic(projectID, new Short("1"));
         } else {
-            return briefAnalysis.countByPid(projectID);
+            return briefAnalysisRepo.countByPid(projectID);
         }
+    }
+
+    @Transactional
+    public int changePublicStatus(int sk_id, short isPublic) {
+        return briefAnalysisRepo.setPublicStatus(sk_id, (short) (isPublic == 0 ? 1 : 0));
     }
 
 }

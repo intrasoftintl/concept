@@ -4,6 +4,8 @@ import eu.concept.repository.concept.domain.FileManagement;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -19,6 +21,15 @@ public interface FileManagementRepository extends JpaRepository<FileManagement, 
     public List<FileManagement> findByPidOrderByCreatedDateDesc(int Pid, Pageable page);
 
     public FileManagement findById(int Id);
+    
+    
+    /*
+     * Modify Queries
+     */
+    @Modifying
+    @Query("update FileManagement fm set fm.isPublic=?2 where fm.id=?1")
+    public int setPublicStatus(int Id, short IsPublic);
+    
 
     /*
      *Count Queries

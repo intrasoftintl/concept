@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -15,9 +16,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FileManagementService {
-    
+
     @Autowired
-    private FileManagementRepository fileManagement;
+    private FileManagementRepository fileManagementRepo;
 
     /**
      *
@@ -26,17 +27,17 @@ public class FileManagementService {
      */
     public boolean storeFile(FileManagement fm) {
         try {
-            fileManagement.save(fm);
+            fileManagementRepo.save(fm);
         } catch (Exception ex) {
             Logger.getLogger(FileManagementService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return fm.getId() > 0;
     }
-    
+
     public boolean deleteFile(int fileID) {
         try {
-            fileManagement.delete(fileID);
+            fileManagementRepo.delete(fileID);
         } catch (Exception ex) {
             Logger.getLogger(FileManagementService.class.getName()).severe(ex.getMessage());
             return false;
@@ -52,7 +53,7 @@ public class FileManagementService {
      * @return
      */
     public List<FileManagement> fetchImagesByProjectIdAndUserId(int projectID, String userRole, int limit) {
-        
+
         return fetchImagesByProjectIdAndUserId(projectID, userRole, limit, 0);
     }
 
@@ -68,14 +69,14 @@ public class FileManagementService {
         List<FileManagement> files;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(userRole)) {
-            files = fileManagement.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
+            files = fileManagementRepo.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
-            files = fileManagement.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
+            files = fileManagementRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
         files.replaceAll(fm -> {
             fm.setContent(fm.getContent().contains("image") ? fm.getContent() : "/resources/img/fm_generic.png");
             return fm;
-        });        
+        });
         return files;
     }
 
@@ -85,15 +86,20 @@ public class FileManagementService {
      * @return
      */
     public FileManagement fetchImageById(int id) {
-        return fileManagement.findById(id);
+        return fileManagementRepo.findById(id);
     }
-    
+
     public int countFilesById(int projectID, String userRole) {
         if ("CLIENT".equals(userRole)) {
-            return fileManagement.countByPidAndIsPublic(projectID, new Short("1"));
+            return fileManagementRepo.countByPidAndIsPublic(projectID, new Short("1"));
         } else {
-            return fileManagement.countByPid(projectID);
+            return fileManagementRepo.countByPid(projectID);
         }
     }
-    
+
+    @Transactional
+    public int changePublicStatus(int sk_id, short isPublic) {
+        return fileManagementRepo.setPublicStatus(sk_id, (short) (isPublic == 0 ? 1 : 0));
+    }
+
 }

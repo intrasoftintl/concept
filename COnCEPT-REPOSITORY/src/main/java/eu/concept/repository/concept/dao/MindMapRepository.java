@@ -4,6 +4,8 @@ import eu.concept.repository.concept.domain.MindMap;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -19,6 +21,13 @@ public interface MindMapRepository extends JpaRepository<MindMap, Integer> {
     public List<MindMap> findByPidOrderByCreatedDateDesc(int Pid, Pageable page);
 
     public MindMap findById(int Id);
+
+    /*
+     * Modify Queries
+     */
+    @Modifying
+    @Query("update MindMap mm set mm.isPublic=?2 where mm.id=?1")
+    public int setPublicStatus(int Id, short IsPublic);
 
     /*
      *Count Queries

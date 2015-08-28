@@ -53,7 +53,7 @@ public class MindMap implements Serializable {
     private String contentThumbnail;
     @Basic(optional = false)
     @Column(name = "created_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
     @Basic(optional = false)
     @NotNull
@@ -103,8 +103,7 @@ public class MindMap implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-    
-    
+
     public String getContent() {
         return content;
     }
@@ -121,10 +120,12 @@ public class MindMap implements Serializable {
         this.contentThumbnail = contentThumbnail;
     }
 
+    @JsonIgnore
     public Date getCreatedDate() {
         return createdDate;
     }
 
+    @JsonIgnore
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
@@ -137,11 +138,9 @@ public class MindMap implements Serializable {
         this.isPublic = isPublic;
     }
 
-    
     public UserCo getUserCo() {
         return userCo;
     }
-
 
     public void setUserCo(UserCo userCo) {
         this.userCo = userCo;

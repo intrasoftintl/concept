@@ -71,8 +71,6 @@ public class SketchService {
     @Transactional
     public int changePublicStatus(int sk_id, short isPublic) {
         return sketchRepo.setPublicStatus(sk_id, (short) (isPublic == 0 ? 1 : 0));
-        //return sketchRepo.setPublicStatus(sk_id, new Short("1"));
-
     }
 
 }
