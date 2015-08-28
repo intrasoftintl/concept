@@ -1,41 +1,46 @@
-<div th:fragment="mmContentList"  th:unless="${#lists.isEmpty(mmContents)}" >
+<div th:fragment="mmContentList">
+    <div class="panel-body no-padding"  th:if="${!#lists.isEmpty(mmContents)}">
 
-    <div class="panel-body no-padding" >
-        <table id="mm_table" class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="col-md-3">Recent MindMaps</th>
-                    <th class="col-md-4">User</th>
-                    <th class="col-md-5"></th>
-                </tr>
-            </thead>
-            <tbody>            
-                <tr th:each="mmContent : ${mmContents}">
-                    <td><a href="#"><img src="/resources/img/mm_00001.jpg" class="img-thumbnail" /></a></td>
-                    <td class="truncate"><span th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mmContent.createdDate,0,16)}"></span></td>
-                    <td>
-                        <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${mmContent.id}  +',\'MM\','+${mmContent.pid}+',this)'}">
-                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
-                        </button>
+        <div class="panel-body no-padding" >
+            <table id="mm_table" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">Recent MindMaps</th>
+                        <th class="col-md-4">User</th>
+                        <th class="col-md-5"></th>
+                    </tr>
+                </thead>
+                <tbody>            
+                    <tr th:each="mmContent : ${mmContents}">
+                        <td><a href="#"><img src="/resources/img/mm_00001.jpg" class="img-thumbnail" /></a></td>
+                        <td class="truncate"><span th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mmContent.createdDate,0,16)}"></span></td>
+                        <td>
+                            <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${mmContent.id}  +',\'MM\','+${mmContent.pid}+',this)'}">
+                                <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                            </button>
 
-                        <button class="action-button" th:attr="onclick=@{ 'deleteMM(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                        </button>
+                            <button class="action-button" th:attr="onclick=@{ 'deleteMM(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
+                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            </button>
 
-                        <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
+                            <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                            <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                        </td>
+                    </tr>  
+                </tbody>
+            </table>
+        </div>
+
+        <div class="panel-footer">
+            <form id="mmAllForm" action="#" method="post" th:action="@{/mm_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+            </form>
+            Mindmaps (<span th:text="${totalMindMaps}"></span>) -<a onclick="$('#mmAllForm').submit();" >View All</a>
+        </div>
+
     </div>
 
-    <div class="panel-footer">
-        <form id="mmAllForm" action="#" method="post" th:action="@{/mm_all}">
-            <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
-        </form>
-        Mindmaps (<span th:text="${totalMindMaps}"></span>) -<a onclick="$('#mmAllForm').submit();" >View All</a>
-    </div>
+    <div id="mm-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(mmContents)}" ></div>
 
 </div>
 
