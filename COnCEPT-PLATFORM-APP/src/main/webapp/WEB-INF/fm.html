@@ -13,7 +13,6 @@
         <div class="panel-body" style="text-align:center">
             <!-- th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"  -->
             <img id="abcd" th:each="fmContent : ${fmContents}" th:src="${fmContent.content}" rel="lightbox[concept]" data-lightbox="${fmContent.pid}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail popout fm" />
-            <img id="abcd" src="/resources/img/BUTTON_MD.png" />
         </div>
 
         <div class="panel-footer">
