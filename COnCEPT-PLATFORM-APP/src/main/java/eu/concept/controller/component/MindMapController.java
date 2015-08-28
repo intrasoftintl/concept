@@ -125,6 +125,9 @@ public class MindMapController {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<MindMapCreateResponse> mindmapCreateResponse = restTemplate.getForEntity(URI, MindMapCreateResponse.class);
+      
+        
+        
         System.out.println("MindMapDBID:    " + mindmapCreateResponse.getBody().getMindMapId());
 
 //        return conceptProperties.getMindmapEditurl()
@@ -134,11 +137,6 @@ public class MindMapController {
     @RequestMapping(value = "/mm_app_edit", method = RequestMethod.POST)
     public String editMindMap(@ModelAttribute MindMap mm, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, final RedirectAttributes redirectAttributes) {
         NOTIFICATION_OPERATION action = (null == mm.getId() ? NotificationTool.NOTIFICATION_OPERATION.CREATED : NotificationTool.NOTIFICATION_OPERATION.EDITED);
-
-        //Set default title
-        if (null == mm.getTitle() || mm.getTitle().isEmpty()) {
-            mm.setTitle("Untitled");
-        }
 
         //Set current user create/edit
         mm.setUserCo(WebController.getCurrentUserCo());
