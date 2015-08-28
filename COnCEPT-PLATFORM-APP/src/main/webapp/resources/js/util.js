@@ -417,7 +417,7 @@ $("#notification").ready(
     }
 );
 
-$('img').click(function(e){
+$('img > #abcd').click(function(e){
    var src = $(this).attr('src');
     $.colorbox({href:src});
     return false;
