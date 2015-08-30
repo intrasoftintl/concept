@@ -44,3 +44,45 @@
 
 </div>
 
+<div th:fragment="mmContentAllList"  th:unless="${#lists.isEmpty(mmContents)}" >
+    <div class="panel-body no-padding" >
+        <table id="ba_table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-3">Recent Mindmaps</th>
+                    <th class="col-md-6">Details</th>
+                    <th class="col-md-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="mmContent : ${mmContents}">
+                    <td><a th:href="@{'http://conceptmap.euprojects.net/wisemapping/c/maps/' +${mmContent.id} + '/' + ${currentUserID} +  '/edit'}" target="_blank"><img src="/resources/img/fm_generic_mm.png" class="img-thumbnail" /></a></td>
+                    <td class="truncate"><span class="file-title" th:text="${mmContent.title}"></span><br/><span class="file-user" th:text="@{${mmContent.uid.firstName} + ' '+ ${mmContent.uid.lastName} + ' (' +  ${mmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(mmContent.createdDate,0,16)}"></span></td>
+                    <td>
+                        <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${mmContent.id}  +',\'MM\','+${mmContent.pid}+',this)'}">
+                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                        </button>
+                        <button class="action-button" th:attr="onclick=@{ 'deleteBAItem(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
+                        &nbsp;
+
+                        <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Load more button -->
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+    </div>
+
+    <!-- Nothing more to load button -->
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
+    </div>
+
+</div>

@@ -18,11 +18,6 @@ function logger(message) {
 //After html is rendered do the following...
 $(document).ready(function () {
     
-    $('.test-popup-link').magnificPopup({ 
-  type: 'image'
-
-});
-
     //Trigger event when project list is changed
     $('#project-select').change(function () {
         var projectID = $(this).val();
@@ -188,6 +183,19 @@ function projectSelectedAction(projectID) {
             $("#project-members").show();
             $("#project-view").show();
         }
+        
+        if (isMM_all()) {
+            $("#sort").show();
+
+            $("#mm-add").attr("href", "/mm_app?projectID=" + projectID);
+            $("#mm-add").show();
+            $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200");
+
+            $("#mm-placeholder").hide();
+
+            $("#project-members").show();
+            $("#project-view").show();
+        }
 
         if (isSK_app()) {
             $("#project-members").show();
@@ -260,6 +268,14 @@ function projectSelectedAction(projectID) {
             $("#project-members").hide();
             $("#project-view").hide();
             $("#ba-add").hide();
+        } else if (isMM_all()) {
+            $(".panel-body").hide();
+            $("#sort").hide();
+            $("#mm-placeholder").show();
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+            $("#mm-add").hide();
         } else if (isSK_app()) {
             $("#project-members").hide();
             $("#project-view").hide();
@@ -321,6 +337,11 @@ function isSK_all() {
 //Return true if current page is NF ALL
 function isNF_app() {
     return location.pathname === "/notifications_app";
+}
+
+//Return true if current page is MM ALL
+function isMM_all() {
+    return location.pathname === "/mm_all";
 }
 
 function saveBAContent() {
