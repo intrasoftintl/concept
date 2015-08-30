@@ -1,6 +1,7 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.COnCEPTRole;
+import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
@@ -18,13 +19,16 @@ import eu.concept.response.BasicResponseCode;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Restful API for integration with Openproject
@@ -63,6 +67,9 @@ public class RestAPIController {
 
     @Autowired
     BriefAnalysisService briefAnalysisService;
+
+    @Autowired
+    COnCEPTProperties conceptProperties;
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -118,10 +125,11 @@ public class RestAPIController {
     @RequestMapping(value = "/mindmap", method = RequestMethod.POST, consumes = "application/json")
     public ApplicationResponse createMindMap(@RequestBody MindMap mindmap) {
 
+        System.out.println("ProjectID: " + mindmap.getPid());
         restLogger.info("Trying to create/update a mindmap...");
         String responseMessage = "Could not store mindmap to COnCEPT db... ";
         BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
-        
+
         if (null != mindmap && mindmap.getContent().isEmpty()) {
             mindmap.setContent("<map name=\"3\" version=\"tango\"><topic central=\"true\" text=\"COnCEPT Mindmap\" id=\"1\"/></map>");
         }
@@ -159,6 +167,54 @@ public class RestAPIController {
 
             default:
                 return 0;
+        }
+
+    }
+
+    @RequestMapping(value = "/mm_app/{project_id}", method = RequestMethod.GET)
+    public ApplicationResponse createMindMap( @PathVariable("project_id") int project_id ){//@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+        String responseMessage = "Could create a new MindMap... ";
+        BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
+        String currentUserID = String.valueOf(WebController.getCurrentUserCo().getId());
+        String createdMMURL = conceptProperties.getmindmapediturl();
+        System.out.println(createdMMURL);
+
+        restLogger.log(Level.INFO, "Create URL : {0}", conceptProperties.getmindmapcreateurl());
+        String URI = conceptProperties.getmindmapcreateurl().concat(currentUserID).concat("/").concat(String.valueOf(project_id));
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<MindMapCreateResponse> mindmapCreateResponse = restTemplate.getForEntity(URI, MindMapCreateResponse.class);
+
+        if (null != mindmapCreateResponse.getBody() && "OK".equals(mindmapCreateResponse.getBody().getResult())) {
+            restLogger.info("Success created MindMap with ID: " + mindmapCreateResponse.getBody().getMindMapId());
+            createdMMURL = createdMMURL.concat(String.valueOf(mindmapCreateResponse.getBody().getMindMapId()) + "/" + currentUserID + "/edit");
+            restLogger.info("Created Edit MindMap URL: " + createdMMURL);
+            responseCode = BasicResponseCode.SUCCESS;
+            responseMessage = "Success created MindMap with ID: " + mindmapCreateResponse.getBody().getMindMapId();
+        }
+
+        return new ApplicationResponse(responseCode, responseMessage, createdMMURL);
+    }
+
+    @XmlRootElement(name = "conceptCreate")
+    private static class MindMapCreateResponse {
+
+        private Integer mindMapId;
+        private String result;
+
+        public Integer getMindMapId() {
+            return mindMapId;
+        }
+
+        public void setMindMapId(Integer mindMapId) {
+            this.mindMapId = mindMapId;
+        }
+
+        public String getResult() {
+            return result;
+        }
+
+        public void setResult(String result) {
+            this.result = result;
         }
 
     }
