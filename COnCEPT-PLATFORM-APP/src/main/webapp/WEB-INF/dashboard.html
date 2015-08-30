@@ -117,7 +117,7 @@
                                 Notifications <span id="notifications-count" class="badge">0</span>
                             </button>
                         </form>
-                   
+
                     </div>
 
                 </div>
@@ -188,9 +188,10 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Mindmaps</h4>
                             <div  class="btn-group pull-right">
-                                <form id="mm-add-form" action="#" method="post" th:action="@{/mm_app}">
-                                    <button onclick="addProjectIDToForm('mm-add-form')" type="submit" id="mm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</button>
-                                </form>
+                                <!--                                <form id="mm-add-form" action="#" method="post" th:action="@{/mm_app}">
+                                                                    <button onclick="addProjectIDToForm('mm-add-form')" type="submit" id="mm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</button>
+                                                                </form>-->
+                                <button onclick="createMindMap()" id="mm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</button>
                             </div>
                         </div>
 

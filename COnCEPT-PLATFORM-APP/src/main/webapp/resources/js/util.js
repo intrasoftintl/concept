@@ -5,6 +5,7 @@ var MEMBERSHIPS_REST_URL = "/conceptRest/api/memberships/";
 var PROJECTS_REST_URL = "/projects/";
 var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
+var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
 
 
 //COnCEPT Logger
@@ -100,6 +101,26 @@ function setIsPublic(componentCode, componentID) {
     });
 
 }
+
+
+function createMindMap() {
+    var projectID = $("#projectID").val();
+    if (projectID > 0) {
+        $.ajax({
+            url: MINDMAP_REST_URL + projectID,
+            type: 'GET'
+        }).then(function (data) {
+            if ("SUCCESS" === data.code) {
+                window.open(data.returnobject, '_blank');
+            } else {
+                logger(data.message);
+            }
+        });
+    } else {
+        logger("Could not create MindMap invalid projectID: " + projectID)
+    }
+}
+
 
 
 function projectSelectedAction(projectID) {
@@ -417,10 +438,9 @@ $('#chat-message').keyup(function (e) {
 }).focus();
 
 $("#notification").ready(
-    function () {
-        setTimeout(function () {
-            $("#notification").hide()
-        }, 4000);
-    }
+        function () {
+            setTimeout(function () {
+                $("#notification").hide()
+            }, 4000);
+        }
 );
-//$('.image-popup-vertical-fit').magnificPopup({type:'image'});

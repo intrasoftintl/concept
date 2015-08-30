@@ -24,11 +24,11 @@ public class COnCEPTProperties {
         this.mindmapcreateurl = mindmapcreateurl;
     }
 
-    public String getMindmapEditurl() {
+    public String getmindmapediturl() {
         return mindmapediturl;
     }
 
-    public void setMindmapEditURL(String mindmapediturl) {
+    public void setmindmapediturl(String mindmapediturl) {
         this.mindmapediturl = mindmapediturl;
     }
 
