@@ -16,12 +16,17 @@ function logger(message) {
 
 //After html is rendered do the following...
 $(document).ready(function () {
+    
+    $('.test-popup-link').magnificPopup({ 
+  type: 'image'
+
+});
 
     //Trigger event when project list is changed
     $('#project-select').change(function () {
         var projectID = $(this).val();
         projectSelectedAction(projectID);
-    });
+    })
 
     //If not dashboard page, select current project
     if (!isDashboardPage()) {
@@ -46,6 +51,8 @@ $(document).ready(function () {
             }
         });
     }
+    
+ 
 
 });
 
@@ -416,9 +423,4 @@ $("#notification").ready(
         }, 4000);
     }
 );
-
-$('img > #abcd').click(function(e){
-   var src = $(this).attr('src');
-    $.colorbox({href:src});
-    return false;
-});
+//$('.image-popup-vertical-fit').magnificPopup({type:'image'});
