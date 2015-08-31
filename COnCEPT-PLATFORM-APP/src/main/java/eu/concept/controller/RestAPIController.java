@@ -125,6 +125,8 @@ public class RestAPIController {
     @RequestMapping(value = "/mindmap", method = RequestMethod.POST, consumes = "application/json")
     public ApplicationResponse createMindMap(@RequestBody MindMap mindmap) {
 
+        System.out.println("Thumbnail content: " + (mindmap.getContentThumbnail() == null ? "nothing at al..." : mindmap.getContentThumbnail().toString()));
+
         System.out.println("ProjectID: " + mindmap.getPid());
         restLogger.info("Trying to create/update a mindmap...");
         String responseMessage = "Could not store mindmap to COnCEPT db... ";
@@ -172,7 +174,7 @@ public class RestAPIController {
     }
 
     @RequestMapping(value = "/mm_app/{project_id}", method = RequestMethod.GET)
-    public ApplicationResponse createMindMap( @PathVariable("project_id") int project_id ){//@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+    public ApplicationResponse createMindMap(@PathVariable("project_id") int project_id) {//@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
         String responseMessage = "Could create a new MindMap... ";
         BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
         String currentUserID = String.valueOf(WebController.getCurrentUserCo().getId());
