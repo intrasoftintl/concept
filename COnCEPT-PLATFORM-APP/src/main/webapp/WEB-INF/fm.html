@@ -11,11 +11,7 @@
         </table>
 
         <div class="panel-body" style="text-align:center">
-<!--            <a class="fm-popup" th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}+'?preview=1'}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}"  class="img-thumbnail" /></a>-->
-            
-        <a class="test-popup-link" href="/resources/img/CONCEPT_LOGO_S.png" title="Caption. Can be aligned to any side and contain any HTML.">
-	<img src="/resources/img/CONCEPT_LOGO_S.png" width="75" height="75" />
-        </a>
+            <a class="fm-popup" th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="@{'/file/'+${fmContent.id}+'?preview=1'}" th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail" /></a>            
         </div>
 
         <div class="panel-footer">
@@ -27,7 +23,19 @@
     </div>
 
     <div id="fm-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(fmContents)}" ></div>
-
+    
+    <script>
+        $(document).ready(function () {
+            $('.fm-popup').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                image: {
+                    verticalFit: true,
+                    horizontalFit: true
+                }
+            });
+        });
+    </script>
 </div>
 
 
@@ -43,7 +51,7 @@
             </thead>
             <tbody>            
                 <tr th:each="fmContent : ${fmContents}">
-                    <td><a th:href="@{'/file/'+${fmContent.id}}" data-lightbox="${fmContent.pid}"><img th:src="${fmContent.content}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a th:href="@{'/file/'+${fmContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${fmContent.filename}" >Download</a></td>
+                    <td><a class="fm-popup" th:href="@{'/file/'+${fmContent.id}}" data-lightbox="${fmContent.pid}"><img th:src="${fmContent.content}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a th:href="@{'/file/'+${fmContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${fmContent.filename}" >Download</a></td>
                     <td class="truncate"><span class="file-title" th:text="${fmContent.filename}"></span><br/><span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(fmContent.createdDate,0,16)}"></span></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${fmContent.id}  +',\'FM\','+${fmContent.pid}+',this)'}">
@@ -71,4 +79,17 @@
         <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
     </div>
 
+    <script>
+        $(document).ready(function () {
+            $('.fm-popup').magnificPopup({
+                type: 'image',
+                closeOnContentClick: true,
+                image: {
+                    verticalFit: true,
+                    horizontalFit: true
+                }
+            });
+        });
+    </script>
+    
 </div>
