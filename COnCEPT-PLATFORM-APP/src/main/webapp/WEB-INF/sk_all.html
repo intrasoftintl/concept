@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width" />	
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-        <link rel="stylesheet" href="resources/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="resources/css/dashboard.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/resources/css/dashboard.css" type="text/css" />
         
         <link rel="stylesheet" href="/resources/css/jquery.tagsinput.min.css" type="text/css" />
         <link rel="stylesheet" href="/resources/css/jqtree.css" type="text/css" />
@@ -22,7 +22,7 @@
                 <form th:action="@{/dashboard}" method="post" >
                     <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
                     <a href="#" onclick="$(this).closest('form').submit()">
-                        <li class="main"><img src="resources/img/BUTTON_BACK.png" />Dashboard</li>
+                        <li class="main"><img src="/resources/img/BUTTON_BACK.png" />Dashboard</li>
                     </a>
                 </form>
                 <a onclick="TogetherJS(this);
@@ -33,12 +33,12 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_FM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="resources/img/ICON_SK.png" /></li>
+                <li><img src="/resources/img/ICON_BA_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_FM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SE_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_MM_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SB_DISABLED.png" /></li>
+                <li><img src="/resources/img/ICON_SK.png" /></li>
             </ul>
         </nav>
 
