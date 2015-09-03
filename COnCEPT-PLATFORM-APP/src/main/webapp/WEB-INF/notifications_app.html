@@ -17,12 +17,12 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <form id="dashboard-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('dashboard-form');
-                            $(this).closest('form').submit()">
+                <form th:action="@{/dashboard}" method="post" >
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+                    <a href="#" onclick="$(this).closest('form').submit()">
                         <li class="main"><img src="/resources/img/BUTTON_BACK.png" />Dashboard</li>
                     </a>
-                </form>                              
+                </form>                            
                 <a onclick="TogetherJS(this);
                         return false;"><li class="collaboration"></li></a>
             </ul>
@@ -85,6 +85,11 @@
 
             <div class="header">
 
+                <form th:action="@{/dashboard}" method="post" class="pull-left">
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+                    <button type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>
+                </form>
+                
                 <!-- Profile -->
                 <div class="btn-group pull-right">
                     <div class="row col-md-12 pull-right">

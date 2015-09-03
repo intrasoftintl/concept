@@ -10,7 +10,7 @@
                         <th class="col-md-5"></th>
                     </tr>
                 </thead>
-                <tbody>            
+                <tbody>
                     <tr th:each="skContent : ${skContents}">
                         <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
                         <td class="truncate"><span th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span> <br/> <span th:text="${#strings.substring(skContent.createdDate,0,16)}"></span></td>
