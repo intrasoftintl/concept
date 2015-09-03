@@ -101,7 +101,9 @@
                                 <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
                             </button>
                         </form>
-                        <form th:action="@{/preferences}" method="post" class="pull-right" style="margin-left:4px">
+
+                        <!-- Preferences Button -->
+                        <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
                             <button type="submit" class="btn btn-default btn-sm ">
                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
                             </button>
