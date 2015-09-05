@@ -46,6 +46,7 @@ public class SketchController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
+        model.addAttribute("currentUser", getCurrentUser());
         return "sk_all";
     }
 
@@ -54,6 +55,7 @@ public class SketchController {
         model.addAttribute("skContents", skService.fetchSketchesByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", skService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "sk :: skContentList";
     }
 

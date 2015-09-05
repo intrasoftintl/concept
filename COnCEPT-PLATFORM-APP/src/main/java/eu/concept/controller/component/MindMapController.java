@@ -11,16 +11,13 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
 import java.util.List;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -58,6 +55,7 @@ public class MindMapController {
         model.addAttribute("totalMindMaps", mmService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUserID", WebController.getCurrentUserCo().getId());
+        model.addAttribute("currentUser", getCurrentUser());
         return "mm :: mmContentList";
     }
 
@@ -66,6 +64,7 @@ public class MindMapController {
         model.addAttribute("mmContents", mmService.fetchMindMapByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", mmService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "mm :: mmContentAllList";
     }
 

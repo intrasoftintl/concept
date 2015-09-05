@@ -16,7 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Null;
 import org.hibernate.annotations.Cascade;
 
 /**
@@ -58,6 +57,11 @@ public class Likes implements Serializable {
 
     public Likes(Integer id) {
         this.id = id;
+    }
+
+    public Likes(Integer id, UserCo user) {
+        this.id = id;
+        this.uid = user;
     }
 
     public Integer getId() {

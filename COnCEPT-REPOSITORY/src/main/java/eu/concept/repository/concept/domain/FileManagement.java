@@ -84,10 +84,11 @@ public class FileManagement implements Serializable {
 
     /**
      *
+     * @param userID
      * @return True if the user has liked the current Sketch otherwise false
      */
-    public boolean hasLike() {
-        return likes.stream().filter(like -> like.getUid().getId().equals(this.getUid().getId())).count() > 0;
+    public boolean hasLike(int userID) {
+        return likes.stream().filter(like -> like.getUid().getId().equals(userID)).count() > 0;
     }
 
     public FileManagement() {

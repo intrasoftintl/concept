@@ -3,9 +3,14 @@ package eu.concept.controller;
 import eu.concept.authentication.COnCEPTRole;
 import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.domain.Likes;
 import eu.concept.repository.concept.domain.MindMap;
+import eu.concept.repository.concept.domain.Sketch;
+import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
+import eu.concept.repository.concept.service.LikesService;
 import eu.concept.repository.concept.service.MindMapService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SketchService;
@@ -69,6 +74,9 @@ public class RestAPIController {
 
     @Autowired
     BriefAnalysisService briefAnalysisService;
+
+    @Autowired
+    LikesService likesService;
 
     @Autowired
     COnCEPTProperties conceptProperties;
@@ -174,6 +182,69 @@ public class RestAPIController {
 
             case "SK":
                 return sketchService.changePublicStatus(component_id, isPublic);
+
+            default:
+                return 0;
+        }
+
+    }
+
+    //Change Like  status
+    @RequestMapping(value = "/like/{component_id}", method = RequestMethod.POST)
+    public int changeLikeStatus(@PathVariable int component_id, @RequestParam(value = "componentCode", defaultValue = "", required = false) String componentCode) {
+        UserCo currentUser = WebController.getCurrentUserCo();
+        Likes likes;
+        System.out.println("Current user is : " + currentUser.getId());
+
+        switch (componentCode) {
+
+            case "BA":
+                BriefAnalysis ba = new BriefAnalysis(component_id);
+                likes = likesService.findBriefAnalysisLike(currentUser, ba);
+                if (null == likes) {
+                    likes = new Likes(null, currentUser);
+                    likes.setBaId(ba);
+                } else {
+                    likes.setBaId(null);
+                }
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+                return (likesService.storeLikes(likes) ? 1 : 0);
+
+            case "FM":
+                FileManagement fm = new FileManagement(component_id);
+                likes = likesService.findFileManagementLike(currentUser, fm);
+                if (null == likes) {
+                    likes = new Likes(null, currentUser);
+                    likes.setFmId(fm);
+                } else {
+                    likes.setFmId(null);
+                }
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+                return (likesService.storeLikes(likes) ? 1 : 0);
+
+            case "MM":
+                MindMap mm = new MindMap(component_id);
+                likes = likesService.findMindMapLike(currentUser, mm);
+                if (null == likes) {
+                    likes = new Likes(null, currentUser);
+                    likes.setMmId(mm);
+                } else {
+                    likes.setMmId(null);
+                }
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+                return (likesService.storeLikes(likes) ? 1 : 0);
+
+            case "SK":
+                Sketch sk = new Sketch(component_id);
+                likes = likesService.findSketchLike(currentUser, sk);
+                if (null == likes) {
+                    likes = new Likes(null, currentUser);
+                    likes.setSkId(sk);
+                } else {
+                    likes.setSkId(null);
+                }
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+                return (likesService.storeLikes(likes) ? 1 : 0);
 
             default:
                 return 0;

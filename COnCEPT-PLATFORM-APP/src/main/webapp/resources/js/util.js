@@ -6,7 +6,7 @@ var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
 var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
-
+var LIKE_REST_URL = "/conceptRest/api/like/";
 
 //COnCEPT Logger
 function logger(message) {
@@ -94,6 +94,35 @@ function setIsPublic(componentCode, componentID) {
     });
 
 }
+
+
+function like(componentCode, componentID) {
+    var isLiked = $("#Like" + componentCode + componentID).hasClass("icon-active") ? 1 : 0;
+
+    $.ajax({
+        url: LIKE_REST_URL + componentID,
+        type: 'POST',
+        data: {
+            "componentCode": componentCode
+        },
+    }).then(function (data) {
+        if (data == 0) {
+            logger('Could not change Like state for component with id: ' + componentCode + componentID);
+        } else {
+
+            if (isLiked) {
+                $("#Like" + componentCode + componentID).removeClass("icon-active");
+            }
+            else {
+                $("#Like" + componentCode + componentID).addClass("icon-active");
+            }
+
+        }
+    });
+
+}
+
+
 
 
 function createMindMap() {

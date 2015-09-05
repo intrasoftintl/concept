@@ -53,6 +53,7 @@ public class BriefAnalysisController {
         model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", baService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "ba :: baContentList";
     }
 
@@ -61,6 +62,7 @@ public class BriefAnalysisController {
         model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", baService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "ba :: baContentAllList";
     }
 

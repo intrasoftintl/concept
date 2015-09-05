@@ -89,6 +89,7 @@ public class FileManagementController {
         model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentRole(), limit));
         model.addAttribute("totalFiles", fmService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "fm :: fmContentList";
     }
 
@@ -97,6 +98,7 @@ public class FileManagementController {
         model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentRole(), limit));
         model.addAttribute("totalFiles", fmService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "fm :: fmContentAllList";
     }
 

@@ -63,7 +63,7 @@
                         </button>
                         &nbsp;
                         <span th:id="@{'FM' + ${fmContent.id} }" th:attr="onclick=@{'setIsPublic(\'FM\','+${fmContent.id} } +')' " th:classappend="(${fmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                        <span class="glyphicon glyphicon-thumbs-up" th:classappend="(${fmContent.hasLike()}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:text="${#arrays.length(fmContent.getLikes())}" class="label label-warning"></span>
+                        <span th:id="@{'LikeFM' + ${fmContent.id} }" th:attr="onclick=@{'like(\'FM\','+${fmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${fmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:text="${#arrays.length(fmContent.getLikes())}" class="label label-warning"></span>
                     </td>
                 </tr>  
             </tbody>
