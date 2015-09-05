@@ -106,11 +106,12 @@
                             </button>
                         </form>
 
-                        <form th:action="@{/preferences}" method="post" class="pull-right" style="margin-left:4px">
+                        <!-- Preferences Button -->
+                        <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
                             <button type="submit" class="btn btn-default btn-sm ">
                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
                             </button>
-                        </form>    
+                        </form>  
 
                         <!-- Notifications Button -->
                         <form id="nf-app-link-form" action="#" method="post" th:action="@{/notifications_app}">
@@ -143,9 +144,6 @@
                         <div id="mm-placeholder" class="panel-body disabled"></div>
                         <div id="mm-all"></div>
                         
-                        <div class="panel-footer">
-                            Files (123)
-                        </div>
                     </div>
                 </div>
 
