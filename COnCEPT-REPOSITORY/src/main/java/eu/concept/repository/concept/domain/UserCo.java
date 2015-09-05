@@ -5,9 +5,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,6 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "User")
 public class UserCo implements Serializable {
+
+ 
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -195,6 +199,9 @@ public class UserCo implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.User[ id=" + id + " ]";
     }
+
+
+
 
 
 }

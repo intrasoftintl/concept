@@ -1,21 +1,29 @@
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 /**
  *
@@ -25,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "Sketch")
 @XmlRootElement
 public class Sketch implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +67,25 @@ public class Sketch implements Serializable {
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private UserCo uid;
+    //Non Domain field
+    @OneToMany(mappedBy = "skId",orphanRemoval = false)
+    public Collection<Likes> likes;
+
+    /**
+     *
+     * @return A collection of Likes object
+     */
+    public Collection<Likes> getLikes() {
+        return likes;
+    }
+
+    /**
+     *
+     * @return True if the user has liked the current Sketch otherwise false
+     */
+    public boolean hasLike() {
+        return likes.stream().filter(like -> like.getUid().getId().equals(this.getUid().getId())).count() > 0;
+    }
 
     public Sketch() {
     }
@@ -164,5 +192,12 @@ public class Sketch implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.Sketch[ id=" + id + " ]";
     }
-    
+
+    @PreRemove
+    private void preRemove() {
+        for (Likes like : likes) {
+            like.setSkId(null);
+        }
+    }
+
 }

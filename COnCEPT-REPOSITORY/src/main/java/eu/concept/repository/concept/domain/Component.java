@@ -40,8 +40,7 @@ public class Component implements Serializable {
     @Size(min = 1, max = 128)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cid")
-    private Collection<Likes> likesCollection;
+
 
     public Component() {
     }
@@ -69,15 +68,6 @@ public class Component implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @XmlTransient
-    public Collection<Likes> getLikesCollection() {
-        return likesCollection;
-    }
-
-    public void setLikesCollection(Collection<Likes> likesCollection) {
-        this.likesCollection = likesCollection;
     }
 
     @Override
@@ -114,4 +104,8 @@ public class Component implements Serializable {
         this.metadataCollection = metadataCollection;
     }
     
+    //Help Functions
+    
+    
+   
 }

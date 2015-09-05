@@ -2,6 +2,7 @@ package eu.concept.repository.concept.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -59,6 +61,25 @@ public class MindMap implements Serializable {
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private UserCo userCo;
+    //Non Domain field
+    @OneToMany(mappedBy = "mmId", orphanRemoval = false)
+    public Collection<Likes> likes;
+
+    /**
+     *
+     * @return A collection of Likes object
+     */
+    public Collection<Likes> getLikes() {
+        return likes;
+    }
+
+    /**
+     *
+     * @return True if the user has liked the current Sketch otherwise false
+     */
+    public boolean hasLike() {
+        return likes.stream().filter(like -> like.getUid().getId().equals(this.getUserCo().getId())).count() > 0;
+    }
 
     public MindMap() {
     }

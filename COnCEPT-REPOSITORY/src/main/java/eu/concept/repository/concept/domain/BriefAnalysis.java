@@ -1,6 +1,8 @@
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -57,8 +60,28 @@ public class BriefAnalysis implements Serializable {
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private UserCo uid;
+    //Non Domain field
+    @OneToMany(mappedBy = "baId", orphanRemoval = false)
+    private Collection<Likes> likes;
+
+    /**
+     *
+     * @return A collection of Likes object
+     */
+    public Collection<Likes> getLikes() {
+        return likes;
+    }
+
+    /**
+     *
+     * @return True if the user has liked the current Sketch otherwise false
+     */
+    public boolean hasLike() {
+        return likes.stream().filter(like -> like.getUid().getId().equals(this.getUid().getId())).count() > 0;
+    }
 
     public BriefAnalysis() {
+        likes = new ArrayList<>();
     }
 
     public BriefAnalysis(Integer id) {

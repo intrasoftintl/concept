@@ -2,7 +2,7 @@
 var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
 var MEMBERSHIPS_REST_URL = "/conceptRest/api/memberships/";
-var PROJECTS_REST_URL = "/projects/";
+var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
 var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";

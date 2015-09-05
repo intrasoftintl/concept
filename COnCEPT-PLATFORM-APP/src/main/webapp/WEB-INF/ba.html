@@ -21,9 +21,8 @@
                         <button class="action-button" th:attr="onclick=@{ 'deleteBA(' + ${baContent.id}  +','+ ${baContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
-
                         <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')' " th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                        <span class="glyphicon glyphicon-thumbs-up "   th:classappend="(${baContent.hasLike()}) ? ' icon-active' : ''"    aria-hidden="true"></span> <span  th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>
                     </td>
                 </tr>
             </tbody>
@@ -63,9 +62,8 @@
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                         &nbsp;
-
                         <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')' " th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                        <span class="glyphicon glyphicon-thumbs-up icon-active" aria-hidden="true"></span> <span class="label label-warning">19</span>
+                        <span class="glyphicon glyphicon-thumbs-up"   th:classappend="(${baContent.hasLike()}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>
                     </td>
                 </tr>
             </tbody>

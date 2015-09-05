@@ -2,6 +2,7 @@ package eu.concept.controller;
 
 import eu.concept.authentication.COnCEPTRole;
 import eu.concept.configuration.COnCEPTProperties;
+import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
@@ -16,6 +17,7 @@ import eu.concept.repository.openproject.service.MemberRoleOpService;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
+import eu.concept.util.other.NotificationTool;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -156,7 +158,13 @@ public class RestAPIController {
         switch (componentCode) {
 
             case "BA":
-                return briefAnalysisService.changePublicStatus(component_id, isPublic);
+                int statusCode = briefAnalysisService.changePublicStatus(component_id, isPublic);
+
+                if (isPublic == 0 && statusCode == 1) {
+                    BriefAnalysis bf = briefAnalysisService.fetchBriefAnalysisById(component_id);
+                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+                }
+                return statusCode;
 
             case "FM":
                 return fmService.changePublicStatus(component_id, isPublic);
