@@ -321,7 +321,7 @@ public class RestAPIController {
 //
 //    }
 
-    //Change Like  status
+    //Fetch 100 of the most recent chat messages for project_id
     @RequestMapping(value = "/chatmessages/{project_id}", method = RequestMethod.GET)
     public List<ChatMessage> chatMessagesForProject(@PathVariable int project_id){
 
