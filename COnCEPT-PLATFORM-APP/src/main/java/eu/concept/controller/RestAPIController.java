@@ -2,12 +2,8 @@ package eu.concept.controller;
 
 import eu.concept.authentication.COnCEPTRole;
 import eu.concept.configuration.COnCEPTProperties;
-import eu.concept.repository.concept.domain.BriefAnalysis;
-import eu.concept.repository.concept.domain.FileManagement;
-import eu.concept.repository.concept.domain.Likes;
-import eu.concept.repository.concept.domain.MindMap;
-import eu.concept.repository.concept.domain.Sketch;
-import eu.concept.repository.concept.domain.UserCo;
+import eu.concept.repository.concept.dao.ChatMessageRepository;
+import eu.concept.repository.concept.domain.*;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.LikesService;
@@ -23,6 +19,9 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
 import eu.concept.util.other.NotificationTool;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,6 +79,9 @@ public class RestAPIController {
 
     @Autowired
     COnCEPTProperties conceptProperties;
+
+    @Autowired
+    ChatMessageRepository chatMessageRepository;
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -318,4 +320,18 @@ public class RestAPIController {
 //        return new ResponseEntity(null, httpHeaders, HttpStatus.CREATED);
 //
 //    }
+
+    //Fetch 100 of the most recent chat messages for project_id
+    @RequestMapping(value = "/chatmessages/{project_id}", method = RequestMethod.GET)
+    public List<ChatMessage> chatMessagesForProject(@PathVariable int project_id){
+
+        List<ChatMessage> chatMessages= chatMessageRepository.findTop100ByPidOrderByCreatedDateDesc(project_id);
+
+        Collections.reverse(chatMessages);
+
+        //chatMessages.stream().limit(100)
+        //ArrayList<String> ret = new ArrayList<>();
+        //chatMessages.stream().limit(100).forEach((chatMessage) -> ret.add(chatMessage.getContent()));
+        return chatMessages;
+    }
 }
