@@ -10,8 +10,8 @@
 
     <modules>
         <module>concept-app</module>
-        <module>concept-util</module>
         <module>concept-repository</module>
+        <module>concept-util</module>
     </modules>
 
     <properties>
