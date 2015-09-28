@@ -1,4 +1,5 @@
-# COnCEPT platform
+# CONCEPT
+> Collaborative creative design platform
 
 ## Prerequisites
 
@@ -21,5 +22,5 @@ Before moving on, make sure you have the required JDK and Maven version.
 	$ git clone git@github.com:IntrasoftInternational/concept.git
 	$ cd concept
 	$ mvn clean install
-	$ cd COnCEPT-PLATFORM-APP
+	$ cd concept-app
 	$ mvn spring-boot:run
