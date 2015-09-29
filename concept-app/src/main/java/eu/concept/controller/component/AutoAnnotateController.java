@@ -79,7 +79,7 @@ public class AutoAnnotateController {
                 JSONObject obj = jsonResponse.getBody().getArray().getJSONObject(i);
                 double relevancy = (double)obj.get("relevancy");
                 Logger.getLogger(AutoAnnotateController.class.getName()).info("obj "+obj.toString());
-                if(relevancy > 0.1){
+                if(relevancy > 0.5){
                     tags.add((String) obj.get("name"));
                 }
             }
