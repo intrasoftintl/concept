@@ -6,7 +6,7 @@ import eu.concept.main.AtomikosJtaPlatform;
 import java.util.HashMap;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -24,6 +23,8 @@ import org.springframework.stereotype.Component;
 @EnableJpaRepositories(basePackages = "eu.concept.repository.concept.dao",
         entityManagerFactoryRef = "conceptEntityManagerFactory",
         transactionManagerRef = "transactionManager")
+@EnableConfigurationProperties(DatasourceConceptProperties.class)
+
 public class DatasourceConceptConfig {
 
     public static final String PersistentUnit = "conceptPersistenceUnit";
@@ -32,18 +33,24 @@ public class DatasourceConceptConfig {
     private JpaVendorAdapter jpaVendorAdapter;
 
     @Autowired
-    private DatasourceOpenprojectProperties datasourceOpenprojectProperties;
+    private DatasourceConceptProperties datasourceConceptProperties;
 
     @Primary
     @Bean(name = "conceptDataSource", initMethod = "init", destroyMethod = "close")
     public DataSource customerDataSource() {
         MysqlXADataSource mysqlXaDataSource = new MysqlXADataSource();
-        mysqlXaDataSource.setUrl(datasourceOpenprojectProperties.getUrl());
-        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
-        mysqlXaDataSource.setUser(datasourceOpenprojectProperties.getUsername());
-        mysqlXaDataSource.setPassword(datasourceOpenprojectProperties.getPassword());
-        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
 
+        mysqlXaDataSource.setUrl("jdbc:mysql://localhost:3306/concept");
+        mysqlXaDataSource.setUser("concept");
+        mysqlXaDataSource.setPassword("!concept!");
+
+        //Uncomment for production deployemnt
+//        mysqlXaDataSource.setUrl(datasourceConceptProperties.getUrl());
+//        mysqlXaDataSource.setUser(datasourceConceptProperties.getUsername());
+//        mysqlXaDataSource.setPassword(datasourceConceptProperties.getPassword());
+        //
+        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
+        mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
         xaDataSource.setXaDataSource(mysqlXaDataSource);
         xaDataSource.setUniqueResourceName("conceptDS");
@@ -69,39 +76,38 @@ public class DatasourceConceptConfig {
         return entityManager;
     }
 
-    @ConfigurationProperties(prefix = "spring.conceptdb")
-    @Component
-    private static class DatasourceOpenprojectProperties {
-
-        private String url;
-
-        private String username;
-
-        private String password;
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-    }
-
+//    @ConfigurationProperties(prefix = "spring.conceptdb")
+//    @Component
+//    private static class DatasourceConceptProperties {
+//
+//        private String url;
+//
+//        private String username;
+//
+//        private String password;
+//
+//        public String getUrl() {
+//            return url;
+//        }
+//
+//        public void setUrl(String url) {
+//            this.url = url;
+//        }
+//
+//        public String getUsername() {
+//            return username;
+//        }
+//
+//        public void setUsername(String username) {
+//            this.username = username;
+//        }
+//
+//        public String getPassword() {
+//            return password;
+//        }
+//
+//        public void setPassword(String password) {
+//            this.password = password;
+//        }
+//    }
 }

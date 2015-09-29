@@ -3,6 +3,7 @@ package eu.concept.repository.openproject.service;
 import eu.concept.configuration.DatasourceConceptConfig;
 import eu.concept.configuration.DatasourceOpenprojectConfig;
 import eu.concept.main.Application;
+import eu.concept.repository.concept.service.UserServiceTest;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import java.util.List;
 import java.util.logging.Logger;
@@ -20,12 +21,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {Application.class, DatasourceConceptConfig.class, DatasourceOpenprojectConfig.class})
 public class ProjectServiceTest {
-    
+
     private static final Logger logger = Logger.getLogger(ProjectServiceTest.class.getName());
-    
+
     @Autowired
     ProjectServiceOp projectService;
-    
+
+    @Ignore
+    @Test
+    public void testFetchProjectByID() {
+        ProjectOp project = projectService.findProjectByID(1);
+        Logger.getLogger(UserServiceTest.class.getName()).info("\n\n" + project.toString());
+    }
+
     @Test
     @Ignore
     public void findUserProjects() {
@@ -39,5 +47,5 @@ public class ProjectServiceTest {
             }
         }
     }
-    
+
 }

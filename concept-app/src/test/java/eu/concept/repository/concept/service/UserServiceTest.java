@@ -3,15 +3,16 @@ package eu.concept.repository.concept.service;
 import eu.concept.main.Application;
 import eu.concept.configuration.DatasourceConceptConfig;
 import eu.concept.configuration.DatasourceOpenprojectConfig;
-import eu.concept.repository.openproject.domain.ProjectOp;
-import eu.concept.repository.openproject.service.ProjectServiceOp;
-import java.util.logging.Logger;
+import eu.concept.repository.concept.dao.UserCoRepository;
+import eu.concept.repository.concept.domain.UserCo;
+import java.util.Calendar;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.Assert;
 
 /**
  *
@@ -25,19 +26,33 @@ public class UserServiceTest {
     UserCoService userCoService;
 
     @Autowired
-    ProjectServiceOp service;
+    UserCoRepository userCoRepository;
+
+    private final UserCo user = new UserCo(1, "junit@test.case", "John", "Smith", "password", "testUser", Calendar.getInstance().getTime());
 
     @Test
-    @Ignore
-    public void testFindByUsername() {
-        userCoService.findByUsername("user4");
+//    @Ignore
+    public void testStoreUser() {
+        Assert.notNull(userCoRepository.save(user), "User " + user.getUsername() + " has not been created.");
     }
 
-    @Ignore
     @Test
-    public void testFetchProjectByID() {
-        ProjectOp project = service.findProjectByID(1);
-        Logger.getLogger(UserServiceTest.class.getName()).info("\n\n" + project.toString());
+//    @Ignore
+    public void testFindByUsername() {
+        Assert.notNull(userCoService.findByUsername(user.getUsername()), "User " + user.getUsername() + " not found");
+    }
+
+//    @Ignore
+    @Test
+    public void testFindById() {
+        Assert.notNull(userCoService.findById(user.getId()), "User with ID: " + user.getId() + " not found");
+    }
+
+    @Test
+//    @Ignore
+    public void testRemoveById() {
+       userCoRepository.delete(user.getId());
+        Assert.isNull(userCoService.findByUsername(user.getUsername()), "User " + user.getUsername() + " has not been deleted..");
     }
 
 }
