@@ -25,7 +25,21 @@
 
         <input name="tags" id="tags" th:value="${metadata.keywords}" />
 
-        <form th:action="@{/logout}" method="post">
+        <form th:object="${metadata}" th:action="@{/autoannotate}" method="post">
+            <!-- Project ID -->
+            <input th:type="hidden" th:name="project_id" th:value="${project_id}"/>
+            <!-- Metadata ID -->
+            <input th:type="hidden" th:name="id" th:field="*{id}"  />
+            <!-- Component ID -->
+            <input th:type="hidden" th:name="cid" th:field="*{cid}" />
+            <!-- Component name -->
+            <input th:type="hidden" th:name="component" th:field="*{component.id}"/>
+            <!-- Metadata keywords-->
+            <input th:type="hidden" th:name="keyword" th:field="${metadata.keywords}"  id="keywords"/>
+            <!-- Metadata categories-->
+            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>
+            <!-- Metadata description-->
+            <input th:type="hidden" th:name="description" th:field="*{description}"  />
             <button type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
                 <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
             </button>

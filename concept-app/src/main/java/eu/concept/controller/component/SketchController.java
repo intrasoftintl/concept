@@ -10,9 +10,18 @@ import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +30,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  *
@@ -83,6 +95,19 @@ public class SketchController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "sk_app";
+    }
+
+
+    //Fetch an image
+    @RequestMapping(value = "/skimage/{sk_id}", produces = MediaType.ALL_VALUE)
+    public ResponseEntity<byte[]> getImage(@PathVariable("sk_id") int skId, @RequestParam(value = "preview", defaultValue = "0", required = false) int preview) throws IOException {
+        Sketch sk = skService.fetchSketchById(skId);
+        byte[] imageContent;
+        final HttpHeaders headers = new HttpHeaders();
+        MediaType fileType = MediaType.IMAGE_PNG;
+        imageContent = DatatypeConverter.parseBase64Binary(sk.getContentThumbnail().replaceAll("data:".concat(MediaType.IMAGE_PNG_VALUE).concat(";base64,"), ""));
+        headers.setContentType(fileType);
+        return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/sk_app", method = RequestMethod.GET)
