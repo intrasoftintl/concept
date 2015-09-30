@@ -53,7 +53,7 @@ public class MetadataController {
      *  POST Methods 
      */
     @RequestMapping(value = "/metadata", method = RequestMethod.POST)
-    public String createBriefAnalysis(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
+    public String addMetadata(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
         if (null == metadata) {
             Logger.getLogger(MetadataController.class.getName()).severe("Metadata object is null... aborting saving metadata object..");
         } else {
