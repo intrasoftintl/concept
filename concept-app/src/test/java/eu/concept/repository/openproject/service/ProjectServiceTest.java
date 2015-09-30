@@ -3,11 +3,8 @@ package eu.concept.repository.openproject.service;
 import eu.concept.configuration.DatasourceConceptConfig;
 import eu.concept.configuration.DatasourceOpenprojectConfig;
 import eu.concept.main.Application;
-import eu.concept.repository.concept.service.UserServiceTest;
-import eu.concept.repository.openproject.domain.ProjectOp;
-import java.util.List;
 import java.util.logging.Logger;
-import org.junit.Ignore;
+import org.eclipse.persistence.jpa.jpql.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,25 +24,27 @@ public class ProjectServiceTest {
     @Autowired
     ProjectServiceOp projectService;
 
-    @Ignore
+    private final int ProjectID = 1;
+    private final int UserID = 191;
+
+//    @Ignore
+    @Test
+    public void testFetchAllProjecs() {
+        Assert.isNotNull(projectService.findAllProjects(), "Could not fetch projects");
+
+    }
+
+//    @Ignore
     @Test
     public void testFetchProjectByID() {
-        ProjectOp project = projectService.findProjectByID(1);
-        Logger.getLogger(UserServiceTest.class.getName()).info("\n\n" + project.toString());
+        Assert.isNotNull(projectService.findProjectByID(ProjectID), "Could not fetch with ID: " + ProjectID);
+
     }
 
     @Test
-    @Ignore
+//    @Ignore
     public void findUserProjects() {
-        int userID = 191;
-        List<ProjectOp> projects = projectService.findProjectsByUserId(userID);
-        if (null == projects || projects.isEmpty()) {
-            logger.info("No projects found for user with id: " + userID);
-        } else {
-            for (ProjectOp project : projects) {
-                logger.info("Project ID: " + project.getId() + " Name: " + project.getName());
-            }
-        }
+        Assert.isNotNull(projectService.findProjectsByUserId(UserID), "No projects found for user with id: " + UserID);
     }
 
 }

@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface MemberOpRepository extends JpaRepository<MemberOp, Integer> {
 
-    //@Query("select m from MemberOp m where m.userId=?1 and m.projectId !=1")
     @Query("select m from MemberOp m where m.user.id=?1 and m.projectId !=1")
     List<MemberOp> findByUserId(int userID);
 

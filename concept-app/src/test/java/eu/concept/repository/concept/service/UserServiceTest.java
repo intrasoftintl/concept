@@ -6,6 +6,7 @@ import eu.concept.configuration.DatasourceOpenprojectConfig;
 import eu.concept.repository.concept.dao.UserCoRepository;
 import eu.concept.repository.concept.domain.UserCo;
 import java.util.Calendar;
+import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,28 +32,35 @@ public class UserServiceTest {
     private final UserCo user = new UserCo(1, "junit@test.case", "John", "Smith", "password", "testUser", Calendar.getInstance().getTime());
 
     @Test
-//    @Ignore
-    public void testStoreUser() {
+    @Ignore
+    public void testCreateUser() {
         Assert.notNull(userCoRepository.save(user), "User " + user.getUsername() + " has not been created.");
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void testFindByUsername() {
-        Assert.notNull(userCoService.findByUsername(user.getUsername()), "User " + user.getUsername() + " not found");
+        Assert.notNull(userCoService.findByUsername(user.getUsername()), "User with username " + user.getUsername() + " not found");
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void testFindById() {
         Assert.notNull(userCoService.findById(user.getId()), "User with ID: " + user.getId() + " not found");
     }
 
     @Test
-//    @Ignore
-    public void testRemoveById() {
-       userCoRepository.delete(user.getId());
-        Assert.isNull(userCoService.findByUsername(user.getUsername()), "User " + user.getUsername() + " has not been deleted..");
+    @Ignore
+    public void testEditUser() {
+        user.setFirstName("Sarah");
+        userCoRepository.save(user);
+        Assert.isTrue("Sarah".equals(userCoService.findById(user.getId()).getFirstName()), "User with username " + user.getUsername() + "could not be updated.");
     }
 
+    @Test
+    @Ignore
+    public void testRemoveById() {
+        userCoRepository.delete(user.getId());
+        Assert.isNull(userCoService.findByUsername(user.getUsername()), "User " + user.getUsername() + " has not been deleted..");
+    }
 }
