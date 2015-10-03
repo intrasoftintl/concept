@@ -6,7 +6,11 @@ var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
 var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
-var STORYBOARD_REST_URL = "/conceptRest/api/sb_app/";
+
+//var STORYBOARD_REST_URL = "/conceptRest/api/sb_app/";
+var STORYBOARD_REST_URL = "http://192.168.7.196:8080/storyboard/";
+var MOODBOARD_REST_URL = "http://192.168.7.196:8080/storyboard/";
+
 var LIKE_REST_URL = "/conceptRest/api/like/";
 
 //COnCEPT Logger
@@ -138,23 +142,18 @@ function createMindMap() {
     }
 }
 
+function createMoodboard() {
+    var projectID = $("#projectID").val();
+    var userID = $("#userID").val();
+    var url = MOODBOARD_REST_URL + "scene/new?pid=" +  projectID + "&uid=" + userID;
+    window.open(url, '_blank');
+}
+
 function createStoryboard() {
     var projectID = $("#projectID").val();
     var userID = $("#userID").val();
-    if (projectID > 0) {
-        $.ajax({
-            url: STORYBOARD_REST_URL + "/new?pid=" +  projectID + "&uid=" + userID,
-            type: 'POST'
-        }).then(function (data) {
-            if ("SUCCESS" === data.code) {
-                window.open(data.returnobject, '_blank');
-            } else {
-                logger(data.message);
-            }
-        });
-    } else {
-        logger("Could not create MindMap invalid projectID: " + projectID)
-    }
+    var url = STORYBOARD_REST_URL + "storyboard/new?pid=" +  projectID + "&uid=" + userID;
+    window.open(url, '_blank');
 }
 
 function projectSelectedAction(projectID) {
