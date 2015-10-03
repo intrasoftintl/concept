@@ -403,6 +403,11 @@ function isMM_all() {
     return location.pathname === "/mm_all";
 }
 
+//Return true if current page is SB ALL
+function isSB_all() {
+    return location.pathname === "/sb_all";
+}
+
 function saveBAContent() {
     console.log(tinymce.activeEditor.getContent({format: 'raw'}));
     console.log($('#document-title').val());

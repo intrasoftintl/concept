@@ -16,7 +16,7 @@ function loadDashboardContent(projectID) {
     //Load content of MindMap widget
     $("#mm-dashboard").load("/mindmap/" + projectID + "?limit=5");
     //Load content of Storyboard widget
-        $("#sb-dashboard").load("/storyboard/" + projectID + "?limit=5");
+    $("#sb-dashboard").load("/storyboard/" + projectID + "?limit=5");
     //Load content of Sketch widget
     $("#sk-dashboard").load("/sketch/" + projectID + "?limit=5");
 }
