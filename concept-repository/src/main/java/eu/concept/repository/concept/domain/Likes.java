@@ -51,6 +51,10 @@ public class Likes implements Serializable {
     @JoinColumn(nullable = true, name = "mm_id", referencedColumnName = "id")
     @ManyToOne
     private MindMap mmId;
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinColumn(nullable = true, name = "sb_id", referencedColumnName = "id")
+    @ManyToOne
+    private Storyboard sbId;
 
     public Likes() {
     }
@@ -110,6 +114,14 @@ public class Likes implements Serializable {
 
     public void setMmId(MindMap mmId) {
         this.mmId = mmId;
+    }
+    
+     public Storyboard getSbId() {
+        return sbId;
+    }
+
+    public void setSbId(Storyboard sbId) {
+        this.sbId = sbId;
     }
 
     @Override

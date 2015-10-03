@@ -40,14 +40,14 @@ public class DatasourceConceptConfig {
     public DataSource customerDataSource() {
         MysqlXADataSource mysqlXaDataSource = new MysqlXADataSource();
 
-        mysqlXaDataSource.setUrl("jdbc:mysql://localhost:3306/concept");
-        mysqlXaDataSource.setUser("concept");
-        mysqlXaDataSource.setPassword("!concept!");
+//        mysqlXaDataSource.setUrl("jdbc:mysql://localhost:3306/concept");
+//        mysqlXaDataSource.setUser("concept");
+//        mysqlXaDataSource.setPassword("!concept!");
 
         //Uncomment for production deployemnt
-//        mysqlXaDataSource.setUrl(datasourceConceptProperties.getUrl());
-//        mysqlXaDataSource.setUser(datasourceConceptProperties.getUsername());
-//        mysqlXaDataSource.setPassword(datasourceConceptProperties.getPassword());
+        mysqlXaDataSource.setUrl(datasourceConceptProperties.getUrl());
+        mysqlXaDataSource.setUser(datasourceConceptProperties.getUsername());
+        mysqlXaDataSource.setPassword(datasourceConceptProperties.getPassword());
         //
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);

@@ -143,7 +143,7 @@ function createStoryboard() {
     var userID = $("#userID").val();
     if (projectID > 0) {
         $.ajax({
-            url: MINDMAP_REST_URL + "/new?pid=" +  projectID + "&uid=" + userID,
+            url: STORYBOARD_REST_URL + "/new?pid=" +  projectID + "&uid=" + userID,
             type: 'POST'
         }).then(function (data) {
             if ("SUCCESS" === data.code) {

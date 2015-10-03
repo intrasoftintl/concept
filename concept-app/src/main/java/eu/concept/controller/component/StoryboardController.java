@@ -57,7 +57,7 @@ public class StoryboardController {
 
     @RequestMapping(value = "/storyboard/{project_id}", method = RequestMethod.GET)
     public String fetchSBByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("sbContents", sbService.fetchStoryboardsByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        model.addAttribute("sbContents", sbService.fetchStoryboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", sbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());
@@ -66,7 +66,7 @@ public class StoryboardController {
 
     @RequestMapping(value = "/storyboards_all/{project_id}", method = RequestMethod.GET)
     public String fetchStoryboardsByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("sbContents", sbService.fetchStoryboardsByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        model.addAttribute("sbContents", sbService.fetchStoryboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", sbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         return "sb :: sbContentAllList";
@@ -111,7 +111,7 @@ public class StoryboardController {
     public String deleteBriefAnalysisByID(Model model, @RequestParam(value = "sb_id", defaultValue = "0", required = false) int sb_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
         Storyboard sb = sbService.fetchStoryboardById(sb_id);
         //On success delete & store notification to Concept db...
-        if (null != sb && sbService.deleteStoryboard(sb_id)) {
+        if (null != sb && sbService.delete(sb_id)) {
             notificationService.storeNotification(project_id, NotificationTool.SB, NOTIFICATION_OPERATION.DELETED, "a Storyboard (" + sb.getTitle() + ")", sb.getContentThumbnail(), WebController.getCurrentUserCo());
         }
         return fetchSBByProjectID(model, project_id, limit);
@@ -119,22 +119,13 @@ public class StoryboardController {
 
     @RequestMapping(value = "/sb_app_delete_all", method = RequestMethod.GET)
     public String deleteStoryboardAllByID(Model model, @RequestParam(value = "sb_id", defaultValue = "0", required = false) int sb_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
-        sbService.deleteStoryboard(sb_id);
+        sbService.delete(sb_id);
         return fetchStoryboardsByProjectIDAll(model, projetct_id, limit);
     }
 
     /*
      *  POST Methods 
      */
-    @RequestMapping(value = "/sb_app", method = RequestMethod.POST)
-    public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
-        model.addAttribute("projectID", projectID);
-
-        System.out.println("Project is: " + projectID);
-        return sb_app(model);
-    }
-
-  
 
     @RequestMapping(value = "/sb_all", method = RequestMethod.POST)
     public String sb_all_post(Model model) {
@@ -143,5 +134,5 @@ public class StoryboardController {
         model.addAttribute("currentUser", getCurrentUser());
         return "sb_all";
     }
-
+    
 }

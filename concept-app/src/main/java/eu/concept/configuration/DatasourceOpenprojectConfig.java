@@ -37,17 +37,17 @@ public class DatasourceOpenprojectConfig {
     public DataSource customerDataSource() {
         MysqlXADataSource mysqlXaDataSource = new MysqlXADataSource();
 
-        mysqlXaDataSource.setUrl("jdbc:mysql://localhost:3306/openproject");
+//        mysqlXaDataSource.setUrl("jdbc:mysql://localhost:3306/openproject");
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
 
-        mysqlXaDataSource.setUser("openproject");
-        mysqlXaDataSource.setPassword("!dev35!");
+//        mysqlXaDataSource.setUser("openproject");
+//        mysqlXaDataSource.setPassword("!dev35!");
 
         //Uncomment for production deployment
-        //        mysqlXaDataSource.setUrl(datasourceOpenprojectProperties.getUrl());
-        //        mysqlXaDataSource.setUser(datasourceOpenprojectProperties.getUsername());
-//        mysqlXaDataSource.setPassword(datasourceOpenprojectProperties.getPassword());
-        //
+                mysqlXaDataSource.setUrl(datasourceOpenprojectProperties.getUrl());
+                mysqlXaDataSource.setUser(datasourceOpenprojectProperties.getUsername());
+        mysqlXaDataSource.setPassword(datasourceOpenprojectProperties.getPassword());
+        
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
 
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();

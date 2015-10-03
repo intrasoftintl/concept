@@ -205,10 +205,10 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Storyboards</h4>
                             <div  class="btn-group pull-right">
-                                <form id="sb-add-form" action="#" method="post" th:action="@{/sb_app}">
-                                    <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="mb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</button>
-                                    <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="sb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</button>
-                                </form>
+                                
+<!--                                    <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="mb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</button>-->
+                                    <a th:href="@{'http://192.168.7.196/storyboard/scene/new?pid=' + ${projectID} + '&uid=' + ${currentUser.getId()}}" id="sb-add" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
+                                
                             </div>
                         </div>
 
