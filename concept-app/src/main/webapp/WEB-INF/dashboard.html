@@ -60,7 +60,6 @@
 
             <div class="project-selection">
                 <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
-                <input type="hidden" th:value="${currentUser.getId}"  name="userID" id="userID" class="form-control" />
 
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
@@ -207,7 +206,7 @@
                             <div  class="btn-group pull-right">
                                 
 <!--                                    <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="mb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Scene/Moodboard</button>-->
-                                    <a th:href="@{'http://192.168.7.196/storyboard/scene/new?pid=' + ${projectID} + '&uid=' + ${currentUser.getId()}}" id="sb-add" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
+                                    <a th:href="@{'http://192.168.7.196/storyboard/scene/new?pid=' + ${projectID} + '&amp;uid=' + ${currentUser.getId()}}" id="sb-add" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</a>
                                 
                             </div>
                         </div>
