@@ -15,6 +15,8 @@ function loadDashboardContent(projectID) {
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
     //Load content of MindMap widget
     $("#mm-dashboard").load("/mindmap/" + projectID + "?limit=5");
+    //Load content of Storyboard widget
+    $("#mm-dashboard").load("/storyboard/" + projectID + "?limit=5");
     //Load content of Sketch widget
     $("#sk-dashboard").load("/sketch/" + projectID + "?limit=5");
 }

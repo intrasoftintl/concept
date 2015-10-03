@@ -6,6 +6,7 @@ var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
 var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
+var STORYBOARD_REST_URL = "/conceptRest/api/sb_app/";
 var LIKE_REST_URL = "/conceptRest/api/like/";
 
 //COnCEPT Logger
@@ -50,11 +51,9 @@ $(document).ready(function () {
      
 });
 
-
 //
 // Public API 
 //
-
 
 function setNotifications(project_id) {
     if (project_id > 0) {
@@ -66,7 +65,6 @@ function setNotifications(project_id) {
         });
     }
 }
-
 
 function setIsPublic(componentCode, componentID) {
     var isPublic = $("#" + componentCode + componentID).hasClass("icon-active") ? 1 : 0;
@@ -122,9 +120,6 @@ function like(componentCode, componentID) {
 
 }
 
-
-
-
 function createMindMap() {
     var projectID = $("#projectID").val();
     if (projectID > 0) {
@@ -143,7 +138,24 @@ function createMindMap() {
     }
 }
 
-
+function createStoryboard() {
+    var projectID = $("#projectID").val();
+    var userID = $("#userID").val();
+    if (projectID > 0) {
+        $.ajax({
+            url: MINDMAP_REST_URL + "/new?pid=" +  projectID + "&uid=" + userID,
+            type: 'POST'
+        }).then(function (data) {
+            if ("SUCCESS" === data.code) {
+                window.open(data.returnobject, '_blank');
+            } else {
+                logger(data.message);
+            }
+        });
+    } else {
+        logger("Could not create MindMap invalid projectID: " + projectID)
+    }
+}
 
 function projectSelectedAction(projectID) {
     if (projectID > 0) {
@@ -219,6 +231,19 @@ function projectSelectedAction(projectID) {
             $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200");
 
             $("#mm-placeholder").hide();
+
+            $("#project-members").show();
+            $("#project-view").show();
+        }
+        
+        if (isSB_all()) {
+            $("#sort").show();
+
+            $("#sb-add").attr("href", "/sb_app?projectID=" + projectID);
+            $("#sb-add").show();
+            $("#sb-all").load("/storyboards_all/" + projectID + "?limit=200");
+
+            $("#sb-placeholder").hide();
 
             $("#project-members").show();
             $("#project-view").show();
@@ -314,6 +339,14 @@ function projectSelectedAction(projectID) {
             $("#project-members").hide();
             $("#project-view").hide();
             $("#sk-add").hide();
+        } else if (isSB_all()) {
+            $(".panel-body").hide();
+            $("#sort").hide();
+            $("#sb-placeholder").show();
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+            $("#sb-add").hide();
         } else if (isNF_app()) {
             $("#nf-placeholder").show();
             $(".panel-body").hide();
