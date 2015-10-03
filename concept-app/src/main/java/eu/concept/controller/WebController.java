@@ -120,16 +120,6 @@ public class WebController {
         return "se_all";
     }
 
-    // Storyboards ALL
-    @RequestMapping(value = "/sb_all", method = RequestMethod.GET)
-    public String sb_all(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        return "sb_all";
-    }
-
-
     /*
      *  POST Methods 
      */

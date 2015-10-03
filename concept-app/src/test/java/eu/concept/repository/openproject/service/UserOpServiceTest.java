@@ -25,16 +25,39 @@ public class UserOpServiceTest {
     @Autowired
     private UserOpService userService;
 
+        @Ignore
+    public void testCreateOpenprojectUser() {
+
+    }
+
+    @Test
+        @Ignore
+    public void testFindOpenprojectUserByUsername() {
+//        String username = "user7";
+//        UserOp user = userService.findUserByUsername(username);
+//        if (null == user) {
+//            logger.info("User with username: " + username + " not found!");
+//        } else {
+//            logger.info("Found User with usernmae: " + username + "  and  ID: " + user.getId());
+//        }
+
+    }
+
+    @Test
+        @Ignore
+    public void testFindOpenprojectUserById() {
+
+    }
+
+    @Test
+        @Ignore
+    public void testEditOpenprojectUserById() {
+
+    }
+
     @Test
     @Ignore
-    public void findOpenprojectUser() {
-        String username = "user7";
-        UserOp user = userService.findUserByUsername(username);
-        if (null == user) {
-            logger.info("User with username: " + username + " not found!");
-        } else {
-            logger.info("Found User with usernmae: " + username + "  and  ID: " + user.getId());
-        }
+    public void testDeleteOpenprojectUserById() {
 
     }
 

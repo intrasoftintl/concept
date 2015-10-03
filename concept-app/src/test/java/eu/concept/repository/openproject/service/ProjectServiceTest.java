@@ -5,6 +5,7 @@ import eu.concept.configuration.DatasourceOpenprojectConfig;
 import eu.concept.main.Application;
 import java.util.logging.Logger;
 import org.eclipse.persistence.jpa.jpql.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,14 @@ public class ProjectServiceTest {
     private final int ProjectID = 1;
     private final int UserID = 191;
 
-//    @Ignore
+    @Ignore
     @Test
     public void testFetchAllProjecs() {
         Assert.isNotNull(projectService.findAllProjects(), "Could not fetch projects");
 
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void testFetchProjectByID() {
         Assert.isNotNull(projectService.findProjectByID(ProjectID), "Could not fetch with ID: " + ProjectID);
@@ -42,7 +43,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-//    @Ignore
+    @Ignore
     public void findUserProjects() {
         Assert.isNotNull(projectService.findProjectsByUserId(UserID), "No projects found for user with id: " + UserID);
     }

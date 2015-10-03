@@ -8,6 +8,7 @@ import eu.concept.repository.concept.domain.UserCo;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,32 @@ public class BriefAnalysisServiceTest {
     BriefAnalysisService baService;
 
     @Test
-//    @Ignore
-    public void testFetchFiles() {
+    @Ignore
+    public void testCreateBriefAnalysis() {
+
+    }
+
+    @Test
+    @Ignore
+    public void testFindBriefAnalysisById() {
+
+    }
+
+    @Test
+    @Ignore
+    public void testEditBriefAnalysisById() {
+
+    }
+
+    @Test
+    @Ignore
+    public void testRemoveBriefAnalysisById() {
+
+    }
+
+    @Test
+    @Ignore
+    public void testFetchAllBriefAnalysis() {
         int projectID = 2;
         String role = "MANAGER";
         List<BriefAnalysis> baFiles = baService.fetchBriefAnalysisByProjectId(projectID, new UserCo(191, role), 10);

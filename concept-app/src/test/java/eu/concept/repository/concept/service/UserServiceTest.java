@@ -6,7 +6,6 @@ import eu.concept.configuration.DatasourceOpenprojectConfig;
 import eu.concept.repository.concept.dao.UserCoRepository;
 import eu.concept.repository.concept.domain.UserCo;
 import java.util.Calendar;
-import static org.junit.Assert.assertEquals;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,8 +42,8 @@ public class UserServiceTest {
         Assert.notNull(userCoService.findByUsername(user.getUsername()), "User with username " + user.getUsername() + " not found");
     }
 
-    @Ignore
     @Test
+    @Ignore
     public void testFindById() {
         Assert.notNull(userCoService.findById(user.getId()), "User with ID: " + user.getId() + " not found");
     }

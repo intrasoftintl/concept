@@ -29,10 +29,34 @@ public class FileManagementServiceTest {
 
     @Test
     @Ignore
+    public void testUploadFile() {
+
+    }
+
+    @Test
+    @Ignore
+    public void testFindFileById() {
+
+    }
+
+    @Test
+    @Ignore
+    public void testEditFileById() {
+
+    }
+
+    @Test
+    @Ignore
+    public void testRemovehById() {
+
+    }
+
+    @Test
+    @Ignore
     public void testFetchFiles() {
         int projectID = 2;
         String role = "CLIENT";
-        List<FileManagement> files = fmService.fetchImagesByProjectIdAndUserId(projectID, role,0);
+        List<FileManagement> files = fmService.fetchImagesByProjectIdAndUserId(projectID, role, 0);
         for (FileManagement file : files) {
             Logger.getLogger(FileManagementServiceTest.class.getName()).log(Level.INFO, "FID: {0} Filename: {1} IsPublic: {2}", new Object[]{file.getId(), file.getFilename(), file.getIsPublic()});
         }
