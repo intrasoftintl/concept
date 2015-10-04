@@ -7,9 +7,8 @@ var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
 
-//var STORYBOARD_REST_URL = "/conceptRest/api/sb_app/";
-var STORYBOARD_REST_URL = "http://192.168.7.196:8080/storyboard/";
-var MOODBOARD_REST_URL = "http://192.168.7.196:8080/storyboard/";
+var STORYBOARD_REST_URL = "http://concept-sb.euprojects.net/storyboard/";
+//var STORYBOARD_REST_URL = "http://192.168.7.196:8080/storyboard/";
 
 var LIKE_REST_URL = "/conceptRest/api/like/";
 
@@ -464,7 +463,6 @@ function deleteWidgetItem(URL) {
             alert(thrownError);
         }
     });
-
 }
 
 function loadMetadata(componentID, component, project_id, event) {
@@ -497,7 +495,6 @@ function addProjectIDToForm(formName) {
                 .appendTo("#" + formName);
         return true;
     });
-
 }
 
 $(".chat-list").scrollTop($(".chat-list")[0].scrollHeight);

@@ -45,7 +45,7 @@
 </div>
 
 <div th:fragment="skContentAllList"  th:unless="${#lists.isEmpty(skContents)}" > 
-    <div class="panel-body no-padding" >
+    <div class="panel-body no-padding">
         <table id="sk_table" class="table table-striped">
             <thead>
                 <tr>
@@ -54,7 +54,7 @@
                     <th class="col-md-3"></th>
                 </tr>
             </thead>
-            <tbody>            
+            <tbody>
                 <tr th:each="skContent : ${skContents}">
                     <td><a th:href="@{'/sk_app/' +${skContent.id}}"><img  th:src="${skContent.contentThumbnail}"  class="img-thumbnail" /></a></td>
                     <td class="truncate"><span class="file-title" th:text="${skContent.title}"></span><br/><span class="file-user" th:text="@{${skContent.uid.firstName} + ' '+ ${skContent.uid.lastName} + ' (' +  ${skContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(skContent.createdDate,0,16)}"></span></td>
@@ -69,7 +69,7 @@
                         <span th:id="@{'SK' + ${skContent.id} }" th:attr="onclick=@{'setIsPublic(\'SK\','+${skContent.id} } +')' " th:classappend="(${skContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                         <span th:id="@{'LikeSK' + ${skContent.id} }" th:attr="onclick=@{'like(\'SK\','+${skContent.id} } +')'" class="glyphicon glyphicon-thumbs-up"  th:classappend="(${skContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountSK' + ${skContent.id} }" th:text="${#arrays.length(skContent.getLikes())}" class="label label-warning"></span>
                     </td>
-                </tr>  
+                </tr>
             </tbody>
         </table>
     </div>
