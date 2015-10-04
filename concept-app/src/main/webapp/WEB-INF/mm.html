@@ -24,18 +24,18 @@
                             </button>
 
                             <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                            <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>
+                            <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span id="likeCount" th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>
                         </td>
                     </tr>  
                 </tbody>
             </table>
         </div>
-
+        
         <div class="panel-footer">
             <form id="mmAllForm" action="#" method="post" th:action="@{/mm_all}">
                 <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
             </form>
-            Mindmaps (<span th:text="${totalMindMaps}"></span>) - <a onclick="$('#mmAllForm').submit();">View All</a>
+            Mindmaps (<span th:text="${totalMindMaps}"></span>) - <a onclick="$('#mmAllForm').submit();" >View All</a>
         </div>
 
     </div>
@@ -62,7 +62,7 @@
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${mmContent.id}  +',\'MM\','+${mmContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
-                        <button class="action-button" th:attr="onclick=@{ 'deleteBAItem(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
+                        <button class="action-button" th:attr="onclick=@{ 'deleteSBItem(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                         &nbsp;

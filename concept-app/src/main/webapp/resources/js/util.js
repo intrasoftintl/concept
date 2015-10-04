@@ -22,7 +22,7 @@ function logger(message) {
 
 //After html is rendered do the following...
 $(document).ready(function () {
-    
+
     //Trigger event when project list is changed
     $('#project-select').change(function () {
         var projectID = $(this).val();
@@ -52,7 +52,7 @@ $(document).ready(function () {
             }
         });
     }
-     
+
 });
 
 //
@@ -97,9 +97,10 @@ function setIsPublic(componentCode, componentID) {
 
 }
 
-
 function like(componentCode, componentID) {
     var isLiked = $("#Like" + componentCode + componentID).hasClass("icon-active") ? 1 : 0;
+    var itemLikeCountUp = parseInt($("#LikeCount" + componentCode + componentID).text()) + 1;
+    var itemLikeCountDown = parseInt($("#LikeCount" + componentCode + componentID).text()) - 1;
 
     $.ajax({
         url: LIKE_REST_URL + componentID,
@@ -114,9 +115,11 @@ function like(componentCode, componentID) {
 
             if (isLiked) {
                 $("#Like" + componentCode + componentID).removeClass("icon-active");
+                $("#LikeCount" + componentCode + componentID).text(itemLikeCountDown);
             }
             else {
                 $("#Like" + componentCode + componentID).addClass("icon-active");
+                $("#LikeCount" + componentCode + componentID).text(itemLikeCountUp);
             }
 
         }
@@ -145,14 +148,14 @@ function createMindMap() {
 function createMoodboard() {
     var projectID = $("#projectID").val();
     var userID = $("#userID").val();
-    var url = MOODBOARD_REST_URL + "scene/new?pid=" +  projectID + "&uid=" + userID;
+    var url = MOODBOARD_REST_URL + "scene/new?pid=" + projectID + "&uid=" + userID;
     window.open(url, '_blank');
 }
 
 function createStoryboard() {
     var projectID = $("#projectID").val();
     var userID = $("#userID").val();
-    var url = STORYBOARD_REST_URL + "storyboard/new?pid=" +  projectID + "&uid=" + userID;
+    var url = STORYBOARD_REST_URL + "storyboard/new?pid=" + projectID + "&uid=" + userID;
     window.open(url, '_blank');
 }
 
@@ -221,7 +224,7 @@ function projectSelectedAction(projectID) {
             $("#project-members").show();
             $("#project-view").show();
         }
-        
+
         if (isMM_all()) {
             $("#sort").show();
 
@@ -234,7 +237,7 @@ function projectSelectedAction(projectID) {
             $("#project-members").show();
             $("#project-view").show();
         }
-        
+
         if (isSB_all()) {
             $("#sort").show();
 
@@ -358,6 +361,7 @@ function projectSelectedAction(projectID) {
     }
 
 }
+
 //Return true if current page is DASHBOARD
 function isDashboardPage() {
     return location.pathname === "/dashboard";
@@ -424,7 +428,6 @@ function loadMD() {
     $(".content").addClass("content-disabled");
 }
 
-
 function unloadMD() {
     logger("Unloading metadata sidebar...");
     $("#metadata-area").hide();
@@ -440,8 +443,6 @@ function unloadMD() {
 
     $(".content").removeClass("content-disabled");
 }
-
-
 
 //Sample post using jQuery
 function deleteWidgetItem(URL) {
@@ -523,9 +524,9 @@ $('#chat-message').keyup(function (e) {
 }).focus();
 
 $("#notification").ready(
-        function () {
-            setTimeout(function () {
-                $("#notification").hide()
-            }, 4000);
-        }
+    function () {
+        setTimeout(function () {
+            $("#notification").hide()
+        }, 4000);
+    }
 );

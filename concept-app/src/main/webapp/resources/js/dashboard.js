@@ -13,6 +13,10 @@ function loadDashboardContent(projectID) {
     $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=5");
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
+    
+    //Load content of Search widget
+    //$("#se-dashboard").load("/search/" + projectID + "?limit=9");    
+
     //Load content of MindMap widget
     $("#mm-dashboard").load("/mindmap/" + projectID + "?limit=5");
     //Load content of Storyboard widget
@@ -100,7 +104,6 @@ function disableDashboardPage() {
 
     //Disable notifications button
     $("#notifications-btn").hide();
-
 }
 
 function enableDashboardPage() {
@@ -155,7 +158,6 @@ function enableDashboardPage() {
     $(".nav-keywords").hide();
     $(".nav-categories").hide();
     $(".nav-actions-md").hide();
-
 
     //Enable notifications button
     $("#notifications-btn").show();
