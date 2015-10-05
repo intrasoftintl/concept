@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>            
                     <tr th:each="sbContent : ${sbContents}">
-                        <td><a th:href="@{'http://concept-mm.euprojects.net/wisemapping/c/maps/' +${sbContent.id} + '/' + ${currentUserID} +  '/edit'}" target="_blank"><img src="/resources/img/fm_generic_mm.png" class="img-thumbnail" /></a></td>
+                        <td><a th:attr="onclick=@{'editStoryboard(' + ${sbContent.id}  +')'}"><img  th:src="${sbContent.contentThumbnail}" class="img-thumbnail" /></a></td>
                         <td class="truncate"><span th:text="@{${sbContent.userCo.firstName} + ' '+ ${sbContent.userCo.lastName} + ' (' +  ${sbContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(sbContent.createdDate,0,16)}"></span></td>
                         <td>
                             <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${sbContent.id}  +',\'SB\','+${sbContent.pid}+',this)'}">

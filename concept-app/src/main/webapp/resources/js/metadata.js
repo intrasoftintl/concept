@@ -113,4 +113,21 @@ function initMetadata() {
         $("#keywords").val($("#tags").val());
         $("#categories").val(JSON.stringify($('#tree').tree('getState')));
     });
+
+    $("#autoannotate").submit(function(e){
+        e.preventDefault();
+        var form = this;
+        console.log( $( this ).attr('action') );
+        $.ajax({
+            type: 'POST',
+            url: $( this ).attr('action'),
+            data: $( this ).serialize(),
+            success: function(data){
+                $($('#tags')[0]).importTags('');
+                $($('#tags')[0]).importTags(data);
+                //This does not work
+                $($('#autoannotatebtn')[0]).removeClass('btn-danger');
+            }
+        });
+    });
 }

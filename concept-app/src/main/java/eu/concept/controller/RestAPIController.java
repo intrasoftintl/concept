@@ -1,16 +1,14 @@
 package eu.concept.controller;
 
+import com.google.common.base.Joiner;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import eu.concept.authentication.COnCEPTRole;
 import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.repository.concept.dao.ChatMessageRepository;
 import eu.concept.repository.concept.domain.*;
-import eu.concept.repository.concept.service.BriefAnalysisService;
-import eu.concept.repository.concept.service.FileManagementService;
-import eu.concept.repository.concept.service.LikesService;
-import eu.concept.repository.concept.service.MindMapService;
-import eu.concept.repository.concept.service.NotificationService;
-import eu.concept.repository.concept.service.SketchService;
-import eu.concept.repository.concept.service.UserCoService;
+import eu.concept.repository.concept.service.*;
 import eu.concept.repository.openproject.domain.MemberOp;
 import eu.concept.repository.openproject.domain.MemberRoleOp;
 import eu.concept.repository.openproject.service.MemberOpService;
@@ -20,21 +18,30 @@ import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
 import eu.concept.util.other.NotificationTool;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
+import org.apache.batik.transcoder.Transcoder;
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.PNGTranscoder;
+import org.apache.batik.util.XMLResourceDescriptor;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.w3c.dom.Document;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * Restful API for integration with Openproject
@@ -82,6 +89,9 @@ public class RestAPIController {
 
     @Autowired
     ChatMessageRepository chatMessageRepository;
+
+    @Autowired
+    StoryboardService sbService;
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -333,5 +343,129 @@ public class RestAPIController {
         //ArrayList<String> ret = new ArrayList<>();
         //chatMessages.stream().limit(100).forEach((chatMessage) -> ret.add(chatMessage.getContent()));
         return chatMessages;
+    }
+
+    //Store storyboard data
+    @RequestMapping(value = "/storyboard/replicate",  method = RequestMethod.POST)
+    public ApplicationResponse replicateStoryboard(
+            @RequestParam(value = "id") Integer sb_id,
+            @RequestParam(value = "pid") int projetct_id,
+            @RequestParam(value = "uid") int uid,
+            @RequestParam(value = "title") String title,
+            /*@RequestParam(value = "date") Date date,*/
+            @RequestParam(value = "content") String content,
+            @RequestParam(value = "content_thumbnail") String content_thumbnail
+    ){
+        String fileContent = "";
+        try {
+            InputStream inputStream = new ByteArrayInputStream(content_thumbnail.getBytes());
+            OutputStream outputStream = new ByteArrayOutputStream();
+            String parser = XMLResourceDescriptor.getXMLParserClassName();
+            SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
+            Document doc = f.createDocument("http://www.w3.org/2000/svg", inputStream);
+            TranscoderInput input = new TranscoderInput(doc);
+            TranscoderOutput output = new TranscoderOutput(outputStream);
+            Transcoder transcoder = new PNGTranscoder();
+            transcoder.transcode(input, output);
+            outputStream.flush();
+            String base64 = new String(Base64.encodeBase64(((ByteArrayOutputStream) outputStream).toByteArray()));
+            fileContent = "data:".concat("image/png".concat(";base64,").concat(base64));
+            System.out.println(fileContent);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TranscoderException e) {
+            e.printStackTrace();
+        }
+
+        Storyboard sb = new Storyboard();
+        sb.setId(sb_id);
+        sb.setPid(projetct_id);
+        sb.setUserCo(userCoService.findById(uid));
+        sb.setTitle(title);
+        //sb.setCreatedDate(date);
+        sb.setContent(content);
+        sb.setContentThumbnail(fileContent);
+
+        Storyboard newsb = sbService.store(sb);
+        BasicResponseCode responseCode;
+        String responseMessage;
+        if(newsb !=null){
+            responseCode = BasicResponseCode.SUCCESS;
+            responseMessage = "Story board replicated !";
+        }else{
+            responseCode = BasicResponseCode.EXCEPTION;
+            responseMessage = "Story board replication failed !";
+        }
+
+        return new ApplicationResponse(responseCode, responseMessage, newsb);
+    }
+
+
+    public String getTagsForText(String content) {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest.post("http://context.erve.vtt.fi/semantic-enhancer/tags/text").body(content).asJson();
+            List<String> tags = new ArrayList<>();
+            for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
+                JSONObject obj = jsonResponse.getBody().getArray().getJSONObject(i);
+                double relevancy = (double)obj.get("relevancy");
+                Logger.getLogger(RestAPIController.class.getName()).info("obj "+obj.toString());
+                if(relevancy > 0.5){
+                    tags.add((String) obj.get("name"));
+                }
+            }
+            return Joiner.on(",").join(tags);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    public String getTagsForImage(String uri) {
+        try {
+            HttpResponse<JsonNode> jsonResponse = Unirest.get("http://context.erve.vtt.fi/semantic-enhancer/tags?url=http://concept.euprojects.net/"+uri).asJson();
+            List<String> tags = new ArrayList<>();
+            for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
+                JSONObject obj = jsonResponse.getBody().getArray().getJSONObject(i);
+                double relevancy = (double)obj.get("relevancy");
+                if(relevancy > 0.3){
+                    tags.add((String) obj.get("name"));
+                }
+            }
+            return Joiner.on(",").join(tags);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    /*
+     *  POST Methods
+     */
+
+    @RequestMapping(value = "/autoannotate", method = RequestMethod.POST)
+    public String autoAnnotate(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
+
+        int cid = metadata.getCid();
+        String keywords = "";
+        //Brief analysis
+        if(metadata.getComponent().getId().equals("BA")) {
+            BriefAnalysis briefAnalysis = briefAnalysisService.fetchBriefAnalysisById(cid);
+            String content = briefAnalysis.getContent();
+            keywords = getTagsForText(content);
+        }else if(metadata.getComponent().getId().equals("FM")) {
+            keywords = getTagsForImage("file/"+cid);
+        }else if(metadata.getComponent().getId().equals("SK")) {
+            keywords = getTagsForImage("skimage/"+cid);
+        }
+
+        //metadata.setKeywords(keywords);
+        //metadataService.storeMetadata(metadata);
+        //redirectAttributes.addFlashAttribute("projectID", project_id);
+        //return "redirect:/dashboard";
+        return keywords;
     }
 }

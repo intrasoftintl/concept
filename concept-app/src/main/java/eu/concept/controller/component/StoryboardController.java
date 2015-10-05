@@ -1,18 +1,30 @@
 package eu.concept.controller.component;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.body.MultipartBody;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.Storyboard;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.StoryboardService;
+import eu.concept.repository.concept.service.UserCoService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.response.ApplicationResponse;
+import eu.concept.response.BasicResponseCode;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
 
-import java.io.IOException;
+import java.io.*;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
+
+import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,12 +39,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.xml.bind.DatatypeConverter;
 
+
+import org.apache.batik.transcoder.Transcoder;
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.batik.transcoder.image.PNGTranscoder;
+import org.apache.batik.util.XMLResourceDescriptor;
+import org.w3c.dom.Document;
+
+
 /**
  *
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Controller
 public class StoryboardController {
+
+    final static String STORYBOARD_REST_URL = "http://concept-sb.euprojects.net/storyboard/";
 
     @Autowired
     ProjectServiceOp projectServiceOp;
@@ -42,6 +66,11 @@ public class StoryboardController {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    UserCoService userCoService;
+
+
 
     /*
      *  GET Methods 
@@ -112,6 +141,18 @@ public class StoryboardController {
     public String deleteStoryboardByID(Model model, @RequestParam(value = "sb_id", defaultValue = "0", required = false) int sb_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
         Storyboard sb = sbService.fetchStoryboardById(sb_id);
         //On success delete & store notification to Concept db...
+
+
+
+        try {
+            HttpResponse<String> response = Unirest.post(STORYBOARD_REST_URL + "storyboard/remove")
+                    .queryString("idStory", sb_id)
+                    .field("uid", getCurrentUser().getId())
+                    .field("pid", project_id).asString();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+
         if (null != sb && sbService.delete(sb_id)) {
             notificationService.storeNotification(project_id, NotificationTool.SB, NOTIFICATION_OPERATION.DELETED, "a Storyboard (" + sb.getTitle() + ")", sb.getContentThumbnail(), WebController.getCurrentUserCo());
         }
@@ -119,9 +160,17 @@ public class StoryboardController {
     }
 
     @RequestMapping(value = "/sb_app_delete_all", method = RequestMethod.GET)
-    public String deleteStoryboardAllByID(Model model, @RequestParam(value = "sb_id", defaultValue = "0", required = false) int sb_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int projetct_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+    public String deleteStoryboardAllByID(Model model, @RequestParam(value = "sb_id", defaultValue = "0", required = false) int sb_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
         sbService.delete(sb_id);
-        return fetchStoryboardByProjectIDAll(model, projetct_id, limit);
+        try {
+            HttpResponse<String> response = Unirest.post(STORYBOARD_REST_URL + "storyboard/remove")
+                    .queryString("idStory", sb_id)
+                    .field("uid", getCurrentUser().getId())
+                    .field("pid", project_id).asString();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        return fetchStoryboardByProjectIDAll(model, project_id, limit);
     }
 
     /*

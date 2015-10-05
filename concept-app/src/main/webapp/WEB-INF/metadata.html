@@ -25,7 +25,7 @@
 
         <input name="tags" id="tags" th:value="${metadata.keywords}" />
 
-        <form th:object="${metadata}" th:action="@{/autoannotate}" method="post">
+        <form id="autoannotate" th:object="${metadata}" th:action="@{/conceptRest/api/autoannotate}" method="post">
             <!-- Project ID -->
             <input th:type="hidden" th:name="project_id" th:value="${project_id}"/>
             <!-- Metadata ID -->
@@ -79,7 +79,7 @@
             <!-- Metadata description-->
             <input th:type="hidden" th:name="description" th:field="*{description}"  />
 
-            <button type="submit" class="btn btn-success btn-block btn-actions">
+            <button id="autoannotatebtn" type="submit" class="btn btn-success btn-block btn-actions">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
             </button>
         </form>

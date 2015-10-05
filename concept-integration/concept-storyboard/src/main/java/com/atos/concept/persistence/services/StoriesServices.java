@@ -1,16 +1,12 @@
 package com.atos.concept.persistence.services;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
-import org.apache.http.HttpResponse;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -27,6 +23,10 @@ import com.atos.concept.persistence.StoriesSlides;
 import com.atos.concept.persistence.dao.StoriesDao;
 import com.atos.concept.utilities.ConceptConstants;
 
+
+
+
+
 public class StoriesServices {
 
 	private static StoriesDao storiesDao;
@@ -40,8 +40,33 @@ public class StoriesServices {
 	public void persist(Stories story) {
 		storiesDao.openCurrentSessionwithTransaction();
 		storiesDao.persist(story);
-                //REST to insert/update Stroyboard
-                
+		//REST to insert/update Stroyboard
+		Integer id = story.getId();
+		Integer pid = story.getProjectId();
+		Integer uid = new Integer(story.getUserId()); // initial sql type is varchar
+		String title = story.getStoryName();
+		String content = "";
+		String contentThumbnail ="";
+		for( StoriesSlides ss : story.getStoriesSlideses()){
+			if(ss.getSlideOrder() == 0){
+				contentThumbnail = ss.getSlides().getSlideText();
+			}
+			content += ss.getSlides().getSlideText();
+		}
+		try {
+			HttpResponse<JsonNode> jsonResponse = Unirest.post("http://concept.euprojects.net/conceptRest/api/storyboard/replicate/")
+					.queryString("id", id)
+					.field("uid", uid)
+					.field("pid", pid)
+					.field("title",title)
+					.field("content",content)
+					.field("content_thumbnail",contentThumbnail)
+					.asJson();
+			logger.info("RESPONSE---> "+jsonResponse.getBody().toString());
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
+
 		callElasticSearch(story);
 		storiesDao.closeCurrentSessionwithTransaction();
 	}
