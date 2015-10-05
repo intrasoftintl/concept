@@ -1,0 +1,32 @@
+.divSlides {
+	border: 2px solid black;
+	margin: 10px;
+	border-radius: 15px;
+	border-color: #337ab7;
+	width: 90%;
+	height: 140px;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: 700;
+	text-align: center;
+}
+
+.divSlidesFont {
+	
+}
+
+.div1, .div2 {
+	float: left;
+	width: 160px;
+	height: 130px;
+	margin: 5px;
+	padding: 5px;
+	border: 1px solid #aaaaaa;
+}
+
+.verticalLine_left {
+    border-left: 1px solid #000000;
+}
+.verticalLine_right {
+    border-right: 1px solid #000000;
+}
