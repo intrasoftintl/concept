@@ -8,6 +8,7 @@ html, body, div, span, a, nav, ul, li {
 
 a {
     text-decoration:none;
+    cursor: pointer;
 }
 
 body{
