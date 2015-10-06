@@ -195,6 +195,9 @@ public class RestAPIController {
             case "SK":
                 return sketchService.changePublicStatus(component_id, isPublic);
 
+            case "SB":
+                return sbService.changePublicStatus(component_id, isPublic);
+
             default:
                 return 0;
         }
@@ -254,6 +257,16 @@ public class RestAPIController {
                     likes.setSkId(sk);
                 } else {
                     likes.setSkId(null);
+                }
+
+            case "SB":
+                Storyboard sb = new Storyboard(component_id);
+                likes = likesService.findStoryBoardLike(currentUser, sb);
+                if (null == likes) {
+                    likes = new Likes(null, currentUser);
+                    likes.setSbId(sb);
+                } else {
+                    likes.setSbId(null);
                 }
 //                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);

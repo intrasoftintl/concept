@@ -30,4 +30,5 @@ public interface LikesRepository extends JpaRepository<Likes, Integer> {
     //Fetch Sketch  Likes for a spercific User
     public Likes findByUidAndSkId(UserCo user, Sketch sk_id);
 
+
 }

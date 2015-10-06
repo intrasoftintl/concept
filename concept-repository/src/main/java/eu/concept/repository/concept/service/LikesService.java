@@ -1,12 +1,8 @@
 package eu.concept.repository.concept.service;
 
 import eu.concept.repository.concept.dao.LikesRepository;
-import eu.concept.repository.concept.domain.BriefAnalysis;
-import eu.concept.repository.concept.domain.FileManagement;
-import eu.concept.repository.concept.domain.Likes;
-import eu.concept.repository.concept.domain.MindMap;
-import eu.concept.repository.concept.domain.Sketch;
-import eu.concept.repository.concept.domain.UserCo;
+import eu.concept.repository.concept.domain.*;
+
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +31,10 @@ public class LikesService {
 
     public Likes findSketchLike(UserCo user, Sketch sketch) {
         return likesRepo.findByUidAndSkId(user, sketch);
+    }
+
+    public Likes findStoryBoardLike(UserCo user, Storyboard storyboard) {
+        return likesRepo.findByUidAndSbId(user, storyboard);
     }
 
     public boolean storeLikes(Likes likes) {
