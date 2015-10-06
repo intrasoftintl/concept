@@ -34,13 +34,7 @@
             <input th:type="hidden" th:name="cid" th:field="*{cid}" />
             <!-- Component name -->
             <input th:type="hidden" th:name="component" th:field="*{component.id}"/>
-            <!-- Metadata keywords-->
-            <input th:type="hidden" th:name="keyword" th:field="${metadata.keywords}"  id="keywords"/>
-            <!-- Metadata categories-->
-            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>
-            <!-- Metadata description-->
-            <input th:type="hidden" th:name="description" th:field="*{description}"  />
-            <button type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
+            <button id="autoannotatebtn" type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
                 <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
             </button>
         </form>
@@ -79,7 +73,7 @@
             <!-- Metadata description-->
             <input th:type="hidden" th:name="description" th:field="*{description}"  />
 
-            <button id="autoannotatebtn" type="submit" class="btn btn-success btn-block btn-actions">
+            <button type="submit" class="btn btn-success btn-block btn-actions">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
             </button>
         </form>

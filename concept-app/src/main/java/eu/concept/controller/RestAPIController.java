@@ -425,6 +425,7 @@ public class RestAPIController {
 
     public String getTagsForImage(String uri) {
         try {
+            //System.out.println("RESPONSE "+uri);
             HttpResponse<JsonNode> jsonResponse = Unirest.get("http://context.erve.vtt.fi/semantic-enhancer/tags?url=http://concept.euprojects.net/"+uri).asJson();
             List<String> tags = new ArrayList<>();
             for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
@@ -460,6 +461,8 @@ public class RestAPIController {
             keywords = getTagsForImage("file/"+cid);
         }else if(metadata.getComponent().getId().equals("SK")) {
             keywords = getTagsForImage("skimage/"+cid);
+        }else if(metadata.getComponent().getId().equals("SB")){
+            keywords = getTagsForImage("sbimage/"+cid);
         }
 
         //metadata.setKeywords(keywords);
