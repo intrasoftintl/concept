@@ -259,6 +259,8 @@ public class RestAPIController {
                     likes.setSkId(null);
                 }
 
+                return (likesService.storeLikes(likes) ? 1 : 0);
+
             case "SB":
                 Storyboard sb = new Storyboard(component_id);
                 likes = likesService.findStoryBoardLike(currentUser, sb);
@@ -343,12 +345,11 @@ public class RestAPIController {
 //        return new ResponseEntity(null, httpHeaders, HttpStatus.CREATED);
 //
 //    }
-
     //Fetch 100 of the most recent chat messages for project_id
     @RequestMapping(value = "/chatmessages/{project_id}", method = RequestMethod.GET)
-    public List<ChatMessage> chatMessagesForProject(@PathVariable int project_id){
+    public List<ChatMessage> chatMessagesForProject(@PathVariable int project_id) {
 
-        List<ChatMessage> chatMessages= chatMessageRepository.findTop100ByPidOrderByCreatedDateDesc(project_id);
+        List<ChatMessage> chatMessages = chatMessageRepository.findTop100ByPidOrderByCreatedDateDesc(project_id);
 
         Collections.reverse(chatMessages);
 
@@ -359,7 +360,7 @@ public class RestAPIController {
     }
 
     //Store storyboard data
-    @RequestMapping(value = "/storyboard/replicate",  method = RequestMethod.POST)
+    @RequestMapping(value = "/storyboard/replicate", method = RequestMethod.POST)
     public ApplicationResponse replicateStoryboard(
             @RequestParam(value = "id") Integer sb_id,
             @RequestParam(value = "pid") int projetct_id,
@@ -368,7 +369,7 @@ public class RestAPIController {
             /*@RequestParam(value = "date") Date date,*/
             @RequestParam(value = "content") String content,
             @RequestParam(value = "content_thumbnail") String content_thumbnail
-    ){
+    ) {
         String fileContent = "";
         try {
             InputStream inputStream = new ByteArrayInputStream(content_thumbnail.getBytes());
@@ -403,10 +404,10 @@ public class RestAPIController {
         Storyboard newsb = sbService.store(sb);
         BasicResponseCode responseCode;
         String responseMessage;
-        if(newsb !=null){
+        if (newsb != null) {
             responseCode = BasicResponseCode.SUCCESS;
             responseMessage = "Story board replicated !";
-        }else{
+        } else {
             responseCode = BasicResponseCode.EXCEPTION;
             responseMessage = "Story board replication failed !";
         }
@@ -414,16 +415,15 @@ public class RestAPIController {
         return new ApplicationResponse(responseCode, responseMessage, newsb);
     }
 
-
     public String getTagsForText(String content) {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest.post("http://context.erve.vtt.fi/semantic-enhancer/tags/text").body(content).asJson();
             List<String> tags = new ArrayList<>();
             for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
                 JSONObject obj = jsonResponse.getBody().getArray().getJSONObject(i);
-                double relevancy = (double)obj.get("relevancy");
-                Logger.getLogger(RestAPIController.class.getName()).info("obj "+obj.toString());
-                if(relevancy > 0.5){
+                double relevancy = (double) obj.get("relevancy");
+                Logger.getLogger(RestAPIController.class.getName()).info("obj " + obj.toString());
+                if (relevancy > 0.5) {
                     tags.add((String) obj.get("name"));
                 }
             }
@@ -435,16 +435,15 @@ public class RestAPIController {
         return "";
     }
 
-
     public String getTagsForImage(String uri) {
         try {
             //System.out.println("RESPONSE "+uri);
-            HttpResponse<JsonNode> jsonResponse = Unirest.get("http://context.erve.vtt.fi/semantic-enhancer/tags?url=http://concept.euprojects.net/"+uri).asJson();
+            HttpResponse<JsonNode> jsonResponse = Unirest.get("http://context.erve.vtt.fi/semantic-enhancer/tags?url=http://concept.euprojects.net/" + uri).asJson();
             List<String> tags = new ArrayList<>();
             for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
                 JSONObject obj = jsonResponse.getBody().getArray().getJSONObject(i);
-                double relevancy = (double)obj.get("relevancy");
-                if(relevancy > 0.3){
+                double relevancy = (double) obj.get("relevancy");
+                if (relevancy > 0.3) {
                     tags.add((String) obj.get("name"));
                 }
             }
@@ -459,23 +458,22 @@ public class RestAPIController {
     /*
      *  POST Methods
      */
-
     @RequestMapping(value = "/autoannotate", method = RequestMethod.POST)
     public String autoAnnotate(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
 
         int cid = metadata.getCid();
         String keywords = "";
         //Brief analysis
-        if(metadata.getComponent().getId().equals("BA")) {
+        if (metadata.getComponent().getId().equals("BA")) {
             BriefAnalysis briefAnalysis = briefAnalysisService.fetchBriefAnalysisById(cid);
             String content = briefAnalysis.getContent();
             keywords = getTagsForText(content);
-        }else if(metadata.getComponent().getId().equals("FM")) {
-            keywords = getTagsForImage("file/"+cid);
-        }else if(metadata.getComponent().getId().equals("SK")) {
-            keywords = getTagsForImage("skimage/"+cid);
-        }else if(metadata.getComponent().getId().equals("SB")){
-            keywords = getTagsForImage("sbimage/"+cid);
+        } else if (metadata.getComponent().getId().equals("FM")) {
+            keywords = getTagsForImage("file/" + cid);
+        } else if (metadata.getComponent().getId().equals("SK")) {
+            keywords = getTagsForImage("skimage/" + cid);
+        } else if (metadata.getComponent().getId().equals("SB")) {
+            keywords = getTagsForImage("sbimage/" + cid);
         }
 
         //metadata.setKeywords(keywords);

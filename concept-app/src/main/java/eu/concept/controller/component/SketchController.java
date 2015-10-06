@@ -11,10 +11,7 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 
 /**
@@ -58,7 +54,6 @@ public class SketchController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
-        model.addAttribute("currentUser", getCurrentUser());
         return "sk_all";
     }
 
@@ -76,6 +71,7 @@ public class SketchController {
         model.addAttribute("skContents", skService.fetchSketchesByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
         model.addAttribute("totalFiles", skService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "sk :: skContentAllList";
     }
 
@@ -96,7 +92,6 @@ public class SketchController {
         model.addAttribute("currentUser", getCurrentUser());
         return "sk_app";
     }
-
 
     //Fetch an image
     @RequestMapping(value = "/skimage/{sk_id}", produces = MediaType.ALL_VALUE)

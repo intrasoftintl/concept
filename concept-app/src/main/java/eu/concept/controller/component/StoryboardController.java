@@ -1,10 +1,8 @@
 package eu.concept.controller.component;
 
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.body.MultipartBody;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.Storyboard;
@@ -13,18 +11,13 @@ import eu.concept.repository.concept.service.StoryboardService;
 import eu.concept.repository.concept.service.UserCoService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
-import eu.concept.response.ApplicationResponse;
-import eu.concept.response.BasicResponseCode;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
 
 import java.io.*;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,13 +33,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.xml.bind.DatatypeConverter;
 
 
-import org.apache.batik.transcoder.Transcoder;
-import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.PNGTranscoder;
-import org.apache.batik.util.XMLResourceDescriptor;
-import org.w3c.dom.Document;
 
 
 /**
