@@ -480,6 +480,7 @@ body{
     font-size:13px;
     color:#aaa;
     border-bottom:1px solid #eee;
+    word-wrap: break-word;
 }
 
 .nav-chat .nav-content .chat-list .chat-user {
