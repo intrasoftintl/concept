@@ -32,9 +32,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.xml.bind.DatatypeConverter;
 
-
-
-
 /**
  *
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
@@ -56,8 +53,6 @@ public class StoryboardController {
     @Autowired
     UserCoService userCoService;
 
-
-
     /*
      *  GET Methods 
      */
@@ -65,7 +60,8 @@ public class StoryboardController {
     public String sb_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
+
+        System.out.println("Current User: " + getCurrentUser().getId());
         model.addAttribute("currentUser", getCurrentUser());
         return "sb_all";
     }
@@ -83,8 +79,9 @@ public class StoryboardController {
     @RequestMapping(value = "/storyboards_all/{project_id}", method = RequestMethod.GET)
     public String fetchStoryboardByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         model.addAttribute("sbContents", sbService.fetchStoryboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
-        model.addAttribute("totalFiles", sbService.countFilesById(project_id, WebController.getCurrentRole()));
+//        model.addAttribute("totalFiles", sbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
         return "sb :: sbContentAllList";
     }
 
@@ -128,8 +125,6 @@ public class StoryboardController {
         Storyboard sb = sbService.fetchStoryboardById(sb_id);
         //On success delete & store notification to Concept db...
 
-
-
         try {
             HttpResponse<String> response = Unirest.post(STORYBOARD_REST_URL + "storyboard/remove")
                     .queryString("idStory", sb_id)
@@ -162,7 +157,6 @@ public class StoryboardController {
     /*
      *  POST Methods 
      */
-
     @RequestMapping(value = "/sb_all", method = RequestMethod.POST)
     public String sb_all_post(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -170,5 +164,5 @@ public class StoryboardController {
         model.addAttribute("currentUser", getCurrentUser());
         return "sb_all";
     }
-    
+
 }

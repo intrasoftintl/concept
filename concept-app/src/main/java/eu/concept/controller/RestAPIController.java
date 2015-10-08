@@ -395,7 +395,7 @@ public class RestAPIController {
         Storyboard sb = new Storyboard();
         sb.setId(sb_id);
         sb.setPid(projetct_id);
-        sb.setUserCo(userCoService.findById(uid));
+        sb.setUid(userCoService.findById(uid));
         sb.setTitle(title);
         //sb.setCreatedDate(date);
         sb.setContent(content);

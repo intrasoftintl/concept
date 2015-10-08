@@ -1,5 +1,5 @@
 //Static variables
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 var DEBUG_PROMPT = "[DEBUG] ";
 var MEMBERSHIPS_REST_URL = "/conceptRest/api/memberships/";
 var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
@@ -158,10 +158,10 @@ function createStoryboard() {
     window.open(url, '_blank');
 }
 
-function editStoryboard(sbid){
+function editStoryboard(sbid) {
     var projectID = $("#projectID").val();
     var userID = $("#userID").val();
-    var url = STORYBOARD_REST_URL + "storyboard/edit?pid=" + projectID + "&uid=" + userID +"&idStory="+sbid;
+    var url = STORYBOARD_REST_URL + "storyboard/edit?pid=" + projectID + "&uid=" + userID + "&idStory=" + sbid;
     window.open(url, '_blank');
 }
 
@@ -494,6 +494,12 @@ function deleteSKItem(sk_id, project_id) {
     $("#sk-all").load("/sk_app_delete_all?sk_id=" + sk_id + "&project_id=" + project_id + "&limit=200");
 }
 
+
+function deleteSBItem(sb_id, project_id) {
+    $("#sb-all").load("/sb_app_delete_all?sb_id=" + sb_id + "&project_id=" + project_id + "&limit=200");
+}
+
+
 function addProjectIDToForm(formName) {
     $("#" + formName).submit(function (eventObj) {
         $('<input />').attr('type', 'hidden')
@@ -528,9 +534,9 @@ $('#chat-message').keyup(function (e) {
 }).focus();
 
 $("#notification").ready(
-    function () {
-        setTimeout(function () {
-            $("#notification").hide()
-        }, 4000);
-    }
+        function () {
+            setTimeout(function () {
+                $("#notification").hide()
+            }, 4000);
+        }
 );

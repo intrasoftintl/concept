@@ -13,7 +13,7 @@
                 <tbody>            
                     <tr th:each="sbContent : ${sbContents}">
                         <td><a th:attr="onclick=@{'editStoryboard(' + ${sbContent.id}  +')'}"><img  th:src="${sbContent.contentThumbnail}" class="img-thumbnail" /></a></td>
-                        <td class="truncate"><span th:text="@{${sbContent.userCo.firstName} + ' '+ ${sbContent.userCo.lastName} + ' (' +  ${sbContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(sbContent.createdDate,0,16)}"></span></td>
+                        <td class="truncate"><span th:text="@{${sbContent.uid.firstName} + ' '+ ${sbContent.uid.lastName} + ' (' +  ${sbContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(sbContent.createdDate,0,16)}"></span></td>
                         <td>
                             <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${sbContent.id}  +',\'SB\','+${sbContent.pid}+',this)'}">
                                 <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
@@ -56,19 +56,20 @@
             </thead>
             <tbody>
                 <tr th:each="sbContent : ${sbContents}">
-                    <td><a th:href="@{'http://conceptmap.euprojects.net/wisemapping/c/maps/' +${sbContent.id} + '/' + ${currentUserID} +  '/edit'}" target="_blank"><img src="/resources/img/fm_generic_mm.png" class="img-thumbnail" /></a></td>
+                    <td><a th:attr="onclick=@{'editStoryboard(' + ${sbContent.id}  +')'}"><img  th:src="${sbContent.contentThumbnail}" class="img-thumbnail" /></a></td>
                     <td class="truncate"><span class="file-title" th:text="${sbContent.title}"></span><br/><span class="file-user" th:text="@{${sbContent.uid.firstName} + ' '+ ${sbContent.uid.lastName} + ' (' +  ${sbContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(sbContent.createdDate,0,16)}"></span></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${sbContent.id}  +',\'SB\','+${sbContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
-                        <button class="action-button" th:attr="onclick=@{ 'deleteBAItem(' + ${sbContent.id}  +','+ ${sbContent.pid}+ ')' }" >
-                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
-                        </button>
-                        &nbsp;
 
-                        <span th:id="@{'SB' + ${sbContent.id} }" th:attr="onclick=@{'setIsPublic(\'SB\','+${sbContent.id} } +')' " th:classappend="(${sbContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                        <span th:id="@{'LikeSB' + ${sbContent.id} }" th:attr="onclick=@{'like(\'SB\','+${sbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${sbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''" aria-hidden="true"></span> <span th:id="@{'LikeCountSB' + ${sbContent.id} }" th:text="${#arrays.length(sbContent.getLikes())}" class="label label-warning"></span>
+                        <button class="action-button" th:attr="onclick=@{ 'deleteSBItem(' + ${sbContent.id}  +','+ ${sbContent.pid}+ ')' }" >
+                                <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            </button>
+                            &nbsp;
+
+                            <span th:id="@{'SB' + ${sbContent.id} }" th:attr="onclick=@{'setIsPublic(\'SB\','+${sbContent.id} } +')' " th:classappend="(${sbContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                            <span th:id="@{'LikeSB' + ${sbContent.id} }" th:attr="onclick=@{'like(\'SB\','+${sbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${sbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountSB' + ${sbContent.id} }" th:text="${#arrays.length(sbContent.getLikes())}" class="label label-warning"></span>
                     </td>
                 </tr>
             </tbody>

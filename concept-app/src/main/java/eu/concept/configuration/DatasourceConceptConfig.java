@@ -48,7 +48,7 @@ public class DatasourceConceptConfig {
         mysqlXaDataSource.setUrl(datasourceConceptProperties.getUrl());
         mysqlXaDataSource.setUser(datasourceConceptProperties.getUsername());
         mysqlXaDataSource.setPassword(datasourceConceptProperties.getPassword());
-        //
+        mysqlXaDataSource.setAutoReconnect(true);
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
