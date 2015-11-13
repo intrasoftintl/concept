@@ -62,7 +62,7 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=projects" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                     <span th:case="'DESIGNER'">
                         <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
