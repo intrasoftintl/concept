@@ -461,6 +461,7 @@ public class RestAPIController {
     @RequestMapping(value = "/autoannotate", method = RequestMethod.POST)
     public String autoAnnotate(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
 
+
         int cid = metadata.getCid();
         String keywords = "";
         //Brief analysis
