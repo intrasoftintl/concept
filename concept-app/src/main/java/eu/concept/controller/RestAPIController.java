@@ -417,7 +417,7 @@ public class RestAPIController {
 
     public String getTagsForText(String content) {
         try {
-            HttpResponse<JsonNode> jsonResponse = Unirest.post("http://context.erve.vtt.fi/semantic-enhancer/tags/text").body(content).asJson();
+            HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8081/semantic-enhancer/tags/text").body(content).asJson();
             List<String> tags = new ArrayList<>();
             for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
                 JSONObject obj = jsonResponse.getBody().getArray().getJSONObject(i);
@@ -438,7 +438,7 @@ public class RestAPIController {
     public String getTagsForImage(String uri) {
         try {
             //System.out.println("RESPONSE "+uri);
-            HttpResponse<JsonNode> jsonResponse = Unirest.get("http://context.erve.vtt.fi/semantic-enhancer/tags?url=http://concept.euprojects.net/" + uri).asJson();
+            HttpResponse<JsonNode> jsonResponse = Unirest.get("http://localhost:8081/semantic-enhancer/tags?url=http://concept.euprojects.net/" + uri).asJson();
             List<String> tags = new ArrayList<>();
             for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
                 JSONObject obj = jsonResponse.getBody().getArray().getJSONObject(i);
