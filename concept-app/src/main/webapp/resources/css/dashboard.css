@@ -502,6 +502,7 @@ body{
     position:relative;
     bottom: -30px;
     padding: 0;
+	display:block;
 }
 
 .nav-chat .nav-content .chat-actions{
