@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.atos.concept.persistence.Sketches;
+import com.atos.concept.persistence.services.SketchesServices;
+
+
 /**
  * Servlet implementation class SlidesServlet
  */
@@ -44,7 +48,11 @@ public class NewSlideServlet extends HttpServlet {
             logger.error(ex.getStackTrace());
         }
         logger.info("ProjectId: " + projectId + " , UserId: " + userId);
-
+        /* storing sketches on the request */
+		Sketches sketch = new Sketches();		
+		sketch.setIdProject(projectId);
+		req.setAttribute("sketches", sketchesService.findBySketches(sketch));
+		
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/new_slide.jsp");
         System.out.println("I am in servlet new slid, pid is: " + req.getParameter("pid"));
         dispatcher.forward(req, response);
