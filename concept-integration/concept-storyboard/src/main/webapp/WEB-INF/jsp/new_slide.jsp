@@ -85,12 +85,12 @@
 		<table width="100%">
 			<tr align="left">
 				<td width="980px" style=" text-align: left;" >
-					<iframe src="svg-edit-2.6/svg-editor.html" id="idIframe" width="960" height="550"></iframe>
+					<iframe src="../svg-edit-2.6/svg-editor.html" id="idIframe" width="960" height="550"></iframe>
 				</td>
 				<td style="text-align: left; vertical-align: top;">
 					<fmt:message key="newslide.images" /><br>
 					<c:forEach var="mySketch" items="${sketches}">
-						${mySketch.sketchName}  <br/>
+						${mySketch.name}  <br/>
 					</c:forEach>
 				</td>
 			</tr>
