@@ -60,10 +60,10 @@ public class EditSlideServlet extends HttpServlet {
         req.setAttribute(ConceptConstants.REQUEST_SLIDE, slide);
         req.setAttribute(ConceptConstants.REQUEST_IS_UPDATE, true);        
         /* storing sketches on the request */
-		Sketches sketch = new Sketches();		
-		sketch.setIdProject(projectId);
-		req.setAttribute("sketches", sketchesService.findBySketches(sketch));        
-        
+        Sketches sketch = new Sketches();
+        SketchesServices sketchesService = new SketchesServices();
+        sketch.setIdProject(projectId);
+        req.setAttribute("sketches", sketchesService.findBySketches(sketch));                
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/new_slide.jsp");
         dispatcher.forward(req, resp);
     }
