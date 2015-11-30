@@ -49,10 +49,10 @@ public class NewSlideServlet extends HttpServlet {
         }
         logger.info("ProjectId: " + projectId + " , UserId: " + userId);
         /* storing sketches on the request */
-		Sketches sketch = new Sketches();		
-		sketch.setIdProject(projectId);
-		req.setAttribute("sketches", sketchesService.findBySketches(sketch));
-		
+        Sketches sketch = new Sketches();
+        sketch.setIdProject(projectId);
+        SketchesServices sketchesService = new SketchesServices();
+        req.setAttribute("sketches", sketchesService.findBySketches(sketch));
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/new_slide.jsp");
         System.out.println("I am in servlet new slid, pid is: " + req.getParameter("pid"));
         dispatcher.forward(req, response);
