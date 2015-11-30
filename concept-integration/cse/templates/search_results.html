@@ -1,0 +1,96 @@
+<head>
+	<link type="text/css" rel="stylesheet" href="static/css/styles.css">
+</head>
+
+
+<html>
+
+<form id="prev" method="post" action="{{ s_type }}">
+					<input type="hidden" name="user" id="user" value="{{ user }}">
+					<input type="hidden" name="project" id="project" value="{{ project }}">
+					<input type="hidden" name="search_param" value="{{search_param}}"> 
+					<input type="hidden" name="page" value="{{page-1}}">
+</form>
+
+<form id="next" method="post" action="{{ s_type }}">
+					<input type="hidden" name="user" id="user" value="{{ user }}">
+					<input type="hidden" name="project" id="project" value="{{ project }}">
+					<input type="hidden" name="search_param" value="{{search_param}}"> 
+					<input type="hidden" name="page" value="{{page+1}}">
+</form>
+
+<div class="container">
+
+	<div class="search_body" style="height:92%">
+		
+		<div class="pagination">
+			<p style="font-weight:bold;text-align:center;font-size:16pt">
+				<span style="margin-right:30px">				
+					<a href="javascript:{}" 
+						{% if page > 1 %}
+						onclick="document.getElementById('prev').submit(); return false;"
+						{% end %}
+						><--</a>
+				<!-- <span style="margin-right:30px">{{ total }} results matching</span>
+				<span style="margin-right:30px">Page {{page}}/{{ total//10 + 1}}</span> -->
+				{{ total }} results matching Page {{page}}/{{ total//10 + 1}}
+					<a href="javascript:{}" 
+					{% if page < (total//10 + 1) %}
+					onclick="document.getElementById('next').submit(); return false;"
+					{% end %}
+					>--></a>
+				</span>
+			</p>
+		</div>
+		
+		<div class="search_results">
+			{% for item in list_results %}
+			<div class="result">
+				<!--
+				<div class="thumbnail">
+					<img class="thumbnail" src="creativity.png"></img>
+				</div>
+				-->
+				<div class="result_field">
+					<p><b>Title</b>: {{item["_source"].get("title","")}}</p>
+					<p><b>Description</b>: {{item["_source"].get("description","")}}</p>
+					<p>
+						<span style="margin-right:15px;"><b>Domain</b>: {{item["_source"].get("domain","")}}</span>
+						<span style="margin-right:15px;"><b>URL</b>: <a style="color:#f0f0ff;" href="{{item['_source'].get('url','')}}">
+						{{item["_source"].get("url",'')}}</a></span>
+					</p>
+					<p>
+						<span style="margin-right:15px;"><b>Type</b>: {{ item["_source"].get("content-type","") }}</span>
+						<span style="margin-right:15px;"><b>Origin</b>: {{item["_source"].get("origin","")}}</span>
+						<span style="margin-right:15px;"><b>Status</b>: {{ item["_source"].get("status","") }}</span>
+						<span style="margin-right:15px;"><b>Version</b>: {{ item["_source"].get("version","") }}</span>
+						<span style="margin-right:15px;"><b>Language</b>: {{ item["_source"].get("language","") }}</span>
+						<span style="margin-right:15px;display:inline"><b>Rating </b>:
+						{% for start in range(0,int(round(item["_source"].get("rating",{} ).get("rating",0 )))) %}
+							<img height="16px" width="16px" src="static/star.png"></img>
+						{% end %}
+						</span>
+					</p>
+					<p class="semantic_field">
+						<b>Categories:</b>
+						{% for e in item["_source"].get("categories",[])  %}
+						<div class="tag">{{ e }}</div>
+						{% end %}
+					</p>
+					<p class="semantic_field">
+						<b>Keywords:</b>
+						{% for e in item["_source"].get("keywords",[]) %}
+						<div class="tag">{{ e }}</div>
+						{% end %}
+					</p>
+				</div>
+			</div>
+			{% end %}
+		
+		</div>
+	</div>
+
+</div>
+
+
+</html>

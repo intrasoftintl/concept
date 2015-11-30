@@ -1,0 +1,59 @@
+<html>
+
+<head>
+	<link type="text/css" rel="stylesheet" href="static/css/styles.css">
+	<script type="text/javascript" src="static/lib/jquery.js"></script>
+	<!-- <script type="text/javascript" src="static/lib/basic_search.js"></script> -->
+</head>
+
+<!--
+<script>
+	var hits;
+        console.log("We are here...");
+	function fSubmitForm() {
+                console.log("Launching query...");
+		hits = executeBasicSearchQuery($('#search_param').val());
+		console.log('Hits -> ' + hits);
+		paginateItems(hits,0);
+	}
+</script>
+-->
+
+<div class="container">
+
+	<div class="tab_line">
+		<div class="tab tab_selected"><span class="style:margin-left: auto;margin-right: auto;">Basic search</span></div>
+		</div>
+	
+	<div class="search_body" style="height:92%">
+		<div class="search_fields">
+			<div style="margin:10px 5px; vertical-align:middle">
+				<form method="post" action="/basic_search_results">
+					<input type="hidden" name="user" id="user" value="{{ user }}">
+					<input type="hidden" name="project" id="project" value="{{ project }}">
+					<b><span style="color:#00a0ff">Search text</span></b>: 
+					<input class="search_text" type="text" name="search_param" id="search_param" value="">
+					<div style="margin-top:10px; vertical-align:middle">
+						<button class="search_button" type="submit" value="Search">Search</button>
+						<button class="search_button" type="reset" value="Reset">Reset</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<!--<div class="pagination">
+			<p style="font-weight:bold;text-align:center;font-size:16pt">
+				<span style="margin-right:30px">2 results matching</span>
+				<span style="margin-right:30px">Page 1/1</span>
+				<span style="margin-right:30px">Results per page <select style="margin-right:20px;padding:3px;"><option>10</option></select></span>
+			</p>
+		</div>-->
+		
+		<div class="search_results" id='search_results'>
+		</div>
+	</div>
+
+</div>
+
+
+</html>

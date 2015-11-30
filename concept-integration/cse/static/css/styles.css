@@ -1,0 +1,146 @@
+body {
+    font-family: Calibri;
+    color:#f0f0ff;
+    font-size:12pt;
+}
+div.container {
+    margin-top:20px;
+    width:75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.tab_line {
+    color: #00a0ff;
+}
+
+div.tab {
+    position : relative;
+    display : inline-block;
+    width : 200px;
+    height: 20px;
+    background: #f0f0ff;
+    padding: 10px;
+    border: 2px solid #00a0ff;
+    border-radius: 15px 15px 0px 0px;
+    vertical-align:middle;
+    margin-left: 20px;
+    z-index:1;
+    font-size:14pt;
+    font-weight:bold;
+}
+
+div.tab_selected {
+    border-bottom: 2px solid #f0f0ff;
+}
+
+div.tab_unselected {
+    background:#00b0ff;
+    color:#0020ff;
+}
+
+div.search_body {
+    width : 100%;
+    height : 94%;
+    margin-top: -2px;
+    display : inline-block;
+    background: #f0f0ff;
+    border: 2px solid #00a0ff;
+    border-radius: 15px 15px 15px 15px;
+    z-index:0;
+}
+
+div.search_fields {
+    width : 100%;
+    height : 10%;
+    display : inline-block;
+    background:#f0f0ff;
+    border-radius: 15px 15px 0px 0px;
+    vertical-align:middle;
+}
+
+div.pagination {
+    position : relative;
+    width : 95%;
+    height : 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background:#0070ff;
+    border-radius : 15px;
+    margin-bottom : 6px;
+}
+
+div.search_results {
+    width : 100%;
+    height : 85%;
+    display : inline-block;
+}
+
+.search_text {
+    padding:5px;
+    width:400px;
+}
+
+.search_button {
+    width:100px;
+    height:auto;
+    padding:10px;
+    border:0px solid red;
+    border-radius:6px;
+    background:#00a0ff;
+    font-family:Calibri;
+    font-size:14pt;
+    font-weight:bold;
+    color:#f0f0ff;
+}
+
+div.result {
+    position:relative;
+    width:90%;
+    height:auto;
+    background:#00a0ff;
+    border-radius:15px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 10px;
+    margin-bottom:4px;
+}
+
+div.tag {
+    position:relative;
+    display:inline-block;
+    border-radius:15px;
+    background:#0070ff;
+    color:#f0f0ff;
+    padding: 6px 25px;
+    font-weight:bold;
+    margin-left:10px;
+}
+
+p.semantic_field {
+    display:inline-block;
+    margin:0;
+}
+
+div.thumbnail {
+    display:inline;
+    width:30%;
+    height:40%;
+}
+
+img.thumbnail {
+    height : 150px;
+    width  : 150px;
+    vertical-align:35px;
+}
+
+div.result_field {
+    display:inline-block;
+    margin-left:5%;
+    width:80%;
+}
+
+.search_criteria {
+    color:#00a0ff;
+    margin-bottom:8px;
+ }

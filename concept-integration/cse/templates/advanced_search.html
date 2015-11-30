@@ -1,0 +1,111 @@
+<head>
+	<link type="text/css" rel="stylesheet" href="static/css/styles.css">
+	<script type="text/javascript" src="static/lib/jquery.js"></script>
+	<script type="text/javascript" src="static/lib/advanced_search.js"></script>
+</head>
+
+
+<html>
+
+<div class="container">
+
+	<div class="tab_line">
+		<div class="tab tab_selected">Advanced search</div>
+	</div>
+	
+	<div class="search_body" style="height:65%">
+		<div class="search_fields:height:auto; display:inline-table">
+			<div style="margin:10px 5px; vertical-align:middle; ">
+				<form method="post" id="form1" action="/advanced_search_results">
+					<input type="hidden" name="user" id="user" value="{{ user }}">
+					<input type="hidden" name="project" id="project" value="{{ project }}">
+					
+					<b><span class="search_criteria">Title: </span></b>
+						<input style="margin-right:20px; padding:5px; width:200px;" type="text" name="title" value="">
+					
+					<b><span class="search_criteria">Origin: </span></b>
+						<input style="margin-right:20px; padding:5px; width:200px;" type="text" name="origin" value="">
+					
+					<br/><br/>
+					
+					<b><span style="color:#00a0ff">Description: </span></b>
+						<input style="margin-right:20px; padding:5px; width:200px;" type="text" name="description" value="">
+					
+					<b><span class="search_criteria">Content Text: </span></b>
+						<input style="margin-right:20px; padding:5px; width:200px;" type="text" name="content-text" value="">
+					
+					<br/><br/>
+					
+					<b><span class="search_criteria">Type: </b></span>
+					<select style="margin-right:20px;padding:5px;" name="type">
+						<option value="" selected></option>
+						<option>Web document</option>
+					</select>
+					
+					<b><span class="search_criteria">Language: </b></span>
+					<select style="margin-right:20px;padding:5px;" name="language_name">
+						<option value="" selected></option>
+						{% for language in listLanguages %}
+							<option>{{language}}</option>
+						{% end %}
+					</select>
+					
+					<b><span class="search_criteria">Categories: </b></span>
+					<select style="margin-right:20px;padding:5px;" name="categories">
+						<option value="" selected></option>
+						{% for category in listCategories %}
+							<option>{{category}}</option>
+						{% end %}
+					</select>
+					
+					<br/><br/>
+					
+					<b><span class="search_criteria">Keywords: </b></span>
+					<select style="margin-right:20px;padding:5px;" name="keywords">
+						<option value="" selected></option>
+					{% for keyword in listKeywords %}
+						<option>{{keyword}}</option>
+					{% end %}
+					</select>
+					
+					<b><span class="search_criteria">Status: </b></span>
+					<select style="margin-right:20px;padding:5px;" name="status">
+						<option value="" selected></option>
+						<option>Published</option>
+					</select>
+					
+					<b><span class="search_criteria">Rating: </b></span>
+					<select style="margin-right:20px;padding:5px;" name="rating">
+						<option value="" selected></option>
+						<option value=1>1</option>
+						<option value=2>2</option>
+						<option value=3>3</option>
+						<option value=4>4</option>
+						<option value=5>5</option>
+					</select>
+					
+					<br/><br/>
+					
+					<form>
+					<span class="search_criteria"><input type="radio" name="s_type" value="inclusive" checked><b>Inclusive Search</b></span>
+					<span class="search_criteria"><input type="radio" name="s_type" value="exclusive"><b>Exclusive Search</b></span>
+					</form>
+
+					
+					<div style="margin-top:10px; vertical-align:middle">
+						<button class="search_button" form="form1" type="submit" value="Search">Search</button>
+						<button class="search_button" form="form1" type="reset" value="reset">Reset</button>
+					</div>
+					
+				</form>
+			</div>
+
+				
+		</div>
+
+	</div>
+
+</div>
+
+
+</html>
