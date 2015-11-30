@@ -52,7 +52,6 @@ public class Notification implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Lob
-    @Size(min = 1, max = 2147483647)
     @Column(name = "thumbnail")
     private String thumbnail;
     @Basic(optional = false)

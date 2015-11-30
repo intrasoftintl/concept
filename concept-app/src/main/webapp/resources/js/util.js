@@ -499,6 +499,12 @@ function deleteSBItem(sb_id, project_id) {
     $("#sb-all").load("/sb_app_delete_all?sb_id=" + sb_id + "&project_id=" + project_id + "&limit=200");
 }
 
+function deleteMMItem(sb_id, project_id) {
+    $("#mm-all").load("/mm_app_delete_all?mm_id=" + sb_id + "&project_id=" + project_id + "&limit=200");
+}
+
+
+
 
 function addProjectIDToForm(formName) {
     $("#" + formName).submit(function (eventObj) {

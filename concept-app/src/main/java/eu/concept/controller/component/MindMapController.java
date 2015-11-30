@@ -41,13 +41,6 @@ public class MindMapController {
     /*
      *  GET Methods 
      */
-//    @RequestMapping(value = "/mm_all", method = RequestMethod.GET)
-//    public String mm_all(Model model) {
-//        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-//        model.addAttribute("projects", projects);
-//        model.addAttribute("currentUser", getCurrentUser());
-//        return "mm_all";
-//    }
 
     @RequestMapping(value = "/mindmap/{project_id}", method = RequestMethod.GET)
     public String fetchMMByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
@@ -68,24 +61,6 @@ public class MindMapController {
         return "mm :: mmContentAllList";
     }
 
-    //TODO: Show succes/error message on save
-    @RequestMapping(value = "/mm_app/{mm_id}", method = RequestMethod.GET)
-    public String fetchMindMapByID(Model model, @PathVariable int mm_id) {
-//
-//        Sketch sk = skService.fetchSketchById(sk_id);
-//        if (null == sk) {
-//            Logger.getLogger(BriefAnalysis.class.getName()).severe("Could not found Sketch with id: " + sk_id);
-//            return "error";
-//        }
-//
-//        model.addAttribute("sketch", sk);
-//        model.addAttribute("projectID", sk.getPid());
-//        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-//        model.addAttribute("projects", projects);
-//        model.addAttribute("currentUser", getCurrentUser());
-        return "sk_app";
-    }
-
     @RequestMapping(value = "/mm", method = RequestMethod.GET)
     public String skPage(Model model) {
         return "mm";
@@ -94,7 +69,6 @@ public class MindMapController {
     @RequestMapping(value = "/mm_app_delete", method = RequestMethod.GET)
     public String deleteMindMapByID(Model model, @RequestParam(value = "mm_id", defaultValue = "0", required = false) int mm_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "5", required = false) int limit) {
         MindMap mm = mmService.fetchMindMapById(mm_id);
-
         //On success delete & store notification to Concept db...
         if (null != mm && mmService.delete(mm_id)) {
             notificationService.storeNotification(project_id, NotificationTool.MM, NOTIFICATION_OPERATION.DELETED, "a MindMap (" + mm.getTitle() + ")", mm.getContentThumbnail(), WebController.getCurrentUserCo());
@@ -111,7 +85,6 @@ public class MindMapController {
     /*
      *  POST Methods 
      */
-
 
 
     @RequestMapping(value = "/mm_all", method = RequestMethod.POST)
