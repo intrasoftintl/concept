@@ -38,9 +38,9 @@ function activateChat() {
                     var message = value["content"];
                     var timestamp = value["createdDate"];
                     message_parts = message.split("$@$");
-                    logger(message);
-                    logger(message_parts[0]);
-                    logger($("#chat-user").text());
+                    //logger(message);
+                    //logger(message_parts[0]);
+                    //logger($("#chat-user").text());
                     if (message_parts[0] === $("#chat-user").text()) {
                         messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user-you\">" + message_parts[0] + " </span>" + message_parts[1] + "<span class=\"chat-timestamp\">" + getChatTimestamp2(timestamp) + "</span></li>");
                     } else {
@@ -57,9 +57,9 @@ function activateChat() {
             stompClient.subscribe(TOPIC_NAME, function (data) {
                 var message = data.body;
                 message_parts = message.split("$@$");
-                logger(message);
-                logger(message_parts[0]);
-                logger($("#chat-user").text());
+                //logger(message);
+                //logger(message_parts[0]);
+                //logger($("#chat-user").text());
                 if (message_parts[0] === $("#chat-user").text()) {
                     messageList.append("<li  class=\"chat-message\">" + "<span class=\"chat-user-you\">" + message_parts[0] + " </span>" + message_parts[1] + "<span class=\"chat-timestamp\">" + getChatTimestamp() + "</span></li>");
                 } else {
@@ -112,7 +112,7 @@ function deactivateChat() {
 function sendMessage() {
     if ($("#chat-message").val().length > 0) {
         var message = $("#chat-user").text() + "$@$" + $("#chat-message").val();
-        logger("Sending message: " + message);
+        //logger("Sending message: " + message);
         $("#chat-message").val("");
         stompClient.send(TOPIC_NAME, {priority: 9}, message);
     }

@@ -60,7 +60,7 @@ public class MindMap implements Serializable {
     private short isPublic;
     @JoinColumn(name = "uid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private UserCo userCo;
+    private UserCo uid;
     //Non Domain field
     @OneToMany(mappedBy = "mmId", orphanRemoval = false)
     public Collection<Likes> likes;
@@ -157,12 +157,12 @@ public class MindMap implements Serializable {
         this.isPublic = isPublic;
     }
 
-    public UserCo getUserCo() {
-        return userCo;
+    public UserCo getUid() {
+        return uid;
     }
 
-    public void setUserCo(UserCo userCo) {
-        this.userCo = userCo;
+    public void setUid(UserCo uid) {
+        this.uid = uid;
     }
 
     @Override
