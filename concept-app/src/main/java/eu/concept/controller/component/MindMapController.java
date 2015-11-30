@@ -41,13 +41,6 @@ public class MindMapController {
     /*
      *  GET Methods 
      */
-//    @RequestMapping(value = "/mm_all", method = RequestMethod.GET)
-//    public String mm_all(Model model) {
-//        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-//        model.addAttribute("projects", projects);
-//        model.addAttribute("currentUser", getCurrentUser());
-//        return "mm_all";
-//    }
 
     @RequestMapping(value = "/mindmap/{project_id}", method = RequestMethod.GET)
     public String fetchMMByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
@@ -111,7 +104,6 @@ public class MindMapController {
     /*
      *  POST Methods 
      */
-
 
 
     @RequestMapping(value = "/mm_all", method = RequestMethod.POST)

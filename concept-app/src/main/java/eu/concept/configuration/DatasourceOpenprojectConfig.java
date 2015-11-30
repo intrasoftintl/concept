@@ -45,7 +45,7 @@ public class DatasourceOpenprojectConfig {
         mysqlXaDataSource.setUrl(datasourceOpenprojectProperties.getUrl());
         mysqlXaDataSource.setUser(datasourceOpenprojectProperties.getUsername());
         mysqlXaDataSource.setPassword(datasourceOpenprojectProperties.getPassword());
-
+        
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
 
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();

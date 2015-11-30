@@ -61,7 +61,7 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=projects" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                     <span th:case="'DESIGNER'">
                         <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
@@ -78,7 +78,7 @@
 
         <!-- Chat DIV -->
         <div th:include="chat :: chat-list"></div>
-        
+
         <!-- Metadata Content -->
         <div id="metadata-area"></div>
 
@@ -119,7 +119,7 @@
                                 Notifications <span id="notifications-count" class="badge">0</span>
                             </button>
                         </form>
-                        
+
                     </div>
 
 
@@ -134,16 +134,16 @@
                             <div class="btn-group pull-right">
                                 <button onclick="createMindMap()" id="mm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Mindmap</button>
                             </div>
-                             
+
                             <div id="sort" class="btn-group pull-right btn-sort" role="group">
                                 <button type="button" class="btn btn-default btn-sm">Most Recent</button>
                                 <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                         </div>
-                        
+
                         <div id="mm-placeholder" class="panel-body disabled"></div>
                         <div id="mm-all"></div>
-                        
+
                     </div>
                 </div>
 
@@ -153,6 +153,11 @@
         <script src="/resources/js/jquery-1.11.2.min.js"></script>
         <script src="/resources/js/bootstrap.min.js"></script>
         <script src="/resources/js/togetherjs-min.js"></script>
+        <script src="/resources/js/util.js"></script>
+        <!-- Metadata -->
+        <script src="/resources/js/jquery.tagsinput.min.js"></script>
+        <script src="/resources/js/tree.jquery.js"></script>
+        <script src="/resources/js/metadata.js"></script>
         <!-- COnCEPT-Chat JS -->
         <script src="/resources/js/sockjs.min.js"></script>
         <script src="/resources/js/stomp.min.js"></script>

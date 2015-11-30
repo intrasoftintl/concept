@@ -56,13 +56,13 @@
             </thead>
             <tbody>
                 <tr th:each="mmContent : ${mmContents}">
-                    <td><a th:href="@{'http://conceptmap.euprojects.net/wisemapping/c/maps/' +${mmContent.id} + '/' + ${currentUserID} +  '/edit'}" target="_blank"><img src="/resources/img/fm_generic_mm.png" class="img-thumbnail" /></a></td>
-                    <td class="truncate"><span class="file-title" th:text="${mmContent.title}"></span><br/><span class="file-user" th:text="@{${mmContent.uid.firstName} + ' '+ ${mmContent.uid.lastName} + ' (' +  ${mmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(mmContent.createdDate,0,16)}"></span></td>
+                    <td><a th:href="@{'http://concept-mm.euprojects.net/wisemapping/c/maps/' +${mmContent.id} + '/' + ${currentUser.getId()} +  '/edit'}" target="_blank"><img src="/resources/img/fm_generic_mm.png" class="img-thumbnail" /></a></td>
+                    <td class="truncate"><span class="file-title" th:text="${mmContent.title}"></span><br/><span class="file-user" th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(mmContent.createdDate,0,16)}"></span></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${mmContent.id}  +',\'MM\','+${mmContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
-                        <button class="action-button" th:attr="onclick=@{ 'deleteSBItem(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
+                        <button class="action-button" th:attr="onclick=@{ 'deleteMMItem(' + ${mmContent.id}  +','+ ${mmContent.pid}+ ')' }" >
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                         &nbsp;

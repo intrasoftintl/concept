@@ -19,7 +19,7 @@ Before moving on, make sure you have the required JDK and Maven version.
 
 ## Run the Application
 
-	$ git clone git@github.com:IntrasoftInternational/concept.git
+	$ git clone git@github.com:intrasoftintl/concept.git
 	$ cd concept
 	$ mvn clean install
 	$ cd concept-app

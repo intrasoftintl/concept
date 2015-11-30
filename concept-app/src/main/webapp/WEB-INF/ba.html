@@ -11,7 +11,7 @@
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
-                    <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
+                    <td class="truncate"><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
                     <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(baContent.createdDate,0,16)}"></span></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'   }    ">

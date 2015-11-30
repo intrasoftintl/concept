@@ -494,15 +494,15 @@ body{
 
 .nav-chat .nav-content .chat-list .chat-timestamp {
     color:red;
-    float:right;
+    //float:right;
     margin:10px;
     color:#ccc;
     margin:0;
     font-size:12px;
     position:relative;
-    bottom: -10px;
-    right: 10px;
-    padding: 20px 0;
+    bottom: -30px;
+    padding: 0;
+	display:block;
 }
 
 .nav-chat .nav-content .chat-actions{

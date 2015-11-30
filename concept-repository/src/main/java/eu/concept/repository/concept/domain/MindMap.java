@@ -161,7 +161,7 @@ public class MindMap implements Serializable {
         return userCo;
     }
 
-    public void setUserCo(UserCo userCo) {
+    public void setUid(UserCo userCo) {
         this.userCo = userCo;
     }
 

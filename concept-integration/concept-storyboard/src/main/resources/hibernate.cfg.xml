@@ -19,5 +19,6 @@
 		<mapping class="com.atos.concept.persistence.Slides" />
 		<mapping class="com.atos.concept.persistence.Stories" />
 		<mapping class="com.atos.concept.persistence.StoriesSlides" />
+		<mapping class="com.atos.concept.persistence.Sketches" />		
 	</session-factory>
 </hibernate-configuration>

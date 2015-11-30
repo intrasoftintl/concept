@@ -41,7 +41,7 @@ public class Application extends SpringBootServletInitializer {
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
         hibernateJpaVendorAdapter.setShowSql(false);
-        hibernateJpaVendorAdapter.setGenerateDdl(true);
+        hibernateJpaVendorAdapter.setGenerateDdl(false);
         hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
         return hibernateJpaVendorAdapter;
     }
@@ -56,10 +56,8 @@ public class Application extends SpringBootServletInitializer {
     @Bean(name = "atomikosTransactionManager", initMethod = "init", destroyMethod = "close")
     public TransactionManager atomikosTransactionManager() throws Throwable {
         UserTransactionManager userTransactionManager = new UserTransactionManager();
-        userTransactionManager.setForceShutdown(false);
-
+        userTransactionManager.setForceShutdown(false);       
         AtomikosJtaPlatform.transactionManager = userTransactionManager;
-
         return userTransactionManager;
     }
 
@@ -67,9 +65,7 @@ public class Application extends SpringBootServletInitializer {
     @DependsOn({"userTransaction", "atomikosTransactionManager"})
     public PlatformTransactionManager transactionManager() throws Throwable {
         UserTransaction userTransaction = userTransaction();
-
         AtomikosJtaPlatform.transaction = userTransaction;
-
         TransactionManager atomikosTransactionManager = atomikosTransactionManager();
         return new JtaTransactionManager(userTransaction, atomikosTransactionManager);
     }
