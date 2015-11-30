@@ -158,7 +158,7 @@ public class RestAPIController {
             mindmap.setContent("<map name=\"3\" version=\"tango\"><topic central=\"true\" text=\"COnCEPT Mindmap\" id=\"1\"/></map>");
         }
 
-        if (null == mindmap || null == mindmap.getUid()) {
+        if (null == mindmap || null == mindmap.getUserCo()) {
             responseMessage = "Not a valid MinMap object... ";
             responseCode = BasicResponseCode.EXCEPTION;
         } else if (null != (mindmap = mindmapService.store(mindmap)) && mindmap.getId() > 0) {
