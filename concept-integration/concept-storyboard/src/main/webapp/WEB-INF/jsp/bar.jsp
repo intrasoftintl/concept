@@ -38,7 +38,7 @@
 <nav class="navbar navbar-default" style="margin-bottom: 0px;">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/">COnCEPT</a>
+			<div class="navbar-brand">COnCEPT</div>
 		</div>
 		<div>
 			<ul class="nav navbar-nav">

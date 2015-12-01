@@ -47,6 +47,17 @@
 			</c:if>
 			myEditor.loadFromString (myNewDraw);
 		}
+		function fUpdateImage(myUrl) {
+			var inputPopUp = $('#idIframe').contents().find('#dialog_buttons input[type=text]');
+			var inputToolBar = $('#idIframe').contents().find('#tool_image_url > #image_url');
+			if (inputPopUp.is(":visible")) {
+				inputPopUp.val(myUrl);
+			}
+			if (inputToolBar.is(":visible")) {
+				inputToolBar.val(myUrl);
+				inputToolBar.focus();
+			}
+		}			
 	</script>
 </head>
 <body>
@@ -87,11 +98,27 @@
 				<td width="980px" style=" text-align: left;" >
 					<iframe src="../svg-edit-2.6/svg-editor.html" id="idIframe" width="960" height="550"></iframe>
 				</td>
-				<td style="text-align: left; vertical-align: top;">
-					<fmt:message key="newslide.images" /><br>
-					<c:forEach var="mySketch" items="${sketches}">
-						${mySketch.name}  <br/>
-					</c:forEach>
+				<td style="text-align: left; vertical-align: top; padding-left:20px; padding-right:40px;">
+					<h3><fmt:message key="newslide.images" /></h3>
+					<ul class="list-group" style="width: 280px;">
+						<c:if test="${empty sketches}">
+							No sketches for this project 
+						</c:if>
+						<c:forEach var="mySketch" items="${sketches}" varStatus="loop">
+							<c:if test="${loop.index%3==0}">
+								<li class="list-group-item">
+							</c:if>
+								<img width="60" id="${mySketch.id}" onclick="fUpdateImage('${mySketch.url}');" style="cursor: pointer; margin-right: 20px">
+								<script type="text/javascript">
+									var svgContent = '${mySketch.imgInBase64}';
+									var imgSrc = 'data:image/jpg;base64,' + svgContent;
+									$("#${mySketch.id}").attr('src', imgSrc);
+								</script>
+							<c:if test="loop.index%3==0">
+								</li>
+							</c:if>
+						</c:forEach>
+					</ul>
 				</td>
 			</tr>
 		</table>
