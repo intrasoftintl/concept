@@ -30,11 +30,6 @@
 					<h4>Resource not found: ${pageContext.errorData.requestURI}</h4>
 					</div>
 					<br>
-					<div class="error-actions">
-						<a href="${pageContext.request.contextPath}/" class="btn btn-primary btn-lg"> <span class="glyphicon glyphicon-home"></span> Take
-							Me Home
-						</a>
-					</div>
 				</div>
 			</div>
 		</div>
