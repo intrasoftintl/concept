@@ -54,7 +54,7 @@ class Application(tornado.web.Application):
             (r"/delete_all",deletion.delete_all_handler),
 
             (r"/search_category", search.search_category_handler),
-            #(r"/search_keyword", search.search_keyword_handler),
+            (r"/search_keyword", search.search_keyword_handler),
 
         ]
 
