@@ -464,76 +464,76 @@ class search_category_handler(tornado.web.RequestHandler):
 #
 #                    
 #==============================================================================
-# 
-# def category_search_query(param,es,index,doc_type, dpage = 0):
-#     """ Return the full category from the category name 
-#     Low level function.
-#     """    
-#     #page = param.pop("page",dpage)
-#                 
-#     #Building the query
-#     if not param["project_id"]:
-#         doc = {
-#             "query": {
-#             "filtered":
-#             {
-#                 "filter": { "term":{ "name":param["search_term"] } } 
-#                 }
-#             }
-#             }
-#     else:
-#         doc = {
-#             "query": {
-#             "filtered":
-#             {
-#                 "filter": [{ "term":{ "project_id":param["project_id"] } },
-#                            { "term":{ "name":param["search_term"] } } ]
-#                 }
-#             }
-#             }
-#     logging.debug(doc)
-#     
-#     #Executing the query
-#     res = es.search(index=index, doc_type=doc_type, body=doc)
-#     #print(res)
-# 
-#     
-#     #print("basic_search_query:hits -> " + str(res['hits']['hits']))
-#     
-#     return res
-# 
-#                     
-# class search_category_handler(tornado.web.RequestHandler):
-#     """ REST API for category search
-#     """
-#     def get(self):
-#         self.post()
-# 
-#     def post(self):
-#         user_id = self.get_argument('user_id',"")
-#         project_id = self.get_argument('project_id',"")
-#         search_param = self.get_argument('search_param')
-#         search_param = { "user_id":user_id, 
-#                         "project_id":project_id, 
-#                         "search_param":search_param}        
-#         
-#         logging.info("search_category_handler:search_param -> " + str(search_param))
-# 
-#         es = self.application.es
-#         index = self.application.config_init["index"]
-#         doc_type = self.application.config_init["type_category"]
-#         
-#         try:
-#             res = category_search_query(search_param, es, index,doc_type)
-#         except Exception as e:
-#             logging.exception(e)
-#                 
-#             self.set_status(400,str(e))
-#             return        
-#
-#        
-#        self.set_header("Content-Type", 'application/json')
-#        self.write(res)                    
+ 
+def keyword_search_query(param,es,index,doc_type, dpage = 0):
+     """ Return the full keyword from the keyword name 
+     Low level function.
+     """    
+     #page = param.pop("page",dpage)
+                 
+     #Building the query
+     if not param["project_id"]:
+         doc = {
+             "query": {
+             "filtered":
+             {
+                 "filter": { "term":{ "name":param["search_param"] } } 
+                 }
+             }
+             }
+     else:
+         doc = {
+             "query": {
+             "filtered":
+             {
+                 "filter": [{ "term":{ "project_id":param["project_id"] } },
+                            { "term":{ "name":param["search_param"] } } ]
+                 }
+             }
+             }
+     logging.debug(doc)
+     
+     #Executing the query
+     res = es.search(index=index, doc_type=doc_type, body=doc)
+     #print(res)
+ 
+     
+     #print("basic_search_query:hits -> " + str(res['hits']['hits']))
+     
+     return res
+ 
+                     
+class search_keyword_handler(tornado.web.RequestHandler):
+     """ REST API for keyword search
+     """
+     def get(self):
+         self.post()
+
+     def post(self):
+         user_id = self.get_argument('user_id',"")
+         project_id = self.get_argument('project_id',"")
+         search_param = self.get_argument('search_param')
+         search_param = { "user_id":user_id, 
+                         "project_id":project_id, 
+                         "search_param":search_param}        
+         
+         logging.info("search_keyword_handler:search_param -> " + str(search_param))
+ 
+         es = self.application.es
+         index = self.application.config_init["index"]
+         doc_type = self.application.config_init["type_keyword"]
+         
+         try:
+             res = keyword_search_query(search_param, es, index,doc_type)
+         except Exception as e:
+             logging.exception(e)
+                 
+             self.set_status(400,str(e))
+             return        
+
+       
+         self.set_header("Content-Type", 'application/json')
+         self.write(res)                    
  
 
 #    

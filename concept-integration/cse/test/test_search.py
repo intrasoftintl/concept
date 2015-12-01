@@ -51,20 +51,38 @@ url = "http://localhost:9999"
 ##r = json.loads(response.read().decode('utf-8'))
 ##
 ##pprint.pprint(r)
+##
+##
+### Example of category search
+##
+##data = {
+##
+##    'search_param':'Modern'
+##    }
+##
+##
+###
+##print("Searchin category "+str(data))
+##data = urllib.parse.urlencode(data)
+#####GET
+##req = urllib.request.Request(url+"/search_category?"+data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##
+##pprint.pprint(r)
 
 
-# Example of category search
 
 data = {
-    'search_param':'Modern'
+    'search_param':'Español'
     }
 
 
 #
-print("Searchin category "+str(data))
+print("Searchin keyword "+str(data))
 data = urllib.parse.urlencode(data)
 ###GET
-req = urllib.request.Request(url+"/search_category?"+data)
+req = urllib.request.Request(url+"/search_keyword?"+data)
 response = urllib.request.urlopen(req)
 r = json.loads(response.read().decode('utf-8'))
 
