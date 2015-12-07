@@ -12,9 +12,9 @@ Before moving on, make sure you have the required JDK and Maven version.
 	$ java -version
 	$ javac -version
 	
-### Install Maven on Ubuntu 
+###### Install Maven on Ubuntu 
 	sudo apt-get install maven
-### Install Maven on OS X
+###### Install Maven on OS X
 	brew install maven	
 
 ## Run the Application
