@@ -20,6 +20,7 @@ import eu.concept.util.other.NotificationTool;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -442,7 +443,7 @@ public class RestAPIController {
         mb.setPid(projetct_id);
         mb.setUid(userCoService.findById(uid));
         mb.setTitle(title);
-        //sb.setCreatedDate(date);
+        mb.setCreatedDate(Calendar.getInstance().getTime());
         mb.setContent(content);
         mb.setContentThumbnail(fileContent);
 
