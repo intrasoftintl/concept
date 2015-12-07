@@ -1,7 +1,7 @@
 package eu.concept.repository.concept.service;
 
-import eu.concept.repository.concept.dao.StoryboardRepository;
-import eu.concept.repository.concept.domain.Storyboard;
+import eu.concept.repository.concept.dao.MoodboardRepository;
+import eu.concept.repository.concept.domain.Moodboard;
 import eu.concept.repository.concept.domain.UserCo;
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,62 +16,62 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Service
-public class StoryboardService {
+public class MoodboardService {
 
     @Autowired
-    private StoryboardRepository storyboardRepo;
+    private MoodboardRepository moodboardRepo;
 
-    public Storyboard store(Storyboard sb) {
+    public Moodboard store(Moodboard mb) {
         try {
 
-            sb = storyboardRepo.save(sb);
+            mb = moodboardRepo.save(mb);
         } catch (Exception ex) {
-            Logger.getLogger(StoryboardService.class.getName()).severe(ex.getMessage());
-            return sb;
+            Logger.getLogger(MoodboardService.class.getName()).severe(ex.getMessage());
+            return mb;
         }
-        return sb;
+        return mb;
     }
 
     public boolean delete(int briefAnalysisID) {
         try {
-            storyboardRepo.delete(briefAnalysisID);
+            moodboardRepo.delete(briefAnalysisID);
         } catch (Exception ex) {
-            Logger.getLogger(StoryboardService.class.getName()).severe(ex.getMessage());
+            Logger.getLogger(MoodboardService.class.getName()).severe(ex.getMessage());
             return false;
         }
         return true;
     }
 
-    public List<Storyboard> fetchStoryboardByProjectId(int projectID, UserCo user, int limit) {
-        return fetchStoryboardByProjectId(projectID, user, limit, 0);
+    public List<Moodboard> fetchMoodboardByProjectId(int projectID, UserCo user, int limit) {
+        return fetchMoodboardByProjectId(projectID, user, limit, 0);
     }
 
-    public List<Storyboard> fetchStoryboardByProjectId(int projectID, UserCo user, int limit, int page) {
-        List<Storyboard> files;
+    public List<Moodboard> fetchMoodboardByProjectId(int projectID, UserCo user, int limit, int page) {
+        List<Moodboard> files;
         Pageable pageRequest = new PageRequest(page, limit);
         if ("CLIENT".equals(user.getRole())) {
-            files = storyboardRepo.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
+            files = moodboardRepo.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
-            files = storyboardRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
+            files = moodboardRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
         return files;
     }
 
-    public Storyboard fetchStoryboardById(int id) {
-        return storyboardRepo.findById(id);
+    public Moodboard fetchMoodboardById(int id) {
+        return moodboardRepo.findById(id);
     }
 
     public int countFilesById(int projectID, String userRole) {
         if ("CLIENT".equals(userRole)) {
-            return storyboardRepo.countByPidAndIsPublic(projectID, new Short("1"));
+            return moodboardRepo.countByPidAndIsPublic(projectID, new Short("1"));
         } else {
-            return storyboardRepo.countByPid(projectID);
+            return moodboardRepo.countByPid(projectID);
         }
     }
 
     @Transactional
     public int changePublicStatus(int sk_id, short isPublic) {
-        return storyboardRepo.setPublicStatus(sk_id, (short) (isPublic == 0 ? 1 : 0));
+        return moodboardRepo.setPublicStatus(sk_id, (short) (isPublic == 0 ? 1 : 0));
     }
 
 }

@@ -37,6 +37,10 @@ public class LikesService {
         return likesRepo.findByUidAndSbId(user, storyboard);
     }
 
+    public Likes findMoodBoardLike(UserCo user, Moodboard moodboard) {
+        return likesRepo.findByUidAndMbId(user, moodboard);
+    }
+
     public boolean storeLikes(Likes likes) {
         try {
             likesRepo.save(likes);

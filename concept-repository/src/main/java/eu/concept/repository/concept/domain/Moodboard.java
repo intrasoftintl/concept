@@ -187,7 +187,7 @@ public class Moodboard implements Serializable {
 
     @Override
     public String toString() {
-        return "eu.concept.repository.concept.domain.Storyboard[ id=" + id + " ]";
+        return "eu.concept.repository.concept.domain.Moodboard[ id=" + id + " ]";
     }
 
 }

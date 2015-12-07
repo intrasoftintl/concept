@@ -53,7 +53,7 @@ public class Likes implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(nullable = true, name = "mb_id", referencedColumnName = "id")
     @ManyToOne
-    private Storyboard mbId;
+    private  Moodboard mbId;
 
     public Likes() {
     }
@@ -71,11 +71,11 @@ public class Likes implements Serializable {
         return id;
     }
 
-    public Storyboard getMbId() {
+    public Moodboard getMbId() {
         return mbId;
     }
 
-    public void setMbId(Storyboard mbId) {
+    public void setMbId(Moodboard mbId) {
         this.mbId = mbId;
     }
 
