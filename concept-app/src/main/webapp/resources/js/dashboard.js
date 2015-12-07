@@ -19,10 +19,11 @@ function loadDashboardContent(projectID) {
 
     //Load content of MindMap widget
     $("#mm-dashboard").load("/mindmap/" + projectID + "?limit=5");
+    //Load content of Moodboard widget
+    $("#mb-dashboard").load("/moodboard/" + projectID + "?limit=5");
     //Load content of Storyboard widget
     $("#sb-dashboard").load("/storyboard/" + projectID + "?limit=5");
-    //Load content of Sketch widget
-    $("#sk-dashboard").load("/sketch/" + projectID + "?limit=5");
+    
 }
 
 //Delete a Brief Analysis object
@@ -40,9 +41,9 @@ function deleteSB(sb_id, project_id) {
     $("#sb-dashboard").load("/sb_app_delete?sb_id=" + sb_id + "&project_id=" + project_id);
 }
 
-//Delete a Sketch object
-function deleteSK(sk_id, project_id) {
-    $("#sk-dashboard").load("/sk_app_delete?sk_id=" + sk_id + "&project_id=" + project_id);
+//Delete a Moodboard object
+function deleteMB(mb_id, project_id) {
+    $("#mb-dashboard").load("/mb_app_delete?mb_id=" + mb_id + "&project_id=" + project_id);
 }
 
 //
@@ -80,18 +81,17 @@ function disableDashboardPage() {
     $("#mm-add").addClass("disabled");
     $("#mm-placeholder").show();
 
+    $("#mb-buttons").addClass("disabled");
+    $("#mb-content").addClass("disabled");
+    $('#mb-dashboard').hide();
+    $("#mb-add").addClass("disabled");
+    $("#mb-placeholder").show();
+    
     $("#sb-buttons").addClass("disabled");
     $("#sb-content").addClass("disabled");
     $('#sb-dashboard').hide();
-    $("#mb-add").addClass("disabled");
     $("#sb-add").addClass("disabled");
     $("#sb-placeholder").show();
-
-    $("#sk-buttons").addClass("disabled");
-    $("#sk-content").addClass("disabled");
-    $('#sk-dashboard').hide();
-    $("#sk-add").addClass("disabled");
-    $("#sk-placeholder").show();
 
     // Project Selection
     $("#project-members").hide();
@@ -137,18 +137,17 @@ function enableDashboardPage() {
     $("#mm-add").removeClass("disabled");
     $("#mm-placeholder").hide();
 
+    $("#mb-buttons").removeClass("disabled");
+    $("#mb-content").removeClass("disabled");
+    $('#mb-dashboard').show();
+    $("#mb-add").removeClass("disabled");
+    $("#mb-placeholder").hide();
+    
     $("#sb-buttons").removeClass("disabled");
     $("#sb-content").removeClass("disabled");
     $('#sb-dashboard').show();
-    $("#mb-add").removeClass("disabled");
     $("#sb-add").removeClass("disabled");
     $("#sb-placeholder").hide();
-
-    $("#sk-buttons").removeClass("disabled");
-    $("#sk-content").removeClass("disabled");
-    $('#sk-dashboard').show();
-    $("#sk-add").removeClass("disabled");
-    $("#sk-placeholder").hide();
 
     // Project Selection
     $("#project-members").show();
