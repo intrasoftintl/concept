@@ -76,7 +76,7 @@ public class RestAPIController {
     NotificationService notificationService;
 
     @Autowired
-    MoodboardService mbService;
+    SketchService skService;
 
     @Autowired
     BriefAnalysisService briefAnalysisService;
@@ -92,6 +92,9 @@ public class RestAPIController {
 
     @Autowired
     StoryboardService sbService;
+
+    @Autowired
+    MoodboardService mbService;
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -192,11 +195,14 @@ public class RestAPIController {
             case "MM":
                 return mindmapService.changePublicStatus(component_id, isPublic);
 
-            case "MB":
-                return mbService.changePublicStatus(component_id, isPublic);
+            case "SK":
+                return skService.changePublicStatus(component_id, isPublic);
 
             case "SB":
                 return sbService.changePublicStatus(component_id, isPublic);
+
+            case "MB":
+                return mbService.changePublicStatus(component_id, isPublic);
 
             default:
                 return 0;
@@ -249,14 +255,14 @@ public class RestAPIController {
 //                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
-            case "MB":
-                Moodboard mb = new Moodboard(component_id);
-                likes = likesService.findMoodboardLike(currentUser, mb);
+            case "SK":
+                Sketch sk = new Sketch(component_id);
+                likes = likesService.findSketchLike(currentUser, sk);
                 if (null == likes) {
                     likes = new Likes(null, currentUser);
-                    likes.setMbId(mb);
+                    likes.setSkId(sk);
                 } else {
-                    likes.setMbId(null);
+                    likes.setSkId(null);
                 }
 
                 return (likesService.storeLikes(likes) ? 1 : 0);
@@ -269,6 +275,18 @@ public class RestAPIController {
                     likes.setSbId(sb);
                 } else {
                     likes.setSbId(null);
+                }
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+                return (likesService.storeLikes(likes) ? 1 : 0);
+
+            case "MB":
+                Moodboard mb = new Moodboard(component_id);
+                likes = likesService.findMoodBoardLike(currentUser, mb);
+                if (null == likes) {
+                    likes = new Likes(null, currentUser);
+                    likes.setMbId(mb);
+                } else {
+                    likes.setMbId(null);
                 }
 //                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
@@ -327,35 +345,11 @@ public class RestAPIController {
 
     }
 
-//    @RequestMapping(value = "/mindmap", method = RequestMethod.GET)
-//    public ResponseEntity<String> deleteMindMap() {
-//        System.out.println("IN GET");
-//        if (null == mindmap) {
-//            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Not a valid MinMap object... ", null);
-//        }
-//
-//        String URI = "http://localhost:8080/concept/api/mindmap";
-//        RestTemplate restTemplate = new RestTemplate();
-//        System.out.println("MindMap title: " + mindmapService.fetchMindMapById(1).getTitle());
-//        restTemplate.postForObject(URI, mindmapService.fetchMindMapById(1), ApplicationResponse.class);
-//        System.out.println("AFTER  POST");
-//        System.out.println("Rest: " + restTemplate.toString());
-//
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        return new ResponseEntity(null, httpHeaders, HttpStatus.CREATED);
-//
-//    }
     //Fetch 100 of the most recent chat messages for project_id
     @RequestMapping(value = "/chatmessages/{project_id}", method = RequestMethod.GET)
     public List<ChatMessage> chatMessagesForProject(@PathVariable int project_id) {
-
         List<ChatMessage> chatMessages = chatMessageRepository.findTop100ByPidOrderByCreatedDateDesc(project_id);
-
         Collections.reverse(chatMessages);
-
-        //chatMessages.stream().limit(100)
-        //ArrayList<String> ret = new ArrayList<>();
-        //chatMessages.stream().limit(100).forEach((chatMessage) -> ret.add(chatMessage.getContent()));
         return chatMessages;
     }
 
@@ -384,12 +378,10 @@ public class RestAPIController {
             outputStream.flush();
             String base64 = new String(Base64.encodeBase64(((ByteArrayOutputStream) outputStream).toByteArray()));
             fileContent = "data:".concat("image/png".concat(";base64,").concat(base64));
-            System.out.println(fileContent);
+            //System.out.println(fileContent);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (TranscoderException e) {
-            e.printStackTrace();
+        } catch (IOException | TranscoderException ex) {
+            Logger.getLogger(RestAPIController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         Storyboard sb = new Storyboard();
@@ -406,14 +398,80 @@ public class RestAPIController {
         String responseMessage;
         if (newsb != null) {
             responseCode = BasicResponseCode.SUCCESS;
-            responseMessage = "Story board replicated !";
+            responseMessage = "Storyboard replicated !";
         } else {
             responseCode = BasicResponseCode.EXCEPTION;
-            responseMessage = "Story board replication failed !";
+            responseMessage = "Storyboard replication failed !";
         }
 
         return new ApplicationResponse(responseCode, responseMessage, newsb);
     }
+    
+        //Store storyboard data
+    @RequestMapping(value = "/moodboard/replicate", method = RequestMethod.POST)
+    public ApplicationResponse replicateMoodboard(
+            @RequestParam(value = "id") Integer sb_id,
+            @RequestParam(value = "pid") int projetct_id,
+            @RequestParam(value = "uid") int uid,
+            @RequestParam(value = "title") String title,
+            @RequestParam(value = "content") String content,
+            @RequestParam(value = "content_thumbnail") String content_thumbnail
+    ) {
+        String fileContent = "";
+        try {
+            InputStream inputStream = new ByteArrayInputStream(content_thumbnail.getBytes());
+            OutputStream outputStream = new ByteArrayOutputStream();
+            String parser = XMLResourceDescriptor.getXMLParserClassName();
+            SAXSVGDocumentFactory f = new SAXSVGDocumentFactory(parser);
+            Document doc = f.createDocument("http://www.w3.org/2000/svg", inputStream);
+            TranscoderInput input = new TranscoderInput(doc);
+            TranscoderOutput output = new TranscoderOutput(outputStream);
+            Transcoder transcoder = new PNGTranscoder();
+            transcoder.transcode(input, output);
+            outputStream.flush();
+            String base64 = new String(Base64.encodeBase64(((ByteArrayOutputStream) outputStream).toByteArray()));
+            fileContent = "data:".concat("image/png".concat(";base64,").concat(base64));
+            //System.out.println(fileContent);
+
+        } catch (IOException | TranscoderException ex) {
+            Logger.getLogger(RestAPIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Moodboard mb = new Moodboard();
+        mb.setId(sb_id);
+        mb.setPid(projetct_id);
+        mb.setUid(userCoService.findById(uid));
+        mb.setTitle(title);
+        //sb.setCreatedDate(date);
+        mb.setContent(content);
+        mb.setContentThumbnail(fileContent);
+
+        Moodboard newsb = mbService.store(mb);
+        BasicResponseCode responseCode;
+        String responseMessage;
+        if (newsb != null) {
+            responseCode = BasicResponseCode.SUCCESS;
+            responseMessage = "Moodboard replicated !";
+        } else {
+            responseCode = BasicResponseCode.EXCEPTION;
+            responseMessage = "Moodboard replication failed !";
+        }
+
+        return new ApplicationResponse(responseCode, responseMessage, newsb);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public String getTagsForText(String content) {
         try {
@@ -437,7 +495,6 @@ public class RestAPIController {
 
     public String getTagsForImage(String uri) {
         try {
-            //System.out.println("RESPONSE "+uri);
             HttpResponse<JsonNode> jsonResponse = Unirest.get("http://localhost:8081/semantic-enhancer/tags?url=http://concept.euprojects.net/" + uri).asJson();
             List<String> tags = new ArrayList<>();
             for (int i = 0; i < jsonResponse.getBody().getArray().length(); i++) {
@@ -460,27 +517,21 @@ public class RestAPIController {
      */
     @RequestMapping(value = "/autoannotate", method = RequestMethod.POST)
     public String autoAnnotate(Model model, @ModelAttribute Metadata metadata, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, final RedirectAttributes redirectAttributes) {
-
-
         int cid = metadata.getCid();
         String keywords = "";
-        //Brief analysis
         if (metadata.getComponent().getId().equals("BA")) {
             BriefAnalysis briefAnalysis = briefAnalysisService.fetchBriefAnalysisById(cid);
             String content = briefAnalysis.getContent();
             keywords = getTagsForText(content);
         } else if (metadata.getComponent().getId().equals("FM")) {
             keywords = getTagsForImage("file/" + cid);
-        } else if (metadata.getComponent().getId().equals("MB")) {
-            keywords = getTagsForImage("mbimage/" + cid);
+        } else if (metadata.getComponent().getId().equals("SK")) {
+            keywords = getTagsForImage("skimage/" + cid);
         } else if (metadata.getComponent().getId().equals("SB")) {
             keywords = getTagsForImage("sbimage/" + cid);
+        } else if (metadata.getComponent().getId().equals("MB")) {
+            keywords = getTagsForImage("mbimage/" + cid);
         }
-
-        //metadata.setKeywords(keywords);
-        //metadataService.storeMetadata(metadata);
-        //redirectAttributes.addFlashAttribute("projectID", project_id);
-        //return "redirect:/dashboard";
         return keywords;
     }
 }
