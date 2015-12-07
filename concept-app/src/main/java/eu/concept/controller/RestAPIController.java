@@ -76,7 +76,7 @@ public class RestAPIController {
     NotificationService notificationService;
 
     @Autowired
-    SketchService sketchService;
+    MoodboardService mbService;
 
     @Autowired
     BriefAnalysisService briefAnalysisService;
@@ -192,8 +192,8 @@ public class RestAPIController {
             case "MM":
                 return mindmapService.changePublicStatus(component_id, isPublic);
 
-            case "SK":
-                return sketchService.changePublicStatus(component_id, isPublic);
+            case "MB":
+                return mbService.changePublicStatus(component_id, isPublic);
 
             case "SB":
                 return sbService.changePublicStatus(component_id, isPublic);
@@ -249,14 +249,14 @@ public class RestAPIController {
 //                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
-            case "SK":
-                Sketch sk = new Sketch(component_id);
-                likes = likesService.findSketchLike(currentUser, sk);
+            case "MB":
+                Moodboard mb = new Moodboard(component_id);
+                likes = likesService.findMoodboardLike(currentUser, mb);
                 if (null == likes) {
                     likes = new Likes(null, currentUser);
-                    likes.setSkId(sk);
+                    likes.setMbId(mb);
                 } else {
-                    likes.setSkId(null);
+                    likes.setMbId(null);
                 }
 
                 return (likesService.storeLikes(likes) ? 1 : 0);
@@ -471,8 +471,8 @@ public class RestAPIController {
             keywords = getTagsForText(content);
         } else if (metadata.getComponent().getId().equals("FM")) {
             keywords = getTagsForImage("file/" + cid);
-        } else if (metadata.getComponent().getId().equals("SK")) {
-            keywords = getTagsForImage("skimage/" + cid);
+        } else if (metadata.getComponent().getId().equals("MB")) {
+            keywords = getTagsForImage("mbimage/" + cid);
         } else if (metadata.getComponent().getId().equals("SB")) {
             keywords = getTagsForImage("sbimage/" + cid);
         }
