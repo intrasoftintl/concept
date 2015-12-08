@@ -662,6 +662,10 @@ textarea{
     border: none;
 } 
 
+iframe{
+    border: none;
+} 
+
 /* FM APP */
 .files{
     display:none;
