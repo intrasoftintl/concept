@@ -659,7 +659,7 @@ textarea{
 
 #etherpad{
     height:calc(100vh - 41px); //111+36
-    border:10px;
+    border: none;
 } 
 
 /* FM APP */
