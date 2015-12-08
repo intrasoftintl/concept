@@ -657,6 +657,11 @@ textarea{
     height:calc(100vh - 147px); //111+36
 }
 
+#etherpad{
+    height:calc(100vh - 41px); //111+36
+    border:none;
+}
+
 /* FM APP */
 .files{
     display:none;
