@@ -7,13 +7,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -22,9 +19,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Component")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Component.findAll", query = "SELECT c FROM Component c")})
 public class Component implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "component")
     private Collection<Metadata> metadataCollection;

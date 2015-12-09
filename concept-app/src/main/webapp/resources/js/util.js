@@ -257,19 +257,19 @@ function projectSelectedAction(projectID) {
             $("#project-view").show();
         }
 
-        if (isSK_app()) {
+        if (isMB_app()) {
             $("#project-members").show();
             $("#project-view").show();
         }
 
-        if (isSK_all()) {
+        if (isMB_all()) {
             $("#sort").show();
 
-            $("#sk-add").attr("href", "/sk_app?projectID=" + projectID);
-            $("#sk-add").show();
-            $("#sk-all").load("/sketches_all/" + projectID + "?limit=200");
+            $("#mb-add").attr("href", "/mb_app?projectID=" + projectID);
+            $("#mb-add").show();
+            $("#mb-all").load("/moodboards_all/" + projectID + "?limit=200");
 
-            $("#sk-placeholder").hide();
+            $("#mb-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
         }
@@ -298,8 +298,8 @@ function projectSelectedAction(projectID) {
                 $("#fm-app-link").removeAttr(href);
                 $("#se-app-link").removeAttr(href);
                 $("#mm-app-link").removeAttr(href);
+                $("#mb-app-link").removeAttr(href);
                 $("#sb-app-link").removeAttr(href);
-                $("#sk-app-link").removeAttr(href);
             }
 
         } else if (isFM_app()) {
@@ -336,17 +336,17 @@ function projectSelectedAction(projectID) {
             $("#project-members").hide();
             $("#project-view").hide();
             $("#mm-add").hide();
-        } else if (isSK_app()) {
+        } else if (isMB_app()) {
             $("#project-members").hide();
             $("#project-view").hide();
-        } else if (isSK_all()) {
+        } else if (isMB_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
-            $("#sk-placeholder").show();
+            $("#mb-placeholder").show();
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#sk-add").hide();
+            $("#mb-add").hide();
         } else if (isSB_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
@@ -394,13 +394,13 @@ function isFM_all() {
 }
 
 //Return true if current page is FM APP
-function isSK_app() {
-    return location.pathname === "/sk_app";
+function isMB_app() {
+    return location.pathname === "/mb_app";
 }
 
 //Return true if current page is FM ALL
-function isSK_all() {
-    return location.pathname === "/sk_all";
+function isMB_all() {
+    return location.pathname === "/mb_all";
 }
 
 //Return true if current page is NF ALL
@@ -445,7 +445,7 @@ function unloadMD() {
     $("#fm_table tr ").removeClass('warning');
     $("#mm_table tr ").removeClass('warning');
     $("#sb_table tr ").removeClass('warning');
-    $("#sk_table tr ").removeClass('warning');
+    $("#mb_table tr ").removeClass('warning');
 
     $(".content").removeClass("content-disabled");
 }
@@ -490,8 +490,8 @@ function deleteFMItem(fm_id, project_id) {
     $("#fm-all").load("/fm_app_delete_all?fm_id=" + fm_id + "&project_id=" + project_id + "&limit=200");
 }
 
-function deleteSKItem(sk_id, project_id) {
-    $("#sk-all").load("/sk_app_delete_all?sk_id=" + sk_id + "&project_id=" + project_id + "&limit=200");
+function deleteMBItem(mb_id, project_id) {
+    $("#mb-all").load("/mb_app_delete_all?mb_id=" + mb_id + "&project_id=" + project_id + "&limit=200");
 }
 
 

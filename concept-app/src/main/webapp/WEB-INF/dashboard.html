@@ -38,8 +38,8 @@
                 <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="/resources/img/ICON_FM.png" /></button></form></li>
                 <li><form id="se-app-link-form" action="#" method="post" th:action="@{/se_app}"><button onclick="addProjectIDToForm('se-app-link-form')" type="submit" id="se-app-link" class="app-link"><img src="/resources/img/ICON_SE.png" /></button></form></li>
                 <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="/resources/img/ICON_MM.png" /></button></form></li>
-                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="/resources/img/ICON_SB.png" /></button></form></li>
-                <li><form id="sk-app-link-form" action="#" method="post" th:action="@{/sk_app}"><button onclick="addProjectIDToForm('sk-app-link-form')" type="submit" id="sk-app-link" class="app-link"><img src="/resources/img/ICON_SK.png" /></button></form></li>
+                <li><form id="mb-app-link-form" action="#" method="post" th:action="@{/mb_app}"><button onclick="addProjectIDToForm('mb-app-link-form')" type="submit" id="mb-app-link" class="app-link"><img src="/resources/img/ICON_MB.png" /></button></form></li>
+                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="/resources/img/ICON_SB.png" /></button></form></li>                
             </ul>
 
         </nav>
@@ -199,13 +199,28 @@
                     </div>
                 </div>
 
+                <!-- moodboards -->
+                <div class="col-md-4">
+                    <div id="mb-buttons" class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left">Moodboards</h4>
+                            <div class="btn-group pull-right">
+                                <button onclick="createMoodboard()" id="mb-add" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Moodboard/Sketch</button>
+                            </div>
+                        </div>
+
+                        <div id="mb-placeholder" class="panel-body disabled"></div>
+                        <div id="mb-dashboard"></div>
+
+                    </div>
+                </div>
+                
                 <!-- storyboards -->
                 <div class="col-md-4">
                     <div id="sb-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Storyboards</h4>
                             <div  class="btn-group pull-right">                               
-                                <button onclick="createMoodboard()" id="mb-add" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Moodboard</button>
                                 <button onclick="createStoryboard()" id="sb-add" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</button>
                             </div>
                         </div>
@@ -216,23 +231,6 @@
                     </div>
                 </div>
 
-                <!-- sketches -->
-                <div class="col-md-4">
-                    <div id="sk-buttons" class="panel panel-default">
-                        <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left">Sketches</h4>
-                            <div class="btn-group pull-right">
-                                <form id="sk-add-form" action="#" method="post" th:action="@{/sk_app}">
-                                    <button onclick="addProjectIDToForm('sk-add-form')" type="submit" id="sk-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</button>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div id="sk-placeholder" class="panel-body disabled"></div>
-                        <div id="sk-dashboard"></div>
-
-                    </div>
-                </div>
             </div>
         </div>
 
