@@ -5,6 +5,43 @@ __copyright__ = "Copyright Atos ARI 2015"
 __author__= "Pablo Salinero, Josemi"
 
 # Constants
+
+english_html_analyzer = {
+  "settings": {
+    "analysis": {
+      "filter": {
+        "english_stop": {
+          "type":       "stop",
+          "stopwords":  "_english_" 
+        },
+        "english_stemmer": {
+          "type":       "stemmer",
+          "language":   "english"
+        },
+        "english_possessive_stemmer": {
+          "type":       "stemmer",
+          "language":   "possessive_english"
+        }
+      },
+      "analyzer": {
+        "english-html": {
+            "char_filter": "html_strip", #important
+          "tokenizer":  "standard",
+          "filter": [
+            "english_possessive_stemmer",
+            "lowercase",
+            "english_stop",
+            "english_stemmer"
+          ]
+        }
+      }
+    }
+  }
+}
+
+boost_list = { "title":2,"categories":3,"keyword":3 }
+
+
 categories_mapping = {
 	"category": {
 		"properties" : {
@@ -57,24 +94,24 @@ docs_mapping = {	"search_item" : {
 			"version" : {"type" : "integer"},
 			"last-updated" : {"type" : "date" },
 			"content-type" : {"type" : "string",
-                     "indez":"not_analyzed"},
-			"title" : {"type" : "string"},
+                     "index":"not_analyzed"},
+			"title" : {"type" : "string",
+              "analyzer":"english"},         #
 			"origin" : {"type" : "string"},
 			"language" : {"type" : "string",
                  "index":"not_analyzed"},
     "language_name" :  {"type" : "string",
                  "index":"not_analyzed"},
 			"description" : {"type" : "string"},
-			"categories" : {"type" : "string",
-                 "index":"not_analyzed"},
-			"keywords" : {"type" : "string",
-                 "index":"not_analyzed"},
+			"categories" : {"type" : "string"},
+			"keywords" : {"type" : "string"},
 			"status" : {"type" : "string",
                  "index":"not_analyzed"},
 			"domain" : {"type" : "string"},
-			"content-text" : {"type" : "string"},
+			"content-text" : {"type" : "string",
+                       "analyzer":"english-html"},  #
     "content-raw" : {"type" : "string",
-                 "index":"not_analyzed"},
+                 "index":"no"},
 			"image-properties" : {
 				"type" : "object",
 				"properties" : {

@@ -71,14 +71,14 @@ def init_db(es, config_init):
     type_keyword = config_init["type_keyword"]
 
     #delete everything each time that models change
-    #es.indices.delete(index)
+    es.indices.delete(index)
   
     if es.indices.exists(index):
         logging.info("DB already exists")
         return
 
     logging.info("Creating DB")
-    es.indices.create(index)
+    es.indices.create(index = index, body = english_html_analyzer)
     es.cluster.health(wait_for_status = "yellow")
 
     

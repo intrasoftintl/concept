@@ -9,13 +9,6 @@ import json
 import logging
 import datetime
 
-#from configobj import ConfigObj
-##
-##es = Elasticsearch()
-##
-##def init():
-##    config = ConfigObj('config.cfg')
-##    return config
 
 class insertion_item_handler(tornado.web.RequestHandler):
 
@@ -55,22 +48,22 @@ class insertion_item_handler(tornado.web.RequestHandler):
         
         #Retrieving parameters
         try:
-            uuid = self.get_argument('uuid')
+            uuid = self.get_argument('uuid',"")            
             url = self.get_argument('url',"")
             project_id = self.get_argument('project_id','')
             user_id = self.get_argument('user_id','')
             version = self.get_argument('version',0)
             last_updated = self.get_argument('last-updated',"20150625")
-            content_type = self.get_argument('content-type',"")
+            content_type = self.get_argument('content-type',"")[:2] #only the first 2 characters
             title = self.get_argument('title',"")
             origin  = self.get_argument('origin',"")
             language = self.get_argument('language',"")
             description = self.get_argument('description',"")
-            categories = json.loads(self.get_argument('categories',""))
-            keywords = json.loads(self.get_argument('keywords',""))
+            categories = self.get_argument('categories',"[]")
+            keywords = self.get_argument('keywords',"[]")
             status = self.get_argument('status',"")
             domain = self.get_argument('domain',"")
-            content_text = self.get_argument('content-text',"")
+            content_raw = self.get_argument('content-text',"")  
             image_properties = json.loads(self.get_argument('image-properties',"{}"))
             thumbnail_url = self.get_argument('thumbnail-url',"")
             parent_uuid = self.get_argument('parent-uuid',"")
@@ -84,6 +77,38 @@ class insertion_item_handler(tornado.web.RequestHandler):
             clients = json.loads(self.get_argument('clients',"[]"))
             rating = json.loads(self.get_argument('rating',"{}"))
             evaluators = json.loads(self.get_argument('evaluators',"[]"))
+            
+            #Alias
+            uuid = self.get_argument('ID',uuid)
+            uuid = self.get_argument('id',uuid)
+            project_id = self.get_argument('project ID',project_id)
+            project_id = self.get_argument('Project ID',project_id)
+            project_id = self.get_argument('PROJECT ID',project_id)
+            url = self.get_argument('URL',url)
+            content_type = self.get_argument('component',content_type)[:2]
+            content_type = self.get_argument('COMPONENT',content_type)[:2]
+            title = self.get_argument('TITLE',title)
+            categories = self.get_argument('CATEGORIES',categories)
+            keywords = self.get_argument('KEYWORDS',keywords)
+            content_raw = self.get_argument('CONTENT',content_raw)
+            content_raw = self.get_argument('content',content_raw)
+            
+            
+            if categories.startswith("["):
+                categories = json.loads(categories)
+            else:
+                # I asume coma separated
+                categories = categories.split(",")
+                categories = list(map(str.strip,categories))
+                
+                
+            if keywords.startswith("["):
+                keywords = json.loads(keywords)
+            else:
+                # I asume coma separated
+                keywords = keywords.split(",")
+                keywords = list(map(str.strip,keywords))                
+                
         except Exception as e:
             logging.exception(e)
             self.set_status(406,str(e))
@@ -92,6 +117,7 @@ class insertion_item_handler(tornado.web.RequestHandler):
         es = self.application.es
         index = self.application.config_init["index"]
         doc_type = self.application.config_init["type_item"]
+               
         
         #Creating json
         doc = {
@@ -110,7 +136,7 @@ class insertion_item_handler(tornado.web.RequestHandler):
             "keywords" : keywords,
             "status" : status,
             "domain" : domain,
-            "content-text" : content_text,
+            "content-raw" : content_raw,
             "image-properties" : image_properties,
             "thumbnail-url" : thumbnail_url,
             "parent-uuid" : parent_uuid,
@@ -127,6 +153,10 @@ class insertion_item_handler(tornado.web.RequestHandler):
             "creation-timestamp" : datetime.datetime.now()
         }
         doc["language_name"] = getNameLanguage(index,language)
+        
+        if content_type in ["BA","MM","SB"]:
+            logging.info("Inserting text for "+ content_type)
+            doc["content-text"] = doc["content-raw"]         
         
         #Indexing
         try:
