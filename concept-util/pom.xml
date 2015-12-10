@@ -9,19 +9,32 @@
         <version>v0.0.1</version>
     </parent>
     
-	<!-- Artifact Details -->
-	<name>concept-util</name>
-	<artifactId>concept-util</artifactId>
+    <!-- Artifact Details -->
+    <name>concept-util</name>
+    <artifactId>concept-util</artifactId>
     <packaging>jar</packaging>
     
-	<properties>
+    <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     
     <!-- Define Dependencies -->
     <dependencies>
+        <!-- Etherpad-lite Java API client  -->
+        <dependency>
+            <groupId>net.gjerull.etherpad</groupId>
+            <artifactId>etherpad_lite_client</artifactId>
+            <version>1.2.12</version>
+        </dependency>
         
+        
+        
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.7</version>
+        </dependency>
     </dependencies>
     
 </project>

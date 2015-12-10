@@ -176,11 +176,11 @@
         </dependency>
 
         <!-- jersey core -->
-        <dependency>
+<!--        <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-core</artifactId>
             <version>1.19</version>
-        </dependency>
+        </dependency>-->
 
         <!-- SVG parser -->
 
@@ -216,14 +216,7 @@
             <artifactId>batik-codec</artifactId>
             <version>1.8</version>
         </dependency>
-
-        <!-- Etherpad-lite Java API client  -->
-        <dependency>
-            <groupId>net.gjerull.etherpad</groupId>
-            <artifactId>etherpad_lite_client</artifactId>
-            <version>1.2.12</version>
-        </dependency>
-        
+               
     </dependencies>
     <build>
         <plugins>

@@ -379,8 +379,6 @@ public class RestAPIController {
             outputStream.flush();
             String base64 = new String(Base64.encodeBase64(((ByteArrayOutputStream) outputStream).toByteArray()));
             fileContent = "data:".concat("image/png".concat(";base64,").concat(base64));
-            //System.out.println(fileContent);
-
         } catch (IOException | TranscoderException ex) {
             Logger.getLogger(RestAPIController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -460,19 +458,6 @@ public class RestAPIController {
 
         return new ApplicationResponse(responseCode, responseMessage, newsb);
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     public String getTagsForText(String content) {
         try {

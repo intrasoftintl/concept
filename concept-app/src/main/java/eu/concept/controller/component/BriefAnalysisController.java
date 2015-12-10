@@ -10,9 +10,13 @@ import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.util.other.EtherpadHandler;
 import eu.concept.util.other.NotificationTool;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.gjerull.etherpad.client.EPLiteException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +33,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 public class BriefAnalysisController {
+
+    private final Logger logger = Logger.getLogger(BriefAnalysisController.class.getName());
 
     @Autowired
     ProjectServiceOp projectServiceOp;
@@ -82,6 +88,7 @@ public class BriefAnalysisController {
         return "ba_app";
     }
 
+    @Deprecated
     @RequestMapping(value = "/ba_app", method = RequestMethod.GET)
     public String ba_app(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -105,9 +112,14 @@ public class BriefAnalysisController {
         BriefAnalysis ba = baService.fetchBriefAnalysisById(ba_id);
         //On success delete & store notification to Concept db...
         if (null != ba && baService.deleteBriefAnalysis(ba_id)) {
+            //Delete pad from Etherpad-lite server
+            try {
+                EtherpadHandler.INSTANCE.getClient().deletePad(String.valueOf(ba_id));
+            } catch (EPLiteException ex) {
+                logger.log(Level.SEVERE, "Could not delete pad from Etherpad-lite, reason: {0}", ex.getLocalizedMessage());
+            }
             notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
         }
-
         return fetchBAByProjectID(model, project_id, limit);
     }
 
@@ -123,12 +135,30 @@ public class BriefAnalysisController {
     @RequestMapping(value = "/ba_app", method = RequestMethod.POST)
     public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
         model.addAttribute("projectID", projectID);
-        return ba_app(model);
+        //new code
+        BriefAnalysis ba = new BriefAnalysis();
+        ba.setPid(projectID);
+        ba.setTitle("Untitled");
+        ba.setContent("");
+        ba.setUid(WebController.getCurrentUserCo());
+        baService.storeFile(ba);
+        //Add BA object to model
+        model.addAttribute("briefanalysis", ba);
+        return "redirect:/ba_app/" + ba.getId();
     }
 
     @RequestMapping(value = "/ba_app_edit", method = RequestMethod.POST)
     public String createBriefAnalysis(@ModelAttribute BriefAnalysis ba, Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, final RedirectAttributes redirectAttributes) {
         NotificationTool.NOTIFICATION_OPERATION action = (null == ba.getId() ? NotificationTool.NOTIFICATION_OPERATION.CREATED : NotificationTool.NOTIFICATION_OPERATION.EDITED);
+
+        //Get content from Etherpad-liet
+        
+        try {
+            ba.setContent( String.valueOf(EtherpadHandler.INSTANCE.getClient().getText(String.valueOf(ba.getId())).get("text")));
+        } catch (EPLiteException ex) {
+            ba.setContent("");
+            logger.log(Level.SEVERE, "Could not delete pad from Etherpad-lite, reason: {0}", ex.getLocalizedMessage());
+        }
 
         //Set current user create/edit
         ba.setUid(WebController.getCurrentUserCo());
@@ -143,23 +173,20 @@ public class BriefAnalysisController {
             ba.setTitle("Untitled");
         }
 
-        //Set Default content value
-        if (null == ba.getContent() || ba.getContent().isEmpty()) {
-            ba.setContent("");
-        }
-
         //Store BriefAnalysis to database
         if (baService.storeFile(ba)) {
             //Create a notification for current action
             notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
+           
+            //Post Elastic search engine
+            
             redirectAttributes.addFlashAttribute("success", "Document saved!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Document couldn't be saved.");
         }
-
         //Add BA object to model
         model.addAttribute("briefanalysis", ba);
-
+        //Redirect to brief analysis app
         return "redirect:/ba_app/" + ba.getId();
     }
 
