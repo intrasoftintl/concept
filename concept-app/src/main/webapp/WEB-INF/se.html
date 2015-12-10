@@ -1,27 +1,15 @@
 <div th:fragment="seContentList">
-    <div class="panel-body no-padding"  th:if="${!#lists.isEmpty(seContents)}">
+    <div class="panel-body">
 
-        <table id="ba_table" class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="col-md-6">Recent Search Queries</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="seContent : ${seContents}">
-                    <td><a href="#"></a></td>
-                </tr> 
-            </tbody>
-        </table>
-        <div class="panel-footer">
-            <form id="seAllForm" action="#" method="post" th:action="@{/se_all}">
-                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
-            </form>
-            Saved Search Queries (<span th:text="${savedQueries}"></span>) - <a onclick="$('#seAllForm').submit();" >View All</a>
-        </div>
+        <form>
+            <div class="form-group">
+                <label for="keyword">Keyword Search</label>
+                <input type="text" class="form-control" id="keyword" placeholder="Keyword Search">
+            </div>
+
+            <button type="submit" class="btn btn-default">Search</button>
+        </form>
 
     </div>
-
-    <div id="se-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(seContents)}" ></div>
 
 </div>
