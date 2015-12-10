@@ -11,6 +11,7 @@ import json
 import urllib
 import logging
 
+from constants import boost_list
     
 def basic_search_query(param,es,index,doc_type, dpage = 0):
     """Create a basic query for elastic 
@@ -100,7 +101,19 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
     if project_id:
         filtered = True
         filter_ = { "term":{ "project_id":project_id } }
-        filterList.append(filter_)      
+        filterList.append(filter_)  
+        
+    content_type= param_list.pop("content-type","")
+    if content_type:
+        filtered = True
+        filter_ = { "term":{ "content-type":content_type } }
+        filterList.append(filter_)  
+
+    uuid = param_list.pop("uuid","")
+    if uuid:
+        filtered = True
+        filter_ = { "term":{ "uuid":uuid } }
+        filterList.append(filter_) 
 
     
     rating = param_list.pop("rating","")
@@ -113,6 +126,13 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
     for k,v in param_list.items():
         if v:
             match = { "match":{k:v} }
+            match = { "match":
+                            {k:
+                                {"query":v,
+                                 "boost":boost_list.get(k,1)
+                                }
+                            }
+                    }
             matchList.append(match)
     
     if(not filtered):
@@ -142,7 +162,7 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
                 }
                 }
                 
-    logging.debug(json.dumps(doc,indent=4))  
+    logging.info(json.dumps(doc,indent=4))  
     
     #Executing the query
     res = es.search(index=index, doc_type=doc_type, body=doc,
@@ -352,7 +372,7 @@ class search_advanced_results_render(tornado.web.RequestHandler):
                     user = user_id,
                     project = project_id,
                     search_param = json.dumps(p),
-                    s_type = "advanced_search_results",
+                    s_type = "/search_advanced",
                     page = page,
                     total = total,
                     list_results = list_results)
@@ -590,19 +610,32 @@ class search_advanced_handler(tornado.web.RequestHandler):
     def post(self):
         user_id = self.get_argument('user_id',"")
         project_id = self.get_argument('project_id',"")
-        search_param = self.get_argument('search_param')
-        logging.debug(search_param)
-        try:
-            search_param = json.loads(search_param)
-        except Exception as e:
-            logging.exception(e)
-            self.set_status(400,str(e))
-            return            
+        output = self.get_argument("output","html")
+        page = int(self.get_argument("page","1"))
+        search_param = self.get_argument('search_param',"")
+        if search_param:        
+            logging.debug(search_param)
+            try:
+                search_param = json.loads(search_param)
+            except Exception as e:
+                logging.exception(e)
+                self.set_status(400,str(e))
+                return            
+        else:
+            search_param = {}
+            search_param["title"] = self.get_argument('title',"")
+            search_param["content-text"] = self.get_argument('content',"")
+            search_param["content-type"] = self.get_argument('component',"")
+            search_param["uuid"] = self.get_argument("id","")
+            search_param["s_type"] = self.get_argument("s_type","")
+            search_param["keywords"] = self.get_argument("keywords","")
+            search_param["categories"] = self.get_argument("categories","")
             
         if user_id:    
             search_param["user_id"] = user_id
         if project_id:         
             search_param["project_id"] = project_id
+            
         logging.info("search_advanced_handler:search_param -> " + str(search_param))
 
 
@@ -617,6 +650,24 @@ class search_advanced_handler(tornado.web.RequestHandler):
             self.set_status(400,str(e))
             return        
         
-        self.set_header("Content-Type", 'application/json')
-        self.write(res["hits"])
+        if output == "html":
+            total = res["hits"]["total"]
+            #max_score = res["hits"]["max_score"]
+            list_results = res["hits"]["hits"]
+
+
+            #logging.debug(total)
+            #logging.debug(max_score)
+
+            self.render('rest_results.html',
+                    user = user_id,
+                    project = project_id,
+                    search_param = json.dumps(search_param),
+                    s_type = "advanced_search_results",
+                    page = page,
+                    total = total,
+                    list_results = list_results)
+        else:
+            self.set_header("Content-Type", 'application/json')
+            self.write(res["hits"])
                     

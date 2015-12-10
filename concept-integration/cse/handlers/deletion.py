@@ -13,7 +13,8 @@ class deletion_item_handler(tornado.web.RequestHandler):
     def get(self):
         #Retrieving parameters
         try:
-            uuid = self.get_argument('uuid')
+            uuid = self.get_argument('uuid',"")
+            uuid = self.get_argument('id',uuid)
         except Exception as e:
             self.set_status(406,str(e))
             return
@@ -35,7 +36,10 @@ class deletion_item_handler(tornado.web.RequestHandler):
         return
 
     def post(self):
-        print("test post")
+        self.get()
+        
+    def delete(self):
+        self.get()
 
 class deletion_category_handler(tornado.web.RequestHandler):
 
