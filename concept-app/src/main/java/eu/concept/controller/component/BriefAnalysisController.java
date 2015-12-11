@@ -10,9 +10,11 @@ import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.controller.ElasticSearchController;
 import eu.concept.util.other.EtherpadHandler;
 import eu.concept.util.other.NotificationTool;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.gjerull.etherpad.client.EPLiteException;
@@ -152,9 +154,8 @@ public class BriefAnalysisController {
         NotificationTool.NOTIFICATION_OPERATION action = (null == ba.getId() ? NotificationTool.NOTIFICATION_OPERATION.CREATED : NotificationTool.NOTIFICATION_OPERATION.EDITED);
 
         //Get content from Etherpad-liet
-        
         try {
-            ba.setContent( String.valueOf(EtherpadHandler.INSTANCE.getClient().getText(String.valueOf(ba.getId())).get("text")));
+            ba.setContent(String.valueOf(EtherpadHandler.INSTANCE.getClient().getText(String.valueOf(ba.getId())).get("text")));
         } catch (EPLiteException ex) {
             ba.setContent("");
             logger.log(Level.SEVERE, "Could not delete pad from Etherpad-lite, reason: {0}", ex.getLocalizedMessage());
@@ -177,9 +178,10 @@ public class BriefAnalysisController {
         if (baService.storeFile(ba)) {
             //Create a notification for current action
             notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
-           
-            //Post Elastic search engine
+            //Insert document to elastic search engine            
+            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba),Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), "Ba")));
             
+            //Post Elastic search engine
             redirectAttributes.addFlashAttribute("success", "Document saved!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Document couldn't be saved.");
