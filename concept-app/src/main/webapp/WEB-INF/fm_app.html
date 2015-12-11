@@ -7,10 +7,19 @@
         <meta name="viewport" content="width=device-width" />	
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-        <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="/resources/css/jquery.fileupload.css" type="text/css" />
-        <link rel="stylesheet" href="/resources/css/jquery.fileupload-ui.css" type="text/css" />
-        <link rel="stylesheet" href="/resources/css/dashboard.css" type="text/css" />
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+              th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/css/jquery.fileupload.css"
+              th:href="@{/webjars/jquery-file-upload/9.10.1/css/jquery.fileupload.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/css/jquery.fileupload-ui.css"
+              th:href="@{/webjars/jquery-file-upload/9.10.1/css/jquery.fileupload-ui.css}"
+              rel="stylesheet" media="screen" />
+ 
+        <link rel="stylesheet" href="/css/dashboard.css" type="text/css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
@@ -21,23 +30,21 @@
                 <form id="fm-form" th:action="@{/dashboard}" method="post" >
                     <a href="#" onclick="addProjectIDToForm('fm-form');
                             $(this).closest('form').submit()">
-                        <li class="main"><img src="/resources/img/BUTTON_BACK.png" />Dashboard</li>
+                        <li class="main"><img src="/images/BUTTON_BACK.png" />Dashboard</li>
                     </a>
                 </form>
-                <a onclick="TogetherJS(this);
-                        return false;"><li class="collaboration"></li></a>
             </ul>
         </nav>
 
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="/resources/img/ICON_BA_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_FM.png" /></li>
-                <li><img src="/resources/img/ICON_SE_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_MM_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_SB_DISABLED.png" /></li>
-                <li><img src="/resources/img/ICON_SK_DISABLED.png" /></li>
+                <li><img src="/images/ICON_BA_DISABLED.png" /></li>
+                <li><img src="/images/ICON_FM.png" /></li>
+                <li><img src="/images/ICON_SE_DISABLED.png" /></li>
+                <li><img src="/images/ICON_MM_DISABLED.png" /></li>
+                <li><img src="/images/ICON_MB_DISABLED.png" /></li>
+                <li><img src="/images/ICON_SB_DISABLED.png" /></li>
             </ul>
         </nav>
 
@@ -175,17 +182,29 @@
             </div>
         </div>
 
-        <script src="/resources/js/jquery-1.11.2.min.js"></script>
-        <script src="/resources/js/jquery.ui.widget.js"></script>
-        <script src="/resources/js/jquery.iframe-transport.js"></script>
-        <script src="/resources/js/jquery.fileupload.js"></script>
-        <script src="/resources/js/bootstrap.min.js"></script>
-        <script src="/resources/js/togetherjs-min.js"></script>
-        <script src="/resources/js/util.js"></script>
-        <!-- COnCEPT-Chat JS -->
-        <script src="/resources/js/sockjs.min.js"></script>
-        <script src="/resources/js/stomp.min.js"></script>
-        <script src="/resources/js/chat.js"></script>
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
+        th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-ui/1.11.4/jquery-ui.min.js"
+        th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.iframe-transport/1.0.0/jquery.iframe-transport.js"
+        th:src="@{/webjars/jquery.iframe-transport/1.0.0/jquery.iframe-transport.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/js/jquery.fileupload.js"
+        th:src="@{/webjars/jquery-file-upload/9.10.1/js/jquery.fileupload.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
+        th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
+        th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+        
+        <script src="../static/js/util.js" th:src="@{js/util.js}"></script>
+        <script src="../static/js/chat.js" th:src="@{js/chat.js}"></script>
 
     </body>
 </html>

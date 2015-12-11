@@ -47,6 +47,7 @@ class insertion_item_handler(tornado.web.RequestHandler):
         
         
         #Retrieving parameters
+        logging.debug(self.request.body)
         try:
             uuid = self.get_argument('uuid',"")            
             url = self.get_argument('url',"")

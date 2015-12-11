@@ -10,3 +10,4 @@ nbproject
 .sh
 *.lck
 .epoch
+*.pyc
