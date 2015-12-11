@@ -7,6 +7,7 @@ var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
 
+var MOOBBOARD_REST_URL = "http://concept-mb.euprojects.net/storyboard/";
 var STORYBOARD_REST_URL = "http://concept-sb.euprojects.net/storyboard/";
 //var STORYBOARD_REST_URL = "http://localhost:16161/storyboard/";
 
@@ -151,6 +152,12 @@ function createMoodboard() {
     window.open(url, '_blank');
 }
 
+function editMoodboard(mbid) {
+    var projectID = $("#projectID").val();
+    var userID = $("#userID").val();
+    var url = MOODBOARD_REST_URL + "moodboard/edit?pid=" + projectID + "&uid=" + userID + "&idStory=" + mbid;
+    window.open(url, '_blank');
+}
 function createStoryboard() {
     var projectID = $("#projectID").val();
     var userID = $("#userID").val();
