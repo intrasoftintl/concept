@@ -7,12 +7,23 @@
         <meta name="viewport" content="width=device-width" />	
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
-        <link rel="stylesheet" href="/resources/css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="/resources/css/magnific-popup.css" type="text/css" />
-        <link rel="stylesheet" href="/resources/css/dashboard.css" type="text/css" />
-        <!-- Metadata -->
-        <link rel="stylesheet" href="/resources/css/jquery.tagsinput.min.css" type="text/css" />
-        <link rel="stylesheet" href="/resources/css/jqtree.css" type="text/css" />
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+              th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+                
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/Magnific-Popup/1.0.0/magnific-popup.css"
+              th:href="@{/webjars/Magnific-Popup/1.0.0/magnific-popup.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css"
+              th:href="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/jqtree.css"
+              th:href="@{/webjars/jqtree/1.1.0/jqtree.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link rel="stylesheet" href="/css/dashboard.css" type="text/css" />        
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>        
@@ -23,23 +34,21 @@
                 <form id="dashboard-form" th:action="@{/dashboard}" method="post" >
                     <a href="#" onclick="addProjectIDToForm('dashboard-form');
                             $(this).closest('form').submit()">
-                        <li class="main"><img src="/resources/img/BUTTON_DASHBOARD.png" />Dashboard</li>
+                        <li class="main"><img src="/images/BUTTON_DASHBOARD.png" />Dashboard</li>
                     </a>
-                </form>                              
-                <a onclick="TogetherJS(this);
-                        return false;"><li class="collaboration"></li></a>
+                </form>
             </ul>
         </nav>
 
         <!-- apps -->
         <nav class="nav-apps">
             <ul>
-                <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="/resources/img/ICON_BA.png" /></button></form></li> 
-                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="/resources/img/ICON_FM.png" /></button></form></li>
-                <li><form id="se-app-link-form" action="#" method="post" th:action="@{/se_app}"><button onclick="addProjectIDToForm('se-app-link-form')" type="submit" id="se-app-link" class="app-link"><img src="/resources/img/ICON_SE.png" /></button></form></li>
-                <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="/resources/img/ICON_MM.png" /></button></form></li>
-                <li><form id="mb-app-link-form" action="#" method="post" th:action="@{/mb_app}"><button onclick="addProjectIDToForm('mb-app-link-form')" type="submit" id="mb-app-link" class="app-link"><img src="/resources/img/ICON_MB.png" /></button></form></li>
-                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="/resources/img/ICON_SB.png" /></button></form></li>                
+                <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="/images/ICON_BA.png" /></button></form></li> 
+                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="/images/ICON_FM.png" /></button></form></li>
+                <li><form id="se-app-link-form" action="#" method="post" th:action="@{/se_app}"><button onclick="addProjectIDToForm('se-app-link-form')" type="submit" id="se-app-link" class="app-link"><img src="/images/ICON_SE.png" /></button></form></li>
+                <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="/images/ICON_MM.png" /></button></form></li>
+                <li><form id="mb-app-link-form" action="#" method="post" th:action="@{/mb_app}"><button onclick="addProjectIDToForm('mb-app-link-form')" type="submit" id="mb-app-link" class="app-link"><img src="/images/ICON_MB.png" /></button></form></li>
+                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="/images/ICON_SB.png" /></button></form></li>                
             </ul>
 
         </nav>
@@ -236,25 +245,31 @@
 
         <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
-        <!-- Core JS libraries -->
-        <script src="/resources/js/jquery-1.11.2.min.js"></script>
-        <script src="/resources/js/bootstrap.min.js"></script>
-        <script src="/resources/js/togetherjs-min.js"></script>
-        <script src="/resources/js/jquery.magnific-popup.min.js"></script>
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
+        th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/Magnific-Popup/1.0.0/jquery.magnific-popup.min.js"
+        th:src="@{/webjars/Magnific-Popup/1.0.0/jquery.magnific-popup.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js"
+        th:src="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js}"></script>
 
-        <!-- Javascript file handling various actions of dashboard page -->
-        <script src="/resources/js/util.js"></script>
-        <script src="/resources/js/dashboard.js"></script>
-
-        <!-- Metadata -->
-        <script src="/resources/js/jquery.tagsinput.min.js"></script>
-        <script src="/resources/js/tree.jquery.js"></script>
-        <script src="/resources/js/metadata.js"></script>
-
-        <!-- COnCEPT-Chat JS -->
-        <script src="/resources/js/sockjs.min.js"></script>
-        <script src="/resources/js/stomp.min.js"></script>
-        <script src="/resources/js/chat.js"></script>
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/tree.jquery.js"
+        th:src="@{/webjars/jqtree/1.1.0/tree.jquery.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
+        th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
+        th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+        
+        <script src="../static/js/util.js" th:src="@{js/util.js}"></script>
+        <script src="../static/js/dashboard.js" th:src="@{js/dashboard.js}"></script>
+        <script src="../static/js/metadata.js" th:src="@{js/metadata.js}"></script>
+        <script src="../static/js/chat.js" th:src="@{js/chat.js}"></script>
         
     </body>
 </html>

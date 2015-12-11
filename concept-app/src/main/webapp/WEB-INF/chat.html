@@ -1,12 +1,11 @@
 <div th:fragment="chat-list"  th:unless="${#lists.isEmpty(chat)}" >
 
-
     <!-- chat -->
     <nav id="concept-chat" class="nav-chat disabled">
 
         <div class="nav-header">
-            <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
-            <!--<a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>-->
+            <img class="icon" src="/images/BUTTON_COMMUNICATION.png" />
+            <!--<a href="#"><img class="icon settings" src="/images/BUTTON_SETTINGS.png" /></a>-->
             <p class="heading">Chat</p>
             <p class="title" th:inline="text">Logged in as <span id="chat-user" style="color:#888" th:text="${currentUser.getUsername()}"></span></p>
         </div>
@@ -16,7 +15,7 @@
                 Please select a project
             </div>
             <ul id="chat-placeholder">
-                <li class="placeholder"><img src="/resources/img/ICON_CHAT.png" /></li>
+                <li class="placeholder"><img src="/images/ICON_CHAT.png" /></li>
             </ul>
 
             <ul id="chat-list" class="chat-list">
@@ -35,8 +34,8 @@
     <!-- chat-hidden -->
     <nav class="nav-chat-hidden">
         <div class="nav-header">
-            <img class="icon" src="/resources/img/BUTTON_COMMUNICATION.png" />
-            <a href="#"><img class="icon settings" src="/resources/img/BUTTON_SETTINGS.png" /></a>
+            <img class="icon" src="/images/BUTTON_COMMUNICATION.png" />
+            <a href="#"><img class="icon settings" src="/images/BUTTON_SETTINGS.png" /></a>
             <p class="heading">Chat module</p>
             <p class="title">Module hidden</p>
         </div>
