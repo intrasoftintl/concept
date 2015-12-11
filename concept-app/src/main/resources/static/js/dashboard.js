@@ -13,10 +13,8 @@ function loadDashboardContent(projectID) {
     $("#ba-dashboard").load("/briefanalysis/" + projectID + "?limit=5");
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
-    
     //Load content of Search widget
     $("#se-dashboard").load("/search/" + projectID);    
-
     //Load content of MindMap widget
     $("#mm-dashboard").load("/mindmap/" + projectID + "?limit=5");
     //Load content of Moodboard widget

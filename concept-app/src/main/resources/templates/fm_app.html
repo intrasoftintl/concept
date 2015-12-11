@@ -19,7 +19,7 @@
               th:href="@{/webjars/jquery-file-upload/9.10.1/css/jquery.fileupload-ui.css}"
               rel="stylesheet" media="screen" />
  
-        <link rel="stylesheet" href="/css/dashboard.css" type="text/css" />
+        <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
@@ -203,8 +203,8 @@
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
         th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
         
-        <script src="../static/js/util.js" th:src="@{js/util.js}"></script>
-        <script src="../static/js/chat.js" th:src="@{js/chat.js}"></script>
+        <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
+        <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
 
     </body>
 </html>
