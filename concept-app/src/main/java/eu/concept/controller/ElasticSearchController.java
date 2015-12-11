@@ -182,7 +182,6 @@ public final class ElasticSearchController {
     }
 
     private String getURL(String componentName, String componentId, String projectId, String userId) {
-
         switch (componentName) {
             case "BA":
                 return COnCEPT_BASE_URL.concat("ba_app/").concat(componentId);
@@ -200,7 +199,5 @@ public final class ElasticSearchController {
             default:
                 return "N/A";
         }
-
-        //http://concept.euprojects.net/ba_app/40
     }
 }
