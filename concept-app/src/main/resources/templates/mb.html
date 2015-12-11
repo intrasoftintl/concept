@@ -12,7 +12,7 @@
                 </thead>
                 <tbody>            
                     <tr th:each="mbContent : ${mbContents}">
-                        <td><a th:attr="onclick=@{'editStoryboard(' + ${mbContent.id}  +')'}"><img  th:src="${mbContent.contentThumbnail}" class="img-thumbnail" /></a></td>
+                        <td><a th:attr="onclick=@{'editMoodboard(' + ${mbContent.id}  +')'}"><img  th:src="${mbContent.contentThumbnail}" class="img-thumbnail" /></a></td>
                         <td class="truncate"><span th:text="@{${mbContent.uid.firstName} + ' '+ ${mbContent.uid.lastName} + ' (' +  ${mbContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mbContent.createdDate,0,16)}"></span></td>
                         <td>
                             <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${mbContent.id}  +',\'MB\','+${mbContent.pid}+',this)'}">
@@ -35,7 +35,7 @@
             <form id="mbAllForm" action="#" method="post" th:action="@{/mb_all}">
                 <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
             </form>
-            Storyboards (<span th:text="${totalStoryboards}"></span>) - <a onclick="$('#mbAllForm').submit();">View All</a>
+            Storyboards (<span th:text="${totalMoodboards}"></span>) - <a onclick="$('#mbAllForm').submit();">View All</a>
         </div>
 
     </div>

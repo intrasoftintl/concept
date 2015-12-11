@@ -20,7 +20,7 @@
                         </thead>
                         <tbody>
                             <tr th:each="nfContent : ${nfContents}"  th:class="( ${#dates.format(#calendars.createToday(), 'yyyy-MM-dd')} == ${ #strings.substring(nfContent.createdDate,0,10)   } ? 'warning' : '' )">                              
-                                <td><img class="notification" th:src="@{'/resources/img/'+ ${nfContent.toolImg} + '.png' } " /><img class="thumbnail inficator" th:src="${nfContent.thumbnail}" /></td>
+                                <td><img class="notification" th:src="@{'/images/'+ ${nfContent.toolImg} + '.png' } " /><img class="thumbnail inficator" th:src="${nfContent.thumbnail}" /></td>
                                 <td><strong><span th:text="${nfContent.operation}"></span></strong> <span th:text="${nfContent.message}"></span><br/><span  th:text="@{${nfContent.uid.firstName} + ' '+ ${nfContent.uid.lastName} + ' (' +  ${nfContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(nfContent.createdDate,0,16)}"></span></td>                                
                             </tr>
                         </tbody>
