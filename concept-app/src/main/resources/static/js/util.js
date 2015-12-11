@@ -147,7 +147,7 @@ function createMindMap() {
 function createMoodboard() {
     var projectID = $("#projectID").val();
     var userID = $("#userID").val();
-    var url = STORYBOARD_REST_URL + "scene/new?pid=" + projectID + "&uid=" + userID;
+    var url = STORYBOARD_REST_URL + "moodboard/new?pid=" + projectID + "&uid=" + userID;
     window.open(url, '_blank');
 }
 
