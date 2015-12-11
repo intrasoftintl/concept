@@ -11,7 +11,7 @@
               th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
               rel="stylesheet" media="screen" />
         
-        <link rel="stylesheet" href="/css/dashboard.css" type="text/css" />
+        <link rel="stylesheet" href="../static/css/dashboard.css" th:href="@{css/dashboard.css}" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
     <body>
@@ -27,12 +27,12 @@
         <!-- apps -->
         <nav class="nav-apps">
             <ul class="disabled">
-                <li><img src="/images/ICON_BA_DISABLED.png" /></li>
-                <li><img src="/images/ICON_FM_DISABLED.png" /></li>
-                <li><img src="/images/ICON_SE_DISABLED.png" /></li>
-                <li><img src="/images/ICON_MM_DISABLED.png" /></li>
-                <li><img src="/images/ICON_MB_DISABLED.png" /></li>
-                <li><img src="/images/ICON_SB_DISABLED.png" /></li>
+                <li><img src="../static/images/ICON_BA_DISABLED.png" th:src="@{images/ICON_BA_DISABLED.png}" /></li>
+                <li><img src="../static/images/ICON_FM_DISABLED.png" th:src="@{images/ICON_FM_DISABLED.png}" /></li>
+                <li><img src="../static/images/ICON_SE_DISABLED.png" th:src="@{images/ICON_SE_DISABLED.png}" /></li>
+                <li><img src="../static/images/ICON_MM_DISABLED.png" th:src="@{images/ICON_MM_DISABLED.png}" /></li>
+                <li><img src="../static/images/ICON_MB_DISABLED.png" th:src="@{images/ICON_MB_DISABLED.png}" /></li>
+                <li><img src="../static/images/ICON_SB_DISABLED.png" th:src="@{images/ICON_SB_DISABLED.png}" /></li>
             </ul>
         </nav>
 
