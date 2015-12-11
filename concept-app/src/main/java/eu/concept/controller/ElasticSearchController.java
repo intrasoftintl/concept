@@ -80,7 +80,7 @@ public final class ElasticSearchController {
         int id, pid;
         String title, elastic_id;
         String content = new String();
-        String component = getComponentName(document.getClass().getCanonicalName());
+        String component = getComponentName(document.get().getClass().getCanonicalName());
         String keywords = new String();
         String categories = new String();
         String user_id = new String();
@@ -90,15 +90,15 @@ public final class ElasticSearchController {
         try {
 
             //Id of the Component
-            id = (int) document.get().getClass().getDeclaredMethod("getId", null).invoke(document, null);
+            id = (int) document.get().getClass().getDeclaredMethod("getId", null).invoke(document.get(), null);
             //Project id 
-            pid = (int) document.get().getClass().getDeclaredMethod("getPid", null).invoke(document, null);
+            pid = (int) document.get().getClass().getDeclaredMethod("getPid", null).invoke(document.get(), null);
             //Title
-            title = (String) document.get().getClass().getDeclaredMethod("getTitle", null).invoke(document, null);
+            title = (String) document.get().getClass().getDeclaredMethod("getTitle", null).invoke(document.get(), null);
 
             //Get content only  object is intance of BriefAnalysis
             if (document.get() instanceof BriefAnalysis) {
-                content = (String) document.get().getClass().getDeclaredMethod("getContent", null).invoke(document, null);
+                content = (String) document.get().getClass().getDeclaredMethod("getContent", null).invoke(document.get(), null);
             }
 
             //If document is a MindMap object get the userid of the creator
@@ -128,8 +128,7 @@ public final class ElasticSearchController {
         elastic_id = String.valueOf(pid) + String.valueOf(id);
         //Make the call to insert document to elastic
         try {
-            System.out.println("Content is: " + content);
-            HttpResponse<String> response = Unirest.post(INSERT_URL).field("id", elastic_id).field("project_id", pid).field("title", title).field("content", content).field("url", Optional.empty()).field("component", component).field("keywords", keywords).field("categories", categories).asString();
+            HttpResponse<String> response = Unirest.post(INSERT_URL).field("id", elastic_id).field("project_id", pid).field("title", title).field("content", content).field("url", url).field("component", component).field("keywords", keywords).field("categories", categories).asString();
 
             if (201 == response.getStatus()) {
                 logger.info("Successfully inserted document with id: " + elastic_id);
