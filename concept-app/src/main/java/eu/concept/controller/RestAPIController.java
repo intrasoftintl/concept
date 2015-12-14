@@ -186,7 +186,7 @@ public class RestAPIController {
 
                 if (isPublic == 0 && statusCode == 1) {
                     BriefAnalysis bf = briefAnalysisService.fetchBriefAnalysisById(component_id);
-                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
                 }
                 return statusCode;
 
@@ -229,7 +229,7 @@ public class RestAPIController {
                 } else {
                     likes.setBaId(null);
                 }
-//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
             case "FM":
@@ -241,7 +241,7 @@ public class RestAPIController {
                 } else {
                     likes.setFmId(null);
                 }
-//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
             case "MM":
@@ -253,7 +253,7 @@ public class RestAPIController {
                 } else {
                     likes.setMmId(null);
                 }
-//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
             case "SK":
@@ -277,7 +277,7 @@ public class RestAPIController {
                 } else {
                     likes.setSbId(null);
                 }
-//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
             case "MB":
@@ -289,7 +289,7 @@ public class RestAPIController {
                 } else {
                     likes.setMbId(null);
                 }
-//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/resources/img/fm_generic_mm.png", WebController.getCurrentUserCo());
+//                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
             default:

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Error &mdash; CONCEPT</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />	
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+              th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+
+        <div class="content-error">
+            <img src="/images/error.png" width="400px"/>
+            <div class="alert alert-danger" role="alert" >
+                <h4><strong>ERROR !!!</strong></h4>
+                <span>Page error or page not found<br/></span>
+                <span>(redirecting to dashboard...)</span>
+            </div>
+        </div>
+
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
+        th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
+
+        <script>
+            $(document).ready(function () {
+                setTimeout(function () {
+                    document.location.href = '/';
+                }, 4000);
+            });
+        </script>
+    </body>
+</html>
+

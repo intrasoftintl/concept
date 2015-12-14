@@ -1,0 +1,83 @@
+<div th:fragment="baContentList">
+    <div class="panel-body no-padding"  th:if="${!#lists.isEmpty(baContents)}">
+
+        <table id="ba_table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-3">Recent Documents</th>
+                    <th class="col-md-4">User</th>
+                    <th class="col-md-5"> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="baContent : ${baContents}">
+                    <td class="truncate"><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
+                    <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(baContent.createdDate,0,16)}"></span></td>
+                    <td>
+                        <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'   }    ">
+                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                        </button>
+
+                        <button class="action-button" th:attr="onclick=@{ 'deleteBA(' + ${baContent.id}  +','+ ${baContent.pid}+ ')' }" >
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
+                        <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')'" th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                        <span th:id="@{'LikeBA' + ${baContent.id} }" th:attr="onclick=@{'like(\'BA\','+${baContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${baContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"    aria-hidden="true"></span> <span th:id="@{'LikeCountBA' + ${baContent.id} }" th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="panel-footer">
+            <form id="baAllForm" action="#" method="post" th:action="@{/ba_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+            </form>
+            Documents (<span th:text="${totalFiles}"></span>) - <a onclick="$('#baAllForm').submit();" >View All</a>
+        </div>
+
+    </div>
+
+    <div id="ba-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(baContents)}" ></div>
+
+</div>
+
+<div th:fragment="baContentAllList"  th:unless="${#lists.isEmpty(baContents)}" >
+    <div class="panel-body no-padding" >
+        <table id="ba_table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-3">Recent Documents</th>
+                    <th class="col-md-6">Details</th>
+                    <th class="col-md-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="baContent : ${baContents}">
+                    <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:title="${baContent.title}" th:alt="${baContent.title}"><img class="img-thumbnail" src="/images/fm_generic.png"/></a></td>
+                    <td class="truncate"><span class="file-title" th:text="${baContent.title}"></span><br/><span class="file-user" th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(baContent.createdDate,0,16)}"></span></td>
+                    <td>
+                        <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'}">
+                            <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
+                        </button>
+                        <button class="action-button" th:attr="onclick=@{ 'deleteBAItem(' + ${baContent.id}  +','+ ${baContent.pid}+ ')' }" >
+                            <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                        </button>
+                        &nbsp;
+                        <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')' " th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                        <span th:id="@{'LikeBA' + ${baContent.id} }" th:attr="onclick=@{'like(\'BA\','+${baContent.id} } +')'"  class="glyphicon glyphicon-thumbs-up" th:classappend="(${baContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountBA' + ${baContent.id} }" th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!--
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+    </div>
+
+    <div class="panel-footer" style="text-align:center">
+        <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
+    </div>
+    -->
+    
+</div>

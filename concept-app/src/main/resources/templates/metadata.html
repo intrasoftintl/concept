@@ -1,0 +1,91 @@
+<div th:fragment="sidebar-metadata"  th:unless="null == ${metadata}" >
+
+
+
+
+    <!-- navbar -->
+    <nav class="nav-main-md">
+        <ul>
+                <a href="#" onclick="unloadMD()">
+                    <li class="main-md"><img src="/images/BUTTON_BACK.png" />Metadata</li>
+                </a>
+        </ul>
+    </nav>
+
+
+
+    <!-- keywords -->
+    <nav class="nav-keywords">
+        <div class="nav-header">
+            <img class="icon" src="/images/BUTTON_KEYWORDS.png" />
+
+            <p class="heading">KEYWORDS</p>
+            <p class="title">Annotate with keywords</p>
+        </div>
+
+        <input name="tags" id="tags" th:value="${metadata.keywords}" />
+
+        <form id="autoannotate" th:object="${metadata}" th:action="@{/conceptRest/api/autoannotate}" method="post">
+            <!-- Project ID -->
+            <input th:type="hidden" th:name="project_id" th:value="${project_id}"/>
+            <!-- Metadata ID -->
+            <input th:type="hidden" th:name="id" th:field="*{id}"  />
+            <!-- Component ID -->
+            <input th:type="hidden" th:name="cid" th:field="*{cid}" />
+            <!-- Component name -->
+            <input th:type="hidden" th:name="component" th:field="*{component.id}"/>
+            <button id="autoannotatebtn" type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
+            </button>
+        </form>
+    </nav>
+
+    <!-- categories -->
+    <nav class="nav-categories">
+        <div class="nav-header">
+            <img class="icon" src="/images/BUTTON_CATEGORIES.png" />
+
+            <p class="heading">CATEGORIES</p>
+            <p class="title">Annotate with categories</p>
+        </div>
+
+        <div id="tree"></div>
+
+    </nav>
+
+    <!-- save-cancel  -->
+    <nav class="nav-actions-md">
+
+        <form id="metadataForm" th:object="${metadata}" th:action="@{/metadata}" method="post">
+
+            <!-- Project ID -->
+            <input th:type="hidden" th:name="project_id" th:value="${project_id}"/>
+            <!-- Metadata ID -->
+            <input th:type="hidden" th:name="id" th:field="*{id}"  />
+            <!-- Component ID -->
+            <input th:type="hidden" th:name="cid" th:field="*{cid}" />
+            <!-- Component name -->
+            <input th:type="hidden" th:name="component" th:field="*{component.id}"/>
+            <!-- Metadata keywords-->
+            <input th:type="hidden" th:name="keyword" th:field="${metadata.keywords}"  id="keywords"/>
+            <!-- Metadata categories-->
+            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>
+            <!-- Metadata description-->
+            <input th:type="hidden" th:name="description" th:field="*{description}"  />
+
+            <button type="submit" class="btn btn-success btn-block btn-actions">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+            </button>
+        </form>
+        
+        <!--
+        <button class="btn btn-default btn-block btn-actions" onclick="unloadMD()">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Go Back
+        </button>
+        -->
+    </nav>
+
+    <!-- Immediate load metadata -->
+    <script> initMetadata()</script>
+
+</div>

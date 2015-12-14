@@ -1,0 +1,46 @@
+<div th:fragment="notifications-list">
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <div id="fmDIVbuttons" class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Notifications</h4>
+                    <!--
+                    <div class="btn-group pull-right">
+                        <a id="nf-button" href="#" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Mark all as read</a>
+                    </div>
+                    -->
+                </div>
+                <div class="panel-body no-padding">
+                    <table class="table table-striped">
+                        <thead> 
+                            <tr>
+                                <th class="col-md-3">Recent Changes</th>
+                                <th class="col-md-9">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="nfContent : ${nfContents}"  th:class="( ${#dates.format(#calendars.createToday(), 'yyyy-MM-dd')} == ${ #strings.substring(nfContent.createdDate,0,10)   } ? 'warning' : '' )">                              
+                                <td><img class="notification" th:src="@{'/images/'+ ${nfContent.toolImg} + '.png' } " /><img class="thumbnail inficator" th:src="${nfContent.thumbnail}" /></td>
+                                <td><strong><span th:text="${nfContent.operation}"></span></strong> <span th:text="${nfContent.message}"></span><br/><span  th:text="@{${nfContent.uid.firstName} + ' '+ ${nfContent.uid.lastName} + ' (' +  ${nfContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(nfContent.createdDate,0,16)}"></span></td>                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!--
+                <div class="panel-footer" style="text-align:center">
+                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
+                </div>
+
+                <div class="panel-footer" style="text-align:center">
+                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
+                </div>
+                -->
+                
+            </div>
+        </div>
+
+    </div>
+</div>
