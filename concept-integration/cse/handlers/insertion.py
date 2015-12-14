@@ -47,6 +47,7 @@ class insertion_item_handler(tornado.web.RequestHandler):
         
         
         #Retrieving parameters
+        logging.debug("Body:")
         logging.debug(self.request.body)
         try:
             uuid = self.get_argument('uuid',"")            
@@ -159,6 +160,7 @@ class insertion_item_handler(tornado.web.RequestHandler):
             logging.info("Inserting text for "+ content_type)
             doc["content-text"] = doc["content-raw"]         
         
+        logging.debug(doc)
         #Indexing
         try:
             res = es.index(index=index, doc_type=doc_type, id=uuid, body=doc)

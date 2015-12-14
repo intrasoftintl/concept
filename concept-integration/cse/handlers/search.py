@@ -144,6 +144,18 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
                     }
             }
         }        
+    elif (not matchList):
+        doc = { "query": 
+                {
+                "filtered": {
+                    "filter": {
+                        "bool": {
+                            "must":filterList
+                        }
+                    }
+                }
+                }
+                }        
     else:
         doc = { "query": 
                 {
@@ -161,6 +173,7 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
                 }
                 }
                 }
+    
                 
     logging.info(json.dumps(doc,indent=4))  
     
