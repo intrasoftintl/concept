@@ -31,12 +31,7 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <form id="dashboard-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('dashboard-form');
-                            $(this).closest('form').submit()">
-                        <li class="main"><img src="/images/BUTTON_DASHBOARD.png" />Dashboard</li>
-                    </a>
-                </form>
+                <li class="main-disabled"><img src="/images/BUTTON_DASHBOARD.png" />Dashboard</li>
             </ul>
         </nav>
 
@@ -74,7 +69,7 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">Create New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                     <span th:case="'DESIGNER'">
                         <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
@@ -175,12 +170,14 @@
                 <div class="col-md-4">
                     <div id="se-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left">Search Engine</h4>
+                            <h4 class="panel-title pull-left">Search</h4>
+                            <!--
                             <div  class="btn-group pull-right">
                                 <form id="se-add-form" action="#" method="post" th:action="@{/se_app}">
                                     <button onclick="addProjectIDToForm('se-add-form')" type="submit" id="se-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</button>
                                 </form>
                             </div>
+                            -->
                         </div>
 
                         <div id="se-placeholder" class="panel-body disabled"></div>
