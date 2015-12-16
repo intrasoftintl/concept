@@ -67,7 +67,7 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">Create New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
                     </span>
                     <span th:case="'DESIGNER'">
                         <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
@@ -109,7 +109,7 @@
                     <input type="hidden" th:value="${briefanalysis.id}"   th:field="*{id}" class="form-control input-sm" id="ba-id" name="ba-id" size="50" value="BA_00001"/>
                     <label for="document-title">Brief Analysis Title</label>
                     <input th:value="${briefanalysis.title}" th:field="*{title}" type="text" class="form-control input-sm" id="document-title" name="document-title" size="50" placeholder="Untitled (Optional)"/>
-                    <input type="submit" class="btn btn-xs btn-danger" value="Save content"   name="editBA"/>
+                    <input type="submit" class="btn btn-xs btn-danger" value="Save"   name="editBA"/>
                 </div>
 
                 <iframe id="etherpad" th:src="@{'http://concept-ba.euprojects.net/p/' +${briefanalysis.id}+ '?showChat=false&amp;showLineNumbers=false&amp;userName='+ ${currentUser.getUsername()}}" width="100%" height="100%"></iframe>

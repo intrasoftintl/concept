@@ -17,6 +17,15 @@ body{
     font-size:14px;
 }
 
+nav{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 /* NAV-MAIN CONTAINER */
 .nav-main{
     width: 240px;
@@ -46,9 +55,10 @@ body{
 
 .nav-main ul li:hover{ color:#fff; background:#ECF0F1; color:#E74C3C; }
 
-.nav-main ul li.main{ border-bottom:2px solid #eee; width:238px; height:36px; background-color: #f2f2f2; color: #444; font-size:12px; }
+.nav-main ul li.main, .nav-main ul li.main-disabled{ border-bottom:2px solid #eee; width:238px; height:36px; background-color: #f2f2f2; color: #444; font-size:12px; }
+.nav-main ul li.main-disabled:hover { opacity:1; }
 .nav-main ul li.main:hover { opacity:0.5; }
-.nav-main ul li.main img{ float:left; padding:2px; }
+.nav-main ul li.main img, .nav-main ul li.main-disabled img{ float:left; padding:2px; }
 .nav-main ul li.disabled{ border-bottom:2px solid #eee; width:242px; height:36px; background-color: #f2f2f2; color: #444; cursor: auto;}
 .nav-main ul li.collaboration { border-bottom:2px solid #eee; text-decoration:none; color: #ECF0F1; width:36px; height:36px; background:url('../img/BUTTON_COLLABORATION.png') no-repeat center; background-size:32px 32px; background-color: #f2f2f2; }
 .nav-main ul li.collaboration:hover { opacity:0.4; cursor: pointer;}
