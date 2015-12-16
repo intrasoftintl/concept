@@ -703,6 +703,11 @@ a.fm-popup {
     outline: 0;
 }
 
+/* SE APP */
+
+.optional{
+    opacity:0.5;
+}
 
 /* BOOTSTRAP OVERRIDE */
 .row { margin:0; }
