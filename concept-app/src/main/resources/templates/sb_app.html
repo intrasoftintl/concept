@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Moodboard &mdash; CONCEPT</title>
+        <title>Storyboard &mdash; CONCEPT</title>
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width" />	
@@ -27,8 +27,8 @@
         <!-- navbar -->
         <nav class="nav-main">
             <ul>
-                <form id="mb-form" th:action="@{/dashboard}" method="post" >
-                    <a href="#" onclick="addProjectIDToForm('mb-form');
+                <form id="sb-form" th:action="@{/dashboard}" method="post" >
+                    <a href="#" onclick="addProjectIDToForm('sb-form');
                             $(this).closest('form').submit()">
                         <li class="main"><img src="/images/BUTTON_BACK.png" />Dashboard</li>
                     </a>
@@ -43,8 +43,8 @@
                 <li><img src="/images/ICON_FM_DISABLED.png" /></li>
                 <li><img src="/images/ICON_SE_DISABLED.png" /></li>
                 <li><img src="/images/ICON_MM_DISABLED.png" /></li>
-                <li><img src="/images/ICON_MB.png" /></li>
-                <li><img src="/images/ICON_SB_DISABLED.png" /></li>
+                <li><img src="/images/ICON_MB_DISABLED.png" /></li>
+                <li><img src="/images/ICON_SB.png" /></li>
             </ul>
         </nav>
 
@@ -101,7 +101,7 @@
 
         <!-- dashboard -->
         <div class="content">
-            <iframe id="moodboard" th:src="@{'http://concept-mb.euprojects.net/storyboard/moodboard/new?pid=' + ${moodboard.pid} + '&uid=' + ${moodboard.uid} }" width="100%" height="100%"></iframe>
+            <iframe id="moodboard" th:src="@{'http://concept-mb.euprojects.net/storyboard/storyboard/new?pid=' + ${storyboard.pid} + '&uid=' + ${storyboard.uid} }" width="100%" height="100%"></iframe>
         </div>
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
