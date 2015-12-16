@@ -82,7 +82,7 @@ public final class ElasticSearchController {
         int id, pid;
         String title, elastic_id;
         String content = new String();
-        String component = getComponentName(document.get().getClass().getCanonicalName());
+        String component = getComponentName(document.get().getClass().getSimpleName());
         String keywords = new String();
         String categories = new String();
         String user_id = new String();
@@ -157,6 +157,8 @@ public final class ElasticSearchController {
     }
 
     private String getComponentName(String className) {
+        
+        System.out.println("Class name is: "+className);
 
         switch (className) {
             case "BriefAnalysis":

@@ -120,6 +120,9 @@ public class BriefAnalysisController {
             } catch (EPLiteException ex) {
                 logger.log(Level.SEVERE, "Could not delete pad from Etherpad-lite, reason: {0}", ex.getLocalizedMessage());
             }
+            //Delete from elastic search engine (id= project_id+ba_id)
+            ElasticSearchController.getInstance().deleteById(String.valueOf(project_id) + String.valueOf(ba_id));
+
             notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
         }
         return fetchBAByProjectID(model, project_id, limit);
@@ -179,8 +182,8 @@ public class BriefAnalysisController {
             //Create a notification for current action
             notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
             //Insert document to elastic search engine            
-            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba),Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), "Ba")));
-            
+            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), "BA")));
+
             //Post Elastic search engine
             redirectAttributes.addFlashAttribute("success", "Document saved!");
         } else {
