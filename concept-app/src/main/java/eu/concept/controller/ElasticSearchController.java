@@ -23,12 +23,14 @@ public final class ElasticSearchController {
     private static Optional<ElasticSearchController> instance = Optional.empty();
     private static final Logger logger = Logger.getLogger(ElasticSearchController.class.getName());
 
-    private final String INSERT_URL = "http://medialab4.atosresearch.eu:9999/insert_item";
-    private final String DELETE_URL = "http://medialab4.atosresearch.eu:9999/delete_item";
+    
+    private final String INSERT_URL =  "http://192.168.3.5:9999/insert_item";
+    private final String DELETE_URL = "http://192.168.3.5:9999/delete_item";
     private final String COnCEPT_BASE_URL = "http://concept.euprojects.net/";
     private final Map<Integer, String> categoriesMap = new HashMap<>();
 
-    private ElasticSearchController() {
+    
+    private ElasticSearchController() {        
         String[] categoriesList = new String[]{"ProductCategory,1", "Kitchenware,11", "Exhibition,12", "Lighting,13", "Furniture,14", "ProductDomain,2", "Medical,21", "Cosumer,22", "Sport,23", "MarketAnalysis,24", "Technology,25", "Usability,26", "ProductLanguage,3", "Style,31", "PeriodStyle,311", "Clasic,3112", "Chic,3113", "Modern,3113", "Artdeco,3115", "PartialStyle,312", "National,3121", "Corporate,3122", "TargetStyle,3123", "Material,32", "Steel,321", "Stone,322", "AssociationsandFeelings,33", "Cold,331", "Warm,332", "Aggressive,333"};
         for (String category : categoriesList) {
             categoriesMap.put(Integer.parseInt(category.split(",")[1]), category.split(",")[0]);
