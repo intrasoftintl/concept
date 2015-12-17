@@ -24,8 +24,7 @@
             <div class="form-group col-md-12">
                 <label for="keyword">Keyword search with document metadata</label>
 
-                <select id="keyword-search" name="keyword-search" class="form-control">
-                    <option value="">Choose</option>
+                <select id="keyword-search" name="keyword-search"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
                     <option value="en">keyword1</option>
                     <option value="en">keyword2</option>
                     <option value="en">keyword3</option>
@@ -40,4 +39,7 @@
         </form>
 
     </div>
+    <script>
+        $("#keyword-search").chosen();
+    </script>
 </div>

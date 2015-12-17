@@ -158,6 +158,5 @@ function enableDashboardPage() {
 
     //Enable notifications button
     $("#notifications-btn").show();
-    
-    $("#keyword-search").chosen();
+
 }

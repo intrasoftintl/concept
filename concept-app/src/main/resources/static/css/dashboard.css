@@ -109,9 +109,9 @@ nav{
 .nav-apps ul.disabled li:hover { background:none; cursor:auto;}
 
 .nav-apps form{
-   //display: inline-block;
-   //padding:0;
-   //margin:0;
+    //display: inline-block;
+    //padding:0;
+    //margin:0;
 }
 
 /* NAV-KEYWORDS CONTAINER */
@@ -136,8 +136,8 @@ nav{
 }
 
 .nav-keywords .tagsinput{
-   border:none;
-   background:#f2f2f2;
+    border:none;
+    background:#f2f2f2;
 }
 
 .nav-categories{
@@ -218,7 +218,7 @@ nav{
     position:fixed;
     left:0;
     bottom:302px;
-    
+
     z-index:100000;
     text-align:center;
 }
@@ -512,7 +512,7 @@ nav{
     position:relative;
     bottom: -30px;
     padding: 0;
-	display:block;
+    display:block;
 }
 
 .nav-chat .nav-content .chat-actions{
@@ -645,7 +645,7 @@ nav{
     font-weight:800;
 }
 .file-user{
-    
+
 }
 .file-timestamp{
     color:#aaa;
@@ -691,16 +691,16 @@ iframe{
 }
 
 .files-drag{
-	display: block;
-	font-weight: bold;
-	text-align: center;
-	padding: 4em 0;
-	margin: 1em 0 0 0;
-	color: #aaa;
-	border: 2px dashed #aaa;
-	border-radius: 8px;
-	cursor: default;
-        text-transform: uppercase;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    padding: 4em 0;
+    margin: 1em 0 0 0;
+    color: #aaa;
+    border: 2px dashed #aaa;
+    border-radius: 8px;
+    cursor: default;
+    text-transform: uppercase;
 }
 
 .pull-up{
@@ -788,7 +788,7 @@ table img.indicator{ width:100px; margin:0; background: #fff; }
 }
 
 .panel-body form.actions{
-   display: inline;
+    display: inline;
 }
 
 .action-button{
@@ -842,8 +842,8 @@ table img.indicator{ width:100px; margin:0; background: #fff; }
     right:0;
     background:rgba(0,0,0,0.5);
     display:none;
-    }
-    #box{
+}
+#box{
     position:absolute;
     top:0;
     bottom:0;
@@ -853,4 +853,11 @@ table img.indicator{ width:100px; margin:0; background: #fff; }
     width:400px;
     height:400px;
     border:10px solid white;
-    }
+}
+
+/* CHOSEN OVERRIDE */
+
+.chosen-container-multi .chosen-choices {
+    border-radius: 4px;
+    padding:5px 10px;
+}
