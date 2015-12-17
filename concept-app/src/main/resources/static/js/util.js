@@ -264,6 +264,12 @@ function projectSelectedAction(projectID) {
             $("#project-members").show();
             $("#project-view").show();
         }
+        if (isMM_app()) {
+            $("#project-members").show();
+            $("#project-view").show();
+            $("#project-select").attr("disabled", true);
+        }
+        
         if (isSB_app()) {
             $("#project-members").show();
             $("#project-view").show();
