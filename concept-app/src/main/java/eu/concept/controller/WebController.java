@@ -103,6 +103,15 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "notifications";
     }
+    
+    // Project Management
+    @RequestMapping(value = "/pm_app", method = RequestMethod.GET)
+    public String pm(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "pm_app";
+    }
 
     // Preferences
     @RequestMapping(value = "/preferences", method = RequestMethod.GET)

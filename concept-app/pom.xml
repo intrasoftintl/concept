@@ -254,13 +254,11 @@
             <artifactId>jquery-tagsinput</artifactId>
             <version>1.3.2</version>
         </dependency>
-        <!--
         <dependency>
-            <groupId>org.webjars.npm</groupId>
-            <artifactId>node-uuid</artifactId>
-            <version>1.4.3</version>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>chosen</artifactId>
+            <version>1.4.2</version>
         </dependency>
-        -->
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>jqtree</artifactId>
