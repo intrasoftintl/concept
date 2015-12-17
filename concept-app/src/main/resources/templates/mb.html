@@ -5,7 +5,7 @@
             <table id="mb_table" class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="col-md-3">Recent Storyboards</th>
+                        <th class="col-md-3">Recent Moodboards</th>
                         <th class="col-md-4">User</th>
                         <th class="col-md-5"></th>
                     </tr>
@@ -35,7 +35,7 @@
             <form id="mbAllForm" action="#" method="post" th:action="@{/mb_all}">
                 <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
             </form>
-            Storyboards (<span th:text="${totalMoodboards}"></span>) - <a onclick="$('#mbAllForm').submit();">View All</a>
+            Moodboards (<span th:text="${totalMoodboards}"></span>) - <a onclick="$('#mbAllForm').submit();">View All</a>
         </div>
 
     </div>

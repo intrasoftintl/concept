@@ -61,8 +61,6 @@ public class MoodboardController {
     public String mb_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
-
-        System.out.println("Current User: " + getCurrentUser().getId());
         model.addAttribute("currentUser", getCurrentUser());
         return "mb_all";
     }
@@ -86,18 +84,26 @@ public class MoodboardController {
         return "mb :: mbContentAllList";
     }
 
-    //TODO: Show succes/error message on save
-    @RequestMapping(value = "/mb_app/{mb_id}", method = RequestMethod.GET)
-    public String fetchMoodboardByID(Model model, @PathVariable int mb_id) {
-
-        Moodboard mb = mbService.fetchMoodboardById(mb_id);
-        if (null == mb) {
-            Logger.getLogger(Moodboard.class.getName()).severe("Could not found Moodboard with id: " + mb_id);
-            return "error";
-        }
-
-        model.addAttribute("moodboard", mb);
-        model.addAttribute("projectID", mb.getPid());
+//    //TODO: Show succes/error message on save
+//    @RequestMapping(value = "/mb_app/{mb_id}", method = RequestMethod.GET)
+//    public String fetchMoodboardByID(Model model, @PathVariable int mb_id) {
+//
+//        Moodboard mb = mbService.fetchMoodboardById(mb_id);
+//        if (null == mb) {
+//            Logger.getLogger(Moodboard.class.getName()).severe("Could not found Moodboard with id: " + mb_id);
+//            return "error";
+//        }
+//
+//        model.addAttribute("moodboard", mb);
+//        model.addAttribute("projectID", mb.getPid());
+//        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+//        model.addAttribute("projects", projects);
+//        model.addAttribute("currentUser", getCurrentUser());
+//        return "mb_app";
+//    }
+    @RequestMapping(value = "/mb_app", method = RequestMethod.POST)
+    public String fetchMoodboardByID(Model model, @RequestParam(value = "projectID") int projectID) {
+        model.addAttribute("projectID", projectID);
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());

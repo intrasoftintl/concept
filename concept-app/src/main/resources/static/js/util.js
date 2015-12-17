@@ -145,6 +145,7 @@ function createMindMap() {
     }
 }
 
+//@Deprecated
 function createMoodboard() {
     var projectID = $("#projectID").val();
     var userID = $("#userID").val();
@@ -274,7 +275,7 @@ function projectSelectedAction(projectID) {
 
             $("#mb-add").attr("href", "/mb_app?projectID=" + projectID);
             $("#mb-add").show();
-            $("#mb-all").load("/moodboards_all/" + projectID + "?limit=200");
+            $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200");
 
             $("#mb-placeholder").hide();
             $("#project-members").show();
