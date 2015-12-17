@@ -63,7 +63,7 @@
             </div>          
 
             <div class="project-selection">
-
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
@@ -101,7 +101,7 @@
 
         <!-- dashboard -->
         <div class="content">
-            <iframe id="moodboard" th:src="@{'http://concept-mb.euprojects.net/storyboard/storyboard/new?pid=' + ${storyboard.pid} + '&uid=' + ${storyboard.uid} }" width="100%" height="100%"></iframe>
+            <iframe id="storyboard" th:src="@{'http://concept-sb.euprojects.net/storyboard/storyboard/new?pid=' + ${projectID} + '&amp;uid=' + ${currentUser.getId()} }" width="100%" height="100%"></iframe>
         </div>
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"

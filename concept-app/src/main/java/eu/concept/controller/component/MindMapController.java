@@ -62,8 +62,8 @@ public class MindMapController {
     }
 
     //TODO: Show succes/error message on save
-    @RequestMapping(value = "/mm_app/{mm_id}", method = RequestMethod.GET)
-    public String fetchMindMapByID(Model model, @PathVariable int mm_id) {
+//    @RequestMapping(value = "/mm_app/{mm_id}", method = RequestMethod.GET)
+//    public String fetchMindMapByID(Model model, @PathVariable int mm_id) {
 //
 //        Sketch sk = skService.fetchSketchById(sk_id);
 //        if (null == sk) {
@@ -76,9 +76,18 @@ public class MindMapController {
 //        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
 //        model.addAttribute("projects", projects);
 //        model.addAttribute("currentUser", getCurrentUser());
-        return "sk_app";
-    }
+//        return "sk_app";
+//    }
 
+    @RequestMapping(value = "/mm_app", method = RequestMethod.POST)
+    public String fetchMindmapByID(Model model, @RequestParam(value = "projectID") int projectID) {
+        model.addAttribute("projectID", projectID);
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "mm_app";
+    }
+    
     @RequestMapping(value = "/mm", method = RequestMethod.GET)
     public String skPage(Model model) {
         return "mm";

@@ -86,17 +86,26 @@ public class StoryboardController {
     }
 
     //TODO: Show succes/error message on save
-    @RequestMapping(value = "/sb_app/{sb_id}", method = RequestMethod.GET)
-    public String fetchBriefAnalysisByID(Model model, @PathVariable int sb_id) {
-
-        Storyboard sb = sbService.fetchStoryboardById(sb_id);
-        if (null == sb) {
-            Logger.getLogger(Storyboard.class.getName()).severe("Could not found Storyboard with id: " + sb_id);
-            return "error";
-        }
-
-        model.addAttribute("storyboard", sb);
-        model.addAttribute("projectID", sb.getPid());
+//    @RequestMapping(value = "/sb_app/{sb_id}", method = RequestMethod.GET)
+//    public String fetchBriefAnalysisByID(Model model, @PathVariable int sb_id) {
+//
+//        Storyboard sb = sbService.fetchStoryboardById(sb_id);
+//        if (null == sb) {
+//            Logger.getLogger(Storyboard.class.getName()).severe("Could not found Storyboard with id: " + sb_id);
+//            return "error";
+//        }
+//
+//        model.addAttribute("storyboard", sb);
+//        model.addAttribute("projectID", sb.getPid());
+//        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+//        model.addAttribute("projects", projects);
+//        model.addAttribute("currentUser", getCurrentUser());
+//        return "sb_app";
+//    }
+    
+    @RequestMapping(value = "/sb_app", method = RequestMethod.POST)
+    public String fetchStoryboardByID(Model model, @RequestParam(value = "projectID") int projectID) {
+        model.addAttribute("projectID", projectID);
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());

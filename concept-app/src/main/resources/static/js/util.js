@@ -264,10 +264,16 @@ function projectSelectedAction(projectID) {
             $("#project-members").show();
             $("#project-view").show();
         }
-
+        if (isSB_app()) {
+            $("#project-members").show();
+            $("#project-view").show();
+            $("#project-select").attr("disabled", true);
+        }
+        
         if (isMB_app()) {
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-select").attr("disabled", true);
         }
 
         if (isMB_all()) {
@@ -401,9 +407,19 @@ function isFM_all() {
     return location.pathname === "/fm_all";
 }
 
-//Return true if current page is FM APP
+//Return true if current page is MM APP
+function isMM_app() {
+    return location.pathname === "/mm_app";
+}
+
+//Return true if current page is MB APP
 function isMB_app() {
     return location.pathname === "/mb_app";
+}
+
+//Return true if current page is SB APP
+function isSB_app() {
+    return location.pathname === "/sb_app";
 }
 
 //Return true if current page is FM ALL

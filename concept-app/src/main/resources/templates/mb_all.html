@@ -136,7 +136,9 @@
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Moodboards</h4>
                             <div class="btn-group pull-right">
-                                <a id="sk-add" href="/mb_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Moodboard</a>
+                                <form id="mb-add-form" action="#" method="post" th:action="@{/mb_app}">
+                                    <button onclick="addProjectIDToForm('mb-add-form')" type="submit" id="mb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Moodboard</button>
+                                </form>
                             </div>
 
                             <!--                        
