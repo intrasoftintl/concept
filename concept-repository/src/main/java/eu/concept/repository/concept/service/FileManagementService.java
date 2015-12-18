@@ -74,7 +74,7 @@ public class FileManagementService {
             files = fileManagementRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
         }
         files.replaceAll(fm -> {
-            fm.setContent(fm.getContent().contains("image") ? fm.getContent() : "/resources/img/fm_generic.png");
+            fm.setContent(fm.getContent().contains("image") ? fm.getContent() : "/images/fm_generic.png");
             return fm;
         });
         return files;
