@@ -712,10 +712,41 @@ a.fm-popup {
     outline: 0;
 }
 
+#baAllForm,
+#fmAllForm,
+#mmAllForm,
+#mbAllForm,
+#sbAllForm{
+    display:inline-block;
+}
+
+.folder{
+    border-radius: 4px;
+    padding: 10px 0;
+}
+.folder:hover{
+    background: #f2f2f2;
+    //opacity:0.5; 
+}
+
 /* SE APP */
 
 .optional{
     opacity:0.5;
+}
+
+#keyword-search{
+    background:#f2f2f2;
+}
+
+#category-search{
+    //width:238px;
+    background:#f2f2f2;
+    height:100px;
+    max-height: 166px;
+    overflow-x: scroll;
+    padding:10px;
+    border-radius: 4px;
 }
 
 /* BOOTSTRAP OVERRIDE */
