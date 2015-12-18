@@ -213,6 +213,7 @@ function projectSelectedAction(projectID) {
 
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#fm-add").show();
+            $("#fm-add").removeClass("disabled");
             $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200");
 
             $("#fm-placeholder").hide();

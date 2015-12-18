@@ -717,6 +717,15 @@ a.fm-popup {
 .optional{
     opacity:0.5;
 }
+#tree-search{
+    //width:238px;
+    background:#f2f2f2;
+    height:100px;
+    max-height: 166px;
+    overflow-x: hidden;
+    padding:10px;
+    border-radius: 4px;
+}
 
 /* BOOTSTRAP OVERRIDE */
 .row { margin:0; }
