@@ -101,7 +101,7 @@
 
         <!-- dashboard -->
         <div class="content">
-            <iframe id="mindmap" th:src="@{'http://concept-mm.euprojects.net/wisemapping/c/maps/' + ${projectID} + '/' + ${currentUser.getId()} + '/edit' }" width="100%" height="100%"></iframe>
+            <iframe id="mindmap" th:src="${mindmapURL}" width="100%" height="100%"></iframe>
         </div>
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
