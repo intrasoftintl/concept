@@ -1,6 +1,7 @@
 package eu.concept.controller.component;
 
 import eu.concept.configuration.COnCEPTProperties;
+import eu.concept.controller.RestAPIController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.MindMap;
@@ -8,16 +9,20 @@ import eu.concept.repository.concept.service.MindMapService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.response.BasicResponseCode;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
 import java.util.List;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -25,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class MindMapController {
-
+         
     @Autowired
     COnCEPTProperties conceptProperties;
 
@@ -37,6 +42,8 @@ public class MindMapController {
 
     @Autowired
     NotificationService notificationService;
+    
+    private  Logger logger;    
 
     /*
      *  GET Methods 
@@ -80,14 +87,20 @@ public class MindMapController {
 //    }
 
     @RequestMapping(value = "/mm_app", method = RequestMethod.POST)
-    public String fetchMindmapByID(Model model, @RequestParam(value = "projectID") int projectID) {
+    public String fetchMindmapByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "mindmapID", defaultValue = "0") int mindmapID) {
+        if (mindmapID > 0){
+            model.addAttribute("mindmapURL", "http://concept-mm.euprojects.net/wisemapping/c/maps/" + String.valueOf(mindmapID) + "/" + WebController.getCurrentUserCo().getId() + "/edit");
+        } else {
+            model.addAttribute("mindmapURL", "http://concept-mm.euprojects.net/wisemapping/c/maps/" + projectID + "/" + WebController.getCurrentUserCo().getId() + "/edit");
+        }
+    
         model.addAttribute("projectID", projectID);
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "mm_app";
     }
-    
+        
     @RequestMapping(value = "/mm", method = RequestMethod.GET)
     public String skPage(Model model) {
         return "mm";
