@@ -104,7 +104,12 @@ public class StoryboardController {
 //    }
     
     @RequestMapping(value = "/sb_app", method = RequestMethod.POST)
-    public String fetchStoryboardByID(Model model, @RequestParam(value = "projectID") int projectID) {
+    public String fetchStoryboardByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "storyboardID", defaultValue = "0") int storyboardID) {
+        if (storyboardID > 0){
+            model.addAttribute("storyboardURL", "http://concept-sb.euprojects.net/storyboard/storyboard/edit?pid=" + projectID + "&uid=" + WebController.getCurrentUserCo().getId() + "&idStory=" + String.valueOf(storyboardID));
+        } else {
+            model.addAttribute("storyboardURL", "http://concept-sb.euprojects.net/storyboard/storyboard/new?pid=" + projectID + "&uid=" + WebController.getCurrentUserCo().getId());
+        }
         model.addAttribute("projectID", projectID);
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);

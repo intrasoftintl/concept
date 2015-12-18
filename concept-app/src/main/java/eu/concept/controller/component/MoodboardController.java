@@ -84,9 +84,9 @@ public class MoodboardController {
     @RequestMapping(value = "/mb_app", method = RequestMethod.POST)
     public String fetchMoodboardByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "moodboardID", defaultValue = "0") int moodboardID) {
         if (moodboardID > 0){
-            model.addAttribute("moodboardURL", "http://concept-sb.euprojects.net/storyboard/moodboard/edit?pid=" + projectID + " &uid=" + WebController.getCurrentUserCo().getId() + "&idSlide=" + String.valueOf(moodboardID));
+            model.addAttribute("moodboardURL", "http://concept-sb.euprojects.net/storyboard/moodboard/edit?pid=" + projectID + "&uid=" + WebController.getCurrentUserCo().getId() + "&idSlide=" + String.valueOf(moodboardID));
         } else {
-            model.addAttribute("moodboardURL", "http://concept-sb.euprojects.net/storyboard/moodboard/new?pid=" + projectID + " &uid=" + WebController.getCurrentUserCo().getId());
+            model.addAttribute("moodboardURL", "http://concept-sb.euprojects.net/storyboard/moodboard/new?pid=" + projectID + "&uid=" + WebController.getCurrentUserCo().getId());
         }
         
         model.addAttribute("projectID", projectID);
