@@ -132,7 +132,7 @@ function initMetadata() {
     });
 }
 
-function initSearchCategories() {
+function initCategorySearch() {
     var data = [
         {
             label: 'Product Category', id: 1,
@@ -200,7 +200,7 @@ function initSearchCategories() {
 
     logger("Initializing Search Categories tree...");
     $(function () {
-        var $tree = $('#tree-search');
+        var $tree = $('#category-search');
         $tree.tree({
             data: data,
             autoOpen: true,
@@ -228,7 +228,7 @@ function initSearchCategories() {
         );
     });
 
-    $('#tree-search').tree('setState', JSON.parse($("#categories").val()));
+    $('#category-search').tree('setState', JSON.parse($("#categories").val()));
     logger("Finished Metadata initalization...");
 
 }

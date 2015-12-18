@@ -717,12 +717,17 @@ a.fm-popup {
 .optional{
     opacity:0.5;
 }
-#tree-search{
+
+#keyword-search{
+    background:#f2f2f2;
+}
+
+#category-search{
     //width:238px;
     background:#f2f2f2;
     height:100px;
     max-height: 166px;
-    overflow-x: hidden;
+    overflow-x: scroll;
     padding:10px;
     border-radius: 4px;
 }
