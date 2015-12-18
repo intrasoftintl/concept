@@ -6,7 +6,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.Moodboard;
-import eu.concept.repository.concept.service.MoodboardService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.MoodboardService;
 import eu.concept.repository.concept.service.UserCoService;
@@ -17,7 +16,6 @@ import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
 
 import java.io.*;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -78,29 +76,11 @@ public class MoodboardController {
     @RequestMapping(value = "/moodboard_all/{project_id}", method = RequestMethod.GET)
     public String fetchMoodboardByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         model.addAttribute("mbContents", mbService.fetchMoodboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
-//        model.addAttribute("totalFiles", mbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());
         return "mb :: mbContentAllList";
     }
 
-//    //TODO: Show succes/error message on save
-//    @RequestMapping(value = "/mb_app/{mb_id}", method = RequestMethod.GET)
-//    public String fetchMoodboardByID(Model model, @PathVariable int mb_id) {
-//
-//        Moodboard mb = mbService.fetchMoodboardById(mb_id);
-//        if (null == mb) {
-//            Logger.getLogger(Moodboard.class.getName()).severe("Could not found Moodboard with id: " + mb_id);
-//            return "error";
-//        }
-//
-//        model.addAttribute("moodboard", mb);
-//        model.addAttribute("projectID", mb.getPid());
-//        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-//        model.addAttribute("projects", projects);
-//        model.addAttribute("currentUser", getCurrentUser());
-//        return "mb_app";
-//    }
     @RequestMapping(value = "/mb_app", method = RequestMethod.POST)
     public String fetchMoodboardByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "moodboardID", defaultValue = "0") int moodboardID) {
         if (moodboardID > 0){
