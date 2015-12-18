@@ -11,16 +11,36 @@
         </table>
 
         <div class="panel-body" style="text-align:center">
-<!--            th:src="@{'/file/'+${fmContent.id}+'?preview=1'}"-->
-            <a class="fm-popup" th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="${fmContent.content}"  th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail" /></a>            
+            
+            
+            
+            <form id="baAllForm" action="#" method="post" th:action="@{/ba_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
+                <a onclick="$('#baAllForm').submit();"><img class="folder" src="/images/folder-ba.png"/></a>
+            </form>
+            
+            <form id="fmAllForm" action="#" method="post" th:action="@{/fm_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
+                <a onclick="$('#fmAllForm').submit();"><img class="folder" src="/images/folder-fm.png"/></a>
+            </form>
+            
+            <form id="mmAllForm" action="#" method="post" th:action="@{/mm_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
+                <a onclick="$('#mmAllForm').submit();"><img class="folder" src="/images/folder-mm.png"/></a>
+            </form>
+            
+            <form id="mbAllForm" action="#" method="post" th:action="@{/mb_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
+                <a onclick="$('#mbAllForm').submit();"><img class="folder" src="/images/folder-mb.png"/></a>
+            </form>
+            
+            <form id="sbAllForm" action="#" method="post" th:action="@{/sb_all}">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
+                <a onclick="$('#sbAllForm').submit();"><img class="folder" src="/images/folder-sb.png"/></a>
+            </form>
+            <!--<a class="fm-popup" th:each="fmContent : ${fmContents}" th:href="@{'/file/'+${fmContent.id}}"><img th:src="${fmContent.content}"  th:title="${fmContent.filename}"  th:alt="${fmContent.filename}" class="img-thumbnail" /></a>-->
         </div>
 
-        <div class="panel-footer">
-            <form id="fmAllForm" action="#" method="post" th:action="@{/fm_all}">
-                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
-            </form>
-            Files (<span th:text="${totalFiles}"></span>) - <a onclick="$('#fmAllForm').submit();" >View All</a>
-        </div>
     </div>
 
     <div id="fm-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(fmContents)}" ></div>
