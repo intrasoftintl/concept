@@ -43,6 +43,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.Document;
 import org.apache.commons.codec.binary.Base64;
+import org.json.JSONArray;
 
 /**
  * Restful API for integration with Openproject
@@ -96,6 +97,9 @@ public class RestAPIController {
 
     @Autowired
     MoodboardService mbService;
+    
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -496,6 +500,33 @@ public class RestAPIController {
             e.printStackTrace();
         }
         return "";
+    
+    }
+    
+    @RequestMapping(value = "/category/search", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String autoCompleteCategories(@RequestParam("keyword") String keyword, @RequestParam("callback") String callback) {
+
+        List<Category> categories = categoryService.getCategoriesByKeyword(keyword);
+        JSONObject jsonResponse = new JSONObject();
+        JSONArray jsonValues = new JSONArray();
+
+        if (null != categories && !categories.isEmpty()) {
+            categories.stream().forEach(category -> {
+                JSONObject jsonCategory = new JSONObject();
+                jsonCategory.put("id", category.getId());
+                jsonCategory.put("value", category.getName());
+                jsonValues.put(jsonCategory);
+            });
+
+            jsonResponse.put("total", categories.size());
+            jsonResponse.put("values", jsonValues);
+
+        } else {
+            jsonResponse.put("total", 0);
+            jsonResponse.put("values", jsonValues);
+        }
+
+        return callback + "(" + jsonResponse.toString() + ")";
     }
 
     /*
@@ -520,4 +551,6 @@ public class RestAPIController {
         }
         return keywords;
     }
+    
+    
 }
