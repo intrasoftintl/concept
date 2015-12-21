@@ -129,7 +129,7 @@
             <div th:include="chat :: chat-list"></div>
 
             <!-- Notifications List -->
-            <div th:include="hierarchy :: hierarchy-add"></div>
+            <div th:include="category :: category-add"></div>
 
             <!-- Empty List DIV -->
             <!--            <div  th:if="${nfContents.isEmpty()}" >
@@ -138,7 +138,6 @@
 
         </div>
 
-        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
         th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
