@@ -1,16 +1,16 @@
 <div th:fragment="seContent">
     <div class="panel-body">
 
-        <form id="se-form" action="#" method="post" th:action="@{/se_app}">
+        <form id="se-form" method="post" th:action="@{/se_app}">
             <div class="form-group col-md-12">
                 <label for="keyword">Content or title</label>
-                <input type="text" class="form-control" id="keyword" placeholder="Content and title search"/>
+                <input type="text" class="form-control" id="content" name="content" placeholder="Content and title search"/>
             </div>
-            
+
             <div class="form-group col-md-8">
                 <label for="keyword">Document Type</label>
 
-                <select id="locale" name="locale" class="form-control">
+                <select id="component" name="component" class="form-control">
                     <option value="">Choose</option>
                     <option value="en">Brief Analysis (BA)</option>
                     <option value="en">Images, PDF, etc. (FM)</option>
@@ -18,24 +18,27 @@
                     <option value="en">Moodboard (MB)</option>
                     <option value="en">Storyboards (SB)</option>
                 </select>
-                
+
             </div>
-            
+
             <div class="form-group col-md-12">
                 <label for="keyword">Keyword search</label>
 
-                <select id="keyword-search" name="keyword-search"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
-                    <option value="en">keyword1</option>
-                    <option value="en">keyword2</option>
-                    <option value="en">keyword3</option>
+                <select id="keywords" name="keywords"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
+                    <option value="ab">keyword1</option>
+                    <option value="cd">keyword2</option>
+                    <option value="ef">keyword3</option>
                     <option value="en">keyword4</option>
                 </select>
-                
+
             </div>
             <div class="form-group col-md-12">
-                <label for="keyword">Category search</label>
-                <div id="category-search">a</div>
+                <label for="category-search">Category search</label>
+                <div id="category-search" ></div>
             </div>
+
+
+<!--            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>-->
 
             <div class="form-group col-md-12">
                 <button onclick="addProjectIDToForm('se-form')" type ="submit" class="btn btn-danger">Search</button>
@@ -44,7 +47,11 @@
 
     </div>
     <script>
-        $("#keyword-search").chosen();
+        $("#keywords").chosen();
         initCategorySearch();
+        $("#se-form").submit(function (event) {
+            $("#keywords").val($("#tags").val());
+            $("#categories").val(JSON.stringify($('#category-search').tree('getState')));
+        });
     </script>
 </div>
