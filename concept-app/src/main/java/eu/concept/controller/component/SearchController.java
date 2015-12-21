@@ -1,14 +1,16 @@
 package eu.concept.controller.component;
 
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.domain.Search;
 import eu.concept.repository.concept.service.NotificationService;
-import eu.concept.repository.concept.service.SketchService;
+import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +26,7 @@ public class SearchController {
     ProjectServiceOp projectServiceOp;
 
     @Autowired
-    SketchService skService;
+    SearchService seService;
 
     @Autowired
     NotificationService notificationService;
@@ -32,14 +34,14 @@ public class SearchController {
     /*
      *  GET Methods 
      */
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String notifications(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
+    @RequestMapping(value = "/search/{project_id}", method = RequestMethod.GET)
+    public String notifications(Model model, @PathVariable int project_id) {
+        Search search = new Search();
+        search.setPid(project_id);
+        model.addAttribute("search", search);
         return "se :: seContent";
     }
-    
+
     /*
      *  POST Methods 
      */
@@ -49,7 +51,7 @@ public class SearchController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
-        model.addAttribute("search_query_url","query_url");
+        model.addAttribute("search_query_url", "query_url");
         return "se_app";
     }
 }

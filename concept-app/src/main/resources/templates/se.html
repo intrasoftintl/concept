@@ -1,7 +1,13 @@
 <div th:fragment="seContent">
     <div class="panel-body">
 
-        <form id="se-form" method="post" th:action="@{/se_app}">
+        <form id="se-form" method="post" th:object="${search}" th:action="@{/se_app}">
+
+
+            <!-- Project ID -->
+            <input th:type="text" th:name="pid" th:field="*{pid}"/>
+
+
             <div class="form-group col-md-12">
                 <label for="keyword">Content or title</label>
                 <input type="text" class="form-control" id="content" name="content" placeholder="Content and title search"/>
@@ -38,7 +44,7 @@
             </div>
 
 
-<!--            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>-->
+            <!--            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>-->
 
             <div class="form-group col-md-12">
                 <button onclick="addProjectIDToForm('se-form')" type ="submit" class="btn btn-danger">Search</button>
