@@ -11,6 +11,10 @@
               th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
               rel="stylesheet" media="screen" />
         
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.treegrid/0.2.1/css/jquery.treegrid.css"
+              th:href="@{/webjars/jquery.treegrid/0.2.1/css/jquery.treegrid.css}"
+              rel="stylesheet" media="screen" />
+        
         <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
@@ -117,6 +121,9 @@
                 </div>
             </div>
 
+            <!-- Chat DIV -->
+            <div th:include="chat :: chat-list"></div>
+        
             <!-- Notifications List -->
             <div th:include="hierarchy :: hierarchy-add"></div>
 
@@ -146,6 +153,12 @@
         
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
         th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.treegrid/0.2.1/js/jquery.treegrid.js"
+        th:src="@{/webjars/jquery.treegrid/0.2.1/js/jquery.treegrid.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.treegrid/0.2.1/js/jquery.treegrid.bootstrap3.js"
+        th:src="@{/webjars/jquery.treegrid/0.2.1/js/jquery.treegrid.bootstrap3.js}"></script>
         
         <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
         <script src="../static/js/dashboard.js" th:src="@{/js/dashboard.js}"></script>

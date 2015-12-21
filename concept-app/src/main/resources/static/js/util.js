@@ -459,11 +459,6 @@ function isNF_app() {
     return location.pathname === "/notifications_app";
 }
 
-//Return true if current page is NF ALL
-function isHI_app() {
-    return location.pathname === "/notifications_app";
-}
-
 //Return true if current page is MM ALL
 function isMM_all() {
     return location.pathname === "/mm_all";
