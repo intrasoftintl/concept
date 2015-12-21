@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Hierarchy &mdash; CONCEPT</title>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />	
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+              th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.treegrid/0.2.1/css/jquery.treegrid.css"
+              th:href="@{/webjars/jquery.treegrid/0.2.1/css/jquery.treegrid.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
+    </head>
+    <body>
+
+        <!-- navbar -->
+        <nav class="nav-main">
+            <ul>
+                <form th:action="@{/dashboard}" method="post" >
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+                    <a href="#" onclick="$(this).closest('form').submit()">
+                        <li class="main"><img src="/images/BUTTON_BACK.png" />Dashboard</li>
+                    </a>
+                </form>
+            </ul>
+        </nav>
+
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul class="disabled">
+                <li><img src="/images/ICON_BA_DISABLED.png" /></li>
+                <li><img src="/images/ICON_FM_DISABLED.png" /></li>
+                <li><img src="/images/ICON_SE_DISABLED.png" /></li>
+                <li><img src="/images/ICON_MM_DISABLED.png" /></li>
+                <li><img src="/images/ICON_MB_DISABLED.png" /></li>
+                <li><img src="/images/ICON_SB_DISABLED.png" /></li>
+            </ul>
+        </nav>
+
+        <!-- projects -->
+        <nav class="nav-projects">
+            <div class="btn-group project-selection">
+                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" value="0">Please select a project</option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                </select>
+
+                <select th:if="${projects.isEmpty()}" class="btn btn-default">
+                    <option selected="true" disabled="true">No projects available</option>
+                </select>
+
+            </div>          
+
+            <div class="project-selection">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
+
+                <!-- Content to be showed only on project members (managers, designers, clients) -->
+                <div th:switch="${currentUser.getRole()}">
+                    <span th:case="'MANAGER'">
+                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">Create New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'DESIGNER'">
+                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                    <span th:case="'CLIENT'">
+                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                    </span>
+                </div>
+
+                <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
+            </div>
+
+        </nav>
+
+        <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <!-- dashboard -->
+        <div class="content">
+
+            <div class="header">
+
+                <form th:action="@{/dashboard}" method="post" class="pull-left">
+                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+                    <button type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>
+                </form>
+                
+                <!-- Profile -->
+                <div class="btn-group pull-right">
+                    <div class="row col-md-12 pull-right">
+                        <h5 th:inline="text" class="pull-right"> [[${currentUser.getFirstName()}]] [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
+                    </div>
+                    <div class="row col-md-12 pull-right">
+                        <form th:action="@{/logout}" method="post" class="pull-right" style="margin-left:4px">
+                            <button type="submit" class="btn btn-default btn-sm ">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                            </button>
+                        </form>
+
+                        <!-- Preferences Button -->
+                        <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
+                            <button type="submit" class="btn btn-default btn-sm ">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
+                            </button>
+                        </form>
+                        
+                        <!-- Notifications Button -->
+                        <form id="nf-app-link-form-2" action="#" method="post" th:action="@{/notifications_app}">
+                            <button id="notifications-btn-2" onclick="addProjectIDToForm('nf-app-link-form-2')" type="submit" class="btn btn-danger btn-sm pull-right">
+                                Notifications <span id="notifications-count" class="badge">0</span>
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Chat DIV -->
+            <div th:include="chat :: chat-list"></div>
+        
+            <!-- Notifications List -->
+            <div th:include="hierarchy :: hierarchy-add"></div>
+
+            <!-- Empty List DIV -->
+<!--            <div  th:if="${nfContents.isEmpty()}" >
+                <div id="ba-placeholder" class="panel-body disabled"></div>
+            </div>-->
+
+        </div>
+
+        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
+        th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js"
+        th:src="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js}"></script>
+
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/tree.jquery.js"
+        th:src="@{/webjars/jqtree/1.1.0/tree.jquery.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
+        th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
+        th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.treegrid/0.2.1/js/jquery.treegrid.js"
+        th:src="@{/webjars/jquery.treegrid/0.2.1/js/jquery.treegrid.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.treegrid/0.2.1/js/jquery.treegrid.bootstrap3.js"
+        th:src="@{/webjars/jquery.treegrid/0.2.1/js/jquery.treegrid.bootstrap3.js}"></script>
+        
+        <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
+        <script src="../static/js/dashboard.js" th:src="@{/js/dashboard.js}"></script>
+        <script src="../static/js/metadata.js" th:src="@{/js/metadata.js}"></script>
+        <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
+        
+    </body>
+</html>
