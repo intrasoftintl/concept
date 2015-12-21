@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div id="ba-placeholder" class="panel-body disabled"></div>
-                
+
                 <!--
                 <div class="panel-footer" style="text-align:center">
                     <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
@@ -21,7 +21,7 @@
                     <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
                 </div>
                 -->
-                
+
             </div>
         </div>
 
@@ -41,11 +41,11 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    
+
                     Hierarchy
-                    
+
                 </div>
-                
+
                 <!--
                 <div class="panel-footer" style="text-align:center">
                     <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
@@ -55,7 +55,7 @@
                     <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
                 </div>
                 -->
-                
+
             </div>
         </div>
 
@@ -75,11 +75,40 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    
-                    Hierarchy
-                    
+
+                    <div class="form-group" >
+                        <form class="form-horizontal" th:action="@{/category/add}" method="post" id="addCategoryForm">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="text-input">Category name</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="categoryName" name="categoryName"  value="" placeholder="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="text-input">Parent Category</label>
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="" id="hasParent" name="hasParent" value="1"/>
+                                        </span>
+                                        <input type="text" class="form-control" name="parentCategory" id="parentCategory"  value="" placeholder="" disabled="true" />
+                                    </div>                          
+                                </div>
+                            </div>
+                            <input type="hidden" id="parentCategoryID" name="parentCategoryID" value=""/>
+                            <input type="hidden" id="projectID" name="projectID" th:value="${projectID}"/>
+                            <p id="newCategoryNotificationModal" style="visibility:hidden;">
+                            </p>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                
+
                 <!--
                 <div class="panel-footer" style="text-align:center">
                     <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
@@ -89,7 +118,7 @@
                     <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
                 </div>
                 -->
-                
+
             </div>
         </div>
 

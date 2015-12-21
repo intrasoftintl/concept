@@ -314,7 +314,7 @@ function projectSelectedAction(projectID) {
         }
 
         //Enable Chat Session     
-        enableChat();
+//        enableChat();
 
         //Set Notifications Number
         setNotifications(projectID);
@@ -456,11 +456,6 @@ function isMB_all() {
 
 //Return true if current page is NF ALL
 function isNF_app() {
-    return location.pathname === "/notifications_app";
-}
-
-//Return true if current page is NF ALL
-function isHI_app() {
     return location.pathname === "/notifications_app";
 }
 

@@ -24,18 +24,11 @@ public class HierarchyController {
      *  POST Methods 
      */
     @RequestMapping(value = "/hierarchy_app", method = RequestMethod.POST)
-    public String notifcations_app(Model model) {
+    public String hierarchy_app(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "hierarchy_app";
     }
-
-//    @RequestMapping(value = "/hierarchy_app", method = RequestMethod.POST)
-//    public String createBriefAnalysis(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
-//        model.addAttribute("projectID", projectID);
-//        model.addAttribute("nfContents", notificationService.fetchNotificationsByProjectId(projectID, getCurrentUser().getConceptUser(), limit));
-//        model.addAttribute("totalNotifications", notificationService.countNotificationsById(projectID));
-//        return notifcations_app(model);
-//    }
+    
 }
