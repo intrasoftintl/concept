@@ -73,7 +73,7 @@ public class MindMapController {
     @RequestMapping(value = "/mm_app", method = RequestMethod.POST)
     public String fetchMindmapByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "mindmapID", defaultValue = "0") int mindmapID) {
         if (mindmapID > 0) {
-            model.addAttribute("mindmapURL", "http://concept-mm.euprojects.net/wisemapping/c/maps/" + projectID + "/" + WebController.getCurrentUserCo().getId() + "/edit");
+            model.addAttribute("mindmapURL", "http://concept-mm.euprojects.net/wisemapping/c/maps/" + mindmapID + "/" + WebController.getCurrentUserCo().getId() + "/edit");
         } else {
             String currentUserID = String.valueOf(WebController.getCurrentUserCo().getId());
             String createdMMURL = conceptProperties.getmindmapediturl();
