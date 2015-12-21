@@ -186,6 +186,7 @@ function projectSelectedAction(projectID) {
             $("#project-members").empty();
             $("#project-members").html("Project Members<br/><small>" + fullNames.substring(0, fullNames.length - 2) + " </small>");
             $("#project-view").attr("href", PROJECTS_REST_URL + projectID);
+            $("#project-hierarchy").attr("href", "/hierarchy_app");
         });
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
@@ -206,6 +207,7 @@ function projectSelectedAction(projectID) {
             $("#fm-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
         }
 
         if (isFM_all()) {
@@ -225,6 +227,7 @@ function projectSelectedAction(projectID) {
         if (isBA_app()) {
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
         }
 
         if (isBA_all()) {
@@ -238,6 +241,7 @@ function projectSelectedAction(projectID) {
 
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
         }
 
         if (isMM_all()) {
@@ -251,6 +255,7 @@ function projectSelectedAction(projectID) {
 
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
         }
 
         if (isSB_all()) {
@@ -264,22 +269,26 @@ function projectSelectedAction(projectID) {
 
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
         }
         if (isMM_app()) {
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
             $("#project-select").attr("disabled", true);
         }
         
         if (isSB_app()) {
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
             $("#project-select").attr("disabled", true);
         }
         
         if (isMB_app()) {
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
             $("#project-select").attr("disabled", true);
         }
 
@@ -288,6 +297,7 @@ function projectSelectedAction(projectID) {
 
             $("#mb-add").attr("href", "/mb_app?projectID=" + projectID);
             $("#mb-add").show();
+            $("#project-hierarchy").show();
             $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200");
 
             $("#mb-placeholder").hide();
@@ -298,6 +308,7 @@ function projectSelectedAction(projectID) {
         if (isNF_app()) {
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-hierarchy").show();
             $("#nf-button").show();
             $("#nf-placeholder").show();
         }
@@ -330,6 +341,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
         } else if (isFM_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
@@ -337,10 +349,12 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
             $("#fm-add").hide();
         } else if (isBA_app()) {
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
         } else if (isBA_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
@@ -348,6 +362,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
             $("#ba-add").hide();
         } else if (isMM_all()) {
             $(".panel-body").hide();
@@ -356,10 +371,12 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
             $("#mm-add").hide();
         } else if (isMB_app()) {
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
         } else if (isMB_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
@@ -367,6 +384,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
             $("#mb-add").hide();
         } else if (isSB_all()) {
             $(".panel-body").hide();
@@ -375,6 +393,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
             $("#sb-add").hide();
         } else if (isNF_app()) {
             $("#nf-placeholder").show();
@@ -382,6 +401,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
+            $("#project-hierarchy").hide();
             $("#nf-button").hide();
         }
 
@@ -436,6 +456,11 @@ function isMB_all() {
 
 //Return true if current page is NF ALL
 function isNF_app() {
+    return location.pathname === "/notifications_app";
+}
+
+//Return true if current page is NF ALL
+function isHI_app() {
     return location.pathname === "/notifications_app";
 }
 
