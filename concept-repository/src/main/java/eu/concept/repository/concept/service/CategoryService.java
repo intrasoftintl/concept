@@ -180,7 +180,7 @@ public class CategoryService {
         String parentNodeHTML = "";
 
         parentNodeHTML += "<tr class='treegrid-" + categoryID + "'>";
-        parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
         parentNodeHTML += "</tr>";
 
         return parentNodeHTML;
@@ -199,7 +199,7 @@ public class CategoryService {
         String childNodeHTML = "";
 
         childNodeHTML += "<tr class='treegrid-" + categoryID + " treegrid-parent-" + parentID + "'>";
-        childNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        childNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
         childNodeHTML += "</tr>";
 
         return childNodeHTML;

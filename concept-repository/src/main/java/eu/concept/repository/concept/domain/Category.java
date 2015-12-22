@@ -14,6 +14,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -36,11 +37,11 @@ public class Category implements Serializable {
     private String name;
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     @OneToOne(optional = true)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @Cascade(CascadeType.ALL)
     private Category parentID;
     @JoinColumn(name = "pc_id", referencedColumnName = "id")
     @OneToOne(optional = true)
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(CascadeType.SAVE_UPDATE)
     private ProjectCategory projectCategory;
     @Basic(optional = false)
     @Column(name = "last_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")

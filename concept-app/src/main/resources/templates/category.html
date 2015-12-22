@@ -11,8 +11,8 @@
                     </div>
                 </div>
                 <div class="panel-body" style="overflow: auto; height:500px;">
-
-
+                    <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
+                    <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>
                     <table class="table tree table-striped">
                         <thead>
                             <tr>
@@ -60,14 +60,15 @@
                     </div>
                 </div>
                 <div class="panel-body">
-
+                    <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
+                    <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="@{/category/add}" method="post" id="addCategoryForm">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="text-input">Category name</label>
                                 <div class="col-md-9">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="categoryName" name="categoryName"  value="" placeholder="" />
+                                        <input type="text" class="form-control" id="categoryName" name="categoryName" th:if="1 == ${isEdit}" th:value="${category.name}" placeholder="" />
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +83,8 @@
                                     </div>                          
                                 </div>
                             </div>
-                            <input type="hidden" id="parentCategoryID" name="parentCategoryID" value=""/>
+                            <input type="hidden" id="categoryID" name="categoryID" th:if="1 == ${isEdit}" th:value="${category.id}"/>
+                            <input type="hidden" id="parentCategoryID" name="parentCategoryID" th:if="1 == ${isEdit}" th:value="${category.parentID.id}" />
                             <input type="hidden" id="projectID" name="projectID" th:value="${projectID}"/>
                             <input type="hidden" id="projectCategoryID" name="projectCategoryID" th:value="${projectCategoryID}"/>
 
@@ -120,6 +122,7 @@
                 </div>
                 <div class="panel-body">
                     <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
+                    <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="@{/category/init}" method="post" id="initCategoryForm">
                             <div class="form-group">
