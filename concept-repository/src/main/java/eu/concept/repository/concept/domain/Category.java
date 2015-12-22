@@ -2,6 +2,7 @@ package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,8 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -36,12 +35,10 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
-    @OneToOne(optional = true)
-    @Cascade(CascadeType.ALL)
+    @OneToOne(optional = true, cascade = CascadeType.ALL)
     private Category parentID;
     @JoinColumn(name = "pc_id", referencedColumnName = "id")
-    @OneToOne(optional = true)
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @OneToOne(optional = true, cascade = CascadeType.ALL)
     private ProjectCategory projectCategory;
     @Basic(optional = false)
     @Column(name = "last_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
@@ -89,7 +86,7 @@ public class Category implements Serializable {
     public void setLastModified(String lastModified) {
         this.lastModified = lastModified;
     }
-    
+
     public boolean isFather(Integer categoryID) {
         return (null == this.parentID ? false : this.parentID.getId() == categoryID);
     }

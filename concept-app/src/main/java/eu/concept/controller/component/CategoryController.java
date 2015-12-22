@@ -69,7 +69,7 @@ public class CategoryController {
                 model.addAttribute("isEdit", 1);
                 
                 Category category = categoryService.fetchCategoryById(Integer.valueOf(categoryID));
-//                model.addAttribute("rootCategory", );
+                model.addAttribute("hasFather", null == category.getParentID().getParentID() ? 0 : 1);
                 model.addAttribute("category", category);
                 return "category :: category-add";
             } else {

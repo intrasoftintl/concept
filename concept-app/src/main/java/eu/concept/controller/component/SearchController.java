@@ -58,7 +58,7 @@ public class SearchController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         System.out.println("Project Id is: " + search.getPid());
         System.out.println("Content is: " + search.getContent());
-        System.out.println("Component Id is: " + search.getCid());
+        System.out.println("Component Id is: " + search.getComponent());
 
         String search_query_url=" http://concept-se.euprojects.net/search_advanced?id=123";
         model.addAttribute("projects", projects);

@@ -53,7 +53,7 @@ public class Search implements Serializable {
     private Date createdDate;
     @JoinColumn(name = "cid", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Component cid;
+    private Component component;
 
     public Search() {
     }
@@ -78,12 +78,12 @@ public class Search implements Serializable {
         this.id = id;
     }
 
-    public Component getCid() {
-        return cid;
+    public Component getComponent() {
+        return component;
     }
 
-    public void setCid(Component cid) {
-        this.cid = cid;
+    public void setComponent(Component cid) {
+        this.component = cid;
     }
 
     public String getCategories() {
