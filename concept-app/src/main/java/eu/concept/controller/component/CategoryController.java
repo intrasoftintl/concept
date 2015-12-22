@@ -51,19 +51,31 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/category/fragment/{projectID}", method = RequestMethod.GET)
-    public String loadFragment(Model model, @PathVariable(value = "projectID") String projectID, @RequestParam(value = "action", defaultValue = "", required = false) String action) {
+    public String loadFragment(Model model, @PathVariable(value = "projectID") String projectID, @RequestParam(value = "action", defaultValue = "", required = false) String action, @RequestParam(value = "id", defaultValue = "", required = false) String categoryID) {
 
         ProjectCategory projectCategory = projectCategoryService.findByPid(Integer.valueOf(projectID));
 
         if (null != projectCategory) {
 
-            if (action.isEmpty()) {                
+            if (action.isEmpty()) {
                 model.addAttribute("treegrid", categoryService.constructTreeGrid(projectCategory.getCategories()));
                 return "category :: category-list";
-            } else {
+            } else if (action.equalsIgnoreCase("add")) {
                 model.addAttribute("projectCategoryID", projectCategory.getId());
+                model.addAttribute("isEdit", 0);
                 return "category :: category-add";
+            } else if (action.equalsIgnoreCase("edit")) {
+                model.addAttribute("projectCategoryID", projectCategory.getId());
+                model.addAttribute("isEdit", 1);
+                
+                Category category = categoryService.fetchCategoryById(Integer.valueOf(categoryID));
+//                model.addAttribute("rootCategory", );
+                model.addAttribute("category", category);
+                return "category :: category-add";
+            } else {
+               return "category :: category-init"; 
             }
+            
         } else {
             return "category :: category-init";
         }
@@ -72,29 +84,24 @@ public class CategoryController {
     @RequestMapping(value = "/category/add", method = RequestMethod.POST)
     public String addCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID) {
 
-        
-        System.out.println("ProjectID: " + projectID);
-        System.out.println("ProjectCategoryID: " + projectCategoryID);
-        System.out.println("parentCategoryID: " + parentCategoryID);
-        
         Category newCategory;
-        
+
         if (!parentCategoryID.isEmpty()) {
-            
+
             Category parentCategory = categoryService.fetchCategoryById(Integer.valueOf(parentCategoryID));
             newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
 
         } else {
-            
+
             ProjectCategory projectCategory = projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID));
-            
+
             Category parentCategory = categoryService.findRootCategoryByProjectCategory(projectCategory);
-            
+
             newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
         }
 
         if (categoryService.storeCategory(newCategory)) {
-
+            model.addAttribute("success", "Category has been added successfully!");
             return "redirect:/category_app/" + projectID;
 
         } else {
@@ -103,8 +110,26 @@ public class CategoryController {
         }
     }
 
+    @RequestMapping(value = "/category/delete", method = RequestMethod.GET)
+    public String deleteCategory(Model model, @RequestParam(value = "pid", defaultValue = "", required = true) String projectID, @RequestParam(value = "id", defaultValue = "", required = true) Integer categoryID) {
+
+        ProjectCategory projectCategory = projectCategoryService.findByPid(Integer.valueOf(projectID));
+        model.addAttribute("treegrid", categoryService.constructTreeGrid(projectCategory.getCategories()));
+
+        if (categoryService.deleteCategory(categoryID)) {
+            model.addAttribute("success", "Category has been deleted successfully!");
+        } else {
+            model.addAttribute("error", "Problem occured while deleting Category!");
+        }
+
+        return loadFragment(model, projectID, "", "");
+    }
+
     @RequestMapping(value = "/category/init", method = RequestMethod.POST)
-    public String assignCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "name", defaultValue = "", required = true) String name) {
+    public String assignCategory(Model model,
+            @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID,
+            @RequestParam(value = "name", defaultValue = "", required = true) String name
+    ) {
         if (!model.containsAttribute("projectID")) {
             model.addAttribute("projectID", "0");
         }

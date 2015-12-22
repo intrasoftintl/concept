@@ -146,3 +146,12 @@ function addCategoryToModel() {
     $("#modelFragment").load("/category/fragment/" + projectID + "?action=add", initAddCategory);
 }
 
+function editCategory(categoryID) {
+    var projectID = $("#projectID").val();
+    $("#modelFragment").load("/category/fragment/" + projectID + "?action=edit&id=" + categoryID, initAddCategory);
+}
+
+function deleteCategory(categoryID) {
+    var projectID = $("#projectID").val();
+    $("#modelFragment").load("/category/delete?id=" + categoryID + "&pid=" + projectID, checkForTreeGrid);
+}
