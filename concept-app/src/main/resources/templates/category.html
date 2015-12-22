@@ -56,14 +56,14 @@
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Hierarchy</h4>
                     <div class="btn-group pull-right">
-                        <button id="add-button" onclick="$('#addCategoryForm').submit();" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
+                        <button id="add-button" onclick="$('#categoryForm').submit();" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
                     </div>
                 </div>
                 <div class="panel-body">
                     <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
                     <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>
                     <div class="form-group" >
-                        <form class="form-horizontal" th:action="@{/category/add}" method="post" id="addCategoryForm">
+                        <form class="form-horizontal" th:action="(${isEdit} == 1) ? '/category/update'  : '/category/add'" method="post" id="categoryForm">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="text-input">Category name</label>
                                 <div class="col-md-9">
