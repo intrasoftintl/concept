@@ -67,15 +67,15 @@ public class CategoryController {
             } else if (action.equalsIgnoreCase("edit")) {
                 model.addAttribute("projectCategoryID", projectCategory.getId());
                 model.addAttribute("isEdit", 1);
-                
+
                 Category category = categoryService.fetchCategoryById(Integer.valueOf(categoryID));
                 model.addAttribute("hasFather", null == category.getParentID().getParentID() ? 0 : 1);
                 model.addAttribute("category", category);
                 return "category :: category-add";
             } else {
-               return "category :: category-init"; 
+                return "category :: category-init";
             }
-            
+
         } else {
             return "category :: category-init";
         }
@@ -86,10 +86,45 @@ public class CategoryController {
 
         Category newCategory;
 
+        if (null != categoryName && !categoryName.isEmpty()) {
+
+            if (!parentCategoryID.isEmpty()) {
+
+                Category parentCategory = categoryService.fetchCategoryById(Integer.valueOf(parentCategoryID));
+                newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
+
+            } else {
+                ProjectCategory projectCategory = projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID));
+                Category parentCategory = categoryService.findRootCategoryByProjectCategory(projectCategory);
+                newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
+            }
+
+            if (categoryService.storeCategory(newCategory)) {
+                model.addAttribute("success", "Category has been added successfully!");
+                return "redirect:/category_app/" + projectID;
+
+            } else {
+                model.addAttribute("error", "Problem occured while adding Category to Model!");
+                return "redirect:/category_app/" + projectID;
+            }
+            
+        } else {
+            model.addAttribute("error", "Please fill all the fields!");
+            return "redirect:/category_app/" + projectID;
+        }
+    }
+
+    @RequestMapping(value = "/category/update", method = RequestMethod.POST)
+    public String updateCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID, @RequestParam(value = "categoryID", defaultValue = "", required = true) String categoryID) {
+
+        Category existingCategory = categoryService.fetchCategoryById(Integer.valueOf(categoryID));
+
         if (!parentCategoryID.isEmpty()) {
 
             Category parentCategory = categoryService.fetchCategoryById(Integer.valueOf(parentCategoryID));
-            newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
+            existingCategory.setName(categoryName);
+            existingCategory.setParentID(parentCategory);
+            existingCategory.setProjectCategory(projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
 
         } else {
 
@@ -97,15 +132,17 @@ public class CategoryController {
 
             Category parentCategory = categoryService.findRootCategoryByProjectCategory(projectCategory);
 
-            newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
+            existingCategory.setName(categoryName);
+            existingCategory.setParentID(parentCategory);
+            existingCategory.setProjectCategory(projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
         }
 
-        if (categoryService.storeCategory(newCategory)) {
-            model.addAttribute("success", "Category has been added successfully!");
+        if (categoryService.storeCategory(existingCategory)) {
+            model.addAttribute("success", "Category has been updated successfully!");
             return "redirect:/category_app/" + projectID;
 
         } else {
-            model.addAttribute("error", "Problem occured while adding Category to Model!");
+            model.addAttribute("error", "Problem occured while updating Category to Model!");
             return "redirect:/category_app/" + projectID;
         }
     }
