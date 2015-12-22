@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,9 +47,14 @@ public class SearchController {
      *  POST Methods 
      */
     @RequestMapping(value = "/se_app", method = RequestMethod.POST)
-    public String search(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model) {
-        System.out.println("ProjectId is: " + projectID);
+    public String search(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model, @ModelAttribute Search search) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+
+        System.out.println("Project Id is: " + search.getPid());
+        System.out.println("Content is: " + search.getContent());
+        System.out.println("Project Id is: " + search.getCid());
+
+
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         model.addAttribute("search_query_url", "query_url");

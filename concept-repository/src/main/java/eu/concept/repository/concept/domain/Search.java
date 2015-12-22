@@ -62,11 +62,11 @@ public class Search implements Serializable {
         this.id = id;
     }
 
-    public Search(Long id, String categories, String keywords, String description, Date createdDate) {
+    public Search(Long id, String categories, String keywords, String content, Date createdDate) {
         this.id = id;
         this.categories = categories;
         this.keywords = keywords;
-        this.content = description;
+        this.content = content;
         this.createdDate = createdDate;
     }
 
@@ -102,12 +102,12 @@ public class Search implements Serializable {
         this.keywords = keywords;
     }
 
-    public String getDescription() {
+    public String getContent() {
         return content;
     }
 
-    public void setDescription(String description) {
-        this.content = description;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Date getCreatedDate() {
