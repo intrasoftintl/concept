@@ -2,6 +2,7 @@ package eu.concept.controller.component;
 
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.ComponentRepository;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Search;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SearchService;
@@ -45,6 +46,7 @@ public class SearchController {
     public String notifications(Model model, @PathVariable int project_id) {
         Search search = new Search();
         search.setPid(project_id);
+        search.setComponent(new Component());
         model.addAttribute("search", search);
         model.addAttribute("components", componentRepo.findAll());
         return "se :: seContent";
@@ -54,7 +56,7 @@ public class SearchController {
      *  POST Methods 
      */
     @RequestMapping(value = "/se_app", method = RequestMethod.POST)
-    public String search(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model, @ModelAttribute Search search) {
+    public String search(Model model, @ModelAttribute Search search) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         System.out.println("Project Id is: " + search.getPid());
         System.out.println("Content is: " + search.getContent());
