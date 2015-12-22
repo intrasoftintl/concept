@@ -1,7 +1,6 @@
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -18,8 +16,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "Component")
 public class Component implements Serializable {
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "component")
-//    private Collection<Metadata> metadataCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -86,18 +82,4 @@ public class Component implements Serializable {
     public String toString() {
         return "eu.concept.repository.concept.domain.Component[ id=" + id + " ]";
     }
-
-//    @XmlTransient
-//    public Collection<Metadata> getMetadataCollection() {
-//        return metadataCollection;
-//    }
-//
-//    public void setMetadataCollection(Collection<Metadata> metadataCollection) {
-//        this.metadataCollection = metadataCollection;
-//    }
-    
-    //Help Functions
-    
-    
-   
 }

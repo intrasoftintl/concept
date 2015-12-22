@@ -101,8 +101,11 @@
 
         <!-- dashboard -->
         <div class="content">
-            <iframe id="search" th:src="@{'http://concept-se.euprojects.net/search_advanced?id=123'}" width="100%" height="100%"></iframe>
+            <iframe id="search" th:src="${search_query_url}" width="100%" height="100%"></iframe>
         </div>
+
+
+
 
         <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 

@@ -1,6 +1,7 @@
 package eu.concept.controller.component;
 
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.dao.ComponentRepository;
 import eu.concept.repository.concept.domain.Search;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SearchService;
@@ -31,6 +32,11 @@ public class SearchController {
 
     @Autowired
     NotificationService notificationService;
+    
+    
+    @Autowired 
+    ComponentRepository componentRepo;
+    
 
     /*
      *  GET Methods 
@@ -40,6 +46,7 @@ public class SearchController {
         Search search = new Search();
         search.setPid(project_id);
         model.addAttribute("search", search);
+        model.addAttribute("components", componentRepo.findAll());
         return "se :: seContent";
     }
 
@@ -49,15 +56,14 @@ public class SearchController {
     @RequestMapping(value = "/se_app", method = RequestMethod.POST)
     public String search(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model, @ModelAttribute Search search) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-
         System.out.println("Project Id is: " + search.getPid());
         System.out.println("Content is: " + search.getContent());
-        System.out.println("Project Id is: " + search.getCid());
+        System.out.println("Component Id is: " + search.getCid());
 
-
+        String search_query_url=" http://concept-se.euprojects.net/search_advanced?id=123";
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
-        model.addAttribute("search_query_url", "query_url");
+        model.addAttribute("search_query_url", search_query_url);
         return "se_app";
     }
 }

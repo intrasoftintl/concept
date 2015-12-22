@@ -18,11 +18,13 @@
 
                 <select id="component" name="component" class="form-control">
                     <option value="">Choose</option>
-                    <option value="en">Brief Analysis (BA)</option>
-                    <option value="en">Images, PDF, etc. (FM)</option>
-                    <option value="en">Mindmaps (MM)</option>
-                    <option value="en">Moodboard (MB)</option>
-                    <option value="en">Storyboards (SB)</option>
+                    <!--                    <option value="en">Brief Analysis (BA)</option>
+                                        <option value="en">Images, PDF, etc. (FM)</option>
+                                        <option value="en">Mindmaps (MM)</option>
+                                        <option value="en">Moodboard (MB)</option>
+                                        <option value="en">Storyboards (SB)</option>-->
+
+                    <option  th:each="component : ${components}" th:value="${component.id}" th:text="${component.name}"></option>
                 </select>
 
             </div>
