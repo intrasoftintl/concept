@@ -35,8 +35,7 @@ public class ProjectCategory implements Serializable {
     @Size(min = 1, max = 250)
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
-    @NotNull
+    @Basic(optional = true)
     @Size(min = 1, max = 250)
     @Column(name = "current_structure", columnDefinition = "TEXT")
     private String currentStructure;
@@ -100,7 +99,11 @@ public class ProjectCategory implements Serializable {
     public void setLastModified(String lastModified) {
         this.lastModified = lastModified;
     }
-    
-    
+
+    public ProjectCategory(String name, String currentStructure, int pid) {
+        this.name = name;
+        this.currentStructure = currentStructure;
+        this.pid = pid;
+    }
 
 }

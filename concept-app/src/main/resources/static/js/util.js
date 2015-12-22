@@ -1,5 +1,5 @@
 //Static variables
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
 var MEMBERSHIPS_REST_URL = "/conceptRest/api/memberships/";
 var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
@@ -174,6 +174,7 @@ function editStoryboard(sbid) {
 }
 
 function projectSelectedAction(projectID) {
+    
     if (projectID > 0) {
         $.ajax({
             url: MEMBERSHIPS_REST_URL + projectID
@@ -191,12 +192,17 @@ function projectSelectedAction(projectID) {
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
             $("#projectID").val(projectID);
+            
+            //Change href of Model Page
+            $("#project-model").attr("href", "./category_app/" + projectID);
+            
             //Enable DashboardPage
             enableDashboardPage();
             //Load Dashboard content
             loadDashboardContent(projectID);
         } else {
             $('#projectID').val(projectID);
+            
         }
 
         if (isFM_app()) {
@@ -553,9 +559,6 @@ function deleteSBItem(sb_id, project_id) {
 function deleteMMItem(sb_id, project_id) {
     $("#mm-all").load("/mm_app_delete_all?mm_id=" + sb_id + "&project_id=" + project_id + "&limit=200");
 }
-
-
-
 
 function addProjectIDToForm(formName) {
     $("#" + formName).submit(function (eventObj) {
