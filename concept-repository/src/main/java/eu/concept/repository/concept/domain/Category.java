@@ -39,7 +39,7 @@ public class Category implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Category parentID;
     @JoinColumn(name = "pc_id", referencedColumnName = "id")
-    @OneToOne(optional = false)
+    @OneToOne(optional = true)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private ProjectCategory projectCategory;
     @Basic(optional = false)
@@ -89,9 +89,21 @@ public class Category implements Serializable {
         this.lastModified = lastModified;
     }
     
-    public boolean isFather() {
-        return (null == this.parentID ? false : this.parentID.getId() == 1);
+    public boolean isFather(Integer categoryID) {
+        return (null == this.parentID ? false : this.parentID.getId() == categoryID);
     }
 
+    public Category(Integer id, String name, Category parentID, ProjectCategory projectCategory) {
+        this.id = id;
+        this.name = name;
+        this.parentID = parentID;
+        this.projectCategory = projectCategory;
+    }
+
+    public Category(String name, Category parentID, ProjectCategory projectCategory) {
+        this.name = name;
+        this.parentID = parentID;
+        this.projectCategory = projectCategory;
+    }
 
 }

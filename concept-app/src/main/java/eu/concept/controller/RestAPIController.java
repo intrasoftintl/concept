@@ -6,11 +6,13 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import eu.concept.authentication.COnCEPTRole;
 import eu.concept.configuration.COnCEPTProperties;
+import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.ChatMessageRepository;
 import eu.concept.repository.concept.domain.*;
 import eu.concept.repository.concept.service.*;
 import eu.concept.repository.openproject.domain.MemberOp;
 import eu.concept.repository.openproject.domain.MemberRoleOp;
+import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.MemberOpService;
 import eu.concept.repository.openproject.service.MemberRoleOpService;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
@@ -97,9 +99,12 @@ public class RestAPIController {
 
     @Autowired
     MoodboardService mbService;
-    
+
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    ProjectCategoryService projectCategoryService;
 
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
@@ -409,8 +414,8 @@ public class RestAPIController {
 
         return new ApplicationResponse(responseCode, responseMessage, newsb);
     }
-    
-        //Store storyboard data
+
+    //Store storyboard data
     @RequestMapping(value = "/moodboard/replicate", method = RequestMethod.POST)
     public ApplicationResponse replicateMoodboard(
             @RequestParam(value = "id") Integer sb_id,
@@ -500,13 +505,13 @@ public class RestAPIController {
             e.printStackTrace();
         }
         return "";
-    
-    }
-    
-    @RequestMapping(value = "/category/search", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    public String autoCompleteCategories(@RequestParam("keyword") String keyword, @RequestParam("callback") String callback) {
 
-        List<Category> categories = categoryService.getCategoriesByKeyword(keyword);
+    }
+
+    @RequestMapping(value = "/category/search", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    public String autoCompleteCategories(@RequestParam("keyword") String keyword, @RequestParam("projectID") String projectID, @RequestParam("callback") String callback) {
+        
+        List<Category> categories = categoryService.getCategoriesByKeyword(keyword, projectCategoryService.findByPid(Integer.valueOf(projectID)));
         JSONObject jsonResponse = new JSONObject();
         JSONArray jsonValues = new JSONArray();
 
@@ -551,6 +556,5 @@ public class RestAPIController {
         }
         return keywords;
     }
-    
-    
+
 }

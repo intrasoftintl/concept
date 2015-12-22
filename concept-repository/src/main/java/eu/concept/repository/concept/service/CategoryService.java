@@ -2,6 +2,7 @@ package eu.concept.repository.concept.service;
 
 import eu.concept.repository.concept.dao.CategoryRepository;
 import eu.concept.repository.concept.domain.Category;
+import eu.concept.repository.concept.domain.ProjectCategory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -44,7 +45,7 @@ public class CategoryService {
         return true;
     }
 
-    public Category fetchClassById(Integer id) {
+    public Category fetchCategoryById(Integer id) {
         return categoryRepository.findOne(id);
     }
 
@@ -77,29 +78,35 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
+    public Category findRootCategoryByProjectCategory(ProjectCategory projectCategory) {
+        return categoryRepository.findRootCategoryByProjectCategory(projectCategory);
+    }
+
     /**
      * This method is used by the auto-complete functionality to retrieve
      * Categories
      *
      * @param keyword
+     * @param projectCategory
      *
      * @return A List of Category object
      */
-    public List<Category> getCategoriesByKeyword(String keyword) {
+    public List<Category> getCategoriesByKeyword(String keyword, ProjectCategory projectCategory) {
+        
         List<Category> listOfCategories;
         if (keyword.matches("\\*+")) {
             int length = keyword.length();
             int page = 10 * (length - 1);
             Pageable pageable = new PageRequest(page, 10, new Sort(Sort.Direction.ASC, "name"));
 
-            listOfCategories = categoryRepository.findAllCustom(pageable);
+            listOfCategories = categoryRepository.findAllCustom(projectCategory, pageable);
         } else {
-            listOfCategories = categoryRepository.findFirst10ByNameOrderByNameAsc(keyword);
+            listOfCategories = categoryRepository.findFirst10ByNameOrderByNameAsc(projectCategory, keyword);
 
         }
         return listOfCategories;
     }
-    
+
     /**
      * Constructs the tree grid of all Categories
      *
@@ -107,13 +114,18 @@ public class CategoryService {
      * @return A String object
      *
      */
-    public static String constructTreeGrid(List<Category> nodesInit) {
+    public String constructTreeGrid(List<Category> nodesInit) {
 
+        // Find Root Category
+        List<Category> rootNode = nodesInit.stream().filter(node -> null == node.getParentID()).collect(Collectors.toList());
+        
+        // rootNode.get(0).getId()
+        
         List<Category> nodes = nodesInit.stream().filter(node -> null != node.getParentID()).collect(Collectors.toList());
 
         List<String> treeNodes = new ArrayList<>();
 
-        List<Category> fathers = nodes.stream().filter(Category::isFather).collect(Collectors.toList());
+        List<Category> fathers = nodes.stream().filter(node -> node.isFather(rootNode.get(0).getId())).collect(Collectors.toList());
 
         fathers.forEach(father -> {
             // FatherNode
@@ -145,7 +157,7 @@ public class CategoryService {
 
     }
 
-    public static List<Category> getChilds(Category currentNode, List<Category> nodes, List<Category> categories) {
+    public List<Category> getChilds(Category currentNode, List<Category> nodes, List<Category> categories) {
 
         for (Category tempCategory : categories) {
             if (tempCategory.getParentID().getId() == currentNode.getId()) {
@@ -164,11 +176,11 @@ public class CategoryService {
      *
      * @return A String object
      */
-    public static String constructParentNode(String categoryID, String name) {
+    public String constructParentNode(String categoryID, String name) {
         String parentNodeHTML = "";
 
         parentNodeHTML += "<tr class='treegrid-" + categoryID + "'>";
-        parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_VIEW.png' width='32px;' height='32px;' onclick='viewAttributes(" + categoryID + ",\"" + name + "\");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteClass(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
         parentNodeHTML += "</tr>";
 
         return parentNodeHTML;
@@ -183,7 +195,7 @@ public class CategoryService {
      *
      * @return A String object
      */
-    public static String constructChildNode(String categoryID, String name, String parentID) {
+    public String constructChildNode(String categoryID, String name, String parentID) {
         String childNodeHTML = "";
 
         childNodeHTML += "<tr class='treegrid-" + categoryID + " treegrid-parent-" + parentID + "'>";
