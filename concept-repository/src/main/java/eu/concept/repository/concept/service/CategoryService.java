@@ -44,6 +44,16 @@ public class CategoryService {
         }
         return true;
     }
+    
+    public boolean deleteCategoryCustom(Integer id) {
+        try {
+            categoryRepository.deleteCategoryCustom(id);
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryService.class.getName()).severe(ex.getMessage());
+            return false;
+        }
+        return true;
+    }
 
     public Category fetchCategoryById(Integer id) {
         return categoryRepository.findOne(id);

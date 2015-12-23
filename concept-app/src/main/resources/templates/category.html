@@ -11,8 +11,6 @@
                     </div>
                 </div>
                 <div class="panel-body" style="overflow: auto; height:500px;">
-                    <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
-                    <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>
                     <table class="table tree table-striped">
                         <thead>
                             <tr>
@@ -60,8 +58,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
-                    <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>
+                    
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="(${isEdit} == 1) ? '/category/update'  : '/category/add'" method="post" id="categoryForm">
                             <div class="form-group">
@@ -123,8 +120,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
-                    <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>
+                    
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="@{/category/init}" method="post" id="initCategoryForm">
                             <div class="form-group">

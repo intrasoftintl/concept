@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -82,7 +83,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/category/add", method = RequestMethod.POST)
-    public String addCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID) {
+    public String addCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID, final RedirectAttributes redirectAttributes) {
 
         Category newCategory;
 
@@ -100,22 +101,22 @@ public class CategoryController {
             }
 
             if (categoryService.storeCategory(newCategory)) {
-                model.addAttribute("success", "Category has been added successfully!");
+                redirectAttributes.addFlashAttribute("success", "Category has been added successfully!");
                 return "redirect:/category_app/" + projectID;
 
             } else {
-                model.addAttribute("error", "Problem occured while adding Category to Model!");
+                redirectAttributes.addFlashAttribute("error", "Problem occured while adding Category to Model!");
                 return "redirect:/category_app/" + projectID;
             }
-            
+
         } else {
-            model.addAttribute("error", "Please fill all the fields!");
+            redirectAttributes.addFlashAttribute("error", "Please fill all the fields!");
             return "redirect:/category_app/" + projectID;
         }
     }
 
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
-    public String updateCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID, @RequestParam(value = "categoryID", defaultValue = "", required = true) String categoryID) {
+    public String updateCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID, @RequestParam(value = "categoryID", defaultValue = "", required = true) String categoryID,  final RedirectAttributes redirectAttributes) {
 
         Category existingCategory = categoryService.fetchCategoryById(Integer.valueOf(categoryID));
 
@@ -138,11 +139,11 @@ public class CategoryController {
         }
 
         if (categoryService.storeCategory(existingCategory)) {
-            model.addAttribute("success", "Category has been updated successfully!");
+            redirectAttributes.addFlashAttribute("success", "Category has been updated successfully!");
             return "redirect:/category_app/" + projectID;
 
         } else {
-            model.addAttribute("error", "Problem occured while updating Category to Model!");
+            redirectAttributes.addFlashAttribute("error", "Problem occured while updating Category!");
             return "redirect:/category_app/" + projectID;
         }
     }
@@ -150,13 +151,11 @@ public class CategoryController {
     @RequestMapping(value = "/category/delete", method = RequestMethod.GET)
     public String deleteCategory(Model model, @RequestParam(value = "pid", defaultValue = "", required = true) String projectID, @RequestParam(value = "id", defaultValue = "", required = true) Integer categoryID) {
 
-        ProjectCategory projectCategory = projectCategoryService.findByPid(Integer.valueOf(projectID));
-        model.addAttribute("treegrid", categoryService.constructTreeGrid(projectCategory.getCategories()));
-
-        if (categoryService.deleteCategory(categoryID)) {
+        if (categoryService.deleteCategoryCustom(categoryID)) {
             model.addAttribute("success", "Category has been deleted successfully!");
+            
         } else {
-            model.addAttribute("error", "Problem occured while deleting Category!");
+             model.addAttribute("error", "Problem occured while deleting Category!");
         }
 
         return loadFragment(model, projectID, "", "");
@@ -165,7 +164,8 @@ public class CategoryController {
     @RequestMapping(value = "/category/init", method = RequestMethod.POST)
     public String assignCategory(Model model,
             @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID,
-            @RequestParam(value = "name", defaultValue = "", required = true) String name
+            @RequestParam(value = "name", defaultValue = "", required = true) String name,
+            final RedirectAttributes redirectAttributes
     ) {
         if (!model.containsAttribute("projectID")) {
             model.addAttribute("projectID", "0");
@@ -177,11 +177,11 @@ public class CategoryController {
         ProjectCategory projectCategory = new ProjectCategory(name, null, Integer.valueOf(projectID));
 
         if (projectCategoryService.storeProjectCategoryWithRootCategory(projectCategory)) {
-
+            redirectAttributes.addFlashAttribute("success", "Model has been created successfully!");
             return "redirect:/category_app/" + projectID;
 
         } else {
-            model.addAttribute("error", "Problem occured while adding model!");
+            redirectAttributes.addFlashAttribute("error", "Problem occured while adding model!");
             return "redirect:/category_app/" + projectID;
         }
 
