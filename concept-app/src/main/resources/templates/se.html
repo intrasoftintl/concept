@@ -16,15 +16,9 @@
             <div class="form-group col-md-8">
                 <label for="keyword">Document Type</label>
 
-                <select id="component" name="component" class="form-control">
+                <select th:field="*{component.id}" id="component" name="component" class="form-control">
                     <option value="">Choose</option>
-                    <!--                    <option value="en">Brief Analysis (BA)</option>
-                                        <option value="en">Images, PDF, etc. (FM)</option>
-                                        <option value="en">Mindmaps (MM)</option>
-                                        <option value="en">Moodboard (MB)</option>
-                                        <option value="en">Storyboards (SB)</option>-->
-
-                    <option  th:each="component : ${components}" th:value="${component.id}" th:text="${component.name}"></option>
+                    <option  th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
                 </select>
 
             </div>
@@ -49,7 +43,8 @@
             <!--            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>-->
 
             <div class="form-group col-md-12">
-                <button onclick="addProjectIDToForm('se-form')" type ="submit" class="btn btn-danger">Search</button>
+                <!--                <button onclick="addProjectIDToForm('se-form')" type ="submit" class="btn btn-danger">Search</button>-->
+                <button type ="submit" class="btn btn-danger">Search</button>
             </div>
         </form>
 

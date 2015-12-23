@@ -82,8 +82,8 @@ public class Search implements Serializable {
         return component;
     }
 
-    public void setComponent(Component cid) {
-        this.component = cid;
+    public void setComponent(Component component) {
+        this.component = component;
     }
 
     public String getCategories() {
