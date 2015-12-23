@@ -27,7 +27,7 @@ $(document).ready(function () {
     $('#project-select').change(function () {
         var projectID = $(this).val();
         projectSelectedAction(projectID);
-    })
+    });
 
     //If not dashboard page, select current project
     if (!isDashboardPage()) {
@@ -87,8 +87,7 @@ function setIsPublic(componentCode, componentID) {
 
             if (isPublic) {
                 $("#" + componentCode + componentID).removeClass("icon-active");
-            }
-            else {
+            } else {
                 $("#" + componentCode + componentID).addClass("icon-active");
             }
 
@@ -116,8 +115,7 @@ function like(componentCode, componentID) {
             if (isLiked) {
                 $("#Like" + componentCode + componentID).removeClass("icon-active");
                 $("#LikeCount" + componentCode + componentID).text(itemLikeCountDown);
-            }
-            else {
+            } else {
                 $("#Like" + componentCode + componentID).addClass("icon-active");
                 $("#LikeCount" + componentCode + componentID).text(itemLikeCountUp);
             }
@@ -174,7 +172,7 @@ function editStoryboard(sbid) {
 }
 
 function projectSelectedAction(projectID) {
-    
+
     if (projectID > 0) {
         $.ajax({
             url: MEMBERSHIPS_REST_URL + projectID
@@ -192,17 +190,23 @@ function projectSelectedAction(projectID) {
         //Trigger only if current page isDashboard
         if (isDashboardPage()) {
             $("#projectID").val(projectID);
-            
+
             //Change href of Model Page
             $("#project-model").attr("href", "./category_app/" + projectID);
-            
+
             //Enable DashboardPage
             enableDashboardPage();
             //Load Dashboard content
             loadDashboardContent(projectID);
         } else {
             $('#projectID').val(projectID);
-            
+        }
+
+        if (isCategory_app(projectID)) {
+
+            var projectID = $("#projectID").val();
+            window.location.href = "/category_app/" + projectID;
+
         }
 
         if (isFM_app()) {
@@ -283,14 +287,14 @@ function projectSelectedAction(projectID) {
             $("#project-hierarchy").show();
             $("#project-select").attr("disabled", true);
         }
-        
+
         if (isSB_app()) {
             $("#project-members").show();
             $("#project-view").show();
             $("#project-hierarchy").show();
             $("#project-select").attr("disabled", true);
         }
-        
+
         if (isMB_app()) {
             $("#project-members").show();
             $("#project-view").show();
@@ -423,6 +427,23 @@ function isDashboardPage() {
 //Return true if current page is BA APP
 function isBA_app() {
     return location.pathname === "/ba_app";
+}
+
+function isCategory_app(projectID) {
+
+    var currentPath = location.pathname;
+
+    if (currentPath.indexOf("category_app") !== -1) {
+
+        var tempProject = currentPath.substring(14);
+        if (tempProject !== projectID) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 //Return true if current page is BA ALL
