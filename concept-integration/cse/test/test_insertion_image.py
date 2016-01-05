@@ -4,13 +4,13 @@
 import base64
 import elasticsearch
 
-es = elasticsearch.Elasticsearch(port=9201)
+es = elasticsearch.Elasticsearch(port=9200)
 
 
-#es.indices.delete("test")
+es.indices.delete("test")
 
-#es.indices.create("test")
-#es.cluster.health(wait_for_status = "yellow")
+es.indices.create("test")
+es.cluster.health(wait_for_status = "yellow")
 
 image_mapping = {
     "test": {
@@ -47,12 +47,19 @@ print (image_mapping)
 
 es.indices.put_mapping(index="test",doc_type="test",body=image_mapping)
 
-file_list = ["034.jpg","035.jpg","2013-10-17 12.21.50.jpg",
-             "2013-10-17 15.03.33.jpg","2014-12-05 09.12.24.jpg",
-             "2015-04-24 10.11.19.jpg","circulo blanco.png",
-             "Copy of IMG_1294.JPG","Copy of IMG_1347.JPG",
-             "Copy of IMG_1373.JPG","KZI9W.jpg","KZI9W.jpg",
-             "viento1.jpg","viento2.jpg"]
+file_list = ["034.jpg",
+             "035.jpg",
+             "2013-10-17 12.21.50.jpg",
+             "2013-10-17 15.03.33.jpg",
+             "2014-12-05 09.12.24.jpg",
+             "2015-04-24 10.11.19.jpg",
+             "circulo blanco.png",
+             "Copy of IMG_1294.JPG",
+             "Copy of IMG_1347.JPG",
+             "Copy of IMG_1373.JPG",
+             "KZI9W.jpg",
+             "viento1.jpg",
+             "viento2.jpg"]
 
 for f in file_list:
     print (f)
@@ -67,6 +74,6 @@ for f in file_list:
 
     image = { "my_img":encoded_data }
 
-    es.index(index="test",doc_type="test",body=image,id="f")
+    es.index(index="test",doc_type="test",body=image,id=f)
 
     print("Indexed")

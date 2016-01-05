@@ -11,6 +11,8 @@ import json
 import urllib
 import logging
 
+import base64
+
 from constants import boost_list
     
 def basic_search_query(param,es,index,doc_type, dpage = 0):
@@ -71,13 +73,14 @@ def basic_search_query(param,es,index,doc_type, dpage = 0):
     return res
     
     
-def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
+def advanced_search_query(param_list,es,index,doc_type, 
+                              dpage = 0, size = 10):
     """Create the advanced query for elastic 
     from the params list,
     and returns the results as elastic.
     Low level function.
     """    
-    page = param_list.pop("page",dpage)  
+    page = param_list.pop("page",dpage)
     
     #Building the query
     s_type = param_list.pop("s_type","inclusive")
@@ -114,6 +117,12 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
         filtered = True
         filter_ = { "term":{ "uuid":uuid } }
         filterList.append(filter_) 
+        
+    exist = param_list.pop("exist","")
+    if exist:
+        filtered = True
+        filter_ = { "exists":{"field":exist}}
+        filterList.append(filter_)
 
     
     rating = param_list.pop("rating","")
@@ -134,6 +143,8 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
                             }
                     }
             matchList.append(match)
+    
+    doc = {}    
     
     if(not filtered):
         doc = { "query":
@@ -179,7 +190,7 @@ def advanced_search_query(param_list,es,index,doc_type, dpage = 0):
     
     #Executing the query
     res = es.search(index=index, doc_type=doc_type, body=doc,
-                    from_=page * 10, size = 10)
+                    from_=page * 10, size = size)
     #print(res)
 
     
@@ -683,4 +694,79 @@ class search_advanced_handler(tornado.web.RequestHandler):
         else:
             self.set_header("Content-Type", 'application/json')
             self.write(res["hits"])
+                    
+class search_image_handler(tornado.web.RequestHandler):
+    """ REST API for image search
+    """
+    def get(self):
+        self.post()
+
+    def post(self):
+        user_id = self.get_argument('user_id',"")
+        project_id = self.get_argument('project_id',"")
+        #output = self.get_argument("output","html")
+        #page = int(self.get_argument("page","1"))
+        search_param = self.get_argument('search_param',"")
+        if search_param:        
+            logging.debug(search_param)
+            try:
+                search_param = json.loads(search_param)
+            except Exception as e:
+                logging.exception(e)
+                self.set_status(400,str(e))
+                return            
+        else:
+            search_param = {}
+            search_param["title"] = self.get_argument('title',"")
+            #search_param["content-text"] = self.get_argument('content',"")
+            #search_param["content-type"] = self.get_argument('component',"")
+            search_param["uuid"] = self.get_argument("id","")
+            #search_param["s_type"] = self.get_argument("s_type","")
+            #search_param["keywords"] = self.get_argument("keywords","")
+            #search_param["categories"] = self.get_argument("categories","")
+            
+        if user_id:    
+            search_param["user_id"] = user_id
+        if project_id:         
+            search_param["project_id"] = project_id
+        
+        search_param["exist"] = "image-properties"        
+        
+        logging.info("search_image_handler:search_param -> " + str(search_param))
+
+
+        es = self.application.es
+        index = self.application.config_init["index"]
+        doc_type = self.application.config_init["type_item"]
+        
+        try:
+            res = advanced_search_query(search_param, 
+                                        es, 
+                                        index,
+                                        doc_type,
+                                        size = 1)
+        except Exception as e:
+            logging.exception(e)                
+            self.set_status(400,str(e))
+            return        
+        
+        #max_score = res["hits"]["max_score"]
+        if res["hits"]["total"] == 1:
+            list_results = res["hits"]["hits"]
+        
+            b = base64.b64decode(list_results[0]["_source"]["content-image"])
+
+            #logging.debug(total)
+            #logging.debug(max_score)
+
+            self.set_header("Content-Type", 'image/jpg')
+            self.write(b)           
+        elif res["hits"]["total"] == 0:
+            self.set_status(404, "not found")
+            return
+        else:
+            #something very weird happend
+            self.set_status(400,"other error")
+            
+                    
                     

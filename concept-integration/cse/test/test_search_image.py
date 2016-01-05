@@ -4,16 +4,20 @@
 import base64
 import elasticsearch
 
-es = elasticsearch.Elasticsearch(port=9201)
+es = elasticsearch.Elasticsearch(port=9200)
 
-data = open("KZI9W.jpg","rb").read()
+file_to_search = "KZI9W.jpg"
+
+print("Searching "+file_to_search)
+
+data = open(file_to_search,"rb").read()
 # as file is binary, data is bytes
 
 print ("Encoding...")
-print(data[:300])
+print(data[:100])
 encoded_data = base64.b64encode(data)
 print ("Encoded")
-print(encoded_data)
+#print(encoded_data)
 
 
 ##querySelf = {
@@ -46,4 +50,7 @@ query = {
 
 result = es.search(index="test",doc_type="test",body=query)
 
-print(result['hits']['hits'][0])
+for i in result['hits']['hits']:
+    print("{} {}".format(i["_id"],i["_score"]))
+    
+

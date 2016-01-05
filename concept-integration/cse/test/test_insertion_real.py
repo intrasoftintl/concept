@@ -3,6 +3,8 @@
 import urllib
 import urllib.request
 import json
+import codecs
+
 
 url = "http://localhost:9999"
 
@@ -377,6 +379,10 @@ response = urllib.request.urlopen(req)
 r = json.loads(response.read().decode('utf-8'))
 print(r)
 
+f = codecs.open("imagen_base64.txt","r","ASCII")
+coded_file = f.read()
+f.close()
+
 data = {
 "ID": "89",
 "Project ID": "22",
@@ -385,12 +391,9 @@ data = {
 "KEYWORDS": "wooden,chair,comfortable,light,portable,waterproof,no arms,soft materials",
 "CATEGORIES": "Market Analaysis, Technology, Usability, Consumer",
 "url":"document/89",
-"CONTENT": '''data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBw
-YIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQU
-FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAfQB9ADAREAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAIDAQ
-QFBwgGCf/EAGYQAAIBAgMEBwQEBwgMDAQCCwAB'''
+"CONTENT": "data:image/jpeg;base64,"+coded_file
 }
-print("Inserting "+str(data))
+#print("Inserting "+str(data))
 data = urllib.parse.urlencode(data).encode('utf-8')
 #POST
 req = urllib.request.Request(url+"/insert_item",data)
