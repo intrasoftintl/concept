@@ -26,7 +26,7 @@
                 <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
                 <a onclick="$('#mmAllForm').submit();"><img class="folder" src="/images/folder-mm.png"/></a>
             </form>
-            
+            <br/>
             <form id="mbAllForm" action="#" method="post" th:action="@{/mb_all}">
                 <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
                 <a onclick="$('#mbAllForm').submit();"><img class="folder" src="/images/folder-mb.png"/></a>

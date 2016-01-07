@@ -26,6 +26,14 @@
         <link href="http://cdn.jsdelivr.net/webjars/org.webjars.bower/chosen/1.4.2/chosen.min.css"
               th:href="@{/webjars/chosen/1.4.2/chosen.min.css}"
               rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/css/jquery.fileupload.css"
+              th:href="@{/webjars/jquery-file-upload/9.10.1/css/jquery.fileupload.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/css/jquery.fileupload-ui.css"
+              th:href="@{/webjars/jquery-file-upload/9.10.1/css/jquery.fileupload-ui.css}"
+              rel="stylesheet" media="screen" />
 
         <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
@@ -73,20 +81,27 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a> <a target="_blank" id="project-view" type="button" class="btn btn-default btn-xs">Details</a>
                         
-                        
-                        <div id="category-form">
-                            <a id="project-model" href="" class="btn btn-default btn-xs">
-                                Model
-                            </a>
-                        </div>
+                        <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
+                            <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
+                        </form>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
+                        <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
+                            <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-link btn-xs">Model</button>
+                        </form>
+                 
                     </span>
                     <span th:case="'DESIGNER'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">Details</a>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
                     </span>
                     <span th:case="'CLIENT'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">Details</a>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
                     </span>
                 </div>
 
@@ -271,6 +286,9 @@
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
         th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/js/jquery.fileupload.js"
+        th:src="@{/webjars/jquery-file-upload/9.10.1/js/jquery.fileupload.js}"></script>
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
         th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>

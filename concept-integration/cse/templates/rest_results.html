@@ -81,7 +81,7 @@
 					<p class="semantic_field">
 						<b>Categories:</b>
 						{% for e in item["_source"].get("categories",[])  %}
-						<div class="tag">{{ e }}</div>
+						<div class="tag">{{ e["tag"] }}-{{ e["score"] }}</div>
 						{% end %}
 					</p>
 					<p class="semantic_field">

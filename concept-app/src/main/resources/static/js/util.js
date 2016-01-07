@@ -217,7 +217,7 @@ function projectSelectedAction(projectID) {
             $("#fm-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
         }
 
         if (isFM_all()) {
@@ -229,12 +229,13 @@ function projectSelectedAction(projectID) {
             $("#fm-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-model").show();
         }
 
         if (isBA_app()) {
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
         }
 
         if (isBA_all()) {
@@ -248,7 +249,7 @@ function projectSelectedAction(projectID) {
 
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
         }
 
         if (isMM_all()) {
@@ -262,7 +263,7 @@ function projectSelectedAction(projectID) {
 
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
         }
 
         if (isSB_all()) {
@@ -276,12 +277,12 @@ function projectSelectedAction(projectID) {
 
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
         }
         if (isMM_app()) {
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
             $("#project-select").attr("disabled", true);
         }
 
@@ -295,7 +296,7 @@ function projectSelectedAction(projectID) {
         if (isMB_app()) {
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
             $("#project-select").attr("disabled", true);
         }
 
@@ -310,12 +311,13 @@ function projectSelectedAction(projectID) {
             $("#mb-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
+            $("#project-model").show();
         }
 
         if (isNF_app()) {
             $("#project-members").show();
             $("#project-view").show();
-            $("#project-hierarchy").show();
+            $("#project-model").show();
             $("#nf-button").show();
             $("#nf-placeholder").show();
         }
@@ -348,7 +350,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
         } else if (isFM_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
@@ -356,12 +358,12 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
             $("#fm-add").hide();
         } else if (isBA_app()) {
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
         } else if (isBA_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
@@ -369,7 +371,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
             $("#ba-add").hide();
         } else if (isMM_all()) {
             $(".panel-body").hide();
@@ -378,12 +380,12 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
             $("#mm-add").hide();
         } else if (isMB_app()) {
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
         } else if (isMB_all()) {
             $(".panel-body").hide();
             $("#sort").hide();
@@ -391,7 +393,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
             $("#mb-add").hide();
         } else if (isSB_all()) {
             $(".panel-body").hide();
@@ -400,7 +402,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
             $("#sb-add").hide();
         } else if (isNF_app()) {
             $("#nf-placeholder").show();
@@ -408,7 +410,7 @@ function projectSelectedAction(projectID) {
             $(".panel-footer").hide();
             $("#project-members").hide();
             $("#project-view").hide();
-            $("#project-hierarchy").hide();
+            $("#project-model").hide();
             $("#nf-button").hide();
         }
 

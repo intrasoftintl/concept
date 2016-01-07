@@ -11,6 +11,7 @@ import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import java.util.List;
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +38,7 @@ public class SearchController {
 
     @Autowired
     ComponentRepository componentRepo;
-    
+
     @Autowired
     MetadataService metadatService;
 
@@ -52,7 +53,7 @@ public class SearchController {
         search.setComponent(new Component());
         model.addAttribute("search", search);
         model.addAttribute("components", componentRepo.findAll());
-        metadatService.findAllMetadata().forEach(metadata -> System.out.println("Keywords: "+metadata.getKeywords()));
+        model.addAttribute("keywordsAll", metadatService.findAllMetadata());
         return "se :: seContent";
     }
 
@@ -65,14 +66,42 @@ public class SearchController {
         System.out.println("Project Id is: " + search.getPid());
         System.out.println("Content is: " + search.getContent());
         System.out.println("Component Id is: " + search.getComponent().getId());
+        search.setCategories( ElasticSearchController.getInstance().getCategoriesNames(search.getCategories()));
         System.out.println("Categories selected: " + search.getCategories());
-        System.out.println("Actual Categories Names: " + ElasticSearchController.getInstance().getCategoriesNames(search.getCategories()));
-        
-        String search_query_url = " http://concept-se.euprojects.net/search_advanced?id=123";
+        System.out.println("Keywords: " + search.getKeywords());
         model.addAttribute("projects", projects);
         model.addAttribute("projectID", search.getPid());
         model.addAttribute("currentUser", getCurrentUser());
+        String search_query_url = constructSearchUrl(String.valueOf(search.getPid()), search.getContent(), search.getComponent().getId(), search.getCategories(), search.getKeywords());
         model.addAttribute("search_query_url", search_query_url);
+        Logger.getLogger(SearchController.class.getName()).info("Serach URL is: " + search_query_url);
         return "se_app";
+    }
+
+    private String constructSearchUrl(String projectId, String content, String component, String categories, String keywords) {
+
+        String search_query_url = "http://concept-se.euprojects.net/search_advanced?project_id=" + projectId;
+
+        //Set content criteria
+        if (!content.isEmpty()) {
+            //Should title included?
+            search_query_url += "&content=" + content;
+        }
+
+        //Set component criteria
+        if (!component.isEmpty()) {
+            search_query_url += "&component=" + component;
+        }
+        //Set categories criteria
+        if (!categories.isEmpty()) {
+            search_query_url += "&categories=" + categories;
+        }
+
+        //Set keywords criteria
+        if (null != keywords) {
+            search_query_url += "&keywords=" + keywords;
+        }
+
+        return search_query_url;
     }
 }

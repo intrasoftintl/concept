@@ -3,7 +3,9 @@ package eu.concept.repository.concept.service;
 import eu.concept.repository.concept.dao.MetadataRepository;
 import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Metadata;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,9 +50,8 @@ public class MetadataService {
         return metadataRepo.findByCidAndComponent(cid, comp);
     }
 
-    public Stream<Metadata> findAllMetadata() {
-        return metadataRepo.findAllByCustomQueryAndStream();
-
+    public List<String> findAllMetadata() {
+        return  metadataRepo.findAllByCustomQueryAndStream().flatMap(metadata -> Stream.of(metadata.getKeywords().split(","))).distinct().collect(Collectors.toList());
     }
 
 }
