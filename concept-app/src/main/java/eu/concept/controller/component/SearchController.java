@@ -70,7 +70,7 @@ public class SearchController {
         System.out.println("Categories selected: " + search.getCategories());
         System.out.println("Keywords: " + search.getKeywords());
         model.addAttribute("projects", projects);
-        model.addAttribute("projectID", search.getPid());
+        model.addAttribute("projectID", search.getPid()); 
         model.addAttribute("currentUser", getCurrentUser());
         String search_query_url = constructSearchUrl(String.valueOf(search.getPid()), search.getContent(), search.getComponent().getId(), search.getCategories(), search.getKeywords());
         model.addAttribute("search_query_url", search_query_url);
