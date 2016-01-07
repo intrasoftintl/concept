@@ -51,7 +51,7 @@
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
-                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default disabled">
+                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default" disabled="true">
                     <option selected="true" value="0">Please select a project</option>
                     <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
                 </select>

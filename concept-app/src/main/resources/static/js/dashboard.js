@@ -94,6 +94,7 @@ function disableDashboardPage() {
     // Project Selection
     $("#project-members").hide();
     $("#project-view").hide();
+    $("#project-model").hide();
 
     $(".nav-main-md").hide();
     $(".nav-keywords").hide();
@@ -150,6 +151,7 @@ function enableDashboardPage() {
     // Project Selection
     $("#project-members").show();
     $("#project-view").show();
+    $("#project-model").show();
 
     $(".nav-main-md").hide();
     $(".nav-keywords").hide();
