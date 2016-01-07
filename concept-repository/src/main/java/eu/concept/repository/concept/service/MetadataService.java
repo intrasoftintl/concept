@@ -4,6 +4,7 @@ import eu.concept.repository.concept.dao.MetadataRepository;
 import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Metadata;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ public class MetadataService {
 
     @Autowired
     private MetadataRepository metadataRepo;
-    
-      public boolean storeMetadata(Metadata metadata) {
+
+    public boolean storeMetadata(Metadata metadata) {
         try {
 
             metadataRepo.save(metadata);
@@ -27,7 +28,6 @@ public class MetadataService {
         }
         return metadata.getId() > 0;
     }
-    
 
     public boolean deleteMetadata(long metadataID) {
         try {
@@ -46,6 +46,11 @@ public class MetadataService {
     public Metadata fetchMetadataByCidAndComponent(int cid, String component) {
         Component comp = new Component(component);
         return metadataRepo.findByCidAndComponent(cid, comp);
+    }
+
+    public Stream<Metadata> findAllMetadata() {
+        return metadataRepo.findAllByCustomQueryAndStream();
+
     }
 
 }

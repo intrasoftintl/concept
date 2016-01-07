@@ -114,15 +114,15 @@ function initMetadata() {
         $("#categories").val(JSON.stringify($('#tree').tree('getState')));
     });
 
-    $("#autoannotate").submit(function(e){
+    $("#autoannotate").submit(function (e) {
         e.preventDefault();
         var form = this;
-        console.log( $( this ).attr('action') );
+        console.log($(this).attr('action'));
         $.ajax({
             type: 'POST',
-            url: $( this ).attr('action'),
-            data: $( this ).serialize(),
-            success: function(data){
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function (data) {
                 $($('#tags')[0]).importTags('');
                 $($('#tags')[0]).importTags(data);
                 //This does not work
@@ -227,8 +227,5 @@ function initCategorySearch() {
                 }
         );
     });
-
-    $('#category-search').tree('setState', JSON.parse($("#categories").val()));
-    logger("Finished Metadata initalization...");
-
+    logger("Finished Search Categories tree initalization...");
 }

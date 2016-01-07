@@ -1,7 +1,7 @@
 // CONCEPT-Chat Module v0.2 
 // Using SockJS & STOMP prorocol                                                                                                                                                                                                                                                                                             
 
-//Define Stopm Client Variables
+//Define Stomp Client Variables
 var stompClient;
 var SOCKET_ENDPOINT = "/concept-chat";
 var REST_ENDPOINT;

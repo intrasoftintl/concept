@@ -321,7 +321,7 @@ function projectSelectedAction(projectID) {
         }
 
         //Enable Chat Session     
-//        enableChat();
+         enableChat();
 
         //Set Notifications Number
         setNotifications(projectID);

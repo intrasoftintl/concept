@@ -142,7 +142,7 @@ public final class ElasticSearchController {
         return false;
     }
 
-    private String getCategoriesNames(String categories) {
+    public  String getCategoriesNames(String categories) {
         int end = categories.length() - 1;
         int start = categories.indexOf("selected_node") + "selected_node".length() + 2;
         String categoriesIds[] = categories.substring(start, end).replace("[", "").replace("]", "").split(",");

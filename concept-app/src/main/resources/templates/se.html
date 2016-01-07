@@ -17,7 +17,7 @@
                 <label for="keyword">Document Type</label>
 
                 <select th:field="*{component.id}" id="component" name="component" class="form-control">
-                    <option value="">Choose</option>
+                    <option value="">All</option>
                     <option  th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
                 </select>
 
@@ -40,21 +40,22 @@
             </div>
 
 
-            <!--            <input th:type="hidden" name="categories"  th:field="${metadata.categories}"  id="categories"/>-->
+            <input th:type="hidden" name="categories" value="{}"  th:value="*{categories}"  id="categories"/>
 
             <div class="form-group col-md-12">
-                <!--                <button onclick="addProjectIDToForm('se-form')" type ="submit" class="btn btn-danger">Search</button>-->
                 <button type ="submit" class="btn btn-danger">Search</button>
             </div>
         </form>
 
     </div>
     <script>
-        $("#keywords").chosen();
-        initCategorySearch();
         $("#se-form").submit(function (event) {
             $("#keywords").val($("#tags").val());
             $("#categories").val(JSON.stringify($('#category-search').tree('getState')));
+            logger(JSON.stringify($('#category-search').tree('getState')));
         });
+        logger("Loaded!!!");
+        $("#keywords").chosen();
+        initCategorySearch();
     </script>
 </div>
