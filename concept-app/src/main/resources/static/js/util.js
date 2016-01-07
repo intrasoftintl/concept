@@ -222,14 +222,11 @@ function projectSelectedAction(projectID) {
 
         if (isFM_all()) {
             $("#sort").show();
-
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#fm-add").show();
             $("#fm-add").removeClass("disabled");
             $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200");
-
             $("#fm-placeholder").hide();
-
             $("#project-members").show();
             $("#project-view").show();
         }
