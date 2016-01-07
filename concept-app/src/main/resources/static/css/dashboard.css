@@ -215,6 +215,17 @@ nav{
     display: inline;
 }
 
+.project-prompt {
+    width: 500px;
+    height: 200px;
+    position: absolute;
+    top: 290px;
+    left:120px;
+    z-index: 1000;
+    opacity:0.6;
+    background:url('/images/icon-prompt.png') no-repeat;
+}
+
 /* NAV-ACTIONS CONTAINER */
 .nav-actions{
     width: 240px;

@@ -51,13 +51,12 @@
         <nav class="nav-apps">
             <ul>
                 <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="../static/images/ICON_BA.png" th:src="@{images/ICON_BA.png}" /></button></form></li> 
-                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></button></form></li>
-                <li><form id="se-app-link-form" action="#" method="post" th:action="@{/se_app}"><button onclick="addProjectIDToForm('se-app-link-form')" type="submit" id="se-app-link" class="app-link"><img src="../static/images/ICON_SE.png" th:src="@{images/ICON_SE.png}" /></button></form></li>
+                <li><img src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></li>
+                <li><img src="../static/images/ICON_SE.png" th:src="@{images/ICON_SE.png}" /></li>
                 <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="../static/images/ICON_MM.png" th:src="@{images/ICON_MM.png}" /></button></form></li>
                 <li><form id="mb-app-link-form" action="#" method="post" th:action="@{/mb_app}"><button onclick="addProjectIDToForm('mb-app-link-form')" type="submit" id="mb-app-link" class="app-link"><img src="../static/images/ICON_MB.png" th:src="@{images/ICON_MB.png}" /></button></form></li>
                 <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="../static/images/ICON_SB.png" th:src="@{images/ICON_SB.png}" /></button></form></li>                
             </ul>
-
         </nav>
 
         <!-- projects -->
@@ -109,6 +108,8 @@
             </div>
 
         </nav>
+        
+        <div class="project-prompt"></div>
 
         <!-- Chat DIV -->
         <div th:include="chat :: chat-list"></div>
