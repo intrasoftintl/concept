@@ -52,7 +52,7 @@ function disableDashboardPage() {
     logger("Disabling dashboard modules...")
 
     $('.nav-apps ul').addClass("disabled");
-    $('.app-link').addClass("disabled");
+    //$('.app-link').addClass("disabled");
     
     $('.project-prompt').show();
     
