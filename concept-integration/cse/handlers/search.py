@@ -92,7 +92,7 @@ def advanced_search_query(param_list,es,index,doc_type,
     matchList = []   
     filterList = []
     
-    filtered = False    
+    filtered = False        
     
     user_id = param_list.pop("user_id","")
     if user_id:
@@ -129,6 +129,25 @@ def advanced_search_query(param_list,es,index,doc_type,
     if rating:
         logging.debug(rating)
         match = { "range":{"rating.rating":{"gte":rating}}}
+        matchList.append(match)
+
+    categories = param_list.pop("categories","")
+    if categories:
+        logging.debug(categories)
+        match =  { "nested": {
+                        "path": "categories",
+                        "score_mode": "sum",
+                        "query": {
+                           "function_score": {
+                              "query": {"match": 
+                                  {"categories.tag":categories 
+                                 }
+                                 },
+                              "script_score": {"script": "doc[\"score\"].value" }
+                           }
+                        }
+                     }
+                     }
         matchList.append(match)
 
         
