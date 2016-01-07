@@ -53,6 +53,9 @@ function disableDashboardPage() {
 
     $('.nav-apps ul').addClass("disabled");
     $('.app-link').addClass("disabled");
+    
+    $('.project-prompt').show();
+    
     $("#row1").addClass("disabled");
     $("#row2").addClass("disabled");
     $("#ba-buttons").addClass("disabled");
@@ -109,6 +112,8 @@ function enableDashboardPage() {
     $('.nav-apps ul').removeClass("disabled");
     $('.app-link').removeClass("disabled");
 
+    $('.project-prompt').hide();
+    
     $("#row1").removeClass("disabled");
     $("#row2").removeClass("disabled");
 
