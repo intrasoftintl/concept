@@ -10,7 +10,7 @@
                         <button id="add-button" onclick="addCategoryToModel();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Add</button>
                     </div>
                 </div>
-                <div class="panel-body" style="overflow: auto; height:500px;">
+                <div class="panel-body no-padding" style="overflow: auto; height:500px;">
                     <table class="table tree table-striped">
                         <thead>
                             <tr>
@@ -28,16 +28,6 @@
                 </div>
 
                 <input type='hidden' id='treeGridHTML' th:value='${treegrid}' />
-
-                <!--
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
-                </div>
-
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
-                </div>
-                -->
 
             </div>
         </div>
@@ -57,7 +47,7 @@
                         <button id="add-button" onclick="$('#categoryForm').submit();" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
                     </div>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body no-padding">
                     
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="(${isEdit} == 1) ? '/category/update'  : '/category/add'" method="post" id="categoryForm">
@@ -91,16 +81,6 @@
                     </div>
                 </div>
 
-                <!--
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
-                </div>
-
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
-                </div>
-                -->
-
             </div>
         </div>
 
@@ -119,7 +99,7 @@
                         <button id="add-button" onclick="$('#initCategoryForm').submit();" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
                     </div>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body no-padding">
                     
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="@{/category/init}" method="post" id="initCategoryForm">
@@ -135,16 +115,6 @@
                         </form>
                     </div>
                 </div>
-
-                <!--
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
-                </div>
-
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
-                </div>
-                -->
 
             </div>
         </div>
