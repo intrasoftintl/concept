@@ -122,7 +122,7 @@ public class BriefAnalysisController {
             }
             //Delete from elastic search engine (id= project_id+ba_id)
             ElasticSearchController.getInstance().deleteById(String.valueOf(project_id) + String.valueOf(ba_id));
-
+            //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
         }
         return fetchBAByProjectID(model, project_id, limit);

@@ -116,7 +116,7 @@
             <iframe id="search" th:src="${search_query_url}" width="100%" height="100%"></iframe>
         </div>
         
-        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+        <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
         th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
