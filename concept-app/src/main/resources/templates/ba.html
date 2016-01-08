@@ -52,9 +52,17 @@
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
-                    <td><a th:href="@{'/ba_app/'+${baContent.id}}" th:title="${baContent.title}" th:alt="${baContent.title}"><img class="img-thumbnail" src="/images/fm_generic.png"/></a></td>
+                    <td><a id="ba-url" th:href="@{'/ba_app/'+${baContent.id}}" th:title="${baContent.title}" th:alt="${baContent.title}"><img class="img-thumbnail" src="/images/fm_generic.png"/></a></td>
                     <td class="truncate"><span class="file-title" th:text="${baContent.title}"></span><br/><span class="file-user" th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(baContent.createdDate,0,16)}"></span></td>
                     <td>
+                        <!--
+                        <button class="action-button">
+                            <i class="glyphicon glyphicon-link" aria-hidden="true"/>
+                        </button>
+                        <button class="action-button">
+                            <i class="glyphicon glyphicon-comment" aria-hidden="true"/>
+                        </button>
+                        -->
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
