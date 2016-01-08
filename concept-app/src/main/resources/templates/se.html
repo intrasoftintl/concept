@@ -27,7 +27,7 @@
                 <label for="keyword">Keyword search</label>
 
                 <select th:field="*{keywords}"  id="keywords" name="keywords"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
-                      <option  th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
+                    <option  th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
                 </select>
 
             </div>
@@ -40,24 +40,37 @@
 
             <div class="form-group col-md-12">
                 <button type ="submit" class="btn btn-danger">Search</button>
-                
-                <span class="btn btn-default fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Or upload an image here</span>
-                    <input id="fileupload"  type="file" name="files[]"/>
-                </span>
-                
+
+
+
             </div>
         </form>
-        
-       
+        <!-- Init a serach based on an image -->
+        <form id="search-upload" method="POST" enctype="multipart/form-data"  action="/search_upload">
+            <input type="hidden" name="project_id" th:value="${project_id}" />
+            <span class="btn btn-default fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Or upload an image here</span>
+                <input id="file"  type="file" name="file"/>
+            </span>
+        </form>
+
+
     </div>
     <script>
         $("#se-form").submit(function (event) {
             $("#categories").val(JSON.stringify($('#category-search').tree('getState')));
             logger(JSON.stringify($('#category-search').tree('getState')));
         });
+
         $("#keywords").chosen();
         initCategorySearch();
+
+        $("#file").change(function () {
+            $("#search-upload").submit();
+        });
+
+
+
     </script>
 </div>
