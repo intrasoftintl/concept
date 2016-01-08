@@ -103,19 +103,19 @@ docs_mapping = {	"search_item" : {
     "language_name" :  {"type" : "string",
                  "index":"not_analyzed"},
 			"description" : {"type" : "string"},
-			#"categories" : {"type" : "string"},
-    "categories": {
-                  "type": "nested",
-                  "fields": {
-                      "tag": {
-                          "type": "string"
-                      },
-                      "score": {
-                          "type": "float"		
-                      }
-                     }
-                     },
-   "keywords" : {"type" : "string"},
+			"categories" : {"type" : "string"},
+#    "categories": {
+#                  "type": "nested",
+#                  "fields": {
+#                      "tag": {
+#                          "type": "string"
+#                      },
+#                      "score": {
+#                          "type": "float"		
+#                      }
+#                     }
+#                     },
+    "keywords" : {"type" : "string"},
 			"status" : {"type" : "string",
                  "index":"not_analyzed"},
 			"domain" : {"type" : "string"},

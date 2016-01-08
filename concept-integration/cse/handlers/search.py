@@ -131,24 +131,26 @@ def advanced_search_query(param_list,es,index,doc_type,
         match = { "range":{"rating.rating":{"gte":rating}}}
         matchList.append(match)
 
-    categories = param_list.pop("categories","")
-    if categories:
-        logging.debug(categories)
-        match =  { "nested": {
-                        "path": "categories",
-                        "score_mode": "sum",
-                        "query": {
-                           "function_score": {
-                              "query": {"match": 
-                                  {"categories.tag":categories 
-                                 }
-                                 },
-                              "script_score": {"script": "doc[\"score\"].value" }
-                           }
-                        }
-                     }
-                     }
-        matchList.append(match)
+#==============================================================================
+#     categories = param_list.pop("categories","")
+#     if categories:
+#         logging.debug(categories)
+#         match =  { "nested": {
+#                         "path": "categories",
+#                         "score_mode": "sum",
+#                         "query": {
+#                            "function_score": {
+#                               "query": {"match": 
+#                                   {"categories.tag":categories 
+#                                  }
+#                                  },
+#                               "script_score": {"script": "doc[\"score\"].value" }
+#                            }
+#                         }
+#                      }
+#                      }
+#==============================================================================
+#        matchList.append(match)
 
         
     for k,v in param_list.items():
@@ -714,8 +716,8 @@ class search_advanced_handler(tornado.web.RequestHandler):
             self.set_header("Content-Type", 'application/json')
             self.write(res["hits"])
                     
-class search_image_handler(tornado.web.RequestHandler):
-    """ REST API for image search
+class search_image_by_id_handler(tornado.web.RequestHandler):
+    """ REST API for image search by id
     """
     def get(self):
         self.post()
@@ -787,5 +789,44 @@ class search_image_handler(tornado.web.RequestHandler):
             #something very weird happend
             self.set_status(400,"other error")
             
-                    
-                    
+#==============================================================================
+# class search_image_by_example_handler(tornado.web.RequestHandler):
+#     """ REST API for image search by example, sending a example image
+#     or using the id of a stored image
+#     """
+#     def get(self):
+#         self.post()
+# 
+#     def post(self):                    
+#         user_id = self.get_argument('user_id',"")
+#         project_id = self.get_argument('project_id',"") 
+#         uuid = self.get_argument("id","")
+#         image = self.get_argument("image","")
+# 
+#         es = self.application.es
+#         index = self.application.config_init["index"]
+#         doc_type = self.application.config_init["type_item"]               
+#                
+#         if uuid:
+#             queryImage = {
+#                 "query": {
+#                     "image": {
+#                     "content-image": {
+#                         "feature": "CEDD",
+#                         "index": index,
+#                         "type": doc_type,
+#                         "id": uuid,
+#                         "path": "content-image",
+#                         "hash": "BIT_SAMPLING"
+#                     }
+#                     }
+#                     }
+#                     }            
+#             #Executing the query
+#             res = es.search(index=index, doc_type=doc_type, body=queryImage)
+#==============================================================================
+
+
+                 
+                  
+                  

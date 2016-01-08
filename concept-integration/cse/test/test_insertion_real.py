@@ -19,7 +19,8 @@ data = {
 "component":"BA (Brief Analysis)",
 "title": "Brief Analysis - Client A",
 "keywords":"Chair,Wood",
-"categories":"Furniture%2.5, Consumer%3.1, Market Analysis%0.3",
+"categories":"Furniture,Consumer,Market Analysis",
+#"categories":"Furniture%2.5, Consumer%3.1, Market Analysis%0.3",
 "url":"document/9",
 "content": '''<p><strong style="margin: 0px; padding: 0px; color: #555555; font-family: 'trebuchet ms', tahoma, sans-serif; font-size: 12px;">Chair Design Guidelines</strong></p>
 <ol style="margin: 10px; padding: 0px 0px 0px 30px; color: #555555; font-family: 'trebuchet ms', tahoma, sans-serif; font-size: 12px;">

@@ -103,21 +103,23 @@ class insertion_item_handler(tornado.web.RequestHandler):
                 categories = categories.split(",")
                 categories = list(map(str.strip,categories))
             
-            #categories with numerical value
-            ncategories = []
-            for i in categories:
-                trio = i.partition("%")
-                tag = trio[0]
-                if trio[2]:
-                    try:
-                        score = float(trio[2])
-                    except: 
-                        logging.exception("Bad value ",float(trio[2]))
-                        score = 1.0
-                else:
-                    score = 1.0
-                ncategories.append({ "tag":tag, "score":score })
-            categories = ncategories
+#==============================================================================
+#             #categories with numerical value
+#             ncategories = []
+#             for i in categories:
+#                 trio = i.partition("%")
+#                 tag = trio[0]
+#                 if trio[2]:
+#                     try:
+#                         score = float(trio[2])
+#                     except: 
+#                         logging.exception("Bad value ",float(trio[2]))
+#                         score = 1.0
+#                 else:
+#                     score = 1.0
+#                 ncategories.append({ "tag":tag, "score":score })
+#             categories = ncategories
+#==============================================================================
                 
                 
                 
