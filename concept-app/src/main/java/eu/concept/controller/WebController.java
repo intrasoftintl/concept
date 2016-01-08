@@ -73,6 +73,14 @@ public class WebController {
         model.addAttribute("password", new PasswordOp());
         return "registration";
     }
+    
+    @RequestMapping(value = "/ba_file", method = RequestMethod.GET)
+    public String ba_file(Model model) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "ba_file";
+    }
 
     //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
