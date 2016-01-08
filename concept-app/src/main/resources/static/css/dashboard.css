@@ -534,10 +534,13 @@ nav{
     display:block;
 }
 
-.nav-chat .nav-content .chat-actions,
-.comment-actions{
+.nav-chat .nav-content .chat-actions{
     margin:0;
     padding:0;
+}
+
+.comment-actions{
+    margin:20px 0;
 }
 
 .nav-chat .nav-content .chat-actions li{
