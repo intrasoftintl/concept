@@ -321,6 +321,12 @@ function projectSelectedAction(projectID) {
             $("#nf-button").show();
             $("#nf-placeholder").show();
         }
+        
+        if (isSE_app()) {
+            $("#project-members").show();
+            $("#project-view").show();
+            $("#project-model").show();
+        }
 
         //Enable Chat Session     
          enableChat();
@@ -493,6 +499,11 @@ function isMM_all() {
 //Return true if current page is SB ALL
 function isSB_all() {
     return location.pathname === "/sb_all";
+}
+
+//Return true if current page is SE APP
+function isSE_app() {
+    return location.pathname === "/se_app";
 }
 
 function saveBAContent() {

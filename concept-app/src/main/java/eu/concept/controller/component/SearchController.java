@@ -83,7 +83,7 @@ public class SearchController {
         model.addAttribute("currentUser", getCurrentUser());
         String search_query_url = constructSearchUrl(String.valueOf(search.getPid()), search.getContent(), search.getComponent().getId(), search.getCategories(), search.getKeywords());
         model.addAttribute("search_query_url", search_query_url);
-        Logger.getLogger(SearchController.class.getName()).info("Serach URL is: " + search_query_url);
+        Logger.getLogger(SearchController.class.getName()).info("Search URL is: " + search_query_url);
         return "se_app";
     }
 
