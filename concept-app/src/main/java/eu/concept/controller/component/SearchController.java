@@ -69,7 +69,7 @@ public class SearchController {
     /*
      *  POST Methods 
      */
-    @RequestMapping(value = "/se_app", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/se_app", method = {RequestMethod.GET, RequestMethod.POST})
     public String search(Model model, @ModelAttribute Search search) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         System.out.println("Project Id is: " + search.getPid());
@@ -103,10 +103,14 @@ public class SearchController {
                 }
                 //Construct Keywords Phrase
                 String keywordPhrase = Joiner.on(",").join(keywords);
+                System.out.println("Keyword Phrase is: "+keywordPhrase);
                 List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
                 model.addAttribute("projects", projects);
                 model.addAttribute("projectID", project_id);
                 model.addAttribute("currentUser", getCurrentUser());
+                String search_query_url = constructSearchUrl(project_id, "", "", "", keywordPhrase);
+                model.addAttribute("search_query_url", search_query_url);
+
             } catch (Exception e) {
                 return "You failed to upload  => " + e.getMessage();
             }
