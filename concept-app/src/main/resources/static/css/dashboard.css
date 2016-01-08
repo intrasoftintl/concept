@@ -498,7 +498,8 @@ nav{
     background:#f2f2f2;
 }
 
-.nav-chat .nav-content .chat-list .chat-message{
+.nav-chat .nav-content .chat-list .chat-message,
+.comment-message{
     border:0;
     margin:0;
     padding:10px 10px 40px 10px;
@@ -509,15 +510,18 @@ nav{
     word-wrap: break-word;
 }
 
-.nav-chat .nav-content .chat-list .chat-user {
+.nav-chat .nav-content .chat-list .chat-user,
+.comment-user{
     color:#777;
 }
 
-.nav-chat .nav-content .chat-list .chat-user-you {
+.nav-chat .nav-content .chat-list .chat-user-you,
+.comment-user-you{
     color:#8AC249;
 }
 
-.nav-chat .nav-content .chat-list .chat-timestamp {
+.nav-chat .nav-content .chat-list .chat-timestamp,
+.comment-timestamp{
     color:red;
     //float:right;
     margin:10px;
@@ -530,7 +534,8 @@ nav{
     display:block;
 }
 
-.nav-chat .nav-content .chat-actions{
+.nav-chat .nav-content .chat-actions,
+.comment-actions{
     margin:0;
     padding:0;
 }
@@ -543,7 +548,8 @@ nav{
     border-top:1px solid #eee;
 }
 
-.nav-chat .nav-content .chat-actions .chat-text{
+.nav-chat .nav-content .chat-actions .chat-text,
+.comment-text{
     width:150px;
     padding:0px;
     margin:5px;
@@ -552,11 +558,18 @@ nav{
     border:1px solid #eee;
     border-radius:4px;
 }
-.nav-chat .nav-content .chat-actions input.chat-text{
+
+.comment-text{
+    width:400px;
+}
+
+.nav-chat .nav-content .chat-actions input.chat-text,
+.comment-actions input.comment-text{
     background:#fff;
     padding:5px 10px;
 }
-.nav-chat .nav-content .chat-actions .chat-button{
+.nav-chat .nav-content .chat-actions .chat-button,
+.comment-button{
     width:auto; 
     padding:5px 10px;   
 }
@@ -573,7 +586,34 @@ nav{
     }
 }
 
-/* content */
+/* COMMENTS */
+
+.comment-content{
+    margin:0;
+    padding:0 20px 20px 20px;
+    
+}
+
+.comment-content h5{
+    font-size:14px;
+    font-weight: 800;
+    color: #fff;
+    background:#8AC249;
+    border-radius:3px;
+    padding:5px 10px;
+}
+
+.comment-content ul{
+    list-style:none;
+}
+
+.comment-list ul li{
+    padding:10px 0;
+    font-size:14px;
+}
+
+/* CONTENT */
+
 .content{
     background:#f2f2f2;
     opacity:0.8;
