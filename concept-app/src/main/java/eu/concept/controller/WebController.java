@@ -74,15 +74,6 @@ public class WebController {
         return "registration";
     }
     
-    @RequestMapping(value = "/comment_app", method = RequestMethod.GET)
-    public String ba_file(Model model) {
-        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-        model.addAttribute("projects", projects);
-        model.addAttribute("currentUser", getCurrentUser());
-        return "comment_app";
-    }
-
-    //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
@@ -179,16 +170,6 @@ public class WebController {
         logger.log(Level.INFO, "{0}:  {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
         return "redirect:/preferences";
     }
-
-//    @Autowired
-//    SimpMessagingTemplate template;
-//
-//    @RequestMapping(value = "/dummy", method = RequestMethod.GET)
-//    public String greet(String greeting) {
-//        String text = "[Debug]:" + greeting;
-//        this.template.convertAndSend("/topic/project1", text);
-//        return "dashboard";
-//    }
 
     /*
      *  Help Methods
