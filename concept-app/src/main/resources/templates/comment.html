@@ -11,8 +11,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><a id="ba-url" href="/ba_app/85" title="Untitled" alt="Untitled"><img class="img-thumbnail" src="/images/fm_generic.png"/></a></td>
-                    <td class="truncate"><span class="file-title">Untitled</span><br/><span class="file-user">Manager One (manager1)</span><br/><span class="file-timestamp">2016-01-08 12:25</span></td>
+                    <td><a href="" title="Untitled" alt="Untitled"><img class="img-thumbnail" src="/images/fm_generic.png"/></a></td>
+                    <td class="truncate"><span class="file-title"  th:text="${item.title}"></span><br/><span class="file-user" th:text="@{${item.uid.firstName} + ' '+ ${item.uid.lastName} + ' (' +  ${item.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(item.createdDate,0,16)}"></span><br/><a th:text="@{'Comments (' + ${#lists.size(item.comments)}     +')'   }" th:href="@{''}" class="text-success">Comments (0)</a></td>
                     <td>
                     </td>
                 </tr>
@@ -22,21 +22,11 @@
         <div class="comment-content">
 
             <h5>Comments</h5>
-            <ul id="comment-list" class="comment-list">
+            <ul th:each="comment : ${item.comments}" class="comment-list">
                 <li class="comment-message">
-                    <span class="comment-user-you">manager1 </span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula metus, posuere eu ultricies eu, varius nec felis. Ut volutpat lacinia dui, quis lobortis tellus maximus ut. Proin non condimentum ipsum. Sed tortor turpis, fermentum sed neque quis, egestas dignissim est. Nulla ultricies eget enim ac luctus. Mauris ex ante, auctor sed odio sit amet, posuere aliquam mauris. Ut tristique, justo id eleifend facilisis, erat sem elementum mi, commodo egestas lorem orci id arcu.
-                    <span class="comment-timestamp">30/11/2015 11:27:51</span>
-                </li>
-                <li class="comment-message">
-                    <span class="comment-user">designer1 </span>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.!
-                    <span class="comment-timestamp">30/11/2015 11:27:51</span>
-                </li>
-                <li class="comment-message">
-                    <span class="comment-user-you">manager1 </span>
-                    OK!
-                    <span class="comment-timestamp">30/11/2015 11:27:51</span>
+                    <span th:text="${comment.uid.username}" th:classappend="(${comment.uid.id} == ${item.uid.id} ) ? 'comment-user-you' : ''"  >username</span>
+                    <span th:text="${comment.comment}">Comment content</span>
+                    <span th:text="${comment.createdDate}" class="comment-timestamp">30/11/2015 11:27:51</span>
                 </li>
             </ul>
 
