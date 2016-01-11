@@ -591,9 +591,9 @@ nav{
     padding:5px 10px;
 }
 .nav-chat .nav-content .chat-actions .chat-button,
-.comment-button{
-    width:auto; 
-    padding:5px 10px;   
+.comment-actions .comment-button{
+    width:auto;
+    padding:5px 10px;
 }
 
 @media (max-height: 700px) {
@@ -912,16 +912,6 @@ table img.indicator{ width:100px; margin:0; background: #fff; }
     outline:none;
     padding:4px;
     margin:0;
-}
-
-.comment-button{
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-    padding:0px;
-    margin:0;
-    color:#8AC249;
 }
 
 .app-link{

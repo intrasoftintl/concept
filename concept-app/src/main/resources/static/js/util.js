@@ -611,6 +611,14 @@ $('#chat-message').keyup(function () {
         $('#chat-button').attr('disabled', true);
 });
 
+$('#comment-button').attr('disabled', true);
+$('#comment-message').keyup(function () {
+    if ($(this).val().length != 0)
+        $('#comment-button').attr('disabled', false);
+    else
+        $('#comment-button').attr('disabled', true);
+});
+
 function chatScrollDown() {
     var $cont = $('.chat-list');
     $cont[0].scrollTop = $cont[0].scrollHeight;
