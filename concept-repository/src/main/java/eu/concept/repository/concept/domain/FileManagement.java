@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -73,6 +75,31 @@ public class FileManagement implements Serializable {
     //Non Domain field
     @OneToMany(mappedBy = "fmId", orphanRemoval = false)
     private Collection<Likes> likes;
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fmId", orphanRemoval = false)
+    private Collection<FMComment> comments;
+
+    
+    //Transient Field
+    @Transient
+    private String title="N/A";
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    
+    public Collection<FMComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<FMComment> comments) {
+        this.comments = comments;
+    }
 
     /**
      *

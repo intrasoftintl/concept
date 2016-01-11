@@ -23,7 +23,6 @@ public class BriefAnalysisService {
 
     public boolean storeFile(BriefAnalysis ba) {
         try {
-
             briefAnalysisRepo.save(ba);
         } catch (Exception ex) {
             Logger.getLogger(BriefAnalysisService.class.getName()).severe(ex.getMessage());

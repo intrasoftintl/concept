@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -64,6 +65,19 @@ public class MindMap implements Serializable {
     //Non Domain field
     @OneToMany(mappedBy = "mmId", orphanRemoval = false)
     public Collection<Likes> likes;
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mmId", orphanRemoval = false)
+    private Collection<MMComment> comments;
+
+    public Collection<MMComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<MMComment> comments) {
+        this.comments = comments;
+    }
+    
+    
 
     /**
      *

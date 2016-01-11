@@ -1,16 +1,14 @@
 //Static variables
 var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
+//Define COnCEPT REST end-points
 var MEMBERSHIPS_REST_URL = "/conceptRest/api/memberships/";
 var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
 var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
-
 var MOOBBOARD_REST_URL = "http://concept-mb.euprojects.net/storyboard/";
 var STORYBOARD_REST_URL = "http://concept-sb.euprojects.net/storyboard/";
-//var STORYBOARD_REST_URL = "http://localhost:16161/storyboard/";
-
 var LIKE_REST_URL = "/conceptRest/api/like/";
 
 //COnCEPT Logger
@@ -119,10 +117,8 @@ function like(componentCode, componentID) {
                 $("#Like" + componentCode + componentID).addClass("icon-active");
                 $("#LikeCount" + componentCode + componentID).text(itemLikeCountUp);
             }
-
         }
     });
-
 }
 
 function createMindMap() {
@@ -321,7 +317,7 @@ function projectSelectedAction(projectID) {
             $("#nf-button").show();
             $("#nf-placeholder").show();
         }
-        
+
         if (isSE_app()) {
             $("#project-members").show();
             $("#project-view").show();
@@ -329,7 +325,7 @@ function projectSelectedAction(projectID) {
         }
 
         //Enable Chat Session     
-         enableChat();
+        enableChat();
 
         //Set Notifications Number
         setNotifications(projectID);
@@ -611,14 +607,6 @@ $('#chat-message').keyup(function () {
         $('#chat-button').attr('disabled', true);
 });
 
-$('#comment-button').attr('disabled', true);
-$('#comment-message').keyup(function () {
-    if ($(this).val().length != 0)
-        $('#comment-button').attr('disabled', false);
-    else
-        $('#comment-button').attr('disabled', true);
-});
-
 function chatScrollDown() {
     var $cont = $('.chat-list');
     $cont[0].scrollTop = $cont[0].scrollHeight;
@@ -639,3 +627,31 @@ $("#notification").ready(
             }, 4000);
         }
 );
+
+
+$('#comment-button').attr('disabled', true);
+$('#comment-message').keyup(function () {
+    if ($(this).val().length != 0)
+        $('#comment-button').attr('disabled', false);
+    else
+        $('#comment-button').attr('disabled', true);
+});
+
+//Function to trigger comment on item
+function keyPressedOnCommentField(e) {
+    var key = e.keyCode || e.which;
+    //On enter pressed send message
+    if (key == 13) {
+        sendComment();
+    }
+}
+
+//Send a comment for a specific item
+function sendComment(itemID, app) {
+
+    if ($("#comment-message").val().length > 0) {
+        $("#comments-div").load("/comments_add?itemID=" + itemID + "&app=" + app + "&content=" + $("#comment-message").val());
+    } else {
+        alert("Comment message cannot be empty!");
+    }
+}
