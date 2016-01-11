@@ -498,14 +498,24 @@ nav{
     background:#f2f2f2;
 }
 
-.nav-chat .nav-content .chat-list .chat-message,
-.comment-message{
+.nav-chat .nav-content .chat-list .chat-message{
     border:0;
     margin:0;
     padding:10px 10px 40px 10px;
     height:auto;
     font-size:13px;
     color:#aaa;
+    border-bottom:1px solid #eee;
+    word-wrap: break-word;
+}
+
+.comment-message{
+    border:0;
+    margin:0;
+    padding:10px 10px 40px 10px;
+    height:auto;
+    font-size:13px;
+    color:#444;
     border-bottom:1px solid #eee;
     word-wrap: break-word;
 }
@@ -520,14 +530,23 @@ nav{
     color:#8AC249;
 }
 
-.nav-chat .nav-content .chat-list .chat-timestamp,
-.comment-timestamp{
-    color:red;
-    //float:right;
+.nav-chat .nav-content .chat-list .chat-timestamp{
     margin:10px;
     color:#ccc;
     margin:0;
     font-size:12px;
+    position:relative;
+    bottom: -30px;
+    padding: 0;
+    display:block;
+}
+
+.comment-timestamp{
+    margin:10px;
+    color:#ccc;
+    margin:0;
+    font-size:12px;
+    font-weight: 800;
     position:relative;
     bottom: -30px;
     padding: 0;
@@ -893,6 +912,16 @@ table img.indicator{ width:100px; margin:0; background: #fff; }
     outline:none;
     padding:4px;
     margin:0;
+}
+
+.comment-button{
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    padding:0px;
+    margin:0;
+    color:#8AC249;
 }
 
 .app-link{
