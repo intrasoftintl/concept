@@ -26,7 +26,7 @@
                 <li class="comment-message">
                     <span th:text="${comment.uid.username}" th:classappend="(${comment.uid.id} == ${item.uid.id} ) ? 'comment-user-you' : ''"  >username</span>
                     <span th:text="${comment.comment}">Comment content</span>
-                    <span th:text="${comment.createdDate}" class="comment-timestamp">30/11/2015 11:27:51</span>
+                    <span th:text=" ${#strings.substring(comment.createdDate,0,16)}" class="comment-timestamp">30/11/2015 11:27:51</span>
                 </li>
             </ul>
 
