@@ -51,7 +51,7 @@
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
-                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default" disabled="true">
                     <option selected="true" value="0">Please select a project</option>
                     <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
                 </select>
@@ -63,11 +63,12 @@
             </div>          
 
             <div class="project-selection">
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
 
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-
+                        
                         <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
                             <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
                         </form>
@@ -77,7 +78,7 @@
                         <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
                             <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-link btn-xs">Model</button>
                         </form>
-
+                 
                     </span>
                     <span th:case="'DESIGNER'">
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">

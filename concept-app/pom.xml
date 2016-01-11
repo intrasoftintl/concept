@@ -290,9 +290,11 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${org.springframework.boot}</version>
                 <!--Necessary for dynamic reloading -->
+                <!--
                 <configuration>
                     <fork>true</fork>
                 </configuration>
+                -->
                 <executions>
                     <execution>
                         <goals>
