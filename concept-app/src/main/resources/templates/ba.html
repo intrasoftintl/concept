@@ -52,7 +52,7 @@
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
-                    <td><a id="ba-url" th:href="@{'/ba_app/'+${baContent.id}}" th:title="${baContent.title}" th:alt="${baContent.title}"><img class="img-thumbnail" src="/images/fm_generic.png"/></a></td>
+                    <td><a id="ba-url" th:href="@{'/ba_app/'+${baContent.id}}" th:title="${baContent.title}" th:alt="${baContent.title}"><img class="img-thumbnail" src="/images/fm_generic.png"/></a><a id="copy-button" th:attr="data-clipboard-text=@{'http://concept.euprojects.net/ba_app/'+${baContent.id}}" class="btn btn-default btn-xs pull-up">Get link</a></td>
                     <td class="truncate"><span class="file-title" th:text="${baContent.title}"></span><br/><span class="file-user" th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(baContent.createdDate,0,16)}"></span><br/><a th:text="@{'Comments (' + ${#lists.size(baContent.comments)}     +')'   }" th:href="@{'/ba_all/' + ${projectID} + '/' + ${baContent.id}}" class="text-success">Comments (0)</a></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'}">
@@ -69,5 +69,23 @@
             </tbody>
         </table>
     </div>
-    
+
+    <script>
+
+        // Get link function
+        var client = new ZeroClipboard(document.getElementById("copy-button"));
+
+        client.on("ready", function (readyEvent) {
+            // alert( "ZeroClipboard SWF is ready!" );
+
+            client.on("aftercopy", function (event) {
+                // `this` === `client`
+                // `event.target` === the element that was clicked
+                //event.target.style.display = "none";
+                alert("Copied text to clipboard: " + event.data["text/plain"]);
+            });
+        });
+
+    </script>
+
 </div>

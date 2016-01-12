@@ -655,3 +655,4 @@ function sendComment(itemID, app) {
         alert("Comment message cannot be empty!");
     }
 }
+
