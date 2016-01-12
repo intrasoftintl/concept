@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -64,6 +65,17 @@ public class Moodboard implements Serializable {
     //Non Domain field
     @OneToMany(mappedBy = "mbId", orphanRemoval = false)
     public Collection<Likes> likes;
+        //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mbId", orphanRemoval = false)
+    private Collection<MBComment> comments;
+
+    public Collection<MBComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<MBComment> comments) {
+        this.comments = comments;
+    }
 
     /**
      *

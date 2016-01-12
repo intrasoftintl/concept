@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -68,7 +69,19 @@ public class MindMap implements Serializable {
     //Non Domain field
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mmId", orphanRemoval = false)
     private Collection<MMComment> comments;
+      
+    @Transient
+    @JsonIgnore
+    private UserCo uid;
 
+    public UserCo getUid() {
+        return userCo;
+    }
+
+    public void setUserCo(UserCo userCo) {
+        this.userCo = userCo;
+    }  
+    
     public Collection<MMComment> getComments() {
         return comments;
     }
@@ -176,7 +189,7 @@ public class MindMap implements Serializable {
     }
 
     public void setUid(UserCo userCo) {
-        this.userCo = userCo;
+        this.uid = this.userCo;
     }
 
     @Override

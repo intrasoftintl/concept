@@ -4,16 +4,24 @@ import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.BACommentRepository;
 import eu.concept.repository.concept.dao.FMCommentRepository;
+import eu.concept.repository.concept.dao.MBCommentRepository;
 import eu.concept.repository.concept.dao.MMCommentRepository;
+import eu.concept.repository.concept.dao.SBCommentRepository;
 import eu.concept.repository.concept.domain.BAComment;
 import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.FMComment;
 import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.domain.MBComment;
 import eu.concept.repository.concept.domain.MMComment;
 import eu.concept.repository.concept.domain.MindMap;
+import eu.concept.repository.concept.domain.Moodboard;
+import eu.concept.repository.concept.domain.SBComment;
+import eu.concept.repository.concept.domain.Storyboard;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.MindMapService;
+import eu.concept.repository.concept.service.MoodboardService;
+import eu.concept.repository.concept.service.StoryboardService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import java.util.List;
@@ -53,6 +61,18 @@ public class CommentController {
 
     @Autowired
     MindMapService mmService;
+
+    @Autowired
+    MBCommentRepository mbCommentsRepo;
+
+    @Autowired
+    MoodboardService mbService;
+
+    @Autowired
+    SBCommentRepository sbCommentsRepo;
+
+    @Autowired
+    StoryboardService sbService;
 
     private final Logger logger = Logger.getLogger(CommentController.class.getName());
 
@@ -107,9 +127,40 @@ public class CommentController {
         return "comment_app";
     }
 
-    //
-    //TODO: Add MoodBorad and Storyboard CommentHandlers
-    //
+    //Comments for MoodBoard Application
+    @RequestMapping(value = "/mb_all/{pid}/{mb_id}", method = RequestMethod.GET)
+    public String mbComments(Model model, @PathVariable int pid, @PathVariable int mb_id) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        Moodboard moodboard = mbService.fetchMoodboardById(mb_id);
+        //Check if BriefAnalysis exists
+        if (null == moodboard) {
+            logger.severe("MindMap with Id: " + mb_id + " could not be found...");
+        }
+        model.addAttribute("projectID", pid);
+        model.addAttribute("item", moodboard);
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        model.addAttribute("app", "mb_app");
+        return "comment_app";
+    }
+
+    //Comments for MoodBoard Application
+    @RequestMapping(value = "/sb_all/{pid}/{sb_id}", method = RequestMethod.GET)
+    public String sbComments(Model model, @PathVariable int pid, @PathVariable int sb_id) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        Storyboard storyboard = sbService.fetchStoryboardById(sb_id);
+        //Check if BriefAnalysis exists
+        if (null == storyboard) {
+            logger.severe("MindMap with Id: " + sb_id + " could not be found...");
+        }
+        model.addAttribute("projectID", pid);
+        model.addAttribute("item", storyboard);
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        model.addAttribute("app", "sb_app");
+        return "comment_app";
+    }
+
     @RequestMapping(value = "/comments_add", method = RequestMethod.GET)
     public String addComment(Model model, @RequestParam(value = "projectID", defaultValue = "0") int projectID, @RequestParam(value = "itemID", defaultValue = "0") int itemID, @RequestParam(value = "app", defaultValue = "") String app, @RequestParam(value = "content", defaultValue = "") String content) {
         System.out.println("Adding comment for item with ID: " + itemID + " and app: " + app + " and user: " + WebController.getCurrentUserCo().getId());
@@ -133,6 +184,20 @@ public class CommentController {
             case "mm_app": {
                 MMComment commentMM = new MMComment(WebController.getCurrentUserCo(), new MindMap(itemID), content);
                 mmCommentsRepo.save(commentMM);
+                break;
+            }
+
+            //Moodboard Application
+            case "mb_app": {
+                MBComment commentMB = new MBComment(WebController.getCurrentUserCo(), new Moodboard(itemID), content);
+                mbCommentsRepo.save(commentMB);
+                break;
+            }
+
+            //Storyboard Application
+            case "sb_app": {
+                SBComment commentSB = new SBComment(WebController.getCurrentUserCo(), new Storyboard(itemID), content);
+                sbCommentsRepo.save(commentSB);
                 break;
             }
         }
