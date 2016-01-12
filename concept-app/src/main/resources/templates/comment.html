@@ -24,7 +24,7 @@
             <h5>Comments</h5>
             <ul th:each="comment : ${item.comments}" class="comment-list">
                 <li class="comment-message">
-                    <span th:text="${comment.uid.username}" th:classappend="(${comment.uid.id} == ${currentUser.getId()} ) ? 'comment-user-you' : ''"  >username</span>
+                    <strong><span th:text="${comment.uid.username}" th:classappend="(${comment.uid.id} == ${currentUser.getId()} ) ? 'comment-user-you' : ''"  >username</span></strong>
                     <span th:text="${comment.comment}">Comment content</span>
                     <span th:text=" ${#strings.substring(comment.createdDate,0,16)}" class="comment-timestamp">30/11/2015 11:27:51</span>
                 </li>
