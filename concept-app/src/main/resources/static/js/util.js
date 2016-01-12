@@ -239,7 +239,23 @@ function projectSelectedAction(projectID) {
 
             $("#ba-add").attr("href", "/ba_app?projectID=" + projectID);
             $("#ba-add").show();
-            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200");
+            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200", function(){
+                
+                var elements = $("[id^=copy-button-]");
+                for(var index=0; index < elements.length; index++){
+                    console.log(elements[index].id);  
+                    console.log(elements.length);
+                 
+                    // Get link function
+                    var client = new ZeroClipboard(document.getElementById(elements[index].id));
+                    client.on("ready", function (readyEvent) {
+                        client.on("aftercopy", function (event) {
+                            alert("Copied text to clipboard: " + event.data["text/plain"]);
+                        });
+                    });
+                }
+                
+            });
 
             $("#ba-placeholder").hide();
 
