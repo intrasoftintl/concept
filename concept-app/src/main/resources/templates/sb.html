@@ -70,7 +70,7 @@
                             <a id="sb-add" type="submit" th:onclick="@{ '$(\'#sb-add-form'+${sbContent.id} +'\').submit()'}"  ><img  th:src="${sbContent.contentThumbnail}" class="img-thumbnail" /></a><a id="copy-button" th:attr="data-clipboard-text=@{'http://concept.euprojects.net/sb_app/'+${sbContent.id}}" class="btn btn-default btn-xs pull-up">Get link</a>
                         </form>
                     </td>
-                    <td class="truncate"><span class="file-title" th:text="${sbContent.title}"></span><br/><span class="file-user" th:text="@{${sbContent.uid.firstName} + ' '+ ${sbContent.uid.lastName} + ' (' +  ${sbContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(sbContent.createdDate,0,16)}"></span></td>
+                    <td class="truncate"><span class="file-title" th:text="${sbContent.title}"></span><br/><span class="file-user" th:text="@{${sbContent.uid.firstName} + ' '+ ${sbContent.uid.lastName} + ' (' +  ${sbContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(sbContent.createdDate,0,16)}"></span><br/><a th:text="@{'Comments (' + ${#lists.size(sbContent.comments)}     +')'   }" th:href="@{'/sb_all/' + ${projectID} + '/' + ${sbContent.id}}" class="text-success">Comments (0)</a></td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${sbContent.id}  +',\'SB\','+${sbContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
