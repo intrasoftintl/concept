@@ -221,7 +221,7 @@ function projectSelectedAction(projectID) {
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#fm-add").show();
             $("#fm-add").removeClass("disabled");
-            $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200");
+            $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200", copyLink ());
             $("#fm-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
@@ -240,24 +240,7 @@ function projectSelectedAction(projectID) {
             $("#ba-add").attr("href", "/ba_app?projectID=" + projectID);
             $("#ba-add").show();
             var client = [];
-            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200", function () {
-
-//                var elements = $("[id^=copy-button-]");
-//                for (var index = 0; index < elements.length; index++) {
-//                    // Get link function
-//                    client[index] = new ZeroClipboard(elements[index]);
-//                    var tmp = client[index];
-//
-//                      client[index].on("ready", function (readyEvent) {
-//                          tmp.on("aftercopy", function (event) {
-//                            alert("Copied text to clipboard: " + event.data["text/plain"]);
-//                        });
-//                    });
-//
-//                    console.log('Length: ' + client.length + " index: " + index);
-//                }
-
-            });
+            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200", copyLink ());
 
             $("#ba-placeholder").hide();
 
@@ -271,7 +254,7 @@ function projectSelectedAction(projectID) {
 
             $("#mm-add").attr("href", "/mm_app?projectID=" + projectID);
             $("#mm-add").show();
-            $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200");
+            $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200", copyLink ());
 
             $("#mm-placeholder").hide();
 
@@ -285,7 +268,7 @@ function projectSelectedAction(projectID) {
 
             $("#sb-add").attr("href", "/sb_app?projectID=" + projectID);
             $("#sb-add").show();
-            $("#sb-all").load("/storyboards_all/" + projectID + "?limit=200");
+            $("#sb-all").load("/storyboards_all/" + projectID + "?limit=200", copyLink ());
 
             $("#sb-placeholder").hide();
 
@@ -320,7 +303,7 @@ function projectSelectedAction(projectID) {
             $("#mb-add").attr("href", "/mb_app?projectID=" + projectID);
             $("#mb-add").show();
             $("#project-hierarchy").show();
-            $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200");
+            $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200", copyLink ());
 
             $("#mb-placeholder").hide();
             $("#project-members").show();
@@ -436,6 +419,17 @@ function projectSelectedAction(projectID) {
 
     }
 
+}
+
+
+function copyLink(){
+    var clipboard = new Clipboard('#copy-button');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
 }
 
 //Return true if current page is DASHBOARD

@@ -66,7 +66,7 @@
                         <form th:id="@{'mm-add-form' + ${mmContent.id}}" method="post" th:action="@{/mm_app}">
                             <input type="hidden" th:value="${mmContent.pid}" name="projectID" id="projectID" class="form-control"/>
                             <input type="hidden" th:value="${mmContent.id}" name="mindmapID" id="mindmapID" class="form-control"/>
-                            <a id="mb-add" type="submit" th:onclick="@{ '$(\'#mm-add-form'+${mmContent.id} +'\').submit()'}"  ><img  src="/images/fm_generic_mm.png" class="img-thumbnail" /></a>
+                            <a id="mb-add" type="submit" th:onclick="@{ '$(\'#mm-add-form'+${mmContent.id} +'\').submit()'}"  ><img  src="/images/fm_generic_mm.png" class="img-thumbnail" /></a><a id="copy-button" th:attr="data-clipboard-text=@{'http://concept.euprojects.net/mm_app/'+${mmContent.id}}" class="btn btn-default btn-xs pull-up">Get link</a>
                         </form>
                     </td>
                     <td class="truncate"><span class="file-title" th:text="${mmContent.title}"></span><br/><span class="file-user" th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(mmContent.createdDate,0,16)}"></span></td>
