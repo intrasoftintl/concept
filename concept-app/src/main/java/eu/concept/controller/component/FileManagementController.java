@@ -1,6 +1,7 @@
 package eu.concept.controller.component;
 
 import eu.concept.configuration.COnCEPTProperties;
+import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.domain.FileManagement;
@@ -9,6 +10,7 @@ import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
+import eu.concept.util.other.Util;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -84,6 +86,12 @@ public class FileManagementController {
         return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/fm_app/{image_id}", produces = MediaType.ALL_VALUE)
+    public ResponseEntity<byte[]> getImageRedirect(@PathVariable("image_id") int imageId, @RequestParam(value = "preview", defaultValue = "0", required = false) int preview) throws IOException {
+        return getImage(imageId, preview);
+        //return "redirect:/file/" + imageId;
+    }
+
     @RequestMapping(value = "/filemanagement/{project_id}", method = RequestMethod.GET)
     public String fetchFilesByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
         model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentRole(), limit));
@@ -108,10 +116,12 @@ public class FileManagementController {
     }
 
     @RequestMapping(value = "/fm_app_delete_all", method = RequestMethod.GET)
-    public String deleteFileByFM(Model model, @RequestParam(value = "fm_id", defaultValue = "0", required = false) int fileID, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
-        FileManagement fm = fmService.fetchImageById(fileID);
-        if (null != fm && fmService.deleteFile(fileID)) {
+    public String deleteFileByFM(Model model, @RequestParam(value = "fm_id", defaultValue = "0", required = false) int fm_id, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+        FileManagement fm = fmService.fetchImageById(fm_id);
+        if (null != fm && fmService.deleteFile(fm_id)) {
             notificationService.storeNotification(project_id, NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a file (" + fm.getFilename() + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
+            //Delete from elastic search engine (id=component_name+ba_id)
+            ElasticSearchController.getInstance().deleteById(Util.getComponentName(FileManagement.class.getSimpleName()) + String.valueOf(fm_id));
         }
         return fetchFilesByProjectIDAll(model, project_id, limit);
     }

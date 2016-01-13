@@ -3,8 +3,10 @@ package eu.concept.controller.component;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.Moodboard;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.MoodboardService;
@@ -13,6 +15,7 @@ import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
+import eu.concept.util.other.Util;
 
 import java.io.*;
 import java.util.List;
@@ -128,7 +131,10 @@ public class MoodboardController {
         }
 
         if (null != mb && mbService.delete(mb_id)) {
+            //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.SB, NOTIFICATION_OPERATION.DELETED, "a Moodboard (" + mb.getTitle() + ")", mb.getContentThumbnail(), WebController.getCurrentUserCo());
+            //Delete from elastic search engine (id=component_name+mb_id)
+            ElasticSearchController.getInstance().deleteById(Util.getComponentName(Moodboard.class.getSimpleName()) + String.valueOf(mb_id));
         }
         return fetchMoodboardByProjectId(model, project_id, limit);
     }

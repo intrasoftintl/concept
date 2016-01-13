@@ -6,25 +6,25 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import eu.concept.authentication.COnCEPTRole;
 import eu.concept.configuration.COnCEPTProperties;
-import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.ChatMessageRepository;
 import eu.concept.repository.concept.domain.*;
 import eu.concept.repository.concept.service.*;
 import eu.concept.repository.openproject.domain.MemberOp;
 import eu.concept.repository.openproject.domain.MemberRoleOp;
-import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.MemberOpService;
 import eu.concept.repository.openproject.service.MemberRoleOpService;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.response.ApplicationResponse;
 import eu.concept.response.BasicResponseCode;
 import eu.concept.util.other.NotificationTool;
+import eu.concept.util.other.Util;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -106,6 +106,9 @@ public class RestAPIController {
     @Autowired
     ProjectCategoryService projectCategoryService;
 
+    @Autowired
+    MetadataService metadataService;
+
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
         return members.fetchMemberhipsByProjectId(project_id);
@@ -176,6 +179,10 @@ public class RestAPIController {
             responseCode = BasicResponseCode.EXCEPTION;
         } else if (null != (mindmap = mindmapService.store(mindmap)) && mindmap.getId() > 0) {
             responseMessage = "Successfully stored mindmap to COnCEPT db...";
+
+            //Insert mindmap to elastic search engine            
+            ElasticSearchController.getInstance().insert(Optional.ofNullable(mindmap), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mindmap.getId(), Util.getComponentName(MindMap.class.getSimpleName()))));
+            restLogger.info("Inserted into Elastic search.....");
             responseCode = BasicResponseCode.SUCCESS;
         }
         //Print response message
@@ -308,7 +315,7 @@ public class RestAPIController {
     }
 
     @RequestMapping(value = "/mm_app/{project_id}", method = RequestMethod.GET)
-    public ApplicationResponse createMindMap(@PathVariable("project_id") int project_id) {//@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+    public ApplicationResponse createMindMap(@PathVariable("project_id") int project_id) {
         String responseMessage = "Could create a new MindMap... ";
         BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
         String currentUserID = String.valueOf(WebController.getCurrentUserCo().getId());
@@ -397,11 +404,14 @@ public class RestAPIController {
         sb.setPid(projetct_id);
         sb.setUid(userCoService.findById(uid));
         sb.setTitle(title);
-        //sb.setCreatedDate(date);
         sb.setContent(content);
         sb.setContentThumbnail(fileContent);
-
+        //Save new stroyboard
         Storyboard newsb = sbService.store(sb);
+
+        //Insert document to elastic search engine    
+        ElasticSearchController.getInstance().insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(sb_id, Util.getComponentName(Storyboard.class.getSimpleName()))));
+        
         BasicResponseCode responseCode;
         String responseMessage;
         if (newsb != null) {
@@ -418,7 +428,7 @@ public class RestAPIController {
     //Store storyboard data
     @RequestMapping(value = "/moodboard/replicate", method = RequestMethod.POST)
     public ApplicationResponse replicateMoodboard(
-            @RequestParam(value = "id") Integer sb_id,
+            @RequestParam(value = "id") Integer mb_id,
             @RequestParam(value = "pid") int projetct_id,
             @RequestParam(value = "uid") int uid,
             @RequestParam(value = "title") String title,
@@ -446,15 +456,20 @@ public class RestAPIController {
         }
 
         Moodboard mb = new Moodboard();
-        mb.setId(sb_id);
+        mb.setId(mb_id);
         mb.setPid(projetct_id);
         mb.setUid(userCoService.findById(uid));
         mb.setTitle(title);
         mb.setCreatedDate(Calendar.getInstance().getTime());
         mb.setContent(content);
         mb.setContentThumbnail(fileContent);
-
+        //Save new moodboard
         Moodboard newsb = mbService.store(mb);
+        
+        //Insert document to elastic search engine    
+        ElasticSearchController.getInstance().insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mb_id, Util.getComponentName(Moodboard.class.getSimpleName()))));
+        
+        //Create response body
         BasicResponseCode responseCode;
         String responseMessage;
         if (newsb != null) {
@@ -510,7 +525,7 @@ public class RestAPIController {
 
     @RequestMapping(value = "/category/search", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     public String autoCompleteCategories(@RequestParam("keyword") String keyword, @RequestParam("projectID") String projectID, @RequestParam("callback") String callback) {
-        
+
         List<Category> categories = categoryService.getCategoriesByKeyword(keyword, projectCategoryService.findByPid(Integer.valueOf(projectID)));
         JSONObject jsonResponse = new JSONObject();
         JSONArray jsonValues = new JSONArray();
