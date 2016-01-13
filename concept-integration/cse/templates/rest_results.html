@@ -53,7 +53,7 @@
 				-->
 				<div class="result_field">
 					<p><b>Title</b>: {{item["_source"].get("title","")}}</p>
-					<span style="margin-right:15px;"><b>URL</b>: <a href="{{item['_source'].get('url','')}}" target="_blank">
+					<span style="margin-right:15px;"><b>URL</b>: <a href="{{item['_source'].get('url','')}}">
 					{{item["_source"].get("url",'')}}</a></span>
 					<!--
 					<p><b>Description</b>: {{item["_source"].get("description","")}}</p>
