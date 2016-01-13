@@ -15,8 +15,8 @@
               th:href="@{/webjars/jquery.treegrid/0.2.1/css/jquery.treegrid.css}"
               rel="stylesheet" media="screen" />
 
-        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-ui/1.11.4/themes/base/jquery-ui.css"
-              th:href="@{/webjars/jquery-ui/1.11.4/themes/base/jquery-ui.css}"
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-ui/1.11.4/jquery-ui.min.css"
+              th:href="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.css}"
               rel="stylesheet" media="screen" />
 
         <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
@@ -68,7 +68,7 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        
+
                         <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
                             <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
                         </form>
@@ -78,7 +78,7 @@
                         <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
                             <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-link btn-xs">Model</button>
                         </form>
-                 
+
                     </span>
                     <span th:case="'DESIGNER'">
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
@@ -99,7 +99,7 @@
 
         <!-- Chat DIV -->
         <div th:include="chat :: chat-list"></div>
-        
+
         <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <!-- dashboard -->
@@ -151,8 +151,8 @@
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
         th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
 
-        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-ui/1.11.4/ui/jquery-ui.js"
-        th:src="@{/webjars/jquery-ui/1.11.4/ui/jquery-ui.js}"></script>
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-ui/1.11.4/jquery-ui.min.js"
+        th:src="@{/webjars/jquery-ui/1.11.4/jquery-ui.min.js}"></script>
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
         th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
@@ -169,7 +169,14 @@
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars.bower/jquery.treegrid/0.2.1/js/jquery.treegrid.bootstrap3.js"
         th:src="@{/webjars/jquery.treegrid/0.2.1/js/jquery.treegrid.bootstrap3.js}"></script>
 
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
+        th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
+        th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+
         <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
+        <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
         <script src="../static/js/category.js" th:src="@{/js/category.js}"></script>
 
 
