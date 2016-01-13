@@ -22,8 +22,8 @@ import org.hibernate.annotations.Cascade;
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Entity
-@Table(name = "BAComment")
-public class BAComment implements Serializable {
+@Table(name = "SBComment")
+public class SBComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,9 +35,9 @@ public class BAComment implements Serializable {
     @ManyToOne(optional = false)
     private UserCo uid;
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinColumn(nullable = true, name = "ba_id", referencedColumnName = "id")
+    @JoinColumn(nullable = true, name = "sb_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private BriefAnalysis baId;
+    private Storyboard sbId;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -48,13 +48,13 @@ public class BAComment implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
 
-    public BAComment(UserCo uid, BriefAnalysis baId, String comment) {
+    public SBComment(UserCo uid, Storyboard sbId, String comment) {
         this.uid = uid;
-        this.baId = baId;
+        this.sbId = sbId;
         this.comment = comment;
     }
 
-    public BAComment() {
+    public SBComment() {
     }
 
     public Integer getId() {
@@ -73,12 +73,12 @@ public class BAComment implements Serializable {
         this.uid = uid;
     }
 
-    public BriefAnalysis getBaId() {
-        return baId;
+    public Storyboard getSbId() {
+        return sbId;
     }
 
-    public void setBaId(BriefAnalysis baId) {
-        this.baId = baId;
+    public void setSbId(Storyboard sbId) {
+        this.sbId = sbId;
     }
 
     public String getComment() {

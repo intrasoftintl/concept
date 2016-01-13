@@ -8,41 +8,41 @@
 <form id="prev" method="post" action="{{ s_type }}">
 					<input type="hidden" name="user" id="user" value="{{ user }}">
 					<input type="hidden" name="project" id="project" value="{{ project }}">
-					<input type="hidden" name="search_param" value="{{search_param}}"> 
+					<input type="hidden" name="search_param" value="{{search_param}}">
 					<input type="hidden" name="page" value="{{page-1}}">
 </form>
 
 <form id="next" method="post" action="{{ s_type }}">
 					<input type="hidden" name="user" id="user" value="{{ user }}">
 					<input type="hidden" name="project" id="project" value="{{ project }}">
-					<input type="hidden" name="search_param" value="{{search_param}}"> 
+					<input type="hidden" name="search_param" value="{{search_param}}">
 					<input type="hidden" name="page" value="{{page+1}}">
 </form>
 
 <div class="container">
 
 	<div class="search_body" style="height:92%">
-		
+
 		<div class="pagination">
 			<p style="font-weight:bold;text-align:center;font-size:16pt">
-				<span style="margin-right:30px">				
-					<a href="javascript:{}" 
+				<span style="margin-right:30px">
+					<a class="pagination-link" href="javascript:{}"
 						{% if page > 1 %}
 						onclick="document.getElementById('prev').submit(); return false;"
 						{% end %}
-						><--</a>
+						><</a>
 				<!-- <span style="margin-right:30px">{{ total }} results matching</span>
 				<span style="margin-right:30px">Page {{page}}/{{ total//10 + 1}}</span> -->
 				{{ total }} results matching Page {{page}}/{{ total//10 + 1}}
-					<a href="javascript:{}" 
+					<a class="pagination-link" href="javascript:{}"
 					{% if page < (total//10 + 1) %}
 					onclick="document.getElementById('next').submit(); return false;"
 					{% end %}
-					>--></a>
+					>></a>
 				</span>
 			</p>
 		</div>
-		
+
 		<div class="search_results">
 			{% for item in list_results %}
 			<div class="result">
@@ -86,7 +86,7 @@
 				</div>
 			</div>
 			{% end %}
-		
+
 		</div>
 	</div>
 

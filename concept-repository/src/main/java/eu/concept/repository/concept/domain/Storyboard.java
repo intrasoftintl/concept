@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -64,6 +65,17 @@ public class Storyboard implements Serializable {
     //Non Domain field
     @OneToMany(mappedBy = "sbId", orphanRemoval = false)
     public Collection<Likes> likes;
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sbId", orphanRemoval = false)
+    private Collection<SBComment> comments;
+
+    public Collection<SBComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<SBComment> comments) {
+        this.comments = comments;
+    }
 
     /**
      *

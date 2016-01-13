@@ -1,16 +1,14 @@
 //Static variables
 var DEBUG_MODE = true;
 var DEBUG_PROMPT = "[DEBUG] ";
+//Define COnCEPT REST end-points
 var MEMBERSHIPS_REST_URL = "/conceptRest/api/memberships/";
 var PROJECTS_REST_URL = "http://concept-pm.euprojects.net/projects/";
 var NOTIFICATIONS_REST_URL = "/conceptRest/api/notifications_count/";
 var SHARE_REST_URL = "/conceptRest/api/share/";
 var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
-
 var MOOBBOARD_REST_URL = "http://concept-mb.euprojects.net/storyboard/";
 var STORYBOARD_REST_URL = "http://concept-sb.euprojects.net/storyboard/";
-//var STORYBOARD_REST_URL = "http://localhost:16161/storyboard/";
-
 var LIKE_REST_URL = "/conceptRest/api/like/";
 
 //COnCEPT Logger
@@ -119,10 +117,8 @@ function like(componentCode, componentID) {
                 $("#Like" + componentCode + componentID).addClass("icon-active");
                 $("#LikeCount" + componentCode + componentID).text(itemLikeCountUp);
             }
-
         }
     });
-
 }
 
 function createMindMap() {
@@ -225,7 +221,7 @@ function projectSelectedAction(projectID) {
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#fm-add").show();
             $("#fm-add").removeClass("disabled");
-            $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200");
+            $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200", copyLink ());
             $("#fm-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
@@ -243,7 +239,8 @@ function projectSelectedAction(projectID) {
 
             $("#ba-add").attr("href", "/ba_app?projectID=" + projectID);
             $("#ba-add").show();
-            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200");
+            var client = [];
+            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200", copyLink ());
 
             $("#ba-placeholder").hide();
 
@@ -257,7 +254,7 @@ function projectSelectedAction(projectID) {
 
             $("#mm-add").attr("href", "/mm_app?projectID=" + projectID);
             $("#mm-add").show();
-            $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200");
+            $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200", copyLink ());
 
             $("#mm-placeholder").hide();
 
@@ -271,7 +268,7 @@ function projectSelectedAction(projectID) {
 
             $("#sb-add").attr("href", "/sb_app?projectID=" + projectID);
             $("#sb-add").show();
-            $("#sb-all").load("/storyboards_all/" + projectID + "?limit=200");
+            $("#sb-all").load("/storyboards_all/" + projectID + "?limit=200", copyLink ());
 
             $("#sb-placeholder").hide();
 
@@ -306,7 +303,7 @@ function projectSelectedAction(projectID) {
             $("#mb-add").attr("href", "/mb_app?projectID=" + projectID);
             $("#mb-add").show();
             $("#project-hierarchy").show();
-            $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200");
+            $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200", copyLink ());
 
             $("#mb-placeholder").hide();
             $("#project-members").show();
@@ -321,7 +318,7 @@ function projectSelectedAction(projectID) {
             $("#nf-button").show();
             $("#nf-placeholder").show();
         }
-        
+
         if (isSE_app()) {
             $("#project-members").show();
             $("#project-view").show();
@@ -329,7 +326,7 @@ function projectSelectedAction(projectID) {
         }
 
         //Enable Chat Session     
-         enableChat();
+        enableChat();
 
         //Set Notifications Number
         setNotifications(projectID);
@@ -422,6 +419,17 @@ function projectSelectedAction(projectID) {
 
     }
 
+}
+
+
+function copyLink(){
+    var clipboard = new Clipboard('#copy-button');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
 }
 
 //Return true if current page is DASHBOARD
@@ -611,14 +619,6 @@ $('#chat-message').keyup(function () {
         $('#chat-button').attr('disabled', true);
 });
 
-$('#comment-button').attr('disabled', true);
-$('#comment-message').keyup(function () {
-    if ($(this).val().length != 0)
-        $('#comment-button').attr('disabled', false);
-    else
-        $('#comment-button').attr('disabled', true);
-});
-
 function chatScrollDown() {
     var $cont = $('.chat-list');
     $cont[0].scrollTop = $cont[0].scrollHeight;
@@ -639,3 +639,32 @@ $("#notification").ready(
             }, 4000);
         }
 );
+
+
+$('#comment-button').attr('disabled', true);
+$('#comment-message').keyup(function () {
+    if ($(this).val().length != 0)
+        $('#comment-button').attr('disabled', false);
+    else
+        $('#comment-button').attr('disabled', true);
+});
+
+//Function to trigger comment on item
+function keyPressedOnCommentField(e) {
+    var key = e.keyCode || e.which;
+    //On enter pressed send message
+    if (key == 13) {
+        sendComment();
+    }
+}
+
+//Send a comment for a specific item
+function sendComment(itemID, app) {
+
+    if ($("#comment-message").val().length > 0) {
+        $("#comments-div").load("/comments_add?itemID=" + itemID + "&app=" + app + "&content=" + $("#comment-message").val());
+    } else {
+        alert("Comment message cannot be empty!");
+    }
+}
+

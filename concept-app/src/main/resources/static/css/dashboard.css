@@ -830,6 +830,13 @@ a.fm-popup {
     border-radius: 4px;
 }
 
+#search-upload{
+    display: inline;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+}
+
 /* BOOTSTRAP OVERRIDE */
 .row { margin:0; }
 .row.disabled{ opacity:0.5; pointer-events: none; }

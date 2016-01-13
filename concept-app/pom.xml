@@ -280,7 +280,12 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>jquery.treegrid</artifactId>
             <version>0.2.1</version>
-        </dependency>              
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>clipboard.js</artifactId>
+            <version>1.5.5</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -290,11 +295,9 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${org.springframework.boot}</version>
                 <!--Necessary for dynamic reloading -->
-                <!--
                 <configuration>
                     <fork>true</fork>
                 </configuration>
-                -->
                 <executions>
                     <execution>
                         <goals>
