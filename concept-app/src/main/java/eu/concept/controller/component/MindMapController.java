@@ -75,14 +75,14 @@ public class MindMapController {
     }
 
     @RequestMapping(value = "/mm_app", method = RequestMethod.POST)
-    public String fetchMindmapByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "mindmapID", defaultValue = "0") int mindmapID) {
+    public String fetchMindmapByID(Model model, @RequestParam(value = "projectID") int projectID, @RequestParam(value = "mindmapID", defaultValue = "0") int mindmapID) {
         if (mindmapID > 0) {
             model.addAttribute("mindmapURL", "http://concept-mm.euprojects.net/wisemapping/c/maps/" + mindmapID + "/" + WebController.getCurrentUserCo().getId() + "/edit");
         } else {
             String currentUserID = String.valueOf(WebController.getCurrentUserCo().getId());
             String createdMMURL = conceptProperties.getmindmapediturl();
             logger.log(Level.INFO, "Create URL : {0}", conceptProperties.getmindmapcreateurl());
-            String URI = conceptProperties.getmindmapcreateurl().concat(currentUserID).concat("/").concat(projectID);
+            String URI = conceptProperties.getmindmapcreateurl().concat(currentUserID).concat("/").concat(String.valueOf(projectID));
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<MindMapCreateResponse> mindmapCreateResponse = restTemplate.getForEntity(URI, MindMapCreateResponse.class);
             if (null != mindmapCreateResponse.getBody() && "OK".equals(mindmapCreateResponse.getBody().getResult())) {
@@ -102,6 +102,12 @@ public class MindMapController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "mm_app";
+    }
+
+    @RequestMapping(value = "/mm_app/{mm_id}", method = RequestMethod.GET)
+    public String fetchMindmapByIDRedirect(Model model, @PathVariable(value = "mm_id") int mm_id) {
+        MindMap mm = mmService.fetchMindMapById(mm_id);
+        return fetchMindmapByID(model, null == mm ? 0 : mm.getPid(), mm_id);
     }
 
     @RequestMapping(value = "/mm", method = RequestMethod.GET)

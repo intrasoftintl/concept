@@ -88,7 +88,7 @@ public class StoryboardController {
     }
 
     @RequestMapping(value = "/sb_app", method = RequestMethod.POST)
-    public String fetchStoryboardByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "storyboardID", defaultValue = "0") int storyboardID) {
+    public String fetchStoryboardByID(Model model, @RequestParam(value = "projectID") int projectID, @RequestParam(value = "storyboardID", defaultValue = "0") int storyboardID) {
         if (storyboardID > 0) {
             model.addAttribute("storyboardURL", "http://concept-sb.euprojects.net/storyboard/storyboard/edit?pid=" + projectID + "&uid=" + WebController.getCurrentUserCo().getId() + "&idStory=" + String.valueOf(storyboardID));
         } else {
@@ -99,6 +99,12 @@ public class StoryboardController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "sb_app";
+    }
+
+    @RequestMapping(value = "/sb_app/{sb_id}", method = RequestMethod.GET)
+    public String fetchStoryboardByIDRedirect(Model model, @PathVariable(value = "sb_id") int sb_id) {
+        Storyboard sb = sbService.fetchStoryboardById(sb_id);
+        return fetchStoryboardByID(model, null == sb ? 0 : sb.getPid(), sb_id);
     }
 
     //Fetch an image
