@@ -3,7 +3,7 @@
 
 ## Prerequisites
 
-* JDK 1.7.0_latest
+* JDK 1.8.0_latest
 * Maven 3.x
 
 Before moving on, make sure you have the required JDK and Maven version.
