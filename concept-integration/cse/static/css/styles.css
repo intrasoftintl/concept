@@ -1,11 +1,11 @@
-body {
+/*body {
     font-family: Calibri;
     color:#f0f0ff;
     font-size:12pt;
-}
+}*/
 div.container {
     margin-top:20px;
-    width:75%;
+    width:800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -38,7 +38,7 @@ div.tab_unselected {
     background:#00b0ff;
     color:#0020ff;
 }
-
+/*
 div.search_body {
     width : 100%;
     height : 94%;
@@ -48,7 +48,7 @@ div.search_body {
     border: 2px solid #00a0ff;
     border-radius: 15px 15px 15px 15px;
     z-index:0;
-}
+}*/
 
 div.search_fields {
     width : 100%;
@@ -58,7 +58,7 @@ div.search_fields {
     border-radius: 15px 15px 0px 0px;
     vertical-align:middle;
 }
-
+/*
 div.pagination {
     position : relative;
     width : 95%;
@@ -68,7 +68,7 @@ div.pagination {
     background:#0070ff;
     border-radius : 15px;
     margin-bottom : 6px;
-}
+}*/
 
 div.search_results {
     width : 100%;
@@ -93,7 +93,7 @@ div.search_results {
     font-weight:bold;
     color:#f0f0ff;
 }
-
+/*
 div.result {
     position:relative;
     width:90%;
@@ -104,17 +104,17 @@ div.result {
     margin-right: auto;
     padding: 5px 10px;
     margin-bottom:4px;
-}
+} */
 
 div.tag {
     position:relative;
     display:inline-block;
     border-radius:15px;
-    background:#0070ff;
-    color:#f0f0ff;
-    padding: 6px 25px;
-    font-weight:bold;
-    margin-left:10px;
+    background:#eee;
+    color:#444;
+    padding: 4px 8px;
+    font-weight:200;
+    margin:2px;
 }
 
 p.semantic_field {
@@ -136,11 +136,44 @@ img.thumbnail {
 
 div.result_field {
     display:inline-block;
-    margin-left:5%;
-    width:80%;
+    border-top: 2px solid #eee;
+    padding: 20px 40px;
+    width: 720px;
 }
 
 .search_criteria {
     color:#00a0ff;
     margin-bottom:8px;
  }
+body{
+	color: #444;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+}
+
+.result{
+	background: #f8f8f8;
+}
+
+a {
+	color: blue;
+}
+
+.pagination{
+	background: none;
+}
+
+.pagination-link {
+    padding: 1px 5px;
+    line-height: 1.5;
+    border-radius: 3px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    text-decoration: none;
+}
+
+.search_body{
+	background: none;
+	border:none;
+}

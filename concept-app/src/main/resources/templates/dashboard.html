@@ -26,6 +26,14 @@
         <link href="http://cdn.jsdelivr.net/webjars/org.webjars.bower/chosen/1.4.2/chosen.min.css"
               th:href="@{/webjars/chosen/1.4.2/chosen.min.css}"
               rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/css/jquery.fileupload.css"
+              th:href="@{/webjars/jquery-file-upload/9.10.1/css/jquery.fileupload.css}"
+              rel="stylesheet" media="screen" />
+        
+        <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-file-upload/9.10.1/css/jquery.fileupload-ui.css"
+              th:href="@{/webjars/jquery-file-upload/9.10.1/css/jquery.fileupload-ui.css}"
+              rel="stylesheet" media="screen" />
 
         <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
@@ -43,13 +51,12 @@
         <nav class="nav-apps">
             <ul>
                 <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="../static/images/ICON_BA.png" th:src="@{images/ICON_BA.png}" /></button></form></li> 
-                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="fm-app-link" class="app-link"><img src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></button></form></li>
-                <li><form id="se-app-link-form" action="#" method="post" th:action="@{/se_app}"><button onclick="addProjectIDToForm('se-app-link-form')" type="submit" id="se-app-link" class="app-link"><img src="../static/images/ICON_SE.png" th:src="@{images/ICON_SE.png}" /></button></form></li>
+                <li><img src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></li>
+                <li><img src="../static/images/ICON_SE.png" th:src="@{images/ICON_SE.png}" /></li>
                 <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="../static/images/ICON_MM.png" th:src="@{images/ICON_MM.png}" /></button></form></li>
                 <li><form id="mb-app-link-form" action="#" method="post" th:action="@{/mb_app}"><button onclick="addProjectIDToForm('mb-app-link-form')" type="submit" id="mb-app-link" class="app-link"><img src="../static/images/ICON_MB.png" th:src="@{images/ICON_MB.png}" /></button></form></li>
                 <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="../static/images/ICON_SB.png" th:src="@{images/ICON_SB.png}" /></button></form></li>                
             </ul>
-
         </nav>
 
         <!-- projects -->
@@ -73,20 +80,27 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">New Project</a> <a target="_blank" id="project-view" type="button" class="btn btn-default btn-xs">Details</a>
                         
-                        
-                        <form id="hierarchy-form" action="#" method="post" th:action="@{/hierarchy_app}">
-                            <button id="project-hierarchy" onclick="addProjectIDToForm('hierarchy-form')" type="submit"  class="btn btn-default btn-xs">
-                                Hierachy
-                            </button>
+                        <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
+                            <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
                         </form>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
+                        <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
+                            <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-link btn-xs">Model</button>
+                        </form>
+                 
                     </span>
                     <span th:case="'DESIGNER'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">Details</a>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
                     </span>
                     <span th:case="'CLIENT'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">Details</a>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
                     </span>
                 </div>
 
@@ -94,6 +108,8 @@
             </div>
 
         </nav>
+        
+        <div class="project-prompt"></div>
 
         <!-- Chat DIV -->
         <div th:include="chat :: chat-list"></div>
@@ -182,13 +198,6 @@
                     <div id="se-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Search</h4>
-                            <!--
-                            <div  class="btn-group pull-right">
-                                <form id="se-add-form" action="#" method="post" th:action="@{/se_app}">
-                                    <button onclick="addProjectIDToForm('se-add-form')" type="submit" id="se-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Query</button>
-                                </form>
-                            </div>
-                            -->
                         </div>
 
                         <div id="se-placeholder" class="panel-body disabled"></div>
@@ -278,7 +287,7 @@
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
         th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
-
+        
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
         th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
 

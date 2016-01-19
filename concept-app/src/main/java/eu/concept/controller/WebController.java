@@ -73,8 +73,7 @@ public class WebController {
         model.addAttribute("password", new PasswordOp());
         return "registration";
     }
-
-    //@PreAuthorize("hasAnyRole('DESIGNER','MANAGER','CLIENT')")
+    
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
@@ -171,16 +170,6 @@ public class WebController {
         logger.log(Level.INFO, "{0}:  {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
         return "redirect:/preferences";
     }
-
-//    @Autowired
-//    SimpMessagingTemplate template;
-//
-//    @RequestMapping(value = "/dummy", method = RequestMethod.GET)
-//    public String greet(String greeting) {
-//        String text = "[Debug]:" + greeting;
-//        this.template.convertAndSend("/topic/project1", text);
-//        return "dashboard";
-//    }
 
     /*
      *  Help Methods

@@ -14,7 +14,7 @@ function loadDashboardContent(projectID) {
     //Load content of FileManagement widget
     $("#fm-dashboard").load("/filemanagement/" + projectID + "?limit=9");
     //Load content of Search widget
-    $("#se-dashboard").load("/search/");
+    $("#se-dashboard").load("/search/"+ projectID );
     //Load content of MindMap widget
     $("#mm-dashboard").load("/mindmap/" + projectID + "?limit=5");
     //Load content of Moodboard widget
@@ -52,7 +52,10 @@ function disableDashboardPage() {
     logger("Disabling dashboard modules...")
 
     $('.nav-apps ul').addClass("disabled");
-    $('.app-link').addClass("disabled");
+    //$('.app-link').addClass("disabled");
+    
+    $('.project-prompt').show();
+    
     $("#row1").addClass("disabled");
     $("#row2").addClass("disabled");
     $("#ba-buttons").addClass("disabled");
@@ -94,6 +97,7 @@ function disableDashboardPage() {
     // Project Selection
     $("#project-members").hide();
     $("#project-view").hide();
+    $("#project-model").hide();
 
     $(".nav-main-md").hide();
     $(".nav-keywords").hide();
@@ -108,6 +112,8 @@ function enableDashboardPage() {
     $('.nav-apps ul').removeClass("disabled");
     $('.app-link').removeClass("disabled");
 
+    $('.project-prompt').hide();
+    
     $("#row1").removeClass("disabled");
     $("#row2").removeClass("disabled");
 
@@ -150,6 +156,7 @@ function enableDashboardPage() {
     // Project Selection
     $("#project-members").show();
     $("#project-view").show();
+    $("#project-model").show();
 
     $(".nav-main-md").hide();
     $(".nav-keywords").hide();

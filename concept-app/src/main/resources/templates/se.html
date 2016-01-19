@@ -1,50 +1,76 @@
 <div th:fragment="seContent">
     <div class="panel-body">
 
-        <form id="se-form" action="#" method="post" th:action="@{/se_app}">
-            <div class="form-group col-md-12">
-                <label for="keyword">Content or title</label>
-                <input type="text" class="form-control" id="keyword" placeholder="Content and title search"/>
+        <form id="se-form" method="post" th:object="${search}" th:action="@{/se_app}">
+
+
+            <!-- Project ID -->
+            <input th:type="hidden" th:name="pid" th:field="*{pid}"/>
+
+
+            <div class="form-group col-md-6">
+                <label for="keyword">Content search</label>
+                <input type="text" class="form-control" id="content" th:name="content"  th:field="*{content}" placeholder="Content or title"/>
             </div>
-            
-            <div class="form-group col-md-8">
+
+            <div class="form-group col-md-6">
                 <label for="keyword">Document Type</label>
 
-                <select id="locale" name="locale" class="form-control">
-                    <option value="">Choose</option>
-                    <option value="en">Brief Analysis (BA)</option>
-                    <option value="en">Images, PDF, etc. (FM)</option>
-                    <option value="en">Mindmaps (MM)</option>
-                    <option value="en">Moodboard (MB)</option>
-                    <option value="en">Storyboards (SB)</option>
+                <select th:field="*{component.id}" id="component" name="component" class="form-control">
+                    <option value="">All</option>
+                    <option  th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
                 </select>
-                
+
             </div>
-            
+
             <div class="form-group col-md-12">
                 <label for="keyword">Keyword search</label>
 
-                <select id="keyword-search" name="keyword-search"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
-                    <option value="en">keyword1</option>
-                    <option value="en">keyword2</option>
-                    <option value="en">keyword3</option>
-                    <option value="en">keyword4</option>
+                <select th:field="*{keywords}"  id="keywords" name="keywords"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
+                    <option  th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
                 </select>
-                
+
             </div>
             <div class="form-group col-md-12">
-                <label for="keyword">Category search</label>
-                <div id="category-search">a</div>
+                <label for="category-search">Category search</label>
+                <div id="category-search" ></div>
             </div>
 
+            <input th:type="hidden" name="categories" value="{}"  th:value="*{categories}"  id="categories"/>
+
             <div class="form-group col-md-12">
-                <button onclick="addProjectIDToForm('se-form')" type ="submit" class="btn btn-danger">Search</button>
+                <button type ="submit" class="btn btn-danger">Search</button>
+
+
+
             </div>
         </form>
+        <!-- Init a serach based on an image -->
+        <form id="search-upload" method="POST" enctype="multipart/form-data"  action="/search_upload">
+            <input type="hidden" name="project_id" th:value="${project_id}" />
+            <span class="btn btn-default fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Or upload an image here</span>
+                <input id="file"  type="file" name="file"/>
+            </span>
+        </form>
+
 
     </div>
     <script>
-        $("#keyword-search").chosen();
+        $("#se-form").submit(function (event) {
+            $("#categories").val(JSON.stringify($('#category-search').tree('getState')));
+            logger(JSON.stringify($('#category-search').tree('getState')));
+        });
+
+        $("#keywords").chosen();
         initCategorySearch();
+
+        $("#file").change(function () {
+            $("#search-upload").submit();
+        });
+
+
+
     </script>
 </div>

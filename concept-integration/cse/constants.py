@@ -104,7 +104,18 @@ docs_mapping = {	"search_item" : {
                  "index":"not_analyzed"},
 			"description" : {"type" : "string"},
 			"categories" : {"type" : "string"},
-			"keywords" : {"type" : "string"},
+#    "categories": {
+#                  "type": "nested",
+#                  "fields": {
+#                      "tag": {
+#                          "type": "string"
+#                      },
+#                      "score": {
+#                          "type": "float"		
+#                      }
+#                     }
+#                     },
+    "keywords" : {"type" : "string"},
 			"status" : {"type" : "string",
                  "index":"not_analyzed"},
 			"domain" : {"type" : "string"},
@@ -112,6 +123,27 @@ docs_mapping = {	"search_item" : {
                        "analyzer":"english-html"},  #
     "content-raw" : {"type" : "string",
                  "index":"no"},
+    "content-image":{ "type": "image",
+                "feature": {
+                    "CEDD": {
+                        "hash": "BIT_SAMPLING"
+                    },
+                    "JCD": {
+                        "hash": ["BIT_SAMPLING", "LSH"]
+                    },
+                    "FCTH": {}
+                },
+                "metadata": {
+                    "jpeg.image_width": {
+                        "type": "string",
+                        "store": "yes"
+                    },
+                    "jpeg.image_height": {
+                        "type": "string",
+                        "store": "yes"
+                    }
+                }
+    },
 			"image-properties" : {
 				"type" : "object",
 				"properties" : {

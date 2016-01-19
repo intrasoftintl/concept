@@ -67,13 +67,27 @@
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">Create New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                        
+                        <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
+                            <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
+                        </form>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
+                        <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
+                            <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-link btn-xs">Model</button>
+                        </form>
+                 
                     </span>
                     <span th:case="'DESIGNER'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
                     </span>
                     <span th:case="'CLIENT'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
+                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        </form>
                     </span>
                 </div>
 
@@ -121,7 +135,7 @@
 
                         <!-- Notifications Button -->
                         <form id="nf-app-link-form-2" action="#" method="post" th:action="@{/notifications_app}">
-                            <button id="notifications-btn-2" onclick="addProjectIDToForm('nf-app-link-form-2')" type="submit" class="btn btn-danger btn-sm pull-right">
+                            <button id="notifications-btn-2" onclick="addProjectIDToForm('nf-app-link-form-2')" type="submit" class="btn btn-success btn-sm pull-right">
                                 Notifications <span id="notifications-count" class="badge">0</span>
                             </button>
                         </form>
@@ -179,6 +193,9 @@
         
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
         th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+        
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/clipboard.js/1.5.5/clipboard.min.js"
+        th:src="@{/webjars/clipboard.js/1.5.5/clipboard.min.js}"></script>
         
         <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
         <script src="../static/js/metadata.js" th:src="@{/js/metadata.js}"></script>

@@ -56,6 +56,8 @@ class Application(tornado.web.Application):
             (r"/search_category", search.search_category_handler),
             (r"/search_keyword", search.search_keyword_handler),
 
+            (r"/search_image_by_id", search.search_image_by_id_handler),            
+
         ]
 
         self.es = es

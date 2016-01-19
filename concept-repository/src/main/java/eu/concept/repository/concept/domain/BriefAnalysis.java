@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -58,11 +59,22 @@ public class BriefAnalysis implements Serializable {
     @Column(name = "isPublic")
     private short isPublic;
     @JoinColumn(name = "uid", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false) 
     private UserCo uid;
     //Non Domain field
     @OneToMany(mappedBy = "baId", orphanRemoval = false)
     private Collection<Likes> likes;
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "baId", orphanRemoval = false)
+    private Collection<BAComment> comments;
+
+    public Collection<BAComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<BAComment> comments) {
+        this.comments = comments;
+    }
 
     /**
      *

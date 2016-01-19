@@ -3,8 +3,10 @@ package eu.concept.controller.component;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.Moodboard;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.MoodboardService;
@@ -13,6 +15,7 @@ import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
+import eu.concept.util.other.Util;
 
 import java.io.*;
 import java.util.List;
@@ -82,18 +85,24 @@ public class MoodboardController {
     }
 
     @RequestMapping(value = "/mb_app", method = RequestMethod.POST)
-    public String fetchMoodboardByID(Model model, @RequestParam(value = "projectID") String projectID, @RequestParam(value = "moodboardID", defaultValue = "0") int moodboardID) {
-        if (moodboardID > 0){
+    public String fetchMoodboardByID(Model model, @RequestParam(value = "projectID") int projectID, @RequestParam(value = "moodboardID", defaultValue = "0") int moodboardID) {
+        if (moodboardID > 0) {
             model.addAttribute("moodboardURL", "http://concept-sb.euprojects.net/storyboard/moodboard/edit?pid=" + projectID + "&uid=" + WebController.getCurrentUserCo().getId() + "&idSlide=" + String.valueOf(moodboardID));
         } else {
             model.addAttribute("moodboardURL", "http://concept-sb.euprojects.net/storyboard/moodboard/new?pid=" + projectID + "&uid=" + WebController.getCurrentUserCo().getId());
         }
-        
+
         model.addAttribute("projectID", projectID);
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
         return "mb_app";
+    }
+
+    @RequestMapping(value = "/mb_app/{mb_id}", method = RequestMethod.GET)
+    public String fetchMoodboardByIDRedirect(Model model, @PathVariable(value = "mb_id") int mb_id) {
+        Moodboard mb = mbService.fetchMoodboardById(mb_id);
+        return fetchMoodboardByID(model, null == mb ? 0 : mb.getPid(), mb_id);
     }
 
     //Fetch an image
@@ -128,7 +137,10 @@ public class MoodboardController {
         }
 
         if (null != mb && mbService.delete(mb_id)) {
+            //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.SB, NOTIFICATION_OPERATION.DELETED, "a Moodboard (" + mb.getTitle() + ")", mb.getContentThumbnail(), WebController.getCurrentUserCo());
+            //Delete from elastic search engine (id=component_name+mb_id)
+            ElasticSearchController.getInstance().deleteById(Util.getComponentName(Moodboard.class.getSimpleName()) + String.valueOf(mb_id));
         }
         return fetchMoodboardByProjectId(model, project_id, limit);
     }

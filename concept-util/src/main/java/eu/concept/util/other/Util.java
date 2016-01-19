@@ -7,7 +7,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,6 +76,32 @@ public class Util {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public static String getComponentName(String className) {
+
+        switch (className) {
+            case "BriefAnalysis":
+                return "BA";
+            case "FileManagement":
+                return "FM";
+
+            case "Sketch":
+                return "SK";
+
+            case "MindMap":
+                return "MM";
+
+            case "Moodboard":
+                return "MB";
+
+            case "Storyboard":
+                return "SB";
+            //Unknown name of component    
+            default:
+                return "N/A";
+        }
+
     }
 
     public static void main(String[] args) {

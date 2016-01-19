@@ -48,60 +48,9 @@
             </ul>
         </nav>
 
-        <!-- projects -->
-        <nav class="nav-projects">
-            <div class="btn-group project-selection">
-                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default disabled">
-                    <option selected="true" value="0">Please select a project</option>
-                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
-                </select>
-
-                <select th:if="${projects.isEmpty()}" class="btn btn-default">
-                    <option selected="true" disabled="true">No projects available</option>
-                </select>
-
-            </div>          
-
-            <div class="project-selection">
-
-                <!-- Content to be showed only on project members (managers, designers, clients) -->
-                <div th:switch="${currentUser.getRole()}">
-                    <span th:case="'MANAGER'">
-                        <a href="http://concept-pm.euprojects.net/projects/new?parent_id=project-area" target="_blank" class="btn btn-success btn-xs">Create New Project</a><a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
-                    </span>
-                    <span th:case="'DESIGNER'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
-                    </span>
-                    <span th:case="'CLIENT'">
-                        <a target="_blank" id="project-view" type="button" class="btn btn-link btn-xs">View Project</a>
-                    </span>
-                </div>
-                <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
-            </div>
-        </nav>
-
-        <!-- Success Message -->
-        <nav id="notification" th:if="null != ${success}" class="nav-actions" >
-            <div class="alert alert-warning alert-dismissible btn-actions" role="alert" >
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <span th:text="${success}"></span>
-            </div>
-        </nav>
-
-        <!-- Error Message -->
-        <nav id="notification" th:if="null != ${error}" class="nav-actions" >      
-            <div class="alert alert-danger alert-dismissible btn-actions" role="alert" >
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <span th:text="${error}"></span>
-            </div>
-        </nav>
-
-        <!-- Chat DIV -->
-        <div th:include="chat :: chat-list"></div>
-
         <!-- dashboard -->
         <div class="content">
-            <iframe id="openproject" th:src="@{'http://concept-pm.euprojects.net/'}" width="100%" height="100%"></iframe>
+            <iframe id="openproject" th:src="${projectmanagementURL}" width="100%" height="100%"></iframe>
         </div>
 
         <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />

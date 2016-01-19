@@ -4,46 +4,60 @@
 import base64
 import elasticsearch
 
-es = elasticsearch.Elasticsearch(port=9201)
+es = elasticsearch.Elasticsearch(port=9200)
 
-data = open("KZI9W.jpg","rb").read()
+##file_to_search = "KZI9W.jpg"
+##
+##print("Searching "+file_to_search)
+##
+##data = open(file_to_search,"rb").read()
 # as file is binary, data is bytes
 
-print ("Encoding...")
-print(data[:300])
-encoded_data = base64.b64encode(data)
-print ("Encoded")
-print(encoded_data)
+##print ("Encoding...")
+##print(data[:100])
+##encoded_data = base64.b64encode(data)
+##print ("Encoded")
+#print(encoded_data)
 
 
-##querySelf = {
+##query = {
 ##    "query": {
 ##        "image": {
 ##            "my_img": {
 ##                "feature": "CEDD",
-##                "id": "image1",
-##                "path": "my_image",
-##                "hash": "BIT_SAMPLING"
+##                "image": encoded_data,
+##                "hash": "BIT_SAMPLING",
+##                "boost": 2.1,
+##                "limit": 10
 ##            }
 ##        }
 ##    }
 ##}
 ##
+##
+##result = es.search(index="test",doc_type="test",body=query)
+##
+##for i in result['hits']['hits']:
+##    print("{} {}".format(i["_id"],i["_score"]))
+
 query = {
     "query": {
         "image": {
             "my_img": {
                 "feature": "CEDD",
-                "image": encoded_data,
-                "hash": "BIT_SAMPLING",
-                "boost": 2.1,
-                "limit": 10
+                "index": "test",
+                "type": "test",
+                "id": "035.jpg",
+                "path": "my_img",
+                "hash": "BIT_SAMPLING"
             }
         }
     }
 }
 
-
 result = es.search(index="test",doc_type="test",body=query)
 
-print(result['hits']['hits'][0])
+for i in result['hits']['hits']:
+    print("{} {}".format(i["_id"],i["_score"]))
+    
+

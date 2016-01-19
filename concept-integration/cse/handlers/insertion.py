@@ -102,6 +102,25 @@ class insertion_item_handler(tornado.web.RequestHandler):
                 # I asume coma separated
                 categories = categories.split(",")
                 categories = list(map(str.strip,categories))
+            
+#==============================================================================
+#             #categories with numerical value
+#             ncategories = []
+#             for i in categories:
+#                 trio = i.partition("%")
+#                 tag = trio[0]
+#                 if trio[2]:
+#                     try:
+#                         score = float(trio[2])
+#                     except: 
+#                         logging.exception("Bad value ",float(trio[2]))
+#                         score = 1.0
+#                 else:
+#                     score = 1.0
+#                 ncategories.append({ "tag":tag, "score":score })
+#             categories = ncategories
+#==============================================================================
+                
                 
                 
             if keywords.startswith("["):
@@ -158,9 +177,20 @@ class insertion_item_handler(tornado.web.RequestHandler):
         
         if content_type in ["BA","MM","SB"]:
             logging.info("Inserting text for "+ content_type)
-            doc["content-text"] = doc["content-raw"]         
+            doc["content-text"] = doc["content-raw"]  
+            
+        if content_type in ["FM"]:
+            if doc["content-raw"].startswith("data:image/"):
+                logging.info("inserting image")
+                logging.info(doc["content-raw"][0:30])
+                logging.info(doc["content-raw"].partition(",")[0])
+                doc["content-image"] = doc["content-raw"].partition(",")[2]
+                doc["image-properties"] = {"format":"jpg"}
+            else:
+                logging.info(doc["content-raw"][0:30])
+            
         
-        logging.debug(doc)
+        #logging.info(doc)
         #Indexing
         try:
             res = es.index(index=index, doc_type=doc_type, id=uuid, body=doc)

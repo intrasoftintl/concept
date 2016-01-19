@@ -11,6 +11,7 @@ import java.util.Base64;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -86,7 +87,10 @@ public class FileUploadController {
             files.add(fileMeta);
 
             if (files.size() > 0) {
+                //Create a notification for current action
                 notificationService.storeNotification(Integer.valueOf(projectID), NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.UPLOADED, files.size() + " file(s) (" + files.stream().map(s -> s.fileName).collect(Collectors.joining()) + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
+                //Insert document to elastic search engine            
+                ElasticSearchController.getInstance().insert(Optional.ofNullable(fm), Optional.empty());
             }
 
         }

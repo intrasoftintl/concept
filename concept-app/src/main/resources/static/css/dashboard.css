@@ -211,6 +211,21 @@ nav{
     max-height: 200px;
 }
 
+.nav-projects .project-form{
+    display: inline;
+}
+
+.project-prompt {
+    width: 500px;
+    height: 200px;
+    position: absolute;
+    top: 290px;
+    left:120px;
+    z-index: 1000;
+    opacity:0.6;
+    background:url('/images/icon-prompt.png') no-repeat;
+}
+
 /* NAV-ACTIONS CONTAINER */
 .nav-actions{
     width: 240px;
@@ -494,21 +509,44 @@ nav{
     word-wrap: break-word;
 }
 
-.nav-chat .nav-content .chat-list .chat-user {
+.comment-message{
+    border:0;
+    margin:0;
+    padding:10px 10px 40px 10px;
+    height:auto;
+    font-size:13px;
+    color:#444;
+    border-bottom:1px solid #eee;
+    word-wrap: break-word;
+}
+
+.nav-chat .nav-content .chat-list .chat-user,
+.comment-user{
     color:#777;
 }
 
-.nav-chat .nav-content .chat-list .chat-user-you {
+.nav-chat .nav-content .chat-list .chat-user-you,
+.comment-user-you{
     color:#8AC249;
 }
 
-.nav-chat .nav-content .chat-list .chat-timestamp {
-    color:red;
-    //float:right;
+.nav-chat .nav-content .chat-list .chat-timestamp{
     margin:10px;
     color:#ccc;
     margin:0;
     font-size:12px;
+    position:relative;
+    bottom: -30px;
+    padding: 0;
+    display:block;
+}
+
+.comment-timestamp{
+    margin:10px;
+    color:#ccc;
+    margin:0;
+    font-size:12px;
+    font-weight: 800;
     position:relative;
     bottom: -30px;
     padding: 0;
@@ -520,6 +558,10 @@ nav{
     padding:0;
 }
 
+.comment-actions{
+    margin:20px 0;
+}
+
 .nav-chat .nav-content .chat-actions li{
     height:40px;
     margin:0;
@@ -528,7 +570,8 @@ nav{
     border-top:1px solid #eee;
 }
 
-.nav-chat .nav-content .chat-actions .chat-text{
+.nav-chat .nav-content .chat-actions .chat-text,
+.comment-text{
     width:150px;
     padding:0px;
     margin:5px;
@@ -537,13 +580,20 @@ nav{
     border:1px solid #eee;
     border-radius:4px;
 }
-.nav-chat .nav-content .chat-actions input.chat-text{
+
+.comment-text{
+    width:400px;
+}
+
+.nav-chat .nav-content .chat-actions input.chat-text,
+.comment-actions input.comment-text{
     background:#fff;
     padding:5px 10px;
 }
-.nav-chat .nav-content .chat-actions .chat-button{
-    width:auto; 
-    padding:5px 10px;   
+.nav-chat .nav-content .chat-actions .chat-button,
+.comment-actions .comment-button{
+    width:auto;
+    padding:5px 10px;
 }
 
 @media (max-height: 700px) {
@@ -558,7 +608,34 @@ nav{
     }
 }
 
-/* content */
+/* COMMENTS */
+
+.comment-content{
+    margin:0;
+    padding:0 20px 20px 20px;
+    
+}
+
+.comment-content h5{
+    font-size:14px;
+    font-weight: 800;
+    color: #fff;
+    background:#8AC249;
+    border-radius:3px;
+    padding:5px 10px;
+}
+
+.comment-content ul{
+    list-style:none;
+}
+
+.comment-list ul li{
+    padding:10px 0;
+    font-size:14px;
+}
+
+/* CONTENT */
+
 .content{
     background:#f2f2f2;
     opacity:0.8;
@@ -649,6 +726,10 @@ nav{
 }
 .file-timestamp{
     color:#aaa;
+}
+
+#modelFragment img{
+    width:auto;
 }
 
 /* SK APP */
@@ -747,6 +828,13 @@ a.fm-popup {
     overflow-x: scroll;
     padding:10px;
     border-radius: 4px;
+}
+
+#search-upload{
+    display: inline;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
 }
 
 /* BOOTSTRAP OVERRIDE */
@@ -891,4 +979,11 @@ table img.indicator{ width:100px; margin:0; background: #fff; }
 .chosen-container-multi .chosen-choices {
     border-radius: 4px;
     padding:5px 10px;
+}
+
+/* OPENPROJECT OVERRIDE */
+#logo,
+#top-menu,
+#footer{
+    background-color: #ccc;
 }
