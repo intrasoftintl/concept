@@ -411,7 +411,7 @@ public class RestAPIController {
 
         //Insert document to elastic search engine    
         ElasticSearchController.getInstance().insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(sb_id, Util.getComponentName(Storyboard.class.getSimpleName()))));
-        
+
         BasicResponseCode responseCode;
         String responseMessage;
         if (newsb != null) {
@@ -465,10 +465,10 @@ public class RestAPIController {
         mb.setContentThumbnail(fileContent);
         //Save new moodboard
         Moodboard newsb = mbService.store(mb);
-        
+
         //Insert document to elastic search engine    
         ElasticSearchController.getInstance().insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mb_id, Util.getComponentName(Moodboard.class.getSimpleName()))));
-        
+
         //Create response body
         BasicResponseCode responseCode;
         String responseMessage;
@@ -571,4 +571,10 @@ public class RestAPIController {
         }
         return keywords;
     }
+
+    @RequestMapping(value = "/keywords", method = RequestMethod.GET)
+    public List<String> getKeywords() {
+        return metadataService.findAllMetadata();
+    }
+
 }
