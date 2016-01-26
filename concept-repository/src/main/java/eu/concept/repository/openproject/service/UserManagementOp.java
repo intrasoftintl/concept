@@ -1,6 +1,5 @@
 package eu.concept.repository.openproject.service;
 
-import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
 import eu.concept.response.ApplicationResponse;

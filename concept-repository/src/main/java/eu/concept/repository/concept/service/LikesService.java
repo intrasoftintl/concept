@@ -29,10 +29,6 @@ public class LikesService {
         return likesRepo.findByUidAndMmId(user, mindmap);
     }
 
-    public Likes findSketchLike(UserCo user, Sketch sketch) {
-        return likesRepo.findByUidAndSkId(user, sketch);
-    }
-
     public Likes findStoryBoardLike(UserCo user, Storyboard storyboard) {
         return likesRepo.findByUidAndSbId(user, storyboard);
     }

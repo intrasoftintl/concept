@@ -13,6 +13,7 @@ import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.util.other.EtherpadHandler;
 import eu.concept.util.other.NotificationTool;
+import eu.concept.util.other.Util;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -74,7 +75,6 @@ public class BriefAnalysisController {
         return "ba :: baContentAllList";
     }
 
-    //TODO: Show succes/error message on save
     @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByID(Model model, @PathVariable int ba_id) {
         BriefAnalysis ba = baService.fetchBriefAnalysisById(ba_id);
@@ -120,10 +120,10 @@ public class BriefAnalysisController {
             } catch (EPLiteException ex) {
                 logger.log(Level.SEVERE, "Could not delete pad from Etherpad-lite, reason: {0}", ex.getLocalizedMessage());
             }
-            //Delete from elastic search engine (id= project_id+ba_id)
-            ElasticSearchController.getInstance().deleteById(String.valueOf(project_id) + String.valueOf(ba_id));
             //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
+            //Delete from elastic search engine (id=component_name+ba_id)
+            ElasticSearchController.getInstance().deleteById(Util.getComponentName(BriefAnalysis.class.getSimpleName()) + String.valueOf(ba_id));
         }
         return fetchBAByProjectID(model, project_id, limit);
     }
@@ -181,10 +181,8 @@ public class BriefAnalysisController {
         if (baService.storeFile(ba)) {
             //Create a notification for current action
             notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
-            //Insert document to elastic search engine            
-            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), "BA")));
-
-            //Post Elastic search engine
+            //Insert document to elastic search engine       
+            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), Util.getComponentName(BriefAnalysis.class.getSimpleName()))));
             redirectAttributes.addFlashAttribute("success", "Document saved!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Document couldn't be saved.");

@@ -6,7 +6,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-3">Recent Moodboards</th>
-                        <th class="col-md-4">User</th>
+                        <th class="col-md-4">Details</th>
                         <th class="col-md-5"></th>
                     </tr>
                 </thead>
@@ -85,6 +85,15 @@
 
                         <span th:id="@{'MB' + ${mbContent.id} }" th:attr="onclick=@{'setIsPublic(\'MB\','+${mbContent.id} } +')' " th:classappend="(${mbContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                         <span th:id="@{'LikeMB' + ${mbContent.id} }" th:attr="onclick=@{'like(\'MB\','+${mbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountMB' + ${mbContent.id} }" th:text="${#arrays.length(mbContent.getLikes())}" class="label label-warning"></span>
+                        <br/>
+                        <form id="se-form" method="post" action="/search_similar" th:object="${mbContent}">
+                            <input type="hidden" th:value="${mbContent.id}" name="cid"/>
+                            <input type="hidden" th:value="${mbContent.pid}" name="project_id"/>
+                            <input type="hidden" value="MB" name="cname"/>
+                            <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
+                        </form>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mbContent.id} + '&amp;cname=MB&amp;source=flickr'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a><br/>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mbContent.id} + '&amp;cname=MB&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V &amp; A Museum</a>
                     </td>
                 </tr>
             </tbody>

@@ -48,7 +48,8 @@
                             lockUrl:"c/restful/maps/{id}/lock",
                             timestamp: "${lockTimestamp}",
                             session: "${lockSession}",
-                            idUserConcept: "${userId}"
+                            idUserConcept: "${userId}",
+                            urlKeyWords:"http://concept.euprojects.net/conceptRest/api/keywords",
                         }
                 );
             </c:if>

@@ -51,9 +51,7 @@ public class BriefAnalysisService {
         if ("CLIENT".equals(user.getRole())) {
             files = briefAnalysisRepo.findByPidAndIsPublicOrderByCreatedDateDesc(projectID, new Short("1"), pageRequest);
         } else {
-
             files = briefAnalysisRepo.findByPidOrderByCreatedDateDesc(projectID, pageRequest);
-            System.out.println("Files size: " + files.size());
         }
         return files;
     }

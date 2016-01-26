@@ -1,23 +1,21 @@
 package eu.concept.controller.component;
 
-import com.google.common.base.Joiner;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import eu.concept.controller.ElasticSearchController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.ComponentRepository;
 import eu.concept.repository.concept.domain.Component;
+import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.Search;
 import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
-import java.util.ArrayList;
+import eu.concept.util.semantic.SemanticAnnotator;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 import org.jboss.logging.Logger;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -49,7 +46,7 @@ public class SearchController {
     ComponentRepository componentRepo;
 
     @Autowired
-    MetadataService metadatService;
+    MetadataService metadataService;
 
 
     /*
@@ -62,7 +59,7 @@ public class SearchController {
         search.setComponent(new Component());
         model.addAttribute("search", search);
         model.addAttribute("components", componentRepo.findAll());
-        model.addAttribute("keywordsAll", metadatService.findAllMetadata());
+        model.addAttribute("keywordsAll", metadataService.findAllMetadata());
         return "se :: seContent";
     }
 
@@ -90,35 +87,51 @@ public class SearchController {
     @RequestMapping(value = "/search_upload", method = RequestMethod.POST)
     public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("project_id") String project_id, Model model) {
         if (!file.isEmpty()) {
+            String keywordPhrase = "";
             try {
-                byte[] bytes = file.getBytes();
-                HttpResponse<JsonNode> response = Unirest.post("http://192.168.3.5:8081/semantic-enhancer/tags/image").body(bytes).asJson();
-                JSONArray results = response.getBody().getArray();
-                List<String> keywords = new ArrayList<>();
-                //Iterate all keywords
-                for (int i = 0; i < results.length(); i++) {
-                    if (0.5 < results.getJSONObject(i).getDouble("relevancy")) {
-                        keywords.add(results.getJSONObject(i).getString("name"));
-                    }
-                }
-                //Construct Keywords Phrase
-                String keywordPhrase = Joiner.on(",").join(keywords);
-                System.out.println("Keyword Phrase is: "+keywordPhrase);
-                List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-                model.addAttribute("projects", projects);
-                model.addAttribute("projectID", project_id);
-                model.addAttribute("currentUser", getCurrentUser());
-                String search_query_url = constructSearchUrl(project_id, "", "", "", keywordPhrase);
-                model.addAttribute("search_query_url", search_query_url);
-
-            } catch (Exception e) {
-                return "You failed to upload  => " + e.getMessage();
+                keywordPhrase = SemanticAnnotator.extractKeywordsFromImage(file.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD);
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+            model.addAttribute("projects", projects);
+            model.addAttribute("projectID", project_id);
+            model.addAttribute("currentUser", getCurrentUser());
+            String search_query_url = constructSearchUrl(project_id, "", "", "", keywordPhrase);
+            model.addAttribute("search_query_url", search_query_url);
         } else {
             //TODO: Error Handling
         }
 
         return "se_app";
+    }
+
+    @RequestMapping(value = "/search_similar", method = RequestMethod.POST)
+    public String searchFromOther(Model model, @RequestParam(name = "project_id", defaultValue = "0") String project_id, @RequestParam(name = "cid", defaultValue = "0") String cid, @RequestParam(name = "cname", defaultValue = "") String cname) {
+        Metadata metadata = metadataService.fetchMetadataByCidAndComponent(Integer.valueOf(cid), cname);
+        if (null != metadata) {
+            Logger.getLogger(SearchController.class.getName()).info("Cid: " + cid + "Pid: " + project_id + " Cname: " + cname + " Keywords: " + metadata.getKeywords());
+        }
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
+        String search_query_url = constructSearchUrl(project_id, "", "", "", (null == metadata.getKeywords() ? "" : metadata.getKeywords()));
+        model.addAttribute("search_query_url", search_query_url);
+        return "se_app";
+    }
+
+    @RequestMapping(value = "/search_external", method = RequestMethod.GET)
+    public String searchExternal(String project_id, @RequestParam(name = "cid", defaultValue = "0") String cid, @RequestParam(name = "cname", defaultValue = "") String cname, @RequestParam(name = "source", defaultValue = "") String source) {
+        String url = "error";
+        Metadata metadata = metadataService.fetchMetadataByCidAndComponent(Integer.valueOf(cid), cname);
+        if (null != metadata && "flickr".equals(source)) {
+            url = "https://www.flickr.com/search/?text=" + metadata.getKeywords();
+        } else if (null != metadata && "vam".equals(source)) {
+            url = "http://collections.vam.ac.uk/search/?q=" + metadata.getKeywords();
+        }
+        Logger.getLogger(SearchController.class.getName()).info("External Url: "+url);
+        return "redirect:" + url;
     }
 
     private String constructSearchUrl(String projectId, String content, String component, String categories, String keywords) {

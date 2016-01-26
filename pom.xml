@@ -9,9 +9,9 @@
     <version>v0.0.1</version>
 
     <modules>
-        <module>concept-app</module>
         <module>concept-repository</module>
         <module>concept-util</module>
+        <module>concept-app</module>
     </modules>
 
     <properties>

@@ -6772,6 +6772,7 @@ mindplot.RESTPersistenceManager = new Class({Extends: mindplot.PersistenceManage
         $assert(a.timestamp, "timestamp can not be null");
         this.documentUrl = a.documentUrl;
         this.documentUrlConcept = a.documentUrlConcept;
+        this.urlKeyWords = a.urlKeyWords;
         this.revertUrl = a.revertUrl;
         this.lockUrl = a.lockUrl;
         this.timestamp = a.timestamp;
@@ -6848,6 +6849,42 @@ mindplot.RESTPersistenceManager = new Class({Extends: mindplot.PersistenceManage
             }});
         if (a == null) {
             throw new Error("Map could not be loaded")
+        } else {
+            /* here I should check if is a new document. */
+        	var myMapStr = new XMLSerializer().serializeToString(a.documentElement);
+        	var newVersionStr = '<map name="3" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"/></map>';        	
+            var isNew = false;
+            if (myMapStr == newVersionStr) {
+    	        $.ajax({
+    	        	url: this.urlKeyWords,
+    	        	method: "get",
+    	        	async: false,
+    	        	headers: {"Content-Type": "application/json", "Accept": "application/json"},
+    	        	success: function(c) {
+    	        		var xPos = -630;
+    	        		var yPos = -200;
+    	        		var columnSize = 10;
+   	        			for (i = 0; i < c.length; i++) { 
+	        				var x = xPos + (Math.floor(i/columnSize)*140);
+    	        			if (x>-200) {
+    	        				x+=230;
+    	        			}
+    	        			var myKeyWord = c[i];
+    	        			if (myKeyWord.length>29) {
+    	        				myKeyWord = myKeyWord.substring(0, 26) + "...";
+    	        			}
+	        				var y = yPos + i%columnSize*40;
+	        				var myTopic = a.createElement("topic");
+	        				myTopic.setAttribute("text", myKeyWord);
+	        				myTopic.setAttribute("position", x + "," + y);
+	        				myTopic.setAttribute("order", i);
+	        				myTopic.setAttribute("id", i + 2);
+	        				x = a.getElementsByTagName("map")[0];
+	        				x.appendChild(myTopic);
+    	        		}
+    	        	}
+    	        });
+            }
         }
         return a
     }});

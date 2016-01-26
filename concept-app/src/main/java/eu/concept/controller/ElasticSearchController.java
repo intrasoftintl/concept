@@ -23,14 +23,12 @@ public final class ElasticSearchController {
     private static Optional<ElasticSearchController> instance = Optional.empty();
     private static final Logger logger = Logger.getLogger(ElasticSearchController.class.getName());
 
-    
-    private final String INSERT_URL =  "http://192.168.3.5:9999/insert_item";
+    private final String INSERT_URL = "http://192.168.3.5:9999/insert_item";
     private final String DELETE_URL = "http://192.168.3.5:9999/delete_item";
     private final String COnCEPT_BASE_URL = "http://concept.euprojects.net/";
     private final Map<Integer, String> categoriesMap = new HashMap<>();
 
-    
-    private ElasticSearchController() {        
+    private ElasticSearchController() {
         String[] categoriesList = new String[]{"ProductCategory,1", "Kitchenware,11", "Exhibition,12", "Lighting,13", "Furniture,14", "ProductDomain,2", "Medical,21", "Cosumer,22", "Sport,23", "MarketAnalysis,24", "Technology,25", "Usability,26", "ProductLanguage,3", "Style,31", "PeriodStyle,311", "Clasic,3112", "Chic,3113", "Modern,3113", "Artdeco,3115", "PartialStyle,312", "National,3121", "Corporate,3122", "TargetStyle,3123", "Material,32", "Steel,321", "Stone,322", "AssociationsandFeelings,33", "Cold,331", "Warm,332", "Aggressive,333"};
         for (String category : categoriesList) {
             categoriesMap.put(Integer.parseInt(category.split(",")[1]), category.split(",")[0]);
@@ -127,7 +125,7 @@ public final class ElasticSearchController {
             return false;
         }
         //Create the unique id for the elastic document
-        elastic_id = String.valueOf(pid) + String.valueOf(id);
+        elastic_id = component + String.valueOf(id);
         //Make the call to insert document to elastic
         try {
             HttpResponse<String> response = Unirest.post(INSERT_URL).field("id", elastic_id).field("project_id", pid).field("title", title).field("content", content).field("url", url).field("component", component).field("keywords", keywords).field("categories", categories).asString();
@@ -142,7 +140,11 @@ public final class ElasticSearchController {
         return false;
     }
 
-    public  String getCategoriesNames(String categories) {
+    public String getCategoriesNames(String categories) {
+        if (categories.isEmpty()) {
+            return categories;
+        }
+
         int end = categories.length() - 1;
         int start = categories.indexOf("selected_node") + "selected_node".length() + 2;
         String categoriesIds[] = categories.substring(start, end).replace("[", "").replace("]", "").split(",");
@@ -157,15 +159,15 @@ public final class ElasticSearchController {
     }
 
     private String getComponentName(String className) {
-        
-        System.out.println("Class name is: "+className);
+
+        System.out.println("Class name is: " + className);
 
         switch (className) {
             case "BriefAnalysis":
                 return "BA";
             case "FileManagement":
                 return "FM";
-
+            //Deprecated
             case "Sketch":
                 return "SK";
 
@@ -187,17 +189,15 @@ public final class ElasticSearchController {
     private String getURL(String componentName, String componentId, String projectId, String userId) {
         switch (componentName) {
             case "BA":
-                return COnCEPT_BASE_URL.concat("ba_app/").concat(componentId);
+                return COnCEPT_BASE_URL.concat("ba_all/").concat(projectId).concat("/").concat(componentId);
             case "FM":
-                return COnCEPT_BASE_URL.concat("file/").concat(componentId);
-            case "SK":
-                return COnCEPT_BASE_URL.concat("sk_app/").concat(componentId);
+                return COnCEPT_BASE_URL.concat("fm_all/").concat(projectId).concat("/").concat(componentId);
             case "MM":
-                return "http://concept-mm.euprojects.net/wisemapping/c/maps/" + componentId + "/" + userId + "/edit";
+                return COnCEPT_BASE_URL.concat("mm_all/").concat(projectId).concat("/").concat(componentId);
             case "MB":
-                return "N/A";
+                return COnCEPT_BASE_URL.concat("mb_all/").concat(projectId).concat("/").concat(componentId);
             case "SB":
-                return "http://concept-sb.euprojects.net/storyboard/storyboard/edit?pid= " + projectId + "&uid=" + userId + "4&idStory=" + componentId;
+                return COnCEPT_BASE_URL.concat("sb_all/").concat(projectId).concat("/").concat(componentId);
             //Unknown name of component    
             default:
                 return "N/A";

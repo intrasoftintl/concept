@@ -2,15 +2,20 @@ package eu.concept.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eu.concept.configuration.COnCEPTProperties;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.service.FileManagementService;
+import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.util.other.NotificationTool;
+import eu.concept.util.semantic.SemanticAnnotator;
 import java.io.IOException;
 import java.util.Base64;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -38,13 +43,10 @@ public class FileUploadController {
     NotificationService notificationService;
 
     @Autowired
-    COnCEPTProperties conceptProperties;
+    MetadataService metadataService;
 
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public @ResponseBody
-    String provideUploadInfo() {
-        return "You can upload a file by posting to this same URL.";
-    }
+    @Autowired
+    COnCEPTProperties conceptProperties;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody
@@ -84,13 +86,32 @@ public class FileUploadController {
                 Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Could not upload file with name: {0}", fileMeta.getFileName());
             }
             files.add(fileMeta);
-
             if (files.size() > 0) {
+                //Create a notification for current action
                 notificationService.storeNotification(Integer.valueOf(projectID), NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.UPLOADED, files.size() + " file(s) (" + files.stream().map(s -> s.fileName).collect(Collectors.joining()) + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
+                //Insert document to elastic search engine            
+                ElasticSearchController.getInstance().insert(Optional.ofNullable(fm), generateMetadata(fileMeta, fm.getId()));
             }
-
         }
         return files;
+    }
+
+    private Optional<Metadata> generateMetadata(FileMeta filemeta, int fileId) {
+        Optional<Metadata> metadata = Optional.empty();
+        //Extract Keywords of a file
+        if (filemeta.getFileType().contains("application")) {
+            metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromFile(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
+        } //Extract Keywords of an image
+        else if (filemeta.getFileType().contains("image")) {
+            metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromImage(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
+        } else {
+            Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Unsupported file type:{0}", filemeta.getFileType());
+            return metadata;
+        }
+        
+        metadata.get().setComponent(new Component("FM"));
+        metadataService.storeMetadata(metadata.get());
+        return metadata;
     }
 
     @JsonIgnoreProperties({"bytes"})
