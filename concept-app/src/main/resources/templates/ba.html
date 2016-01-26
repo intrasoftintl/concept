@@ -64,6 +64,11 @@
                         &nbsp;
                         <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')' " th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                         <span th:id="@{'LikeBA' + ${baContent.id} }" th:attr="onclick=@{'like(\'BA\','+${baContent.id} } +')'"  class="glyphicon glyphicon-thumbs-up" th:classappend="(${baContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountBA' + ${baContent.id} }" th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>
+                        <br/>
+                        <form id="se-form" method="post" action="/se_app">
+                            <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
+                        </form>
+                        <a style="margin-top:4px" href="https://www.flickr.com/search/?text=cup" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a>
                     </td>
                 </tr>
             </tbody>

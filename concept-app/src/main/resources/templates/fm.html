@@ -73,6 +73,11 @@
                         &nbsp;
                         <span th:id="@{'FM' + ${fmContent.id} }" th:attr="onclick=@{'setIsPublic(\'FM\','+${fmContent.id} } +')' " th:classappend="(${fmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                         <span th:id="@{'LikeFM' + ${fmContent.id} }" th:attr="onclick=@{'like(\'FM\','+${fmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${fmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountFM' + ${fmContent.id} }" th:text="${#arrays.length(fmContent.getLikes())}" class="label label-warning"></span>
+                        <br/>
+                        <form id="se-form" method="post" action="/se_app">
+                            <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
+                        </form>
+                        <a style="margin-top:4px" href="https://www.flickr.com/search/?text=cup" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a>
                     </td>
                 </tr>  
             </tbody>
