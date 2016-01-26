@@ -128,7 +128,7 @@ public class SearchController {
         if (null != metadata && "flickr".equals(source)) {
             url = "https://www.flickr.com/search/?text=" + metadata.getKeywords();
         } else if (null != metadata && "vam".equals(source)) {
-            url = "http://collections.vam.ac.uk/search/?listing_type=imagetext&amp;offset=0&amp;limit=15&amp;narrow=1&amp;extrasearch=&amp;q=" + metadata.getKeywords() + "&amp;commit=Search&amp;quality=1&amp;objectnamesearch=&amp;placesearch=&amp;after=&amp;after-adbc=AD&amp;before=&amp;before-adbc=AD&amp;namesearch=&amp;materialsearch=&amp;mnsearch=&amp;locationsearch=";
+            url = "http://collections.vam.ac.uk/search/?q=" + metadata.getKeywords();
         }
         Logger.getLogger(SearchController.class.getName()).info("External Url: "+url);
         return "redirect:" + url;
