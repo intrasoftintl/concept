@@ -75,7 +75,6 @@ public class BriefAnalysisController {
         return "ba :: baContentAllList";
     }
 
-    //TODO: Show succes/error message on save
     @RequestMapping(value = "/ba_app/{ba_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByID(Model model, @PathVariable int ba_id) {
         BriefAnalysis ba = baService.fetchBriefAnalysisById(ba_id);
@@ -182,8 +181,8 @@ public class BriefAnalysisController {
         if (baService.storeFile(ba)) {
             //Create a notification for current action
             notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
-            //Insert document to elastic search engine            
-            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), Util.getComponentName(BriefAnalysis.class.getName()))));
+            //Insert document to elastic search engine       
+            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), Util.getComponentName(BriefAnalysis.class.getSimpleName()))));
             redirectAttributes.addFlashAttribute("success", "Document saved!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Document couldn't be saved.");
