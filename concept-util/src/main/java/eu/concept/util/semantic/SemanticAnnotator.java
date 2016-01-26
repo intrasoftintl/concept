@@ -38,6 +38,7 @@ public class SemanticAnnotator {
             JSONArray results = response.getBody().getArray();
             //Iterate all keywords
             for (int i = 0; i < results.length(); i++) {
+                System.out.println("Keyword: "+results.getJSONObject(i).getString("name"));
                 if (DEFAULT_RELEVANCY_THRESHOLD < results.getJSONObject(i).getDouble("relevancy")) {
                     keywords.add(results.getJSONObject(i).getString("name"));
                 }
