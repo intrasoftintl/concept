@@ -6,7 +6,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
-import eu.concept.repository.concept.domain.Moodboard;
 import eu.concept.repository.concept.domain.Storyboard;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.StoryboardService;
@@ -19,7 +18,6 @@ import eu.concept.util.other.Util;
 
 import java.io.*;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -63,8 +61,6 @@ public class StoryboardController {
     public String sb_all(Model model) {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
-
-        System.out.println("Current User: " + getCurrentUser().getId());
         model.addAttribute("currentUser", getCurrentUser());
         return "sb_all";
     }

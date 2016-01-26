@@ -5,7 +5,6 @@ import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.domain.Likes;
 import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.domain.Moodboard;
-import eu.concept.repository.concept.domain.Sketch;
 import eu.concept.repository.concept.domain.Storyboard;
 import eu.concept.repository.concept.domain.UserCo;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -30,8 +29,4 @@ public interface LikesRepository extends JpaRepository<Likes, Integer> {
 
     //Fetch Moodboard Likes for a spercific User
     public Likes findByUidAndMbId(UserCo user, Moodboard mb_id);
-
-    //Fetch Sketch  Likes for a spercific User
-    public Likes findByUidAndSkId(UserCo user, Sketch sk_id);
-
 }

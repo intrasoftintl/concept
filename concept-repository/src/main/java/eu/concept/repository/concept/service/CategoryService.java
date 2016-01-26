@@ -170,7 +170,7 @@ public class CategoryService {
     public List<Category> getChilds(Category currentNode, List<Category> nodes, List<Category> categories) {
 
         for (Category tempCategory : categories) {
-            if (tempCategory.getParentID().getId() == currentNode.getId()) {
+            if (tempCategory.getParentID().getId().compareTo(currentNode.getId()) == 0 ) {
                 nodes.add(tempCategory);
                 return getChilds(tempCategory, nodes, categories);
             }

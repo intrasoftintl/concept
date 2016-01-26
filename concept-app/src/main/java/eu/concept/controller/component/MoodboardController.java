@@ -6,7 +6,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
-import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.Moodboard;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.MoodboardService;

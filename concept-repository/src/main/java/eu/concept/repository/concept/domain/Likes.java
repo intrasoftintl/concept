@@ -35,10 +35,6 @@ public class Likes implements Serializable {
     @ManyToOne
     private BriefAnalysis baId;
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinColumn(nullable = true, name = "sk_id", referencedColumnName = "id")
-    @ManyToOne
-    private Sketch skId;
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(nullable = true, name = "fm_id", referencedColumnName = "id")
     @ManyToOne
     private FileManagement fmId;
@@ -53,7 +49,7 @@ public class Likes implements Serializable {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(nullable = true, name = "mb_id", referencedColumnName = "id")
     @ManyToOne
-    private  Moodboard mbId;
+    private Moodboard mbId;
 
     public Likes() {
     }
@@ -97,14 +93,6 @@ public class Likes implements Serializable {
 
     public void setBaId(BriefAnalysis baId) {
         this.baId = baId;
-    }
-
-    public Sketch getSkId() {
-        return skId;
-    }
-
-    public void setSkId(Sketch skId) {
-        this.skId = skId;
     }
 
     public FileManagement getFmId() {

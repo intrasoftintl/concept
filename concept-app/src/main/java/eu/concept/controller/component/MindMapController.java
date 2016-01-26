@@ -81,7 +81,6 @@ public class MindMapController {
         } else {
             String currentUserID = String.valueOf(WebController.getCurrentUserCo().getId());
             String createdMMURL = conceptProperties.getmindmapediturl();
-            logger.log(Level.INFO, "Create URL : {0}", conceptProperties.getmindmapcreateurl());
             String URI = conceptProperties.getmindmapcreateurl().concat(currentUserID).concat("/").concat(String.valueOf(projectID));
             RestTemplate restTemplate = new RestTemplate();
             ResponseEntity<MindMapCreateResponse> mindmapCreateResponse = restTemplate.getForEntity(URI, MindMapCreateResponse.class);

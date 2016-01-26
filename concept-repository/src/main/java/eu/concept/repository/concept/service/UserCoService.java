@@ -35,13 +35,10 @@ public class UserCoService {
      */
     public UserCo findByUsernameAndPassword(String username, String password) {
         UserCo user;
-        logger.info("Trying to fetch User with username: " + username + " and password(SHA): " + Util.createAlgorithm(password, "SHA"));
         user = userDAO.findByUsernameAndPassword(username, Util.createAlgorithm(password, "SHA"));
         if (null == user) {
             logger.warning("User could not be found...");
-        } else {
-            logger.info("Fetched user with ID: " + user.getId());
-        }
+        } 
         return user;
     }
     

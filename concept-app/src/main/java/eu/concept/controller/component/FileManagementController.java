@@ -89,7 +89,6 @@ public class FileManagementController {
     @RequestMapping(value = "/fm_app/{image_id}", produces = MediaType.ALL_VALUE)
     public ResponseEntity<byte[]> getImageRedirect(@PathVariable("image_id") int imageId, @RequestParam(value = "preview", defaultValue = "0", required = false) int preview) throws IOException {
         return getImage(imageId, preview);
-        //return "redirect:/file/" + imageId;
     }
 
     @RequestMapping(value = "/filemanagement/{project_id}", method = RequestMethod.GET)

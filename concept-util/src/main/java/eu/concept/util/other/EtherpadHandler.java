@@ -32,15 +32,15 @@ public enum EtherpadHandler {
         
         String[] padIds = "16,17,18,19".split(",");
         
-//        for (String padId : padIds){
-//            
-//            try{
-//            
-//            EtherpadHandler.INSTANCE.getClient().deletePad(padId);
-//            }catch (EPLiteException ex){
-//                System.out.println(ex.getLocalizedMessage());
-//            }
-//        }
+        for (String padId : padIds){
+            
+            try{
+            
+            EtherpadHandler.INSTANCE.getClient().deletePad(padId);
+            }catch (EPLiteException ex){
+                System.out.println(ex.getLocalizedMessage());
+            }
+        }
         
         EtherpadHandler.INSTANCE.getClient().listAllPads().values().forEach(System.out :: println);
         

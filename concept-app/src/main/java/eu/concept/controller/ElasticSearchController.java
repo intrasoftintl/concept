@@ -192,18 +192,12 @@ public final class ElasticSearchController {
                 return COnCEPT_BASE_URL.concat("ba_all/").concat(projectId).concat("/").concat(componentId);
             case "FM":
                 return COnCEPT_BASE_URL.concat("fm_all/").concat(projectId).concat("/").concat(componentId);
-            //Deprecated
-            case "SK":
-                return COnCEPT_BASE_URL.concat("sk_app/").concat(componentId);
             case "MM":
                 return COnCEPT_BASE_URL.concat("mm_all/").concat(projectId).concat("/").concat(componentId);
-//                return "http://concept-mm.euprojects.net/wisemapping/c/maps/" + componentId + "/" + userId + "/edit";
             case "MB":
                 return COnCEPT_BASE_URL.concat("mb_all/").concat(projectId).concat("/").concat(componentId);
-//                return "N/A";
             case "SB":
                 return COnCEPT_BASE_URL.concat("sb_all/").concat(projectId).concat("/").concat(componentId);
-            //return "http://concept-sb.euprojects.net/storyboard/storyboard/edit?pid= " + projectId + "&uid=" + userId + "4&idStory=" + componentId;
             //Unknown name of component    
             default:
                 return "N/A";

@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 public class SemanticAnnotator {
 
     private static final Logger logger = Logger.getLogger(SemanticAnnotator.class.getName());
-    public static final double DEFAULT_RELEVANCY_THRESHOLD = 0.5;
+    public static final double DEFAULT_RELEVANCY_THRESHOLD = 0.4;
     private static final Parser DocumentParser = new AutoDetectParser();
 
     public static String extractKeywordsFromImage(byte[] fileContent, double score_threshold) {
@@ -40,7 +40,6 @@ public class SemanticAnnotator {
             JSONArray results = response.getBody().getArray();
             //Iterate all keywords
             for (int i = 0; i < results.length(); i++) {
-                System.out.println("Keyword: "+results.getJSONObject(i).getString("name") +" Relevancy: "+results.getJSONObject(i).getDouble("relevancy"));
                 if (DEFAULT_RELEVANCY_THRESHOLD < results.getJSONObject(i).getDouble("relevancy")) {
                     keywords.add(results.getJSONObject(i).getString("name"));
                 }
@@ -48,14 +47,12 @@ public class SemanticAnnotator {
         } catch (UnirestException ex) {
             Logger.getLogger(SemanticAnnotator.class.getName()).log(Level.SEVERE, null, ex);
         }
-        logger.log(Level.INFO, "Phrase constructed is: {0}", Joiner.on(",").join(keywords));
         //Construct & Return Keywords Phrase
         return Joiner.on(",").join(keywords);
     }
 
     public static String extractKeywordsFromFile(byte[] fileContent, double score_threshold) {
        String extractedText = extractTextFromFile(fileContent);
-          logger.log(Level.INFO, "Extracted test is: {0}", extractedText);
           return getTagsForText(extractedText, score_threshold);
     }
 
@@ -81,7 +78,6 @@ public class SemanticAnnotator {
                     tags.add((String) obj.get("name"));
                 }
             }
-            logger.log(Level.INFO, "Phrase constructed is: {0}", Joiner.on(",").join(tags));
             return Joiner.on(",").join(tags);
 
         } catch (Exception e) {

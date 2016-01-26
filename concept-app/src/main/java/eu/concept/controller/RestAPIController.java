@@ -80,9 +80,6 @@ public class RestAPIController {
     NotificationService notificationService;
 
     @Autowired
-    SketchService skService;
-
-    @Autowired
     BriefAnalysisService briefAnalysisService;
 
     @Autowired
@@ -162,10 +159,7 @@ public class RestAPIController {
      */
     @RequestMapping(value = "/mindmap", method = RequestMethod.POST, consumes = "application/json")
     public ApplicationResponse createMindMap(@RequestBody MindMap mindmap) {
-
-        System.out.println("Thumbnail content: " + (mindmap.getContentThumbnail() == null ? "nothing at al..." : mindmap.getContentThumbnail().toString()));
-
-        System.out.println("ProjectID: " + mindmap.getPid());
+        System.out.println("Thumbnail content: " + (mindmap.getContentThumbnail() == null ? "nothing at all..." : mindmap.getContentThumbnail().toString()));
         restLogger.info("Trying to create/update a mindmap...");
         String responseMessage = "Could not store mindmap to COnCEPT db... ";
         BasicResponseCode responseCode = BasicResponseCode.UNKNOWN;
@@ -211,9 +205,6 @@ public class RestAPIController {
 
             case "MM":
                 return mindmapService.changePublicStatus(component_id, isPublic);
-
-            case "SK":
-                return skService.changePublicStatus(component_id, isPublic);
 
             case "SB":
                 return sbService.changePublicStatus(component_id, isPublic);
@@ -270,18 +261,6 @@ public class RestAPIController {
                     likes.setMmId(null);
                 }
 //                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
-                return (likesService.storeLikes(likes) ? 1 : 0);
-
-            case "SK":
-                Sketch sk = new Sketch(component_id);
-                likes = likesService.findSketchLike(currentUser, sk);
-                if (null == likes) {
-                    likes = new Likes(null, currentUser);
-                    likes.setSkId(sk);
-                } else {
-                    likes.setSkId(null);
-                }
-
                 return (likesService.storeLikes(likes) ? 1 : 0);
 
             case "SB":
@@ -377,7 +356,6 @@ public class RestAPIController {
             @RequestParam(value = "pid") int projetct_id,
             @RequestParam(value = "uid") int uid,
             @RequestParam(value = "title") String title,
-            /*@RequestParam(value = "date") Date date,*/
             @RequestParam(value = "content") String content,
             @RequestParam(value = "content_thumbnail") String content_thumbnail
     ) {
@@ -449,8 +427,6 @@ public class RestAPIController {
             outputStream.flush();
             String base64 = new String(Base64.encodeBase64(((ByteArrayOutputStream) outputStream).toByteArray()));
             fileContent = "data:".concat("image/png".concat(";base64,").concat(base64));
-            //System.out.println(fileContent);
-
         } catch (IOException | TranscoderException ex) {
             Logger.getLogger(RestAPIController.class.getName()).log(Level.SEVERE, null, ex);
         }

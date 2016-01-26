@@ -48,12 +48,6 @@ public class FileUploadController {
     @Autowired
     COnCEPTProperties conceptProperties;
 
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    public @ResponseBody
-    String provideUploadInfo() {
-        return "You can upload a file by posting to this same URL.";
-    }
-
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody
     LinkedList<FileMeta> upload(MultipartHttpServletRequest request, HttpServletResponse response) {
@@ -92,7 +86,6 @@ public class FileUploadController {
                 Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Could not upload file with name: {0}", fileMeta.getFileName());
             }
             files.add(fileMeta);
-
             if (files.size() > 0) {
                 //Create a notification for current action
                 notificationService.storeNotification(Integer.valueOf(projectID), NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.UPLOADED, files.size() + " file(s) (" + files.stream().map(s -> s.fileName).collect(Collectors.joining()) + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
@@ -107,11 +100,9 @@ public class FileUploadController {
         Optional<Metadata> metadata = Optional.empty();
         //Extract Keywords of a file
         if (filemeta.getFileType().contains("application")) {
-            Logger.getLogger(FileUploadController.class.getName()).info("Extracting Keywords from file...");
             metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromFile(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
         } //Extract Keywords of an image
         else if (filemeta.getFileType().contains("image")) {
-            Logger.getLogger(FileUploadController.class.getName()).info("Extracting Keywords from image...");
             metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromImage(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
         } else {
             Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Unsupported file type:{0}", filemeta.getFileType());

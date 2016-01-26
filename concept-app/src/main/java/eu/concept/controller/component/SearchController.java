@@ -1,9 +1,5 @@
 package eu.concept.controller.component;
 
-import com.google.common.base.Joiner;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import eu.concept.controller.ElasticSearchController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.ComponentRepository;
@@ -16,11 +12,9 @@ import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.semantic.SemanticAnnotator;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import org.jboss.logging.Logger;
-import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,19 +86,6 @@ public class SearchController {
     @RequestMapping(value = "/search_upload", method = RequestMethod.POST)
     public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("project_id") String project_id, Model model) {
         if (!file.isEmpty()) {
-//            try {
-//                byte[] bytes = file.getBytes();
-//                HttpResponse<JsonNode> response = Unirest.post("http://192.168.3.5:8081/semantic-enhancer/tags/image").body(bytes).asJson();
-//                JSONArray results = response.getBody().getArray();
-//                List<String> keywords = new ArrayList<>();
-//                //Iterate all keywords
-//                for (int i = 0; i < results.length(); i++) {
-//                    if (0.5 < results.getJSONObject(i).getDouble("relevancy")) {
-//                        keywords.add(results.getJSONObject(i).getString("name"));
-//                    }
-//                }
-//                //Construct Keywords Phrase
-//                String keywordPhrase = Joiner.on(",").join(keywords);
             String keywordPhrase = "";
             try {
                 keywordPhrase = SemanticAnnotator.extractKeywordsFromImage(file.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD);
@@ -117,10 +98,6 @@ public class SearchController {
             model.addAttribute("currentUser", getCurrentUser());
             String search_query_url = constructSearchUrl(project_id, "", "", "", keywordPhrase);
             model.addAttribute("search_query_url", search_query_url);
-
-//            } catch (Exception e) {
-//                return "You failed to upload  => " + e.getMessage();
-//            }
         } else {
             //TODO: Error Handling
         }

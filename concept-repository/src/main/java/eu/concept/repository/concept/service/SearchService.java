@@ -1,9 +1,6 @@
 package eu.concept.repository.concept.service;
 
-import eu.concept.repository.concept.dao.MetadataRepository;
 import eu.concept.repository.concept.dao.SearchRepository;
-import eu.concept.repository.concept.domain.Component;
-import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.Search;
 import java.util.List;
 import java.util.logging.Logger;
