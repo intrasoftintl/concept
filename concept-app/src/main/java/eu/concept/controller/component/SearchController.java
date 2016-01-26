@@ -4,12 +4,15 @@ import eu.concept.controller.ElasticSearchController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.ComponentRepository;
 import eu.concept.repository.concept.domain.Component;
+import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.Search;
 import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.util.other.Util;
 import eu.concept.util.semantic.SemanticAnnotator;
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +48,7 @@ public class SearchController {
     ComponentRepository componentRepo;
 
     @Autowired
-    MetadataService metadatService;
+    MetadataService metadataService;
 
 
     /*
@@ -58,7 +61,7 @@ public class SearchController {
         search.setComponent(new Component());
         model.addAttribute("search", search);
         model.addAttribute("components", componentRepo.findAll());
-        model.addAttribute("keywordsAll", metadatService.findAllMetadata());
+        model.addAttribute("keywordsAll", metadataService.findAllMetadata());
         return "se :: seContent";
     }
 
@@ -102,6 +105,21 @@ public class SearchController {
             //TODO: Error Handling
         }
 
+        return "se_app";
+    }
+
+    @RequestMapping(value = "/search_similar", method = RequestMethod.POST)
+    public String searchFromOther(Model model, @RequestParam(name = "project_id", defaultValue = "0") String project_id, @RequestParam(name = "cid", defaultValue = "0") String cid, @RequestParam(name = "cname", defaultValue = "") String cname) {
+        Metadata metadata = metadataService.fetchMetadataByCidAndComponent(Integer.valueOf(cid),cname);
+        if (null != metadata) {
+            Logger.getLogger(SearchController.class.getName()).info("Cid: " + cid + "Pid: " + project_id + " Cname: " + cname + " Keywords: " + metadata.getKeywords());
+        }
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("projectID", project_id);
+        model.addAttribute("currentUser", getCurrentUser());
+        String search_query_url = constructSearchUrl(project_id, "", "", "", (null == metadata.getKeywords() ? "" : metadata.getKeywords()));
+        model.addAttribute("search_query_url", search_query_url);
         return "se_app";
     }
 
