@@ -8,7 +8,6 @@ import tornado.web
 import tornado.httpclient
 import json
 
-import urllib
 import logging
 
 import base64
@@ -20,7 +19,8 @@ def basic_search_query(param,es,index,doc_type, dpage = 0):
     from the words in param,
     and returns the results as elastic
     Low level function.
-    """
+    """  
+    
     page = param.pop("page",dpage)
                 
     #Building the query
@@ -64,7 +64,7 @@ def basic_search_query(param,es,index,doc_type, dpage = 0):
     
     #Executing the query
     res = es.search(index=index, doc_type=doc_type, body=doc,
-                    from_=page * 10, size = 10)
+                    from_=(page-1) * 10, size = 10)
     #print(res)
 
     
@@ -73,13 +73,15 @@ def basic_search_query(param,es,index,doc_type, dpage = 0):
     return res
     
     
-def advanced_search_query(param_list,es,index,doc_type, 
-                              dpage = 0, size = 10):
+def advanced_search_query(param,es,index,doc_type, 
+                              dpage = 1, size = 10):
     """Create the advanced query for elastic 
     from the params list,
     and returns the results as elastic.
     Low level function.
     """    
+    param_list = param.copy() #we don't want the change original parameter           
+    
     page = param_list.pop("page",dpage)
     
     #Building the query
@@ -123,13 +125,43 @@ def advanced_search_query(param_list,es,index,doc_type,
         filtered = True
         filter_ = { "exists":{"field":exist}}
         filterList.append(filter_)
-
     
     rating = param_list.pop("rating","")
     if rating:
         logging.debug(rating)
         match = { "range":{"rating.rating":{"gte":rating}}}
         matchList.append(match)
+        
+   
+    
+
+    if "categories" in param_list and param_list["categories"] and project_id:
+        #categories query expansion
+        s_tree = getCategoriesTree(project_id,es,index)
+        if s_tree:
+            query = param_list["categories"].split()
+            query = list(map(str.strip,query))
+
+            param_list["categories"] = expandQuery(query,s_tree)
+        
+    title = param_list.pop("title","")
+    if title:
+        logging.debug(title)
+        match = {"multi_match": {
+            "query":  title,
+            "fields": [ "title", "title.std^15" ]
+        }}
+        matchList.append(match) 
+        
+    content_text = param_list.pop("content-text","")
+    if content_text:
+        logging.debug(content_text)
+        match = {"multi_match": {
+            "query":  content_text,
+            "fields": [ "content-text", "content-text.std^25" ]
+        }}
+        matchList.append(match) 
+
 
 #==============================================================================
 #     categories = param_list.pop("categories","")
@@ -211,7 +243,7 @@ def advanced_search_query(param_list,es,index,doc_type,
     
     #Executing the query
     res = es.search(index=index, doc_type=doc_type, body=doc,
-                    from_=page * 10, size = size)
+                    from_=(page-1) * size, size = size)
     #print(res)
 
     
@@ -223,220 +255,6 @@ def advanced_search_query(param_list,es,index,doc_type,
 
 
         
-class search_basic_render(tornado.web.RequestHandler):
-    """ Render the form for basic render
-    """
-    def get(self):
-        user_id = self.get_argument('user_id',"")
-        project_id = self.get_argument('project_id',"")
-        self.render('basic_search.html', user = user_id, project = 
-        project_id)
-    
-    def post(self):
-        self.get()
-
-
-class search_advanced_render(tornado.web.RequestHandler):
-    """ Render the form for advanced render
-    """
-    def get(self):
-        def getAllValues(es,index,type_):
-        
-            fields = ["_id"]
-            query = { 
-                "match_all":{}
-                }
-            doc = { "fields":fields,"query":query }
-        
-            res = es.search(index=index, doc_type=type_, 
-                                        body=doc, 
-                                        size=50)
-
-            list_res = [ j["_id"] for j in res["hits"]["hits"]]
-
-            logging.debug(list_res)   
-            
-            return list_res
-        
-        def languageValues(es,index,type_):
-            query = { 
-                    "size": 0,
-                    "aggs" : {
-                        "language" : {
-                            "terms" : { "field" : "language_name" }
-                            }
-                    }
-                    }
-
-        
-            res = es.search(index=index, doc_type=type_, 
-                                        body=query, 
-                                        size=200)
-                                        
-                                        
-
-            list_res = [ j["key"]
-                for j in res["aggregations"]["language"]["buckets"]]
-
-            logging.debug(list_res)   
-            
-            return list_res    
-        
-        user_id = self.get_argument('user_id',"")
-        project_id = self.get_argument('project_id',"")
-        
-        # the list of categories
-        es = self.application.es
-        index = self.application.config_init["index"]
-        category_type = self.application.config_init["type_category"]
-        
-        
-        listCategories = getAllValues(es,index,category_type)
-        
-        keyword_type = self.application.config_init["type_keyword"]
-        
-        listKeywords = getAllValues(es,index, keyword_type)
-        
-        doc_type =  self.application.config_init["type_item"]       
-        
-        listLanguages = languageValues(es,index,doc_type)
-    
-        self.render('advanced_search.html', user = user_id,
-                                            project = project_id,
-                                            listCategories = listCategories,
-                                            listKeywords = listKeywords,
-                                            listLanguages = listLanguages)
-
-
-
-class search_basic_results_render(tornado.web.RequestHandler):
-    """ Render the results from simple render
-    """
-    def post(self):
-        user_id = self.get_argument('user_id',"")
-        project_id = self.get_argument('project_id',"")
-        search_param = self.get_argument('search_param')
-        search_param = { "user_id":user_id, "project_id":project_id, 
-                            "search_param":search_param}        
-        
-        if self.get_argument('page',""):
-            page = int(self.get_argument("page"))
-            new_search = False
-        else:
-            page = 1
-            new_search = True
-        
-        es = self.application.es
-        index = self.application.config_init["index"]
-        doc_type = self.application.config_init["type_item"]
-        
-        res = basic_search_query(search_param, es, index,doc_type, page - 1) 
-
-
-
-        total = res["hits"]["total"]
-        #max_score = res["hits"]["max_score"]
-        list_results = res["hits"]["hits"]
-
-        logging.debug(search_param)
-        #logging.debug(total)
-        #logging.debug(max_score)
-
-        self.render('search_results.html',
-                    user = user_id,
-                    project = project_id,
-                    search_param=search_param,
-                    s_type = "basic_search_results",
-                    page = page,
-                    total = total,
-                    list_results = list_results)
-
-        if (new_search
-                and self.application.config_init["notification_url"]):
-            logging.debug("Sending log")
-            client = tornado.httpclient.HTTPClient()
-            response = client.fetch(
-                self.application.config_init["notification_url"] +
-                urllib.urlencode(
-                    { 
-                        "user_id":user_id,
-                        "project_id":project_id,
-                        "type":"simple",
-                      "search_param": search_param
-                      } )
-                      )
-            logging.debug(response.body) 
-        
-
-
-class search_advanced_results_render(tornado.web.RequestHandler):
-    """ Render the results from advanced render
-    """
-    def post(self):
-        user_id = self.get_argument('user_id',"")
-        project_id = self.get_argument('project_id',"")
-        #the advanced search query words object
-        p = {}
-        p["user_id"] = user_id
-        p["project_id"] = project_id
-        p["title"] = self.get_argument("title","") 
-        p["origin"] = self.get_argument("origin","")     
-        p["description"] = self.get_argument("description","") 
-        p["content-text"] = self.get_argument("content-text","") 
-        #p["type"] = self.get_argument("title","")
-        p["language_name"] = self.get_argument("language_name","")
-        p["categories"] = self.get_argument("categories","")
-        p["keywords"] = self.get_argument("keywords","")
-        p["status"] = self.get_argument("status","")
-        p["rating"] = self.get_argument("rating","")
-        p["s_type"] = self.get_argument("s_type","")
-        if self.get_argument('page',""):
-            page = int(self.get_argument("page"))
-            new_search = False
-        else:
-            page = 1
-            new_search = True
-                
-        es = self.application.es
-        index = self.application.config_init["index"]
-        doc_type = self.application.config_init["type_item"]
-        
-        logging.debug(p)
-
-        res = advanced_search_query(p, es, index,doc_type, page - 1) 
-
-        total = res["hits"]["total"]
-        #max_score = res["hits"]["max_score"]
-        list_results = res["hits"]["hits"]
-
-
-        #logging.debug(total)
-        #logging.debug(max_score)
-
-        self.render('search_results.html',
-                    user = user_id,
-                    project = project_id,
-                    search_param = json.dumps(p),
-                    s_type = "/search_advanced",
-                    page = page,
-                    total = total,
-                    list_results = list_results)
-                    
-        if (new_search 
-                and self.application.config_init["notification_url"]):
-            logging.debug("Sending log")
-            client = tornado.httpclient.HTTPClient()
-            response = client.fetch(
-                self.application.config_init["notification_url"] +
-                urllib.urlencode(
-                    { 
-                        "user_id":user_id,
-                        "project_id":project_id,
-                        "type":"advanced",
-                      "search_param": json.dumps(p)
-                      } )
-                      )
-            logging.debug(response.body) 
 
 #
 #  API Rest
@@ -531,14 +349,14 @@ class search_category_handler(tornado.web.RequestHandler):
 #==============================================================================
  
 def keyword_search_query(param,es,index,doc_type, dpage = 0):
-     """ Return the full keyword from the keyword name 
-     Low level function.
-     """    
-     #page = param.pop("page",dpage)
+    """ Return the full keyword from the keyword name 
+    Low level function.
+    """    
+    #page = param.pop("page",dpage)
                  
-     #Building the query
-     if not param["project_id"]:
-         doc = {
+    #Building the query
+    if not param["project_id"]:
+        doc = {
              "query": {
              "filtered":
              {
@@ -546,8 +364,8 @@ def keyword_search_query(param,es,index,doc_type, dpage = 0):
                  }
              }
              }
-     else:
-         doc = {
+    else:
+        doc = {
              "query": {
              "filtered":
              {
@@ -556,49 +374,49 @@ def keyword_search_query(param,es,index,doc_type, dpage = 0):
                  }
              }
              }
-     logging.debug(doc)
+    logging.debug(doc)
      
      #Executing the query
-     res = es.search(index=index, doc_type=doc_type, body=doc)
+    res = es.search(index=index, doc_type=doc_type, body=doc)
      #print(res)
  
      
      #print("basic_search_query:hits -> " + str(res['hits']['hits']))
      
-     return res
+    return res
  
                      
 class search_keyword_handler(tornado.web.RequestHandler):
-     """ REST API for keyword search
-     """
-     def get(self):
-         self.post()
+    """ REST API for keyword search
+    """
+    def get(self):
+        self.post()
 
-     def post(self):
-         user_id = self.get_argument('user_id',"")
-         project_id = self.get_argument('project_id',"")
-         search_param = self.get_argument('search_param')
-         search_param = { "user_id":user_id, 
+    def post(self):
+        user_id = self.get_argument('user_id',"")
+        project_id = self.get_argument('project_id',"")
+        search_param = self.get_argument('search_param')
+        search_param = { "user_id":user_id, 
                          "project_id":project_id, 
                          "search_param":search_param}        
          
-         logging.info("search_keyword_handler:search_param -> " + str(search_param))
+        logging.info("search_keyword_handler:search_param -> " + str(search_param))
  
-         es = self.application.es
-         index = self.application.config_init["index"]
-         doc_type = self.application.config_init["type_keyword"]
+        es = self.application.es
+        index = self.application.config_init["index"]
+        doc_type = self.application.config_init["type_keyword"]
          
-         try:
-             res = keyword_search_query(search_param, es, index,doc_type)
-         except Exception as e:
-             logging.exception(e)
+        try:
+            res = keyword_search_query(search_param, es, index,doc_type)
+        except Exception as e:
+            logging.exception(e)
                  
-             self.set_status(400,str(e))
-             return        
+            self.set_status(400,str(e))
+            return        
 
        
-         self.set_header("Content-Type", 'application/json')
-         self.write(res)                    
+        self.set_header("Content-Type", 'application/json')
+        self.write(res)                    
  
 
 #    
@@ -659,7 +477,7 @@ class search_advanced_handler(tornado.web.RequestHandler):
         page = int(self.get_argument("page","1"))
         search_param = self.get_argument('search_param',"")
         if search_param:        
-            logging.debug(search_param)
+            logging.info(search_param)
             try:
                 search_param = json.loads(search_param)
             except Exception as e:
@@ -681,7 +499,8 @@ class search_advanced_handler(tornado.web.RequestHandler):
         if project_id:         
             search_param["project_id"] = project_id
             
-        logging.info("search_advanced_handler:search_param -> " + str(search_param))
+        logging.info("search_advanced_handler:search_param -> " 
+                        + str(search_param))
 
 
         es = self.application.es
@@ -689,7 +508,8 @@ class search_advanced_handler(tornado.web.RequestHandler):
         doc_type = self.application.config_init["type_item"]
         
         try:
-            res = advanced_search_query(search_param, es, index,doc_type)
+            res = advanced_search_query(search_param, es, index,
+                                        doc_type, dpage = page, size = 10)
         except Exception as e:
             logging.exception(e)                
             self.set_status(400,str(e))
@@ -708,13 +528,14 @@ class search_advanced_handler(tornado.web.RequestHandler):
                     user = user_id,
                     project = project_id,
                     search_param = json.dumps(search_param),
-                    s_type = "advanced_search_results",
+                    s_type = "search_advanced",
                     page = page,
                     total = total,
                     list_results = list_results)
         else:
             self.set_header("Content-Type", 'application/json')
             self.write(res["hits"])
+                    
                     
 class search_image_by_id_handler(tornado.web.RequestHandler):
     """ REST API for image search by id
@@ -827,6 +648,61 @@ class search_image_by_id_handler(tornado.web.RequestHandler):
 #==============================================================================
 
 
-                 
+def expandTerm(term,s_tree,resultList,listFathers):
+    for item in s_tree:
+        #loggin.info((item["label"],listFathers)
+        if item["label"].lower()==term.lower():
+            return resultList.extend(listFathers)
+        else:
+            if "children" in item:
+                fathers = list(listFathers)
+                fathers.append(item["label"])
+                expandTerm(term,item["children"],
+                           resultList,fathers)
+            
+            
+def expandQuery(query,s_tree):
+    resultList=list(query)
+    for term in query:
+        expandTerm(term,s_tree,resultList,[])
+
+    logging.info(resultList)
+    lt =' OR '.join(resultList)
+    logging.info(lt)
+    return lt
+
+def getCategoriesTree(project,es,index):
+    logging.info("Searching for categories for "+project)
+    
+    doc = { "query": 
+                {
+                "filtered": {
+                    "filter": {
+                    "term":{ "project_id":project} 
+                    }
+                }
+                }
+                }
+    try:
+        res = es.search(index=index, doc_type="categories", body=doc,size = 1)
+    except Exception as e:
+        logging.exception(e)                
+        return None
+        
+    if res["hits"]["total"] == 1:
+        list_results = res["hits"]["hits"]
+            
+        data = list_results[0]["_source"]["categories"]            
+        #print("Data:"+str(list_results))
+
+        try:
+            tree = json.loads(data)
+            logging.info("Found categories tree for "+project)
+            return tree
+        except:
+            logging.exception("Bad format "+project)  
+            return None              
+    logging.info("No results for "+project)
+    return None
                   
                   

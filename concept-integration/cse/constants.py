@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+# -*- coding: utf-8 -*-
 #
 # Concept project
 __copyright__ = "Copyright Atos ARI 2015"
@@ -8,6 +9,8 @@ __author__= "Pablo Salinero, Josemi"
 
 english_html_analyzer = {
   "settings": {
+      "number_of_shards" :   1,
+      "number_of_replicas" : 0,
     "analysis": {
       "filter": {
         "english_stop": {
@@ -21,7 +24,12 @@ english_html_analyzer = {
         "english_possessive_stemmer": {
           "type":       "stemmer",
           "language":   "possessive_english"
-        }
+        },
+        "english_synonym": {
+          "type": "synonym", 
+          "format": "wordnet",
+          "synonyms_path": "analysis/wn_s.pl"
+        }        
       },
       "analyzer": {
         "english-html": {
@@ -33,11 +41,34 @@ english_html_analyzer = {
             "english_stop",
             "english_stemmer"
           ]
+        },
+        "english-html-syno": {
+            "char_filter": "html_strip", #important
+          "tokenizer":  "standard",
+          "filter": [
+            "english_possessive_stemmer",
+            "lowercase",
+            "english_stop",
+            "english_synonym",
+            "english_stemmer"
+          ]
+        },        
+        "english-syno": {
+          "tokenizer":  "standard",
+          "filter": [
+            "english_possessive_stemmer",
+            "lowercase",
+            "english_stop",
+            "english_synonym",
+            "english_stemmer"
+          ]
         }
+            
       }
     }
   }
 }
+
 
 boost_list = { "title":2,"categories":3,"keyword":3 }
 
@@ -96,7 +127,14 @@ docs_mapping = {	"search_item" : {
 			"content-type" : {"type" : "string",
                      "index":"not_analyzed"},
 			"title" : {"type" : "string",
-              "analyzer":"english"},         #
+              "analyzer":"english-syno",
+              "fields": {
+                        "std":   { 
+                            "type":     "string",
+                            "analyzer": "standard"
+                        }
+              }
+              },         
 			"origin" : {"type" : "string"},
 			"language" : {"type" : "string",
                  "index":"not_analyzed"},
@@ -120,7 +158,14 @@ docs_mapping = {	"search_item" : {
                  "index":"not_analyzed"},
 			"domain" : {"type" : "string"},
 			"content-text" : {"type" : "string",
-                       "analyzer":"english-html"},  #
+                       "analyzer":"english-html-syno",
+                      "fields": {
+                        "std":   { 
+                            "type":     "string",
+                            "analyzer": "standard"
+                        }
+              }  
+                       },  
     "content-raw" : {"type" : "string",
                  "index":"no"},
     "content-image":{ "type": "image",

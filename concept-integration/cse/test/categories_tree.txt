@@ -1,0 +1,30 @@
+"Product Category",
+ 		"Kitchenware",
+  		"Exhibition",
+ 		"Lighting",
+ 		"Furniture",
+"Product Domain",
+ 		"Medical",
+ 		"Cosumer",
+ 		"Sport",
+ 		"Market Analysis",
+ 		"Technology",
+ 		"Usability",
+"Product Language"
+ 		"Style"
+			"Period Style"
+				"Classic",
+ 				"Chic",
+ 				"Modern",
+ 				"Artdeco",
+			"Partial Style",
+ 				"National",
+ 				"Corporate",
+ 				"Target Style",
+		"Material",
+ 			"Steel"
+			"Stone"
+ 		"Associations and Feelings",
+ 			"Cold",
+ 			"Warm",
+ 			"Aggressive",

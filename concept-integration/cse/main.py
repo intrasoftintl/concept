@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+# -*- coding: utf-8 -*-
 #
 # Concept project
 __copyright__ = "Copyright Atos ARI 2015"
@@ -19,7 +20,7 @@ import os
 from configobj import ConfigObj
 
 from handlers import *
-from constants import *
+#from constants import *
 
 
 from tornado.options import define, options
@@ -45,18 +46,21 @@ class Application(tornado.web.Application):
             (r"/search_basic", search.search_basic_handler),
             (r"/search_advanced", search.search_advanced_handler),
             
-            (r"/basic_search", search.search_basic_render),
-            (r"/basic_search_results", search.search_basic_results_render),
+            (r"/basic_search", search_render.search_basic_render),
+            (r"/basic_search_results", search_render.search_basic_results_render),
                     
-            (r"/advanced_search", search.search_advanced_render),
-            (r"/advanced_search_results", search.search_advanced_results_render),
+            (r"/advanced_search", search_render.search_advanced_render),
+            (r"/advanced_search_results", search_render.search_advanced_results_render),
             
-            (r"/delete_all",deletion.delete_all_handler),
+            (r"/reset_db",deletion.delete_all_handler),
 
             (r"/search_category", search.search_category_handler),
             (r"/search_keyword", search.search_keyword_handler),
 
-            (r"/search_image_by_id", search.search_image_by_id_handler),            
+            (r"/search_image_by_id", search.search_image_by_id_handler), 
+
+            (r"/insert_categories",insertion.insertion_categories_handler),
+            (r"/delete_categories", deletion.deletion_categories_handler),
 
         ]
 
@@ -69,8 +73,8 @@ class Application(tornado.web.Application):
 def init_db(es, config_init):
     index = config_init["index"]
     type_item = config_init["type_item"]
-    type_category = config_init["type_category"]
-    type_keyword = config_init["type_keyword"]
+    #type_category = config_init["type_category"]
+    #type_keyword = config_init["type_keyword"]
 
     #delete everything each time that models change
     #es.indices.delete(index)
@@ -79,32 +83,17 @@ def init_db(es, config_init):
         logging.info("DB already exists")
         return
 
-    logging.info("Creating DB")
-    es.indices.create(index = index, body = english_html_analyzer)
-    es.cluster.health(wait_for_status = "yellow")
-
-    
-    es.indices.put_mapping(index = index, doc_type = type_category,
-                           body =  categories_mapping
-    )
-
-    es.indices.put_mapping(index = index,doc_type = type_item,
-                           body = docs_mapping
-    )                
-
-    es.indices.put_mapping(index = index,doc_type = type_keyword,
-                           body = keywords_mapping
-    )
+    deletion.reset_db(es,index,type_item)
 
     #the languages
-    actions = []
-    for i in range(0,len(languages_list),2):
-        action = languages_list[i]["index"]
-        action["_source"] = languages_list[i+1]
-        #logging.debug(action)
-        actions.append(action)
-    
-    elasticsearch.helpers.bulk(es,actions)
+#    actions = []
+#    for i in range(0,len(languages_list),2):
+#        action = languages_list[i]["index"]
+#        action["_source"] = languages_list[i+1]
+#        #logging.debug(action)
+#        actions.append(action)
+#    
+#    elasticsearch.helpers.bulk(es,actions)
 
 
 

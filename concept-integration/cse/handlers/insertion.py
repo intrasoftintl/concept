@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 #
 # Concept project
 __copyright__ = "Copyright Atos ARI 2015"
@@ -287,3 +288,44 @@ class insertion_keyword_handler(tornado.web.RequestHandler):
         
         return
 
+class insertion_categories_handler(tornado.web.RequestHandler):
+
+
+    def post(self):
+        #Retrieving parameters
+        try:
+            project_id = self.get_argument('project_id',"")
+            categories = self.get_argument('categories',"")
+        except Exception as e:
+            logging.exception(e)
+            self.set_status(406,str(e))
+            return
+
+        #Creating json
+        doc = {
+            "project_id" : project_id,
+            "categories" : categories
+        }
+        
+        es = self.application.es
+        index = self.application.config_init["index"]        
+        
+        #Indexing
+        try:
+            res = es.index(index=index, doc_type="categories", 
+                           id=project_id, body=doc)
+            logging.info(res['created'])
+        except Exception as e:
+            self.set_status(400,str(e))
+            return
+
+
+        self.write('{"status":"ok"}')
+        self.set_status(201,"categories inserted")
+        
+        return
+
+    def get(self):
+        #the preferred method is post
+        self.post()   
+        
