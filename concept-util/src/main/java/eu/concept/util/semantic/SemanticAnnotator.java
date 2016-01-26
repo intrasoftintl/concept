@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
@@ -61,7 +62,7 @@ public class SemanticAnnotator {
     private static String extractTextFromFile(byte[] fileContent) {
         ContentHandler handler = new BodyContentHandler();
         try {
-            DocumentParser.parse(new ByteArrayInputStream(fileContent), handler, null, new ParseContext());
+            DocumentParser.parse(new ByteArrayInputStream(fileContent), handler, new Metadata(), new ParseContext());
         } catch (IOException | SAXException | TikaException ex) {
             Logger.getLogger(SemanticAnnotator.class.getName()).log(Level.SEVERE, null, ex);
         }
