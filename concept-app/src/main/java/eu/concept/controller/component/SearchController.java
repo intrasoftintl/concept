@@ -4,7 +4,6 @@ import eu.concept.controller.ElasticSearchController;
 import static eu.concept.controller.WebController.getCurrentUser;
 import eu.concept.repository.concept.dao.ComponentRepository;
 import eu.concept.repository.concept.domain.Component;
-import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.Search;
 import eu.concept.repository.concept.service.MetadataService;
@@ -12,7 +11,6 @@ import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
-import eu.concept.util.other.Util;
 import eu.concept.util.semantic.SemanticAnnotator;
 import java.io.IOException;
 import java.util.List;
@@ -110,7 +108,7 @@ public class SearchController {
 
     @RequestMapping(value = "/search_similar", method = RequestMethod.POST)
     public String searchFromOther(Model model, @RequestParam(name = "project_id", defaultValue = "0") String project_id, @RequestParam(name = "cid", defaultValue = "0") String cid, @RequestParam(name = "cname", defaultValue = "") String cname) {
-        Metadata metadata = metadataService.fetchMetadataByCidAndComponent(Integer.valueOf(cid),cname);
+        Metadata metadata = metadataService.fetchMetadataByCidAndComponent(Integer.valueOf(cid), cname);
         if (null != metadata) {
             Logger.getLogger(SearchController.class.getName()).info("Cid: " + cid + "Pid: " + project_id + " Cname: " + cname + " Keywords: " + metadata.getKeywords());
         }
@@ -121,6 +119,19 @@ public class SearchController {
         String search_query_url = constructSearchUrl(project_id, "", "", "", (null == metadata.getKeywords() ? "" : metadata.getKeywords()));
         model.addAttribute("search_query_url", search_query_url);
         return "se_app";
+    }
+
+    @RequestMapping(value = "/search_external", method = RequestMethod.GET)
+    public String searchExternal(String project_id, @RequestParam(name = "cid", defaultValue = "0") String cid, @RequestParam(name = "cname", defaultValue = "") String cname, @RequestParam(name = "source", defaultValue = "") String source) {
+        String url = "error";
+        Metadata metadata = metadataService.fetchMetadataByCidAndComponent(Integer.valueOf(cid), cname);
+        if (null != metadata && "flickr".equals(source)) {
+            url = "https://www.flickr.com/search/?text=" + metadata.getKeywords();
+        } else if (null != metadata && "vam".equals(source)) {
+            url = "http://collections.vam.ac.uk/search/?listing_type=imagetext&amp;offset=0&amp;limit=15&amp;narrow=1&amp;extrasearch=&amp;q=" + metadata.getKeywords() + "&amp;commit=Search&amp;quality=1&amp;objectnamesearch=&amp;placesearch=&amp;after=&amp;after-adbc=AD&amp;before=&amp;before-adbc=AD&amp;namesearch=&amp;materialsearch=&amp;mnsearch=&amp;locationsearch=";
+        }
+        Logger.getLogger(SearchController.class.getName()).info("External Url: "+url);
+        return "redirect:" + url;
     }
 
     private String constructSearchUrl(String projectId, String content, String component, String categories, String keywords) {

@@ -80,9 +80,17 @@
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                         &nbsp;
-
                         <span th:id="@{'SB' + ${sbContent.id} }" th:attr="onclick=@{'setIsPublic(\'SB\','+${sbContent.id} } +')' " th:classappend="(${sbContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                         <span th:id="@{'LikeSB' + ${sbContent.id} }" th:attr="onclick=@{'like(\'SB\','+${sbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${sbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountSB' + ${sbContent.id} }" th:text="${#arrays.length(sbContent.getLikes())}" class="label label-warning"></span>
+                        <br/>
+                        <form id="se-form" method="post" action="/search_similar" th:object="${sbContent}">
+                            <input type="hidden" th:value="${sbContent.id}" name="cid"/>
+                            <input type="hidden" th:value="${sbContent.pid}" name="project_id"/>
+                            <input type="hidden" value="SB" name="cname"/>
+                            <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
+                        </form>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${sbContent.id} + '&amp;cname=SB&amp;source=flickr'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a><br/>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${sbContent.id} + '&amp;cname=SB&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V &amp; A Museum</a>
                     </td>
                 </tr>
             </tbody>

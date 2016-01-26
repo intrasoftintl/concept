@@ -71,8 +71,8 @@
                             <input type="hidden" value="BA" name="cname"/>
                             <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
                         </form>
-                        <a style="margin-top:4px" href="https://www.flickr.com/search/?text=cup" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a><br/>
-                        <a style="margin-top:4px" href="http://collections.vam.ac.uk/search/?listing_type=imagetext&amp;offset=0&amp;limit=15&amp;narrow=1&amp;extrasearch=&amp;q=cup&amp;commit=Search&amp;quality=1&amp;objectnamesearch=&amp;placesearch=&amp;after=&amp;after-adbc=AD&amp;before=&amp;before-adbc=AD&amp;namesearch=&amp;materialsearch=&amp;mnsearch=&amp;locationsearch=" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V &amp; A Museum</a>                    </td>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${baContent.id} + '&amp;cname=BA&amp;source=flickr'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a><br/>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${baContent.id} + '&amp;cname=BA&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V &amp; A Museum</a>
                 </tr>
             </tbody>
         </table>
