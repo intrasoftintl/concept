@@ -141,6 +141,10 @@ public final class ElasticSearchController {
     }
 
     public String getCategoriesNames(String categories) {
+        if (categories.isEmpty()) {
+            return categories;
+        }
+
         int end = categories.length() - 1;
         int start = categories.indexOf("selected_node") + "selected_node".length() + 2;
         String categoriesIds[] = categories.substring(start, end).replace("[", "").replace("]", "").split(",");

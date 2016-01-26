@@ -106,10 +106,10 @@ public class FileUploadController {
         Optional<Metadata> metadata = Optional.empty();
         //Extract Keywords of a file
         if (filemeta.getFileType().contains("application")) {
-            metadata = Optional.of(new Metadata(null, fileId, "", SemanticAnnotator.extractKeywordsFromFile(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
+            metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromFile(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
         } //Extract Keywords of an image
         else if (filemeta.getFileType().contains("image")) {
-            metadata = Optional.of(new Metadata(null, fileId, "", SemanticAnnotator.extractKeywordsFromImage(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
+            metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromImage(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
         } else {
             Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Unsupported file type:{0}", filemeta.getFileType());
             return metadata;
