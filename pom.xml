@@ -11,6 +11,7 @@
     <modules>
         <module>concept-repository</module>
         <module>concept-util</module>
+        <module>concept-app</module>
     </modules>
 
     <properties>

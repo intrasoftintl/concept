@@ -14,8 +14,11 @@ import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import eu.concept.util.semantic.SemanticAnnotator;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import org.jboss.logging.Logger;
 import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -90,30 +92,35 @@ public class SearchController {
     @RequestMapping(value = "/search_upload", method = RequestMethod.POST)
     public String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("project_id") String project_id, Model model) {
         if (!file.isEmpty()) {
+//            try {
+//                byte[] bytes = file.getBytes();
+//                HttpResponse<JsonNode> response = Unirest.post("http://192.168.3.5:8081/semantic-enhancer/tags/image").body(bytes).asJson();
+//                JSONArray results = response.getBody().getArray();
+//                List<String> keywords = new ArrayList<>();
+//                //Iterate all keywords
+//                for (int i = 0; i < results.length(); i++) {
+//                    if (0.5 < results.getJSONObject(i).getDouble("relevancy")) {
+//                        keywords.add(results.getJSONObject(i).getString("name"));
+//                    }
+//                }
+//                //Construct Keywords Phrase
+//                String keywordPhrase = Joiner.on(",").join(keywords);
+            String keywordPhrase = "";
             try {
-                byte[] bytes = file.getBytes();
-                HttpResponse<JsonNode> response = Unirest.post("http://192.168.3.5:8081/semantic-enhancer/tags/image").body(bytes).asJson();
-                JSONArray results = response.getBody().getArray();
-                List<String> keywords = new ArrayList<>();
-                //Iterate all keywords
-                for (int i = 0; i < results.length(); i++) {
-                    if (0.5 < results.getJSONObject(i).getDouble("relevancy")) {
-                        keywords.add(results.getJSONObject(i).getString("name"));
-                    }
-                }
-                //Construct Keywords Phrase
-                String keywordPhrase = Joiner.on(",").join(keywords);
-                System.out.println("Keyword Phrase is: "+keywordPhrase);
-                List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
-                model.addAttribute("projects", projects);
-                model.addAttribute("projectID", project_id);
-                model.addAttribute("currentUser", getCurrentUser());
-                String search_query_url = constructSearchUrl(project_id, "", "", "", keywordPhrase);
-                model.addAttribute("search_query_url", search_query_url);
-
-            } catch (Exception e) {
-                return "You failed to upload  => " + e.getMessage();
+                keywordPhrase = SemanticAnnotator.extractKeywordsFromImage(file.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD);
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+            model.addAttribute("projects", projects);
+            model.addAttribute("projectID", project_id);
+            model.addAttribute("currentUser", getCurrentUser());
+            String search_query_url = constructSearchUrl(project_id, "", "", "", keywordPhrase);
+            model.addAttribute("search_query_url", search_query_url);
+
+//            } catch (Exception e) {
+//                return "You failed to upload  => " + e.getMessage();
+//            }
         } else {
             //TODO: Error Handling
         }

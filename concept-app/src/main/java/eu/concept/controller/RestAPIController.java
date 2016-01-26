@@ -520,7 +520,6 @@ public class RestAPIController {
             e.printStackTrace();
         }
         return "";
-
     }
 
     @RequestMapping(value = "/category/search", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
