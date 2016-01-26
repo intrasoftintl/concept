@@ -2,6 +2,7 @@ package eu.concept.controller;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import eu.concept.configuration.COnCEPTProperties;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.service.FileManagementService;
@@ -110,12 +111,14 @@ public class FileUploadController {
             metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromFile(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
         } //Extract Keywords of an image
         else if (filemeta.getFileType().contains("image")) {
-              Logger.getLogger(FileUploadController.class.getName()).info("Extracting Keywords from image...");
+            Logger.getLogger(FileUploadController.class.getName()).info("Extracting Keywords from image...");
             metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromImage(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
         } else {
             Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Unsupported file type:{0}", filemeta.getFileType());
             return metadata;
         }
+        
+        metadata.get().setComponent(new Component("FM"));
         metadataService.storeMetadata(metadata.get());
         return metadata;
     }
