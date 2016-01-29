@@ -97,7 +97,7 @@ public class SearchController {
             try {
                 //Create TMP Image 
                 String content = "data:".concat(file.getContentType().concat(";base64,").concat(Base64.getEncoder().encodeToString(file.getBytes())));
-                FileManagement fm = new FileManagement(0, 0, "TO_BE_DELETED", content, file.getContentType(), new Short("0"), null);
+                FileManagement fm = new FileManagement(null, 0, "TO_BE_DELETED", content, file.getContentType(), new Short("0"), null);
                 fm.setUid(new UserCo(99999));
                 fmService.storeFile(fm);
                 Logger.getLogger(SearchController.class.getName()).info("Id of image which upload is: " + fm.getId());

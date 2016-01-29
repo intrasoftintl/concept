@@ -107,7 +107,7 @@ public class FileUploadController {
         else if (filemeta.getFileType().contains("image")) {
             //Create TMP Image 
             String content = "data:".concat(filemeta.getFileType().concat(";base64,").concat(Base64.getEncoder().encodeToString(filemeta.getBytes())));
-            FileManagement fm = new FileManagement(0, 0, "TO_BE_DELETED", content, filemeta.getFileType(), new Short("0"), null);
+            FileManagement fm = new FileManagement(null, 0, "TO_BE_DELETED", content, filemeta.getFileType(), new Short("0"), null);
             fm.setUid(new UserCo(99999));
             fmService.storeFile(fm);
             Logger.getLogger(FileUploadController.class.getName()).info("Id of image which upload is: " + fm.getId());
