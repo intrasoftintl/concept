@@ -13,6 +13,7 @@ import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.FileManagementService;
 import java.io.IOException;
 import java.util.Base64;
@@ -97,6 +98,7 @@ public class SearchController {
                 //Create TMP Image 
                 String content = "data:".concat(file.getContentType().concat(";base64,").concat(Base64.getEncoder().encodeToString(file.getBytes())));
                 FileManagement fm = new FileManagement(0, 0, "TO_BE_DELETED", content, file.getContentType(), new Short("0"), null);
+                fm.setUid(new UserCo(99999));
                 fmService.storeFile(fm);
                 Logger.getLogger(SearchController.class.getName()).info("Id of image which upload is: " + fm.getId());
                 keywordPhrase = getTagsForImage("file/" + String.valueOf(fm.getId()));

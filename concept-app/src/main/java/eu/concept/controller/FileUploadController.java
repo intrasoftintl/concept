@@ -11,6 +11,7 @@ import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.main.SemanticAnnotator;
 import static eu.concept.main.SemanticAnnotator.getTagsForImage;
+import eu.concept.repository.concept.domain.UserCo;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -107,6 +108,7 @@ public class FileUploadController {
             //Create TMP Image 
             String content = "data:".concat(filemeta.getFileType().concat(";base64,").concat(Base64.getEncoder().encodeToString(filemeta.getBytes())));
             FileManagement fm = new FileManagement(0, 0, "TO_BE_DELETED", content, filemeta.getFileType(), new Short("0"), null);
+            fm.setUid(new UserCo(99999));
             fmService.storeFile(fm);
             Logger.getLogger(FileUploadController.class.getName()).info("Id of image which upload is: " + fm.getId());
             String keywords = getTagsForImage("file/" + String.valueOf(fm.getId()));
