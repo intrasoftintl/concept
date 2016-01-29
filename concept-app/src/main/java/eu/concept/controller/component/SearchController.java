@@ -2,6 +2,7 @@ package eu.concept.controller.component;
 
 import eu.concept.controller.ElasticSearchController;
 import static eu.concept.controller.WebController.getCurrentUser;
+import static eu.concept.main.SemanticAnnotator.getTagsForImage;
 import eu.concept.repository.concept.dao.ComponentRepository;
 import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Metadata;
@@ -11,8 +12,10 @@ import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
-import eu.concept.util.semantic.SemanticAnnotator;
+import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.service.FileManagementService;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import org.jboss.logging.Logger;
@@ -48,6 +51,8 @@ public class SearchController {
     @Autowired
     MetadataService metadataService;
 
+    @Autowired
+    FileManagementService fmService;
 
     /*
      *  GET Methods 
@@ -89,7 +94,15 @@ public class SearchController {
         if (!file.isEmpty()) {
             String keywordPhrase = "";
             try {
-                keywordPhrase = SemanticAnnotator.extractKeywordsFromImage(file.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD);
+                //Create TMP Image 
+                String content = "data:".concat(file.getContentType().concat(";base64,").concat(Base64.getEncoder().encodeToString(file.getBytes())));
+                FileManagement fm = new FileManagement(0, 0, "TO_BE_DELETED", content, file.getContentType(), new Short("0"), null);
+                fmService.storeFile(fm);
+                Logger.getLogger(SearchController.class.getName()).info("Id of image which upload is: " + fm.getId());
+                keywordPhrase = getTagsForImage("file/" + String.valueOf(fm.getId()));
+                //Remove tmp image
+                fmService.deleteFile(fm.getId());
+                //keywordPhrase = SemanticAnnotator.extractKeywordsFromImage(file.getBytes(), file.getContentType(),SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD);
             } catch (IOException ex) {
                 java.util.logging.Logger.getLogger(SearchController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -130,7 +143,7 @@ public class SearchController {
         } else if (null != metadata && "vam".equals(source)) {
             url = "http://collections.vam.ac.uk/search/?q=" + metadata.getKeywords();
         }
-        Logger.getLogger(SearchController.class.getName()).info("External Url: "+url);
+        Logger.getLogger(SearchController.class.getName()).info("External Url: " + url);
         return "redirect:" + url;
     }
 

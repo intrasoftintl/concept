@@ -9,7 +9,8 @@ import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.util.other.NotificationTool;
-import eu.concept.util.semantic.SemanticAnnotator;
+import eu.concept.main.SemanticAnnotator;
+import static eu.concept.main.SemanticAnnotator.getTagsForImage;
 import java.io.IOException;
 import java.util.Base64;
 
@@ -103,12 +104,21 @@ public class FileUploadController {
             metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromFile(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
         } //Extract Keywords of an image
         else if (filemeta.getFileType().contains("image")) {
-            metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", SemanticAnnotator.extractKeywordsFromImage(filemeta.getBytes(), SemanticAnnotator.DEFAULT_RELEVANCY_THRESHOLD), "", null));
+            //Create TMP Image 
+            String content = "data:".concat(filemeta.getFileType().concat(";base64,").concat(Base64.getEncoder().encodeToString(filemeta.getBytes())));
+            FileManagement fm = new FileManagement(0, 0, "TO_BE_DELETED", content, filemeta.getFileType(), new Short("0"), null);
+            fmService.storeFile(fm);
+            Logger.getLogger(FileUploadController.class.getName()).info("Id of image which upload is: " + fm.getId());
+            String keywords = getTagsForImage("file/" + String.valueOf(fm.getId()));
+            //Define metadata
+            metadata = Optional.of(new Metadata(null, fileId, "{\"open_nodes\":[],\"selected_node\":[]}", keywords, "", null));
+            //Remove tmp image
+            fmService.deleteFile(fm.getId());
         } else {
             Logger.getLogger(FileUploadController.class.getName()).log(Level.SEVERE, "Unsupported file type:{0}", filemeta.getFileType());
             return metadata;
         }
-        
+
         metadata.get().setComponent(new Component("FM"));
         metadataService.storeMetadata(metadata.get());
         return metadata;

@@ -1,13 +1,15 @@
-package eu.concept.util.semantic;
+package eu.concept.main;
 
 import com.google.common.base.Joiner;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.service.FileManagementService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +19,8 @@ import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
-import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
@@ -28,32 +30,35 @@ import org.xml.sax.SAXException;
  */
 public class SemanticAnnotator {
 
+    @Autowired
+    FileManagementService fmService;
+
     private static final Logger logger = Logger.getLogger(SemanticAnnotator.class.getName());
     public static final double DEFAULT_RELEVANCY_THRESHOLD = 0.4;
     private static final Parser DocumentParser = new AutoDetectParser();
 
-    public static String extractKeywordsFromImage(byte[] fileContent, double score_threshold) {
-        HttpResponse<JsonNode> response;
-        List<String> keywords = new ArrayList<>();
-        try {
-            response = Unirest.post("http://localhost:8081/semantic-enhancer/tags/image").body(fileContent).asJson();
-            JSONArray results = response.getBody().getArray();
-            //Iterate all keywords
-            for (int i = 0; i < results.length(); i++) {
-                if (DEFAULT_RELEVANCY_THRESHOLD < results.getJSONObject(i).getDouble("relevancy")) {
-                    keywords.add(results.getJSONObject(i).getString("name"));
-                }
-            }
-        } catch (UnirestException ex) {
-            Logger.getLogger(SemanticAnnotator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //Construct & Return Keywords Phrase
-        return Joiner.on(",").join(keywords);
-    }
+//    public static String extractKeywordsFromImage(byte[] fileContent, double score_threshold) {
+//        HttpResponse<JsonNode> response;
+//        List<String> keywords = new ArrayList<>();
+//        try {
+//            response = Unirest.post("http://localhost:8081/semantic-enhancer/tags/image").body(fileContent).asJson();
+//            JSONArray results = response.getBody().getArray();
+//            //Iterate all keywords
+//            for (int i = 0; i < results.length(); i++) {
+//                if (DEFAULT_RELEVANCY_THRESHOLD < results.getJSONObject(i).getDouble("relevancy")) {
+//                    keywords.add(results.getJSONObject(i).getString("name"));
+//                }
+//            }
+//        } catch (UnirestException ex) {
+//            Logger.getLogger(SemanticAnnotator.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        //Construct & Return Keywords Phrase
+//        return Joiner.on(",").join(keywords);
+//    }
 
     public static String extractKeywordsFromFile(byte[] fileContent, double score_threshold) {
-       String extractedText = extractTextFromFile(fileContent);
-          return getTagsForText(extractedText, score_threshold);
+        String extractedText = extractTextFromFile(fileContent);
+        return getTagsForText(extractedText, score_threshold);
     }
 
     private static String extractTextFromFile(byte[] fileContent) {
@@ -67,7 +72,7 @@ public class SemanticAnnotator {
 
     }
 
-    public static String getTagsForText(String content,double score_threshold ) {
+    public static String getTagsForText(String content, double score_threshold) {
         try {
             HttpResponse<JsonNode> jsonResponse = Unirest.post("http://localhost:8081/semantic-enhancer/tags/text").body(content).asJson();
             List<String> tags = new ArrayList<>();
