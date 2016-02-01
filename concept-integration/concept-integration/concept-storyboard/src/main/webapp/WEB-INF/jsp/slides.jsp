@@ -77,9 +77,12 @@
                                             </button>
                                         </div>
                                         <div class="col-sm-4">
+                                        	&nbsp;
+                                        	<!-- 
                                             <button type="button" class="btn btn-primary btn-md btn-block" onclick="fRemove('<c:out value="${mySlide.id}"></c:out>');">
                                                 <span class="glyphicon glyphicon-remove-circle"></span> Remove
                                             </button>
+                                             -->
                                         </div>
                                     </div>
                                 </td>
