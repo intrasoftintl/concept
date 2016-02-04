@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div>
-                    <iframe src="/storyboard/svg-edit-2.6/svg-editor.html" id="idIframe" width="960" height="550"></iframe>
+                    <iframe src="/storyboard/svg-edit-2.8.1/svg-editor.html" id="idIframe" width="960" height="550"></iframe>
                 </div>
                 <c:if test="${requestScope.request_new_slide_error != null}">
                     <div class="alert alert-danger" id="divError"><c:out value="${requestScope.request_new_slide_error}"></c:out></div>
