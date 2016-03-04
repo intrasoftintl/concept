@@ -119,6 +119,8 @@
         <div class="content">
             <!--<iframe id="moodboard" th:src="@{'http://concept-sb.euprojects.net/storyboard/moodboard/new?pid=' + ${projectID} + '&amp;uid=' + ${currentUser.getId()} }" width="100%" height="100%"></iframe>-->
             <iframe id="moodboard" th:src="${moodboardURL}" width="100%" height="100%"></iframe>
+            
+            <!-- <iframe id="moodboard" th:attr="src=${moodboardURL}" width="100%" height="100%"></iframe> -->
         </div>
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
