@@ -63,10 +63,11 @@ by creating the following file and adding by calls to svgEditor.setConfig -->
 <link rel="alternate" type="application/atom+xml" title="SVG-edit Updates (Issues/Fixes/Commits)" href="http://code.google.com/feeds/p/svg-edit/updates/basic" />
 
 <script>
-svgEditor.setConfig({
-	iconsize: 'm' 
-});
-
+	$(document).ready(function() {
+		parent.initEditor(svgEditor);
+		svgEditor.setConfig({iconsize: 'm'});
+		svgEditor.setConfig({no_save_warning: true});
+	});
 </script>
 
 <!-- Add script with custom handlers here -->
