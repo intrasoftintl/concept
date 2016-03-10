@@ -81,7 +81,17 @@
                                                 <div class="form-group">
                                                     <label for="key" class="sr-only">Password</label>
                                                     <input type="password" th:field="${password.hashedPassword}" name="key" id="key" class="form-control" placeholder="Password" value="" />
-                                                </div>                                              
+                                                </div>
+                                                <hr />
+                                                <div class="form-group">
+                                                    <label for="projectrole" class="sr-only">Project Role</label>
+                                                    <select id="projectrole" name="projectrole" class="form-control" required="required">
+                                                        <option value="" disabled="disabled" selected="selected">Please select a role</option>
+                                                        <option value="Project Manager">Project Manager</option>
+                                                        <option value="Designer">Designer</option>
+                                                        <option value="Client">Client</option>
+                                                    </select>
+                                                </div>
                                                 <input type="submit" value="Create Account" class="btn btn-danger"/>
                                             </form>
 
