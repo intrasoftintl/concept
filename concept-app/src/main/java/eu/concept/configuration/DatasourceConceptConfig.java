@@ -54,6 +54,8 @@ public class DatasourceConceptConfig {
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
         xaDataSource.setXaDataSource(mysqlXaDataSource);
         xaDataSource.setUniqueResourceName("conceptDS");
+        xaDataSource.getXaProperties().setProperty("validationQuery", "select now()");
+        xaDataSource.getXaProperties().setProperty("testOnBorrow", "true");
         return xaDataSource;
 
     }
