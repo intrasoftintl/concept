@@ -84,12 +84,12 @@
                                                 </div>
                                                 <hr />
                                                 <div class="form-group">
-                                                    <label for="projectrole" class="sr-only">Project Role</label>
-                                                    <select id="projectrole" name="projectrole" class="form-control" required="required">
-                                                        <option value="" disabled="disabled" selected="selected">Please select a role</option>
-                                                        <option value="Project Manager">Project Manager</option>
-                                                        <option value="Designer">Designer</option>
-                                                        <option value="Client">Client</option>
+                                                    <label for="role" class="sr-only">Project Role</label>
+                                                    <select th:field="${userrole.roleId}" id="roleId" name="roleId" class="form-control" required="required">
+                                                        <option value="0" disabled="disabled" selected="selected">Please select a role</option>
+                                                        <option value="3">Project Manager</option>
+                                                        <option value="4">Designer</option>
+                                                        <option value="5">Client</option>
                                                     </select>
                                                 </div>
                                                 <input type="submit" value="Create Account" class="btn btn-danger"/>

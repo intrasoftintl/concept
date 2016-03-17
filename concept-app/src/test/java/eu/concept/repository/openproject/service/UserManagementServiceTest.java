@@ -46,7 +46,7 @@ public class UserManagementServiceTest {
         userPassword.setHashedPassword("user6");
         logger.info("UserID: " + userPassword.getId() + " HashedPassword:" + userPassword.getHashedPassword() + " Salt: " + userPassword.getSalt());
         //Store User with Password to database
-        userManagementOpService.addUserToOpenproject(user, userPassword);
+        //userManagementOpService.addUserToOpenproject(user, userPassword);
 
     }
 

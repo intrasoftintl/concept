@@ -2,8 +2,12 @@ package eu.concept.repository.openproject.service;
 
 import eu.concept.repository.concept.dao.UserCoRepository;
 import eu.concept.repository.concept.domain.UserCo;
+import eu.concept.repository.openproject.dao.MemberOpRepository;
+import eu.concept.repository.openproject.dao.MemberRoleOpRepository;
 import eu.concept.repository.openproject.dao.PasswordOpRepository;
 import eu.concept.repository.openproject.dao.UserOpRepository;
+import eu.concept.repository.openproject.domain.MemberOp;
+import eu.concept.repository.openproject.domain.MemberRoleOp;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.UserOp;
 import eu.concept.response.ApplicationResponse;
@@ -27,13 +31,18 @@ public class UserManagementOpImpl implements UserManagementOp {
 
     private final UserOpRepository userOpRepository;
     private final PasswordOpRepository passwordOpRepository;
+    private final MemberOpRepository memberOpRepository;
+    private final MemberRoleOpRepository memberRoleOpRepository;
+
     private final UserCoRepository userCoRepository;
 
     @Autowired
-    public UserManagementOpImpl(UserOpRepository userOpRepository, PasswordOpRepository passwordOpRepository, UserCoRepository userCoRepository) {
+    public UserManagementOpImpl(UserOpRepository userOpRepository, PasswordOpRepository passwordOpRepository, UserCoRepository userCoRepository, MemberOpRepository memberOpRepository, MemberRoleOpRepository memberRoleOpRepository) {
         this.userOpRepository = userOpRepository;
         this.passwordOpRepository = passwordOpRepository;
         this.userCoRepository = userCoRepository;
+        this.memberOpRepository = memberOpRepository;
+        this.memberRoleOpRepository = memberRoleOpRepository;
     }
 
     /**
@@ -41,11 +50,12 @@ public class UserManagementOpImpl implements UserManagementOp {
      *
      * @param user An instance of UserOp object
      * @param password An instance of PasswordOp object
+     * @param memberRole
      * @return
      */
     @Transactional
     @Override
-    public ApplicationResponse addUserToOpenproject(UserOp user, PasswordOp password) {
+    public ApplicationResponse addUserToOpenproject(UserOp user, PasswordOp password, MemberRoleOp memberRole) {
         Calendar cal = Calendar.getInstance();
 
         //Check user/password length | throws User/Password too short Exception
@@ -57,6 +67,12 @@ public class UserManagementOpImpl implements UserManagementOp {
             logger.log(Level.WARNING, "User with username: {0} already exists... aborting create new user", user.getLogin());
             return new ApplicationResponse(BasicResponseCode.EXCEPTION, "User with username: " + user.getLogin() + " already exists..", null);
         }
+
+        //Check if user has selected a role
+        if (memberRole.getRoleId() == 0) {
+            return new ApplicationResponse(BasicResponseCode.EXCEPTION, "Please select a role", null);
+        }
+
         //Store UserCo to database
         user.setType("User");
         user.setLanguage("en");
@@ -74,6 +90,16 @@ public class UserManagementOpImpl implements UserManagementOp {
         password.setUpdatedAt(cal.getTime());
         //Store Password to database
         passwordOpRepository.save(password);
+
+        //Create and save memberOp
+        MemberOp memberOp = new MemberOp(null, 1, false);
+        memberOp.setUser(user);
+        memberOp = memberOpRepository.save(memberOp);
+
+        //Store MemberRoleOp to dabase
+        memberRole.setMemberId(memberOp.getId());
+        memberRole = memberRoleOpRepository.save(memberRole);
+
         //Store UserCo to Concept Database
         UserCo conceptUser = new UserCo(addedUser.getId(), addedUser.getMail(), addedUser.getFirstname(), addedUser.getLastname(), password_sha1, addedUser.getLogin(), cal.getTime());
         userCoRepository.save(conceptUser);

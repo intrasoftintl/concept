@@ -29,10 +29,6 @@ public class MemberOp implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-//    @Basic(optional = false)
-//    @NotNull
-//    @Column(name = "user_id")
-    private int userId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "project_id")
@@ -57,9 +53,8 @@ public class MemberOp implements Serializable {
         this.id = id;
     }
 
-    public MemberOp(Integer id, int userId, int projectId, boolean mailNotification) {
+    public MemberOp(Integer id,  int projectId, boolean mailNotification) {
         this.id = id;
-        this.userId = userId;
         this.projectId = projectId;
         this.mailNotification = mailNotification;
     }
@@ -72,13 +67,6 @@ public class MemberOp implements Serializable {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public int getProjectId() {
         return projectId;

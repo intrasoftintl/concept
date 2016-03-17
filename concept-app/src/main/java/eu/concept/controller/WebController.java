@@ -1,8 +1,10 @@
 package eu.concept.controller;
 
+import eu.concept.authentication.COnCEPTRole;
 import eu.concept.authentication.CurrentUser;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.MetadataService;
+import eu.concept.repository.openproject.domain.MemberRoleOp;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.domain.UserOp;
@@ -71,9 +73,10 @@ public class WebController {
     public String registerForm(Model model) {
         model.addAttribute("user", new UserOp());
         model.addAttribute("password", new PasswordOp());
+        model.addAttribute("userrole", new MemberRoleOp());
         return "registration";
     }
-    
+
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
@@ -100,7 +103,7 @@ public class WebController {
         model.addAttribute("currentUser", getCurrentUser());
         return "notifications";
     }
-    
+
     // Project Management
     @RequestMapping(value = "/pm_app", method = RequestMethod.GET)
     public String pm(Model model) {
@@ -136,10 +139,13 @@ public class WebController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerSubmit(@ModelAttribute UserOp user, @ModelAttribute PasswordOp password, Model model) {
+    public String registerSubmit(@ModelAttribute UserOp user, @ModelAttribute PasswordOp password, @ModelAttribute MemberRoleOp userrole, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("password", password);
-        ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password);
+        model.addAttribute("userrole", userrole);
+        System.out.println("User role: " + userrole.getRoleId());
+
+        ApplicationResponse appResponse = userManagementService.addUserToOpenproject(user, password, userrole);
         String redirectToPage = "";
 
         if (appResponse.getCode() == BasicResponseCode.SUCCESS) {
