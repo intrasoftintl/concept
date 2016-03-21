@@ -173,7 +173,14 @@
 
                                         <br/>
 
-                                        <div id="files" class="alert alert-success files" role="alert"><strong>Files uploaded:</strong><br/><br/></div>
+                                        <div id="files" class="alert alert-success files" role="alert">
+                                            <form id="fmAllForm" action="#" method="post" th:action="@{/fm_all}">
+                                                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
+                                            </form>
+                                            <a class="btn btn-success" onclick="$('#fmAllForm').submit();" ><i class="glyphicon glyphicon-open" style="color: #fff"></i> View uploaded files</a>
+
+                                            <br/><br/>
+                                        </div>
 
                                     </div>
                                 </div>

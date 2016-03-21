@@ -40,10 +40,10 @@ $(document).ready(function () {
             done: function (e, data) {
                 $.each(data.result, function (index, result) {
                     if (result.status === 'FAIL') {
-                        $('.files').append('- ' + result.fileName + '(ERROR) <br/>');
+                        $('.files').append('<i class="glyphicon glyphicon-remove" style="color:#d9534f"></i> ' + result.fileName + '(ERROR) <br/>');
                         $('.files').css("display", "block");
                     } else {
-                        $('.files').append('- ' + result.fileName + '<br/>');
+                        $('.files').append('<i class="glyphicon glyphicon-ok" style="color:#5cb85c"></i> ' + result.fileName + '<br/>');
                         $('.files').css("display", "block");
                     }
                 });
