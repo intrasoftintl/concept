@@ -709,14 +709,14 @@ nav{
 }
 
 .content .header{
-    background:url('/images/CONCEPT_LOGO_S.png');
+    //background:url('/images/CONCEPT_LOGO_S.png');
     background-size: 400px 109px;
     background-repeat: no-repeat;
     background-position: 30px 20px;
     background-color:#fff;
     width:auto;
     height:160px;
-    padding:20px;
+//    padding: 10px; 20px;
     border-bottom: 2px solid #eee;
     margin-bottom:20px;
 }
@@ -843,7 +843,7 @@ a.fm-popup {
     padding: 0 0 10px;
 }
 .folder:hover{
-    background: #f2f2f2;
+    //background: #f2f2f2;
     //opacity:0.5;
 }
 
@@ -881,16 +881,21 @@ a.fm-popup {
 
 #search-upload{
     display: inline;
-    position: absolute;
-    right: 50px;
-    bottom: 50px;
+    position: relative;
+    left: 30px;
+    top: -10px;
 }
 
 #main-search{
-    outline: 15px solid #fcf8e3;
-    background: #fcf8e3;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
+    //outline: 15px solid #fcf8e3;
+    //background: #fcf8e3;
+    //padding: 10px 0;
+    margin:0px;
+    margin-bottom: 10px;
+}
+
+.search-header{
+    padding: 10px 0;
 }
 
 /* BOOTSTRAP OVERRIDE */

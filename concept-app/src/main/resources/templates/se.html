@@ -1,5 +1,5 @@
 <div th:fragment="seContent">
-    <div class="panel-body">
+    <div class="panel-body col-md-8 search-header">
 
         <form id="se-form" method="post" th:object="${search}" th:action="@{/se_app}">
 
@@ -8,9 +8,12 @@
             <input th:type="hidden" th:name="pid" th:field="*{pid}"/>
 
 
+
+            <div class="col-md-5">
+
             <div id="main-search" class="form-group col-md-12">
-                <label for="keyword">Semantic search</label>
-                <input type="text" class="form-control" id="content" th:name="content"  th:field="*{content}" placeholder="Content or title"/>
+                <label for="keyword">Content search</label>
+                <input type="text" class="form-control" id="content" th:name="content"  th:field="*{content}" placeholder="Content search (Search content or title)"/>
             </div>
 
             <div class="form-group col-md-6">
@@ -29,18 +32,28 @@
                 </select>
 
             </div>
+            </div>
+
+            <div class="col-md-4">
+
             <div class="form-group col-md-12">
                 <label for="category-search">Category filter</label>
                 <div id="category-search" ></div>
             </div>
+
+                </div>
+
+            <div class="col-md-3">
 
             <input th:type="hidden" name="categories" value="{}"  th:value="*{categories}"  id="categories"/>
 
             <div class="form-group col-md-12">
                 <button type ="submit" class="btn btn-danger">Search</button>
             </div>
+
+            </div>
         </form>
-        <!-- Init a serach based on an image -->
+        <!-- Init a search based on an image -->
         <form id="search-upload" method="POST" enctype="multipart/form-data"  action="/search_upload">
             <input type="hidden" name="project_id" th:value="${project_id}" />
             <span class="btn btn-default fileinput-button">
