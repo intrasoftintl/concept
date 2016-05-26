@@ -6,8 +6,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-3">Recent MindMaps</th>
-                        <th class="col-md-4">Details</th>
-                        <th class="col-md-5"></th>
+                        <th class="col-md-9">Details</th>
                     </tr>
                 </thead>
                 <tbody>            
@@ -19,8 +18,8 @@
                                 <a id="mb-add" type="submit" th:onclick="@{ '$(\'#mm-add-form'+${mmContent.id} +'\').submit()'}"  ><img  src="/images/fm_generic_mm.png" class="img-thumbnail" /></a>
                             </form>
                         </td>
-                        <td class="truncate"><span th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mmContent.createdDate,0,16)}"></span></td>
-                        <td>
+                        <td class="truncate"><span th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mmContent.createdDate,0,16)}"></span>
+                            <br/>
                             <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${mmContent.id}  +',\'MM\','+${mmContent.pid}+',this)'}">
                                 <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                             </button>

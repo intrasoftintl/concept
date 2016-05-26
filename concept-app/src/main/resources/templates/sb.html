@@ -6,8 +6,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-3">Recent Storyboards</th>
-                        <th class="col-md-4">Details</th>
-                        <th class="col-md-5"></th>
+                        <th class="col-md-9">Details</th>
                     </tr>
                 </thead>
                 <tbody>            
@@ -20,9 +19,9 @@
                             </form>
                         </td>       
 
-                        <td class="truncate"><span th:text="@{${sbContent.uid.firstName} + ' '+ ${sbContent.uid.lastName} + ' (' +  ${sbContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(sbContent.createdDate,0,16)}"></span></td>
-                        <td>
-                            <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${sbContent.id}  +',\'SB\','+${sbContent.pid}+',this)'}">
+                        <td class="truncate"><span th:text="@{${sbContent.uid.firstName} + ' '+ ${sbContent.uid.lastName} + ' (' +  ${sbContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(sbContent.createdDate,0,16)}"></span>
+                        <br/>
+                            <button class="action-button" th:attr="onclick=@{'lo    adMetadata(' + ${sbContent.id}  +',\'SB\','+${sbContent.pid}+',this)'}">
                                 <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                             </button>
 
@@ -33,7 +32,7 @@
                             <span th:id="@{'SB' + ${sbContent.id} }" th:attr="onclick=@{'setIsPublic(\'SB\','+${sbContent.id} } +')' " th:classappend="(${sbContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                             <span th:id="@{'LikeSB' + ${sbContent.id} }" th:attr="onclick=@{'like(\'SB\','+${sbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${sbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountSB' + ${sbContent.id} }" th:text="${#arrays.length(sbContent.getLikes())}" class="label label-warning"></span>
                         </td>
-                    </tr>  
+                    </tr>
                 </tbody>
             </table>
         </div>

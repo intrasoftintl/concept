@@ -38,24 +38,32 @@
         <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
-    <body>        
+    <body>
 
         <!-- navbar -->
-        <nav class="nav-main">
-            <ul>
-                <li class="main-disabled"><img src="/images/BUTTON_DASHBOARD.png" />Dashboard</li>
-            </ul>
+        <!--<nav class="nav-main">-->
+        <!--<ul>-->
+        <!--<li class="main-disabled"><img src="/images/BUTTON_DASHBOARD.png" />Dashboard</li>-->
+        <!--</ul>-->
+        <!--</nav>-->
+
+        <!-- logo -->
+        <nav class="nav-logo">
+            <img class="back" src="/images/BUTTON_DASHBOARD.png"/>
+            <!--<img class="back" src="/images/BUTTON_BACK.png"/>-->
+            <img class="logo" src="/images/concept-logo-small.png"/>
         </nav>
 
         <!-- apps -->
         <nav class="nav-apps">
             <ul>
-                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></button></form></li> 
-                <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="../static/images/ICON_BA.png" th:src="@{images/ICON_BA.png}" /></button></form></li> 
-                <li><img src="../static/images/ICON_SE.png" th:src="@{images/ICON_SE.png}" /></li>
+
+                <li><form id="ba-app-link-form" action="#" method="post" th:action="@{/ba_app}"><button onclick="addProjectIDToForm('ba-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img src="../static/images/ICON_BA.png" th:src="@{images/ICON_BA.png}" /></button></form></li>
                 <li><form id="mm-app-link-form" action="#" method="post" th:action="@{/mm_app}"><button onclick="addProjectIDToForm('mm-app-link-form')" type="submit" id="mm-app-link" class="app-link"><img src="../static/images/ICON_MM.png" th:src="@{images/ICON_MM.png}" /></button></form></li>
                 <li><form id="mb-app-link-form" action="#" method="post" th:action="@{/mb_app}"><button onclick="addProjectIDToForm('mb-app-link-form')" type="submit" id="mb-app-link" class="app-link"><img src="../static/images/ICON_MB.png" th:src="@{images/ICON_MB.png}" /></button></form></li>
-                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="../static/images/ICON_SB.png" th:src="@{images/ICON_SB.png}" /></button></form></li>                
+                <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="../static/images/ICON_SB.png" th:src="@{images/ICON_SB.png}" /></button></form></li>
+                <br/>
+                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img class="fm" src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></button></form></li>
             </ul>
         </nav>
 
@@ -158,25 +166,26 @@
             <div id="row1" class="row">
 
                 <!-- file management -->
-                <div class="col-md-4">
-                    <div id="fm-buttons" class="panel panel-default">
-                        <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left">Project Files</h4>
-                            <div class="btn-group pull-right">
-                                <form id="fm-add-form" action="#" method="post" th:action="@{/fm_app}">
-                                    <button onclick="addProjectIDToForm('fm-add-form')" type="submit" id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</button>
-                                </form>
-                            </div>
-                        </div>
+                <!--<div class="col-md-4">-->
+                    <!--<div id="fm-buttons" class="panel panel-default">-->
+                        <!--<div class="panel-heading clearfix">-->
+                            <!--<h4 class="panel-title pull-left">Project Files</h4>-->
+                            <!--<div class="btn-group pull-right">-->
+                                <!--<form id="fm-add-form" action="#" method="post" th:action="@{/fm_app}">-->
+                                    <!--<button onclick="addProjectIDToForm('fm-add-form')" type="submit" id="fm-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Upload File</button>-->
+                                <!--</form>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div id="fm-placeholder" class="panel-body disabled"></div>
-                        <div id="fm-dashboard"></div>
+                        <!--<div id="fm-placeholder" class="panel-body disabled"></div>-->
+                        <!--<div id="fm-dashboard"></div>-->
 
-                    </div>
-                </div>
+                    <!--</div>-->
+                <!--</div>-->
                 
                 <!-- documents -->
-                <div class="col-md-4 ">
+                <div class="col-md-3">
+                    <img class="folder" src="/images/dashboard-documents.png"/>
                     <div id="ba-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Documents</h4>
@@ -193,24 +202,9 @@
                     </div>
                 </div>
 
-                <!-- search engine -->
-                <div class="col-md-4">
-                    <div id="se-buttons" class="panel panel-default">
-                        <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left">Search</h4>
-                        </div>
-
-                        <div id="se-placeholder" class="panel-body disabled"></div>
-                        <div id="se-dashboard"></div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div id="row2" class="row">
-
                 <!-- mindmaps -->
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <img class="folder" src="/images/dashboard-mindmaps.png"/>
                     <div id="mm-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Mindmaps</h4>
@@ -228,7 +222,8 @@
                 </div>
 
                 <!-- moodboards -->
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <img class="folder" src="/images/dashboard-moodboards.png"/>
                     <div id="mb-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Moodboards</h4>
@@ -248,11 +243,12 @@
                 </div>
 
                 <!-- storyboards -->
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <img class="folder" src="/images/dashboard-storyboards.png"/>
                     <div id="sb-buttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left">Storyboards</h4>
-                            <div  class="btn-group pull-right">                               
+                            <div  class="btn-group pull-right">
                                 <form id="sb-add-form" action="#" method="post" th:action="@{/sb_app}">
                                     <button onclick="addProjectIDToForm('sb-add-form')" type="submit" id="sb-add" href="" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Storyboard</button>
                                 </form>
@@ -264,6 +260,26 @@
 
                     </div>
                 </div>
+
+            </div>
+
+            <div id="row2" class="row">
+
+
+
+                <!-- search engine -->
+                <div class="col-md-4">
+                    <div id="se-buttons" class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            <h4 class="panel-title pull-left">Search</h4>
+                        </div>
+
+                        <div id="se-placeholder" class="panel-body disabled"></div>
+                        <div id="se-dashboard"></div>
+
+                    </div>
+                </div>
+
 
             </div>
         </div>
