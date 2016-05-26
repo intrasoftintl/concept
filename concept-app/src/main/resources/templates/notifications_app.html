@@ -1,173 +1,186 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Notifications &mdash; CONCEPT</title>
+<head>
+    <title>Notifications &mdash; CONCEPT</title>
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />	
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
-              th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
-              rel="stylesheet" media="screen" />
-        
-        <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
-        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
-    </head>
-    <body>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
 
-        <!-- navbar -->
-        <nav class="nav-main">
-            <ul>
-                <form th:action="@{/dashboard}" method="post" >
-                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
-                    <a href="#" onclick="$(this).closest('form').submit()">
-                        <li class="main"><img src="/images/BUTTON_BACK.png" />Dashboard</li>
-                    </a>
-                </form>
-            </ul>
-        </nav>
+    <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+</head>
+<body>
 
-        <!-- apps -->
-        <nav class="nav-apps">
-            <ul class="disabled">
-                <li><img src="/images/ICON_FM_DISABLED.png" /></li>
-                <li><img src="/images/ICON_BA_DISABLED.png" /></li>
-                <li><img src="/images/ICON_SE_DISABLED.png" /></li>
-                <li><img src="/images/ICON_MM_DISABLED.png" /></li>
-                <li><img src="/images/ICON_MB_DISABLED.png" /></li>
-                <li><img src="/images/ICON_SB_DISABLED.png" /></li>
-            </ul>
-        </nav>
+<!-- logo -->
+<nav class="nav-logo">
+    <form id="ba-form" th:action="@{/dashboard}" method="post">
+                <span href="#" onclick="addProjectIDToForm('ba-form');
+                            $(this).closest('form').submit()">
+                    <img class="back" src="/images/BUTTON_BACK.png"/>
+                    <img class="logo" src="/images/concept-logo-small.png"/>
+                </span>
+    </form>
 
-        <!-- projects -->
-        <nav class="nav-projects">
-            <div class="btn-group project-selection">
-                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default" disabled="true">
-                    <option selected="true" value="0">Please select a project</option>
-                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
-                </select>
+</nav>
 
-                <select th:if="${projects.isEmpty()}" class="btn btn-default">
-                    <option selected="true" disabled="true">No projects available</option>
-                </select>
+<!-- apps -->
+<nav class="nav-apps">
+    <ul class="disabled">
+        <li><img src="/images/ICON_BA_DISABLED.png"/></li>
+        <li><img src="/images/ICON_MM_DISABLED.png"/></li>
+        <li><img src="/images/ICON_MB_DISABLED.png"/></li>
+        <li><img src="/images/ICON_SB_DISABLED.png"/></li>
+        <li><img class="fm" src="/images/ICON_FM_DISABLED.png"/></li>
+    </ul>
+</nav>
+<!-- projects -->
+<nav class="nav-projects">
+    <div class="btn-group project-selection">
+        <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default" disabled="true">
+            <option selected="true" value="0">Please select a project</option>
+            <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+        </select>
 
-            </div>          
+        <select th:if="${projects.isEmpty()}" class="btn btn-default">
+            <option selected="true" disabled="true">No projects available</option>
+        </select>
 
-            <div class="project-selection">
-                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
+    </div>
 
-                <!-- Content to be showed only on project members (managers, designers, clients) -->
-                <div th:switch="${currentUser.getRole()}">
+    <div class="project-selection">
+        <input type="hidden" th:value="${projectID}" name="projectID" id="projectID" class="form-control"/>
+
+        <!-- Content to be showed only on project members (managers, designers, clients) -->
+        <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
                         
                         <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
-                            <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
+                            <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href=""
+                                    class="btn btn-success btn-xs">New Project</button>
                         </form>
-                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        <form class="project-form" id="pm-details-form" action="#" method="post"
+                              th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
+                                    href="" class="btn btn-default btn-xs">Details</button>
                         </form>
-                        <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
-                            <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-link btn-xs">Model</button>
+                        <form class="project-form" id="pm-model-form" action="#" method="post"
+                              th:action="@{/pm_app/model}">
+                            <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model"
+                                    href="" class="btn btn-link btn-xs">Model</button>
                         </form>
                  
                     </span>
                     <span th:case="'DESIGNER'">
-                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        <form class="project-form" id="pm-details-form" action="#" method="post"
+                              th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
+                                    href="" class="btn btn-default btn-xs">Details</button>
                         </form>
                     </span>
                     <span th:case="'CLIENT'">
-                        <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                        <form class="project-form" id="pm-details-form" action="#" method="post"
+                              th:action="@{/pm_app/details}">
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
+                                    href="" class="btn btn-default btn-xs">Details</button>
                         </form>
                     </span>
-                </div>
+        </div>
 
-                <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
+        <h5 id="project-members" class="highlight">Project Members<br/>
+            <small></small>
+        </h5>
+    </div>
+
+</nav>
+
+<!-- Chat DIV -->
+<div th:include="chat :: chat-list"></div>
+
+<input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+<!-- dashboard -->
+<div class="content">
+
+    <div class="header">
+
+        <!--<form th:action="@{/dashboard}" method="post" class="pull-left">-->
+            <!--<input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}" name="projectID"-->
+                   <!--id="projectID" class="form-control"/>-->
+            <!--<button type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>-->
+        <!--</form>-->
+
+        <!-- Profile -->
+        <div class="btn-group pull-right">
+            <div class="row col-md-12 pull-right">
+                <h5 th:inline="text" class="pull-right"> [[${currentUser.getFirstName()}]]
+                    [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
             </div>
-
-        </nav>
-
-        <!-- Chat DIV -->
-        <div th:include="chat :: chat-list"></div>
-
-        <input th:if="${_csrf}" id="_csrf" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-        <!-- dashboard -->
-        <div class="content">
-
-            <div class="header">
-
-                <form th:action="@{/dashboard}" method="post" class="pull-left">
-                    <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
-                    <button type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>
+            <div class="row col-md-12 pull-right">
+                <form th:action="@{/logout}" method="post" class="pull-right" style="margin-left:4px">
+                    <button type="submit" class="btn btn-default btn-sm ">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                    </button>
                 </form>
-                
-                <!-- Profile -->
-                <div class="btn-group pull-right">
-                    <div class="row col-md-12 pull-right">
-                        <h5 th:inline="text" class="pull-right"> [[${currentUser.getFirstName()}]] [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
-                    </div>
-                    <div class="row col-md-12 pull-right">
-                        <form th:action="@{/logout}" method="post" class="pull-right" style="margin-left:4px">
-                            <button type="submit" class="btn btn-default btn-sm ">
-                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
-                            </button>
-                        </form>
 
-                        <!-- Preferences Button -->
-                        <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
-                            <button type="submit" class="btn btn-default btn-sm ">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
-                            </button>
-                        </form>
-                        
-                        <!-- Notifications Button -->
-                        <form id="nf-app-link-form-2" action="#" method="post" th:action="@{/notifications_app}">
-                            <button id="notifications-btn-2" onclick="addProjectIDToForm('nf-app-link-form-2')" type="submit" class="btn btn-danger btn-sm pull-right">
-                                Notifications <span id="notifications-count" class="badge">0</span>
-                            </button>
-                        </form>
-                    </div>
+                <!-- Preferences Button -->
+                <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
+                    <button type="submit" class="btn btn-default btn-sm ">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </button>
+                </form>
 
-                </div>
-            </div>
-
-            <!-- Notifications List -->
-            <div th:include="notifications :: notifications-list" th:unless="${#lists.isEmpty(nfContents)}"></div>
-
-            <!-- Empty List DIV -->
-            <div  th:if="${nfContents.isEmpty()}" >
-                <div id="ba-placeholder" class="panel-body disabled"></div>
+                <!-- Notifications Button -->
+                <form id="nf-app-link-form-2" action="#" method="post" th:action="@{/notifications_app}">
+                    <button id="notifications-btn-2" onclick="addProjectIDToForm('nf-app-link-form-2')" type="submit"
+                            class="btn btn-danger btn-sm pull-right">
+                        Notifications <span id="notifications-count" class="badge">0</span>
+                    </button>
+                </form>
             </div>
 
         </div>
+    </div>
 
-        <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
+    <!-- Notifications List -->
+    <div th:include="notifications :: notifications-list" th:unless="${#lists.isEmpty(nfContents)}"></div>
 
-        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
+    <!-- Empty List DIV -->
+    <div th:if="${nfContents.isEmpty()}">
+        <div id="ba-placeholder" class="panel-body disabled"></div>
+    </div>
+
+</div>
+
+<input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}" name="projectID" id="projectID"
+       class="form-control"/>
+
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
         th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
-        
-        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
+
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
         th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
-        
-        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js"
+
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js"
         th:src="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js}"></script>
 
-        <script src="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/tree.jquery.js"
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/tree.jquery.js"
         th:src="@{/webjars/jqtree/1.1.0/tree.jquery.js}"></script>
-        
-        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
+
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
         th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
-        
-        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
+
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
         th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
-        
-        <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
-        <script src="../static/js/dashboard.js" th:src="@{/js/dashboard.js}"></script>
-        <script src="../static/js/metadata.js" th:src="@{/js/metadata.js}"></script>
-        <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
-        
-    </body>
+
+<script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
+<script src="../static/js/dashboard.js" th:src="@{/js/dashboard.js}"></script>
+<script src="../static/js/metadata.js" th:src="@{/js/metadata.js}"></script>
+<script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
+
+</body>
 </html>
