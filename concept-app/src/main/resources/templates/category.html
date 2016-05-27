@@ -7,15 +7,15 @@
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Model</h4>
                     <div class="btn-group pull-right">
-                        <button id="add-button" onclick="addCategoryToModel();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Add</button>
+                        <button id="add-button" onclick="addCategoryToModel();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
                     </div>
                 </div>
-                <div class="panel-body no-padding" style="overflow: auto; height:500px;">
+                <div class="panel-body no-padding">
                     <table class="table tree table-striped">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Actions</th>
+                                <th class="col-md-4">Name</th>
+                                <th class="col-md-8"></th>
                             </tr>
                         </thead>
                         <tbody id="treeGrid">
@@ -47,21 +47,19 @@
                         <button id="add-button" onclick="$('#categoryForm').submit();" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
                     </div>
                 </div>
-                <div class="panel-body no-padding">
-                    
+                <div class="panel-body">
+
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="(${isEdit} == 1) ? '/category/update'  : '/category/add'" method="post" id="categoryForm">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="text-input">Category name</label>
-                                <div class="col-md-9">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" id="categoryName" name="categoryName"  th:value=" ( 1 == ${isEdit}) ? ${category.name} :  '' " placeholder="" />
-                                    </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" id="categoryName" name="categoryName"  th:value=" ( 1 == ${isEdit}) ? ${category.name} :  '' " placeholder="" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="text-input">Parent Category</label>
-                                <div class="col-md-9">
+                                <div class="col-md-3">
                                     <div class="input-group">
                                         <span class="input-group-addon">
                                             <input type="checkbox" aria-label="" id="hasParent" name="hasParent" th:value="${hasFather}" th:attr="checked= @{( ${hasFather} == 1 ) ? true  :  false} "/>
@@ -69,7 +67,7 @@
                                             
                                         </span>
                                         <input type="text" class="form-control" name="parentCategory" id="parentCategory"  th:value="(${hasFather} == 1) ? ${category.parentID.name}  : ''" placeholder=""    th:attr="disabled= @{( ${hasFather} == 1 ) ? false  :  true} " />
-                                    </div>                          
+                                    </div>
                                 </div>
                             </div>
                             <input type="hidden" id="categoryID" name="categoryID" th:if="1 == ${isEdit}" th:value="${category.id}"/>
@@ -100,7 +98,7 @@
                     </div>
                 </div>
                 <div class="panel-body no-padding">
-                    
+
                     <div class="form-group" >
                         <form class="form-horizontal" th:action="@{/category/init}" method="post" id="initCategoryForm">
                             <div class="form-group">
@@ -111,7 +109,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" id="projectID" name="projectID" th:value="${projectID}"/>                            
+                            <input type="hidden" id="projectID" name="projectID" th:value="${projectID}"/>
                         </form>
                     </div>
                 </div>

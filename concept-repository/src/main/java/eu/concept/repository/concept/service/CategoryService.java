@@ -44,7 +44,7 @@ public class CategoryService {
         }
         return true;
     }
-    
+
     public boolean deleteCategoryCustom(Integer id) {
         try {
             categoryRepository.deleteCategoryCustom(id);
@@ -102,7 +102,7 @@ public class CategoryService {
      * @return A List of Category object
      */
     public List<Category> getCategoriesByKeyword(String keyword, ProjectCategory projectCategory) {
-        
+
         List<Category> listOfCategories;
         if (keyword.matches("\\*+")) {
             int length = keyword.length();
@@ -128,9 +128,9 @@ public class CategoryService {
 
         // Find Root Category
         List<Category> rootNode = nodesInit.stream().filter(node -> null == node.getParentID()).collect(Collectors.toList());
-        
+
         // rootNode.get(0).getId()
-        
+
         List<Category> nodes = nodesInit.stream().filter(node -> null != node.getParentID()).collect(Collectors.toList());
 
         List<String> treeNodes = new ArrayList<>();
@@ -190,7 +190,8 @@ public class CategoryService {
         String parentNodeHTML = "";
 
         parentNodeHTML += "<tr class='treegrid-" + categoryID + "'>";
-        parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        //parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        parentNodeHTML += "<td>" + name + "</td><td><button class='btn btn-xs btn-default' onclick='editCategory(" + categoryID + ")'>EDIT</button> <button class='btn btn-xs btn-danger' onclick='deleteCategory(" + categoryID + ")'>DELETE</button></td>";
         parentNodeHTML += "</tr>";
 
         return parentNodeHTML;
@@ -209,7 +210,8 @@ public class CategoryService {
         String childNodeHTML = "";
 
         childNodeHTML += "<tr class='treegrid-" + categoryID + " treegrid-parent-" + parentID + "'>";
-        childNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        //parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        childNodeHTML += "<td>" + name + "</td><td><button class='btn btn-xs btn-default' onclick='editCategory(" + categoryID + ")'>EDIT</button> <button class='btn btn-xs btn-danger' onclick='deleteCategory(" + categoryID + ")'>DELETE</button></td>";
         childNodeHTML += "</tr>";
 
         return childNodeHTML;
