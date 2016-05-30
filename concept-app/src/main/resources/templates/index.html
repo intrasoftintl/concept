@@ -1,73 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Welcome &mdash; CONCEPT</title>
+<head>
+    <title>Welcome &mdash; CONCEPT</title>
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
-              th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
-              rel="stylesheet" media="screen" />
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
 
-        <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
-        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
-    </head>
-    <body>
+    <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+</head>
+<body>
 
-        <!-- navbar -->
-        <nav class="nav-main">
-            <ul>
-                <li class="placeholder"></li>
-            </ul>
+<!-- logo -->
+<nav class="nav-logo">
+    <img class="back" src="/images/BUTTON_DASHBOARD.png"/>
+    <!--<img class="back" src="/images/BUTTON_BACK.png"/>-->
+    <img class="logo" src="/images/concept-logo-small.png"/>
+</nav>
 
-        </nav>
+<!-- apps -->
+<nav class="nav-apps">
+    <ul class="disabled">
+        <li><img src="../static/images/ICON_BA_DISABLED.png" th:src="@{images/ICON_BA_DISABLED.png}"/></li>
+        <li><img src="../static/images/ICON_MM_DISABLED.png" th:src="@{images/ICON_MM_DISABLED.png}"/></li>
+        <li><img src="../static/images/ICON_MB_DISABLED.png" th:src="@{images/ICON_MB_DISABLED.png}"/></li>
+        <li><img src="../static/images/ICON_SB_DISABLED.png" th:src="@{images/ICON_SB_DISABLED.png}"/></li>
+        <li><img class="fm" src="../static/images/ICON_FM_DISABLED.png" th:src="@{images/ICON_FM_DISABLED.png}"/></li>
+    </ul>
+</nav>
 
-        <!-- apps -->
-        <nav class="nav-apps">
-            <ul class="disabled">
-                <li><img src="../static/images/ICON_BA_DISABLED.png" th:src="@{images/ICON_BA_DISABLED.png}" /></li>
-                <li><img src="../static/images/ICON_FM_DISABLED.png" th:src="@{images/ICON_FM_DISABLED.png}" /></li>
-                <li><img src="../static/images/ICON_SE_DISABLED.png" th:src="@{images/ICON_SE_DISABLED.png}" /></li>
-                <li><img src="../static/images/ICON_MM_DISABLED.png" th:src="@{images/ICON_MM_DISABLED.png}" /></li>
-                <li><img src="../static/images/ICON_MB_DISABLED.png" th:src="@{images/ICON_MB_DISABLED.png}" /></li>
-                <li><img src="../static/images/ICON_SB_DISABLED.png" th:src="@{images/ICON_SB_DISABLED.png}" /></li>
-            </ul>
-        </nav>
+<!-- placeholder -->
+<nav class="nav-placeholder">
+    <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
+</nav>
 
-        <!-- placeholder -->
-        <nav class="nav-placeholder">
-            <p><strong>&mdash; CONCEPT &mdash;</strong><br/>Collaborative creative<br/>design platform</p>
-        </nav>
+<!-- dashboard -->
+<div class="content-pre">
+    <div class="header"></div>
 
-        <!-- dashboard -->
-        <div class="content-pre">
-            <div class="header"></div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="dashboard-login">
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="dashboard-login">
+                <section id="login">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h5 class="heading">Welcome to the CONCEPT collaborative design platform</h5>
+                                <p>The platform has been developed as part of the ConCEPT FP7 EU funded project. The
+                                    project aims to implement a semantically driven collaboration framework to be
+                                    integrated into future synchronous/asynchronous collaborative design environments,
+                                    to assist professional product designers during the early stages of the design
+                                    process.</p>
+                                <a href="/login" class="btn btn-danger">Login</a>
+                                <a href="/register" class="btn btn-danger">Create New Account</a>
 
-                        <section id="login">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h5 class="heading">Welcome to the CONCEPT collaborative design platform</h5>
-                                        <p>The platform has been developed as part of the ConCEPT FP7 EU funded project. The project aims to implement a semantically driven collaboration framework to be integrated into future synchronous/asynchronous collaborative design environments, to assist professional product designers during the early stages of the design process.</p>
-                                        <a href="/login" class="btn btn-danger">Login</a>
-                                        <a href="/register" class="btn btn-danger">Create New Account</a>
-
-                                    </div>
-                                </div>
                             </div>
-                        </section>
-
+                        </div>
                     </div>
-                </div>
+                </section>
+
             </div>
-
         </div>
+    </div>
 
-    </body>
+</div>
+
+</body>
 </html>

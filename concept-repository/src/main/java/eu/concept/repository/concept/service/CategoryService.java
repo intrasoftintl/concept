@@ -191,7 +191,8 @@ public class CategoryService {
         String parentNodeHTML = "";
 
         parentNodeHTML += "<tr class='treegrid-" + categoryID + "'>";
-        parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        //parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        parentNodeHTML += "<td>" + name + "</td><td><button class='btn btn-xs btn-default' onclick='editCategory(" + categoryID + ")'>EDIT</button> <button class='btn btn-xs btn-danger' onclick='deleteCategory(" + categoryID + ")'>DELETE</button></td>";
         parentNodeHTML += "</tr>";
 
         return parentNodeHTML;
@@ -210,7 +211,8 @@ public class CategoryService {
         String childNodeHTML = "";
 
         childNodeHTML += "<tr class='treegrid-" + categoryID + " treegrid-parent-" + parentID + "'>";
-        childNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        //parentNodeHTML += "<td>" + name + "</td><td><img src='../images/ICON_EDIT.png' width='32px;' height='32px;' onclick='editCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/> <img src='../images/ICON_DELETE.png' width='32px;' height='32px;' onclick='deleteCategory(" + categoryID + ");' onmouseover='' style='cursor: pointer;'/></td>";
+        childNodeHTML += "<td>" + name + "</td><td><button class='btn btn-xs btn-default' onclick='editCategory(" + categoryID + ")'>EDIT</button> <button class='btn btn-xs btn-danger' onclick='deleteCategory(" + categoryID + ")'>DELETE</button></td>";
         childNodeHTML += "</tr>";
 
         return childNodeHTML;

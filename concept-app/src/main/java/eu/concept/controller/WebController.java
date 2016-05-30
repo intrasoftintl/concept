@@ -119,6 +119,13 @@ public class WebController {
         return "preferences";
     }
 
+    // Tags
+    @RequestMapping(value = "/tags", method = RequestMethod.GET)
+    public String tags(Model model) {
+        model.addAttribute("currentUser", getCurrentUser());
+        return "tags";
+    }
+
     // Search Engine ALL
     @RequestMapping(value = "/se_all", method = RequestMethod.GET)
     public String se_all(Model model) {
@@ -173,6 +180,11 @@ public class WebController {
         logger.log(Level.INFO, "{0}:  {1}", new Object[]{appResponse.getCode(), appResponse.getMessage()});
         return "redirect:/preferences";
     }
+
+//    @RequestMapping(value = "/tags", method = RequestMethod.POST)
+//    public String tags(Model model) {
+//        return "redirect:/tags";
+//    }
 
     /*
      *  Help Methods

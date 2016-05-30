@@ -4,16 +4,15 @@
         <table id="ba_table" class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-3">Recent Documents</th>
-                    <th class="col-md-4">Details</th>
-                    <th class="col-md-5"> </th>
+                    <th class="col-md-4">Recent Documents</th>
+                    <th class="col-md-9">Details</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
                     <td class="truncate"><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
-                    <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(baContent.createdDate,0,16)}"></span></td>
-                    <td>
+                    <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(baContent.createdDate,0,16)}"></span>
+                    <br/>
                         <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
