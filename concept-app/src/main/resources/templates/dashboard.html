@@ -63,16 +63,17 @@
                 <li><form id="mb-app-link-form" action="#" method="post" th:action="@{/mb_app}"><button onclick="addProjectIDToForm('mb-app-link-form')" type="submit" id="mb-app-link" class="app-link"><img src="../static/images/ICON_MB.png" th:src="@{images/ICON_MB.png}" /></button></form></li>
                 <li><form id="sb-app-link-form" action="#" method="post" th:action="@{/sb_app}"><button onclick="addProjectIDToForm('sb-app-link-form')" type="submit" id="sb-app-link" class="app-link"><img src="../static/images/ICON_SB.png" th:src="@{images/ICON_SB.png}" /></button></form></li>
                 <br/>
-                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_app}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img class="fm" src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></button></form></li>
+                <li><form id="fm-app-link-form" action="#" method="post" th:action="@{/fm_all}"><button onclick="addProjectIDToForm('fm-app-link-form')" type="submit" id="ba-app-link" class="app-link"><img class="fm" src="../static/images/ICON_FM.png" th:src="@{images/ICON_FM.png}" /></button></form></li>
             </ul>
         </nav>
 
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
-                <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default">
+                <p>Project Management</p>
+                <select id="project-select" th:if="${!projects.isEmpty()}">
                     <option selected="true" value="0">Please select a project</option>
-                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="'Project: ' + ${project.name}"></option>
                 </select>
 
                 <select th:if="${projects.isEmpty()}" class="btn btn-default">

@@ -215,7 +215,6 @@ nav{
     -webkit-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
     -moz-box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
     box-shadow: 0 3px 0 #ccc, 0 -1px #fff inset;
-    //background: #f8f8f8;
     color:#888;
     border:1px solid #ddd;
     outline:none;
@@ -226,6 +225,9 @@ nav{
     cursor:pointer;
     width:218px;
     text-align:left;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    background: #fff;
 }
 
 .nav-projects select option{
@@ -248,6 +250,16 @@ nav{
 
 .nav-projects .project-form{
     display: inline;
+}
+
+.nav-projects p {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: #aaa;
+    padding: 0 4px;
+    font-size: 13px;
+    margin: 0 0 6px 0;
 }
 
 .project-prompt {
@@ -314,7 +326,6 @@ nav{
     font-weight:400;
     color:#B8B8B8;
     font-size:11px;
-    opacity:0.5;
 }
 
 /* NAV-CHAT CONTAINER */
@@ -673,14 +684,14 @@ nav{
 
 .content{
     background: #f8f8f8; #f2f2f2;
-    opacity:0.8;
+    //opacity:0.8;
     width:calc(100vw - 240px);
     margin-left:240px;
 }
 
 .content-error{
     background:#f2f2f2;
-    opacity:0.8;
+    //opacity:0.8;
     padding-top:200px;
     text-align:center;
 }
@@ -733,7 +744,7 @@ nav{
 
 .content-pre form,
 .content-pre a{
-    opacity:0.9;
+    //opacity:0.9;
     text-shadow: none;
 }
 
@@ -936,7 +947,8 @@ a.fm-popup {
 h5.heading{
     text-transform: uppercase;
     font-weight: 800;
-    opacity:0.6;
+    //opacity:0.6;
+    letter-spacing: 4px;
 }
 
 hr {

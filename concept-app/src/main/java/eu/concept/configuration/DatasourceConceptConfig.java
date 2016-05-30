@@ -52,6 +52,8 @@ public class DatasourceConceptConfig {
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
         mysqlXaDataSource.setTcpKeepAlive(true);
+        mysqlXaDataSource.setAutoReconnect(true);
+        
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
         xaDataSource.setXaDataSource(mysqlXaDataSource);
         xaDataSource.setUniqueResourceName("conceptDS");
