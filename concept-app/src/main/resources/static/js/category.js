@@ -82,6 +82,18 @@ var checkForTreeGrid = function checkForTreeGrid() {
             initialState: 'collapsed'
         });
     }
+
+    //Hide Taxonomy add/edit buttons
+    if (!$("#taxonomyAlert").length) {
+        $("#add-button-taxonomy").hide();
+        $(".model-edit").hide();
+        $(".model-delete").hide();
+    }
+
+    if ($("#model-name").length) {
+        $("#pm-taxonomy-form").hide();
+    }
+
 }
 
 function loadFragment() {

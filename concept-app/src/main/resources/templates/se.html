@@ -11,45 +11,45 @@
 
             <div class="col-md-5">
 
-            <div id="main-search" class="form-group col-md-12">
-                <label for="keyword">Content search</label>
-                <input type="text" class="form-control" id="content" th:name="content"  th:field="*{content}" placeholder="Content search (Search content or title)"/>
-            </div>
+                <div id="main-search" class="form-group col-md-12">
+                    <label for="keyword">Content search</label>
+                    <input type="text" class="form-control" id="content" th:name="content"  th:field="*{content}" placeholder="Content search (Search content or title)"/>
+                </div>
 
-            <div class="form-group col-md-6">
-                <label for="keyword">Document filter</label>
-                <select th:field="*{component.id}" id="component" name="component" class="form-control">
-                    <option value="">All</option>
-                    <option  th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
-                </select>
+                <div class="form-group col-md-6">
+                    <label for="keyword">Document filter</label>
+                    <select th:field="*{component.id}" id="component" name="component" class="form-control">
+                        <option value="">All</option>
+                        <option  th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
+                    </select>
 
-            </div>
+                </div>
 
-            <div class="form-group col-md-6">
-                <label for="keyword">Keyword filter</label>
-                <select th:field="*{keywords}"  id="keywords" name="keywords"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
-                    <option  th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
-                </select>
+                <div class="form-group col-md-6">
+                    <label for="keyword">Keyword filter</label>
+                    <select th:field="*{keywords}"  id="keywords" name="keywords"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
+                        <option  th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
+                    </select>
 
-            </div>
+                </div>
             </div>
 
             <div class="col-md-4">
 
-            <div class="form-group col-md-12">
-                <label for="category-search">Category filter</label>
-                <div id="category-search" ></div>
-            </div>
-
+                <div class="form-group col-md-12">
+                    <label for="category-search">Category filter</label>
+                    <div id="category-search" ></div>
                 </div>
+
+            </div>
 
             <div class="col-md-3">
 
-            <input th:type="hidden" name="categories" value="{}"  th:value="*{categories}"  id="categories"/>
+                <input th:type="hidden" name="categories" value="{}"  th:value="*{categories}"  id="categories"/>
 
-            <div class="form-group col-md-12">
-                <button type ="submit" class="btn btn-danger">Search</button>
-            </div>
+                <div class="form-group col-md-12">
+                    <button type ="submit" class="btn btn-danger">Search</button>
+                </div>
 
             </div>
         </form>
@@ -65,14 +65,20 @@
 
 
     </div>
-    <script>
+    <script th:inline="javascript">
+
+        //define project taxonomy
+        var taxonomy = JSON.parse([[${taxonomy}]]);
+
         $("#se-form").submit(function (event) {
             $("#categories").val(JSON.stringify($('#category-search').tree('getState')));
             logger(JSON.stringify($('#category-search').tree('getState')));
         });
 
         $("#keywords").chosen();
-        initCategorySearch();
+
+        //Initialize Taxonomy
+        initCategorySearch(taxonomy);
 
         $("#file").change(function () {
             $("#search-upload").submit();

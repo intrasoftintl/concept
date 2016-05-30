@@ -1,4 +1,4 @@
-function initMetadata() {
+function initMetadata(data) {
     logger("Initializing Metadata tags...");
 
     $('#tags').tagsInput({
@@ -8,9 +8,7 @@ function initMetadata() {
         'placeholderColor': '#ccc'
     });
 
-    var data = [{"children":[{"children":[{"children":[{"label":"Order","id":12},{"label":"Complexity","id":13}],"label":"Aesthetic Function","id":11},{"children":[{"children":[{"label":"Brand","id":16},{"label":"Material","id":17}],"label":"Identity","id":15},{"children":[{"label":"Stability","id":19},{"label":"Usability","id":20}],"label":"Practicality","id":18}],"label":"Indication Function","id":14},{"children":[{"children":[{"label":"Classic","id":23},{"label":"Corporate","id":24},{"label":"ArtDeco","id":25},{"label":"National","id":26},{"label":"Pop","id":27},{"label":"Romantic","id":28},{"children":[{"label":"Time","id":30},{"label":"Region","id":31},{"label":"Movement","id":32}],"label":"Character","id":29}],"label":"Style","id":22},{"children":[{"label":"Old","id":35},{"label":"Aggressive","id":36},{"label":"Warm","id":37},{"label":"Cold","id":38},{"label":"Dark","id":39}],"label":"Association","id":34}],"label":"Symbol Function","id":21}],"label":"Product Function","id":10},{"children":[{"label":"Manufacturing","id":41},{"label":"IT","id":42},{"label":"Kitchenware","id":43},{"label":"Automotive","id":44}],"label":"Product Category","id":40}],"label":"Design Product","id":8}];
-
-
+    //var data = [{"children":[{"children":[{"children":[{"label":"Order","id":12},{"label":"Complexity","id":13}],"label":"Aesthetic Function","id":11},{"children":[{"children":[{"label":"Brand","id":16},{"label":"Material","id":17}],"label":"Identity","id":15},{"children":[{"label":"Stability","id":19},{"label":"Usability","id":20}],"label":"Practicality","id":18}],"label":"Indication Function","id":14},{"children":[{"children":[{"label":"Classic","id":23},{"label":"Corporate","id":24},{"label":"ArtDeco","id":25},{"label":"National","id":26},{"label":"Pop","id":27},{"label":"Romantic","id":28},{"children":[{"label":"Time","id":30},{"label":"Region","id":31},{"label":"Movement","id":32}],"label":"Character","id":29}],"label":"Style","id":22},{"children":[{"label":"Old","id":35},{"label":"Aggressive","id":36},{"label":"Warm","id":37},{"label":"Cold","id":38},{"label":"Dark","id":39}],"label":"Association","id":34}],"label":"Symbol Function","id":21}],"label":"Product Function","id":10},{"children":[{"label":"Manufacturing","id":41},{"label":"IT","id":42},{"label":"Kitchenware","id":43},{"label":"Automotive","id":44}],"label":"Product Category","id":40}],"label":"Design Product","id":8}];
 
     logger("Initializing Metadata Categories tree...");
     $(function () {
@@ -41,9 +39,9 @@ function initMetadata() {
         );
     });
 
-    $('#tree').tree('setState', JSON.parse($("#categories").val()));
+    console.log('Categories: ' + $("#categories").val());
+            $('#tree').tree('setState', JSON.parse($("#categories").val()));
     logger("Finished Metadata initalization...");
-
 
 
     $("#metadataForm").submit(function (event) {
@@ -70,9 +68,7 @@ function initMetadata() {
     });
 }
 
-function initCategorySearch() {
-
-    var data = [{"children":[{"children":[{"children":[{"label":"Order","id":12},{"label":"Complexity","id":13}],"label":"Aesthetic Function","id":11},{"children":[{"children":[{"label":"Brand","id":16},{"label":"Material","id":17}],"label":"Identity","id":15},{"children":[{"label":"Stability","id":19},{"label":"Usability","id":20}],"label":"Practicality","id":18}],"label":"Indication Function","id":14},{"children":[{"children":[{"label":"Classic","id":23},{"label":"Corporate","id":24},{"label":"ArtDeco","id":25},{"label":"National","id":26},{"label":"Pop","id":27},{"label":"Romantic","id":28},{"children":[{"label":"Time","id":30},{"label":"Region","id":31},{"label":"Movement","id":32}],"label":"Character","id":29}],"label":"Style","id":22},{"children":[{"label":"Old","id":35},{"label":"Aggressive","id":36},{"label":"Warm","id":37},{"label":"Cold","id":38},{"label":"Dark","id":39}],"label":"Association","id":34}],"label":"Symbol Function","id":21}],"label":"Product Function","id":10},{"children":[{"label":"Manufacturing","id":41},{"label":"IT","id":42},{"label":"Kitchenware","id":43},{"label":"Automotive","id":44}],"label":"Product Category","id":40}],"label":"Design Product","id":8}];
+function initCategorySearch(data) {
 
     logger("Initializing Search Categories tree...");
     $(function () {

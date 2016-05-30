@@ -106,6 +106,9 @@ public class RestAPIController {
     @Autowired
     MetadataService metadataService;
 
+    @Autowired
+    ElasticSearchController elasticSearchController;
+
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
         return members.fetchMemberhipsByProjectId(project_id);
@@ -173,9 +176,8 @@ public class RestAPIController {
             responseCode = BasicResponseCode.EXCEPTION;
         } else if (null != (mindmap = mindmapService.store(mindmap)) && mindmap.getId() > 0) {
             responseMessage = "Successfully stored mindmap to COnCEPT db...";
-
             //Insert mindmap to elastic search engine            
-            ElasticSearchController.getInstance().insert(Optional.ofNullable(mindmap), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mindmap.getId(), Util.getComponentName(MindMap.class.getSimpleName()))));
+            elasticSearchController.insert(Optional.ofNullable(mindmap), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mindmap.getId(), Util.getComponentName(MindMap.class.getSimpleName()))));
             restLogger.info("Inserted into Elastic search.....");
             responseCode = BasicResponseCode.SUCCESS;
         }
@@ -388,7 +390,7 @@ public class RestAPIController {
         Storyboard newsb = sbService.store(sb);
 
         //Insert document to elastic search engine    
-        ElasticSearchController.getInstance().insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(sb_id, Util.getComponentName(Storyboard.class.getSimpleName()))));
+        elasticSearchController.insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(sb_id, Util.getComponentName(Storyboard.class.getSimpleName()))));
 
         BasicResponseCode responseCode;
         String responseMessage;
@@ -443,7 +445,7 @@ public class RestAPIController {
         Moodboard newsb = mbService.store(mb);
 
         //Insert document to elastic search engine    
-        ElasticSearchController.getInstance().insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mb_id, Util.getComponentName(Moodboard.class.getSimpleName()))));
+        elasticSearchController.insert(Optional.ofNullable(newsb), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mb_id, Util.getComponentName(Moodboard.class.getSimpleName()))));
 
         //Create response body
         BasicResponseCode responseCode;

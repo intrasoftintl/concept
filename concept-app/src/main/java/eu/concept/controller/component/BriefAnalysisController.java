@@ -11,6 +11,7 @@ import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.controller.ElasticSearchController;
+import eu.concept.repository.concept.service.ProjectCategoryService;
 import eu.concept.util.other.EtherpadHandler;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.Util;
@@ -53,6 +54,9 @@ public class BriefAnalysisController {
 
     @Autowired
     COnCEPTProperties conceptProperties;
+
+    @Autowired
+    ElasticSearchController elasticSearchController;
 
     /*
      *  GET Methods 
@@ -123,7 +127,7 @@ public class BriefAnalysisController {
             //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
             //Delete from elastic search engine (id=component_name+ba_id)
-            ElasticSearchController.getInstance().deleteById(Util.getComponentName(BriefAnalysis.class.getSimpleName()) + String.valueOf(ba_id));
+            elasticSearchController.deleteById(Util.getComponentName(BriefAnalysis.class.getSimpleName()) + String.valueOf(ba_id));
         }
         return fetchBAByProjectID(model, project_id, limit);
     }
@@ -182,7 +186,7 @@ public class BriefAnalysisController {
             //Create a notification for current action
             notificationService.storeNotification(projectID, NotificationTool.BA, action, "a BriefAnalysis (" + ba.getTitle() + ")", conceptProperties.getFMGenericImageURL(), WebController.getCurrentUserCo());
             //Insert document to elastic search engine       
-            ElasticSearchController.getInstance().insert(Optional.ofNullable(ba), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), Util.getComponentName(BriefAnalysis.class.getSimpleName()))));
+            elasticSearchController.insert(Optional.ofNullable(ba), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(ba.getId(), Util.getComponentName(BriefAnalysis.class.getSimpleName()))));
             redirectAttributes.addFlashAttribute("success", "Document saved!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Document couldn't be saved.");

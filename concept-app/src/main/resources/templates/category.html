@@ -7,7 +7,7 @@
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Model</h4>
                     <div class="btn-group pull-right">
-                        <button id="add-button" onclick="addCategoryToModel();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
+                        <button id="add-button-taxonomy" onclick="addCategoryToModel();" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
                     </div>
                 </div>
                 <div class="panel-body no-padding">
@@ -104,7 +104,7 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="text-input">Name</label>
                                 <div class="col-md-3">
-                                        <input type="text" class="form-control" id="name" name="name"  value="" placeholder="" />
+                                        <input id="model-name" type="text" class="form-control"  name="name"  value="" placeholder="" />
                                 </div>
                             </div>
                             <input type="hidden" id="projectID" name="projectID" th:value="${projectID}"/>

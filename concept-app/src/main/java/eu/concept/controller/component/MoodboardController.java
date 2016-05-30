@@ -54,6 +54,9 @@ public class MoodboardController {
     @Autowired
     UserCoService userCoService;
 
+    @Autowired
+    ElasticSearchController elasticSearchController;
+
     /*
      *  GET Methods 
      */
@@ -139,7 +142,7 @@ public class MoodboardController {
             //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.SB, NOTIFICATION_OPERATION.DELETED, "a Moodboard (" + mb.getTitle() + ")", mb.getContentThumbnail(), WebController.getCurrentUserCo());
             //Delete from elastic search engine (id=component_name+mb_id)
-            ElasticSearchController.getInstance().deleteById(Util.getComponentName(Moodboard.class.getSimpleName()) + String.valueOf(mb_id));
+            elasticSearchController.deleteById(Util.getComponentName(Moodboard.class.getSimpleName()) + String.valueOf(mb_id));
         }
         return fetchMoodboardByProjectId(model, project_id, limit);
     }

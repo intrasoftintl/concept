@@ -13,8 +13,10 @@ import eu.concept.repository.concept.service.SearchService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.repository.concept.domain.FileManagement;
+import eu.concept.repository.concept.domain.ProjectCategory;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.FileManagementService;
+import eu.concept.repository.concept.service.ProjectCategoryService;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
@@ -55,6 +57,12 @@ public class SearchController {
     @Autowired
     FileManagementService fmService;
 
+    @Autowired
+    ProjectCategoryService projectCategoryService;
+
+    @Autowired
+    ElasticSearchController elasticSearchController;
+
     /*
      *  GET Methods 
      */
@@ -66,6 +74,9 @@ public class SearchController {
         model.addAttribute("search", search);
         model.addAttribute("components", componentRepo.findAll());
         model.addAttribute("keywordsAll", metadataService.findAllMetadata());
+        //Fetch current taxonomy structure
+        ProjectCategory projectCategory = projectCategoryService.findByPid(project_id);
+        model.addAttribute("taxonomy", null != projectCategory ? projectCategory.getCurrentStructure() : "{}");
         return "se :: seContent";
     }
 
@@ -78,7 +89,7 @@ public class SearchController {
         System.out.println("Project Id is: " + search.getPid());
         System.out.println("Content is: " + search.getContent());
         System.out.println("Component Id is: " + search.getComponent().getId());
-        search.setCategories(ElasticSearchController.getInstance().getCategoriesNames(search.getCategories()));
+        search.setCategories(elasticSearchController.getCategoriesNames(search.getCategories(),search.getPid()));
         System.out.println("Categories selected: " + search.getCategories());
         System.out.println("Keywords: " + search.getKeywords());
         model.addAttribute("projects", projects);

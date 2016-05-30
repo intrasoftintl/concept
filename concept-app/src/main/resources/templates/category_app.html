@@ -24,28 +24,28 @@
     </head>
     <body>
 
-    <!-- logo -->
-    <nav class="nav-logo">
-        <form id="ba-form" th:action="@{/dashboard}" method="post">
+        <!-- logo -->
+        <nav class="nav-logo">
+            <form id="ba-form" th:action="@{/dashboard}" method="post">
                 <span href="#" onclick="addProjectIDToForm('ba-form');
-                            $(this).closest('form').submit()">
+                        $(this).closest('form').submit()">
                     <img class="back" src="/images/BUTTON_BACK.png"/>
                     <img class="logo" src="/images/concept-logo-small.png"/>
                 </span>
-        </form>
+            </form>
 
-    </nav>
+        </nav>
 
-    <!-- apps -->
-    <nav class="nav-apps">
-        <ul class="disabled">
-            <li><img src="/images/ICON_BA_DISABLED.png"/></li>
-            <li><img src="/images/ICON_MM_DISABLED.png"/></li>
-            <li><img src="/images/ICON_MB_DISABLED.png"/></li>
-            <li><img src="/images/ICON_SB_DISABLED.png"/></li>
-            <li><img class="fm" src="/images/ICON_FM_DISABLED.png"/></li>
-        </ul>
-    </nav>
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul class="disabled">
+                <li><img src="/images/ICON_BA_DISABLED.png"/></li>
+                <li><img src="/images/ICON_MM_DISABLED.png"/></li>
+                <li><img src="/images/ICON_MB_DISABLED.png"/></li>
+                <li><img src="/images/ICON_SB_DISABLED.png"/></li>
+                <li><img class="fm" src="/images/ICON_FM_DISABLED.png"/></li>
+            </ul>
+        </nav>
 
         <!-- projects -->
         <nav class="nav-projects">
@@ -105,11 +105,6 @@
         <div class="content">
 
             <div class="header">
-
-                <!--<form th:action="@{/dashboard}" method="post" class="pull-left" id="backButton">-->
-                    <!--<button onclick="addProjectIDToForm('backButton')" type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>-->
-                <!--</form>-->
-
                 <!-- Profile -->
                 <div class="btn-group pull-right">
                     <div class="row col-md-12 pull-right">
@@ -140,19 +135,14 @@
                 </div>
             </div>
 
-
-
             <div class="row">
-
                 <div class="col-md-12">
-
-                    <div class="alert alert-warning" role="alert">
-                        <button id="add-button" onclick="$('#initCategoryForm').submit();" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Use Taxonomy</button>
-
-
+                    <div id="taxonomyAlert" th:if="${showTaxonomyAlert == 'true'}" class="alert alert-warning" role="alert">
+                        <form class="project-form" id="pm-taxonomy-form" action="/pm_app/model" method="post">
+                            <button  onclick="addProjectIDToForm('pm-taxonomy-form')" type="submit" id="project-model" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Use Taxonomy</button>
+                            <input name="initTaxonomy" value="true" type="hidden"  />
+                        </form>
                         <span class="label label-warning">OPTIONAL</span><br/><br/>Here you can define a taxonomy tree to allow for contextual search.<br/>The taxonomy tree provides more expressive semantics than simple keyword-based representations used by most current search engines.<br/>This will make your search more efficient. Feel free to use the pre-defined tree or make any changes before using it. <strong>The taxonomy tree can be set only once.</strong>
-
-
                     </div>
                     <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
                     <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>

@@ -54,6 +54,9 @@ public class StoryboardController {
     @Autowired
     UserCoService userCoService;
 
+    @Autowired
+    ElasticSearchController elasticSearchController;
+
     /*
      *  GET Methods 
      */
@@ -138,7 +141,7 @@ public class StoryboardController {
             //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.SB, NOTIFICATION_OPERATION.DELETED, "a Storyboard (" + sb.getTitle() + ")", sb.getContentThumbnail(), WebController.getCurrentUserCo());
             //Delete from elastic search engine (id=component_name+mb_id)
-            ElasticSearchController.getInstance().deleteById(Util.getComponentName(Storyboard.class.getSimpleName()) + String.valueOf(sb_id));
+           elasticSearchController.deleteById(Util.getComponentName(Storyboard.class.getSimpleName()) + String.valueOf(sb_id));
         }
         return fetchStoryboardByProjectId(model, project_id, limit);
     }

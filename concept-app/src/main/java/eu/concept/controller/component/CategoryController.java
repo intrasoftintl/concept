@@ -64,7 +64,7 @@ public class CategoryController {
             
             if (action.isEmpty()) {
                 model.addAttribute("treegrid", categoryService.constructTreeGrid(projectCategory.getCategories()));
-                System.out.println(categoryService.constructTaxonomyJSON(projectCategory.getCategories()));
+           
                 
                 return "category :: category-list";
             } else if (action.equalsIgnoreCase("add")) {

@@ -36,7 +36,7 @@ public class ProjectCategory implements Serializable {
     @Column(name = "name")
     private String name;
     @Basic(optional = true)
-    @Size(min = 1, max = 250)
+    @Size(min = 1, max = 4096)
     @Column(name = "current_structure", columnDefinition = "TEXT")
     private String currentStructure;
     @Basic(optional = false)

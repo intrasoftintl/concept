@@ -3,19 +3,22 @@ package eu.concept.controller.component;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Metadata;
+import eu.concept.repository.concept.domain.ProjectCategory;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.MindMapService;
 import eu.concept.repository.concept.service.MoodboardService;
+import eu.concept.repository.concept.service.ProjectCategoryService;
 import eu.concept.repository.concept.service.StoryboardService;
 import java.util.Optional;
 import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,15 +49,20 @@ public class MetadataController {
     @Autowired
     StoryboardService sbService;
 
+    @Autowired
+    ProjectCategoryService projectCategoryService;
+
+    @Autowired
+    ElasticSearchController elasticSearchController;
+
     /*
      *  GET Methods 
      */
-    @RequestMapping(value = "/metadata/{metadata_id}", method = RequestMethod.GET)
-    public String fetchMetadataByID(Model model, @PathVariable long metadata_id) {
-        model.addAttribute("metadataContent", metadataService.fetchMetadataById(metadata_id));
-        return "metadata :: sidebar-metadata";
-    }
-
+//    @RequestMapping(value = "/metadata/{metadata_id}", method = RequestMethod.GET)
+//    public String fetchMetadataByID(Model model, @PathVariable long metadata_id) {
+//        model.addAttribute("metadataContent", metadataService.fetchMetadataById(metadata_id));
+//        return "metadata :: sidebar-metadata";
+//    }
     @RequestMapping(value = "/metadata", method = RequestMethod.GET)
     public String metadataPage(Model model, @RequestParam(value = "cid", defaultValue = "0", required = false) int cid, @RequestParam(value = "component", defaultValue = "", required = false) String component, @RequestParam(value = "project_id", defaultValue = "0", required = false) int project_id) {
 
@@ -62,11 +70,15 @@ public class MetadataController {
         if (null == metadata) {
             metadata = new Metadata(null, cid, "", "", "", null);
             metadata.setComponent(new Component(component));
-            metadata.setCategories("{\"open_nodes\":[1,2,3],\"selected_node\":[]}");
+            metadata.setCategories(new JSONObject().put("open_nodes", new JSONArray()).put("selected_node", new JSONArray()).toString());
             metadataService.storeMetadata(metadata);
         }
         model.addAttribute("metadata", metadata);
         model.addAttribute("project_id", project_id);
+        //Fetch current taxonomy structure
+        ProjectCategory projectCategory = projectCategoryService.findByPid(project_id);
+        model.addAttribute("taxonomy", null != projectCategory ? projectCategory.getCurrentStructure() : "{}");
+
         return "metadata :: sidebar-metadata";
     }
 
@@ -111,8 +123,8 @@ public class MetadataController {
                 }
             }
 
-            //Insert content to elastic search engine            
-            ElasticSearchController.getInstance().insert(component, Optional.ofNullable(metadata));
+            //Insert content to elastic search engine      
+            elasticSearchController.insert(component, Optional.ofNullable(metadata));
         } else {
             Logger.getLogger(MetadataController.class.getName()).severe("Metadata object is null... aborting saving metadata object..");
         }
