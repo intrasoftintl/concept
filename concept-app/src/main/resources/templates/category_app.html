@@ -146,14 +146,9 @@
             <div class="row">
 
                 <div class="col-md-12">
-
                     <div class="alert alert-warning" role="alert">
                         <button id="add-button" onclick="$('#initCategoryForm').submit();" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Use Taxonomy</button>
-
-
                         <span class="label label-warning">OPTIONAL</span><br/><br/>Here you can define a taxonomy tree to allow for contextual search.<br/>The taxonomy tree provides more expressive semantics than simple keyword-based representations used by most current search engines.<br/>This will make your search more efficient. Feel free to use the pre-defined tree or make any changes before using it. <strong>The taxonomy tree can be set only once.</strong>
-
-
                     </div>
                     <div th:if="${error}" class="alert alert-danger" role="alert"><span th:text='${error}'></span></div>
                     <div th:if="${success}" class="alert alert-success" role="alert"><p th:text="${success}"></p></div>

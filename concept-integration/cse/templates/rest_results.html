@@ -33,7 +33,7 @@
 						><</a>
 				<!-- <span style="margin-right:30px">{{ total }} results matching</span>
 				<span style="margin-right:30px">Page {{page}}/{{ total//10 + 1}}</span> -->
-				{{ total }} results matching Page {{page}}/{{ total//10 + 1}}
+				{{ total }} results (Page {{page}}/{{ total//10 + 1}})
 					<a class="pagination-link" href="javascript:{}" 
 					{% if page < (total//10 + 1) %}
 					onclick="document.getElementById('next').submit(); return false;"
