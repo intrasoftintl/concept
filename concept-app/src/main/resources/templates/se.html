@@ -17,7 +17,7 @@
             </div>
 
             <div class="form-group col-md-6">
-                <label for="keyword">Document filter</label>
+                <label for="keyword">Type</label>
                 <select th:field="*{component.id}" id="component" name="component" class="form-control">
                     <option value="">All</option>
                     <option  th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
