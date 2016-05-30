@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -18,6 +19,8 @@ public class ProjectCategoryService {
 
     @Autowired
     private ProjectCategoryRepository projectCategoryRepository;
+    
+    @Autowired CategoryService categoryServie;
 
     private static final Logger logger = Logger.getLogger(ProjectCategoryService.class.getName());
 
@@ -74,20 +77,23 @@ public class ProjectCategoryService {
         return projectCategoryRepository.findAll();
     }
     
+    @Transactional
     public boolean storeProjectCategoryWithRootCategory(ProjectCategory projectCategory) {
         try {
-            
-            List<Category> defaultCategory = new ArrayList<>();
-            
-            defaultCategory.add(new Category("RootCategory", null, projectCategory));
-
-            projectCategory.setCategories(defaultCategory);
+           
+//            List<Category> defaultCategory = new ArrayList<>();
+//            
+//            defaultCategory.add(new Category("RootCategory", null, projectCategory));
+//
+//            projectCategory.setCategories(defaultCategory);
             
             projectCategoryRepository.save(projectCategory);
             
             return true;
             
         } catch (Exception ex) {
+            
+            System.out.println("This is my exception");
             logger.severe(ex.getMessage());
             return false;
         }

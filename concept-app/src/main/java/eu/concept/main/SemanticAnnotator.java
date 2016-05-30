@@ -4,7 +4,6 @@ import com.google.common.base.Joiner;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import eu.concept.repository.concept.service.FileManagementService;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
@@ -27,9 +25,6 @@ import org.xml.sax.SAXException;
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 public class SemanticAnnotator {
-
-    @Autowired
-    FileManagementService fmService;
 
     private static final Logger logger = Logger.getLogger(SemanticAnnotator.class.getName());
     public static final double DEFAULT_RELEVANCY_THRESHOLD = 0.4;

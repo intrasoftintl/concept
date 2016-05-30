@@ -1,6 +1,5 @@
 package eu.concept.controller;
 
-import eu.concept.authentication.COnCEPTRole;
 import eu.concept.authentication.CurrentUser;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.MetadataService;

@@ -104,4 +104,8 @@ public class Category implements Serializable {
         this.projectCategory = projectCategory;
     }
 
+    public boolean isFather() {
+        return (null == this.parentID ? false : this.parentID.getName().equals("RootCategory"));
+    }
+
 }
