@@ -37,7 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class BriefAnalysisController {
 
-    private final Logger logger = Logger.getLogger(BriefAnalysisController.class.getName());
+    private static final Logger logger = Logger.getLogger(BriefAnalysisController.class.getName());
 
     @Autowired
     ProjectServiceOp projectServiceOp;

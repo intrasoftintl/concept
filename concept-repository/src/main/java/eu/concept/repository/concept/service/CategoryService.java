@@ -4,9 +4,12 @@ import eu.concept.repository.concept.dao.CategoryRepository;
 import eu.concept.repository.concept.domain.Category;
 import eu.concept.repository.concept.domain.ProjectCategory;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -124,12 +127,10 @@ public class CategoryService {
      * @return A String object
      *
      */
-    public String constructTreeGrid(List<Category> nodesInit) {
+    public synchronized String constructTreeGrid(List<Category> nodesInit) {
 
         // Find Root Category
         List<Category> rootNode = nodesInit.stream().filter(node -> null == node.getParentID()).collect(Collectors.toList());
-
-        // rootNode.get(0).getId()
 
         List<Category> nodes = nodesInit.stream().filter(node -> null != node.getParentID()).collect(Collectors.toList());
 
@@ -170,7 +171,7 @@ public class CategoryService {
     public List<Category> getChilds(Category currentNode, List<Category> nodes, List<Category> categories) {
 
         for (Category tempCategory : categories) {
-            if (tempCategory.getParentID().getId().compareTo(currentNode.getId()) == 0 ) {
+            if (tempCategory.getParentID().getId().compareTo(currentNode.getId()) == 0) {
                 nodes.add(tempCategory);
                 return getChilds(tempCategory, nodes, categories);
             }
@@ -215,6 +216,85 @@ public class CategoryService {
         childNodeHTML += "</tr>";
 
         return childNodeHTML;
+    }
+
+    //testing
+    public String constructTaxonomyJSON(List<Category> listClazz) {
+
+        //Remove "RootCategory"
+        listClazz.remove(0);
+
+        JSONArray jsonNodes = new JSONArray();
+
+        listClazz.forEach(node -> {
+
+            //Check if is father class
+            if (node.isFather()) {
+                JSONObject fatherNode = new JSONObject();
+                fatherNode.put("label", node.getName());
+                fatherNode.put("id", node.getId());
+                jsonNodes.put(fatherNode);
+                //continue;
+            } else {
+                Object father = findMyFather(jsonNodes, node.getParentID().getId());
+
+                JSONObject childNode = new JSONObject();
+                childNode.put("label", node.getName());
+                childNode.put("id", node.getId());
+
+                if (null != father) {
+
+                    if (father instanceof JSONObject) {
+
+                        JSONObject jsonFather = (JSONObject) father;
+
+                        if (jsonFather.has("children")) {
+
+                            ((JSONArray) jsonFather.get("children")).put(childNode);
+                        } else {
+                            JSONArray jsonArray = new JSONArray();
+                            jsonArray.put(childNode);
+                            jsonFather.put("children", jsonArray);
+
+                        }
+
+                    }
+
+                }
+            }
+
+        });
+
+        return jsonNodes.toString();
+    }
+
+    public Object findMyFather(Object jsonNode, int father_id) {
+
+        //Terminate condition for recursive function
+        if (jsonNode instanceof JSONObject && ((JSONObject) jsonNode).has("id") && (int) ((JSONObject) jsonNode).get("id") == father_id) {
+            return jsonNode;
+        }
+
+        //Array condition
+        if (jsonNode instanceof JSONArray) {
+                        
+            //Create an iterator to traverse all nodes
+            Iterator<?> jsonIterator = ((JSONArray) jsonNode).iterator();
+            while (jsonIterator.hasNext()) {
+                Object foundObject = findMyFather((JSONObject) jsonIterator.next(), father_id);
+                if (null != foundObject) {
+                    return foundObject;
+                }
+            }
+        }
+
+        //Object
+        if (jsonNode instanceof JSONObject && ((JSONObject) jsonNode).has("children")) {
+            return findMyFather(((JSONObject) jsonNode).get("children"), father_id);
+        }
+
+        //Father is not in this node
+        return null;
     }
 
 }
