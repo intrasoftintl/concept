@@ -120,10 +120,10 @@ public class WebController {
     }
 
     // Tags
-    @RequestMapping(value = "/tags", method = RequestMethod.GET)
+    @RequestMapping(value = "/tags", method = RequestMethod.POST)
     public String tags(Model model) {
         model.addAttribute("currentUser", getCurrentUser());
-        return "tags";
+        return "tags_app";
     }
 
     // Search Engine ALL
