@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Repository
-@Transactional
 public interface TagsRepository extends JpaRepository<Tag,Integer>{
 
 }
