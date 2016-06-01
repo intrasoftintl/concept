@@ -780,6 +780,12 @@ nav{
     width:auto;
 }
 
+input.disabled {
+    opacity: 0.8;
+    pointer-events: none;
+    color: #888;
+}
+
 /* SK APP */
 .content .literally{
     width:calc(100vw - 242px);
