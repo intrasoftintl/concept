@@ -1,8 +1,10 @@
 package eu.concept.controller;
 
 import eu.concept.authentication.CurrentUser;
+import eu.concept.repository.concept.domain.Tag;
 import eu.concept.repository.concept.domain.UserCo;
 import eu.concept.repository.concept.service.MetadataService;
+import eu.concept.repository.concept.service.TagService;
 import eu.concept.repository.openproject.domain.MemberRoleOp;
 import eu.concept.repository.openproject.domain.PasswordOp;
 import eu.concept.repository.openproject.domain.ProjectOp;
@@ -41,6 +43,9 @@ public class WebController {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    TagService tagService;
 
     /*
      *  GET Methods 
@@ -119,13 +124,6 @@ public class WebController {
         return "preferences";
     }
 
-    // Tags
-    @RequestMapping(value = "/tags", method = RequestMethod.POST)
-    public String tags(Model model) {
-        model.addAttribute("currentUser", getCurrentUser());
-        return "tags_app";
-    }
-
     // Search Engine ALL
     @RequestMapping(value = "/se_all", method = RequestMethod.GET)
     public String se_all(Model model) {
@@ -181,10 +179,36 @@ public class WebController {
         return "redirect:/preferences";
     }
 
-//    @RequestMapping(value = "/tags", method = RequestMethod.POST)
-//    public String tags(Model model) {
-//        return "redirect:/tags";
-//    }
+    // Tags
+    @RequestMapping(value = "/tags", method = RequestMethod.POST)
+    public String tags(Model model, @RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID) {
+
+        Tag tag = tagService.fetchTagByPid(projectID);
+
+        if (null == tag) {
+            model.addAttribute("showTagsAlert", "true");
+            tag = new Tag();
+            tag.setPid(projectID);
+        } else {
+            model.addAttribute("showTagsAlert", "false");
+        }
+
+        model.addAttribute("tag", tag);
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "tags_app";
+    }
+
+    @RequestMapping(value = "/tagsAdd", method = RequestMethod.POST)
+    public String tagsSubmit(@ModelAttribute Tag tag, Model model) {
+
+        tag.setUid(getCurrentUserCo());
+        tagService.store(tag);
+
+        return "redirect:/dashboard";
+
+    }
 
     /*
      *  Help Methods

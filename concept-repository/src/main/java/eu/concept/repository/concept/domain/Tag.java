@@ -9,9 +9,12 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 /**
  *
@@ -23,31 +26,39 @@ public class Tag implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "pid")
     private int pid;
-    @Null
-    private String tagOne;
-    @Null
-    private String tagTwo;
-    @Null
-    private String tagThree;
-    @Null
-    private String tagFour;
-    @Null
-    private String tagFive;
+    @JoinColumn(name = "uid", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private UserCo uid;
+    private String tag1;
+    private String tag2;
+    private String tag3;
+    private String tag4;
+    private String tag5;
 
-    private boolean isSet;
+    public UserCo getUid() {
+        return uid;
+    }
 
-    public Tag(int pid, String tagOne, String tagTwo, String tagThree, String tagFour, String tagFive) {
+    public void setUid(UserCo uid) {
+        this.uid = uid;
+    }
+
+    public Tag(int pid, String tag1, String tag2, String tag3, String tag4, String tag5) {
         this.pid = pid;
-        this.tagOne = tagOne;
-        this.tagTwo = tagTwo;
-        this.tagThree = tagThree;
-        this.tagFour = tagFour;
-        this.tagFive = tagFive;
+        this.tag1 = tag1;
+        this.tag2 = tag2;
+        this.tag3 = tag3;
+        this.tag4 = tag4;
+        this.tag5 = tag5;
+    }
+
+    public Tag() {
     }
 
     public Integer getId() {
@@ -66,51 +77,46 @@ public class Tag implements Serializable {
         this.pid = pid;
     }
 
-    public String getTagOne() {
-        return tagOne;
+    public String getTag1() {
+        return tag1;
     }
 
-    public void setTagOne(String tagOne) {
-        this.tagOne = tagOne;
+    public void setTag1(String tag1) {
+        this.tag1 = tag1;
     }
 
-    public String getTagTwo() {
-        return tagTwo;
+    public String getTag2() {
+        return tag2;
     }
 
-    public void setTagTwo(String tagTwo) {
-        this.tagTwo = tagTwo;
+    public void setTag2(String tag2) {
+        this.tag2 = tag2;
     }
 
-    public String getTagThree() {
-        return tagThree;
+    public String getTag3() {
+        return tag3;
     }
 
-    public void setTagThree(String tagThree) {
-        this.tagThree = tagThree;
+    public void setTag3(String tag3) {
+        this.tag3 = tag3;
     }
 
-    public String getTagFour() {
-        return tagFour;
+    public String getTag4() {
+        return tag4;
     }
 
-    public void setTagFour(String tagFour) {
-        this.tagFour = tagFour;
+    public void setTag4(String tag4) {
+        this.tag4 = tag4;
     }
 
-    public String getTagFive() {
-        return tagFive;
+    public String getTag5() {
+        return tag5;
     }
 
-    public void setTagFive(String tagFive) {
-        this.tagFive = tagFive;
+    public void setTag5(String tag5) {
+        this.tag5 = tag5;
     }
 
-    public boolean isSet() {
-        return isSet;
-    }
 
-    public void setIsSet(boolean isSet) {
-        this.isSet = isSet;
-    }
+
 }

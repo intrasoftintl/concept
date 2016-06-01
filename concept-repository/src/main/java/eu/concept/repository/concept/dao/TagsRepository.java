@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package eu.concept.repository.concept.dao;
 
 import eu.concept.repository.concept.domain.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
 @Repository
-public interface TagsRepository extends JpaRepository<Tag,Integer>{
+public interface TagsRepository extends JpaRepository<Tag, Integer> {
+
+    public Tag findByPid(int project_id);
 
 }
