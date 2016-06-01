@@ -110,6 +110,15 @@ public class WebController {
         return "notifications";
     }
 
+    // Timeline
+    @RequestMapping(value = "/timeline_app", method = RequestMethod.POST)
+        public String timeline(@RequestParam(value = "projectID", defaultValue = "0", required = false) int projectID, Model model, @RequestParam(value = "limit", defaultValue = "200", required = false) int limit) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("currentUser", getCurrentUser());
+        return "timeline_app";
+    }
+
     // Project Management
     @RequestMapping(value = "/pm_app", method = RequestMethod.GET)
     public String pm(Model model) {
