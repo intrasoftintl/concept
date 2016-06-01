@@ -273,9 +273,9 @@ public class WebController {
                             FileManagement file = new FileManagement(null, tag.getPid(), keyword.concat(".jpg"), imageBase64, "image/jpeg", Short.parseShort("1"), null);
                             file.setUid(tag.getUid());
                             if (fmService.storeFile(file)) {
-                                System.out.println("Image saved!");
-                                //String keywords = getTagsForImage("file/" + String.valueOf(file.getId()));
-                                Optional<Metadata> metadata = Optional.of(new Metadata(null, file.getId(), "{\"open_nodes\":[],\"selected_node\":[]}", keyword, "", null));
+                                //System.out.println("Image saved!");
+                                String keywords = getTagsForImage("file/" + String.valueOf(file.getId()));
+                                Optional<Metadata> metadata = Optional.of(new Metadata(null, file.getId(), "{\"open_nodes\":[],\"selected_node\":[]}", keywords, "", null));
                                 metadata.get().setComponent(new Component("FM"));
                                 metadataService.storeMetadata(metadata.get());
                                 //Insert document to elastic search engine            
