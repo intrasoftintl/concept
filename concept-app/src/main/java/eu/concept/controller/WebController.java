@@ -85,6 +85,8 @@ public class WebController {
     public String dashboard(Model model) {
         logger.log(Level.INFO, "Success login for user: {0} , with userID: {1} and role: {2}", new Object[]{getCurrentUser().getUsername(), getCurrentUser().getId(), getCurrentUser().getRole()});
         if (!model.containsAttribute("projectID")) {
+
+            System.out.println("\n\n I sould not be here!");
             model.addAttribute("projectID", "0");
         }
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
@@ -205,8 +207,9 @@ public class WebController {
 
         tag.setUid(getCurrentUserCo());
         tagService.store(tag);
+        model.addAttribute("projectID", tag.getPid());
 
-        return "redirect:/dashboard";
+        return dashboard(model);
 
     }
 
