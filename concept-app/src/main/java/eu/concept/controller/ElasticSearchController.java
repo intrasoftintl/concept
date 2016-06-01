@@ -116,7 +116,7 @@ public class ElasticSearchController {
                 keywords = metadata.get().getKeywords();
                 categories = getCategoriesNames(metadata.get().getCategories(), pid);
             }
-
+            
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ElasticSearchController.class.getName()).log(Level.SEVERE, null, ex);
             return false;

@@ -43,7 +43,7 @@ public class ProjectCategory implements Serializable {
     @NotNull
     @Column(name = "pid", updatable = false)
     private int pid;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "projectCategory")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "projectCategory")
     private List<Category> categories;
     @Basic(optional = false)
     @Column(name = "last_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")

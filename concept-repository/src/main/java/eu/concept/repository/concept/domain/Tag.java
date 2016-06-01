@@ -6,6 +6,9 @@
 package eu.concept.repository.concept.domain;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -118,5 +121,8 @@ public class Tag implements Serializable {
     }
 
 
-
+    public List<String> getTags(){
+       return Arrays.asList(tag1,tag2,tag3,tag4,tag5).stream().filter(tag -> null != tag && !tag.isEmpty()).collect(toList());
+    }
+    
 }
