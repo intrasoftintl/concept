@@ -686,6 +686,7 @@ nav{
     background: #f8f8f8; #f2f2f2;
     //opacity:0.8;
     width:calc(100vw - 240px);
+    height: 100vh;
     margin-left:240px;
 }
 
@@ -777,6 +778,12 @@ nav{
 
 #modelFragment img{
     width:auto;
+}
+
+input.disabled {
+    opacity: 0.8;
+    pointer-events: none;
+    color: #888;
 }
 
 /* SK APP */
