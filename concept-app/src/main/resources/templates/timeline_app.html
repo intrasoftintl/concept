@@ -159,28 +159,35 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th class="col-md-3">Recent Changes</th>
+                            <th class="col-md-3">Pinned Item</th>
                             <th class="col-md-9">Details</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="nfContent : ${nfContents}"  th:class="( ${#dates.format(#calendars.createToday(), 'yyyy-MM-dd')} == ${ #strings.substring(nfContent.createdDate,0,10)   } ? 'warning' : '' )">
-                            <td><img class="notification" th:src="@{'/images/'+ ${nfContent.toolImg} + '.png' } " /><img class="thumbnail indicator" th:src="${nfContent.thumbnail}" /></td>
-                            <td><strong><span th:text="${nfContent.operation}"></span></strong> <span th:text="${nfContent.message}"></span><br/><span  th:text="@{${nfContent.uid.firstName} + ' '+ ${nfContent.uid.lastName} + ' (' +  ${nfContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(nfContent.createdDate,0,16)}"></span></td>
+                        <tr>
+                            <td><img class="timeline" src="/images/timeline-start.png"/></td>
+                            <td></td>
                         </tr>
+                        <tr>
+                            <td><img class="timeline" src="/images/timeline-pinned.png"/><img class="thumbnail indicator" src="/images/fm_generic_mm.png"/></td>
+                            <td><strong><span>PINNED</span></strong> <span>a Mindmap (AAA)</span><br/><span>Manager Demo (managerdemo)</span><br/><span class="file-timestamp">2016-05-31 18:04</span></td>
+                        </tr>
+                        <tr>
+                            <td><img class="timeline" src="/images/timeline-pinned.png"/><img class="thumbnail indicator" src="/images/fm_generic_img.png"/></td>
+                            <td><strong><span>PINNED</span></strong> <span>a File (asass.png)</span><br/><span>Manager Demo (managerdemo)</span><br/><span class="file-timestamp">2016-05-31 18:04</span></td>
+                        </tr>
+                        <tr>
+                            <td><img class="timeline" src="/images/timeline-pinned.png"/><img class="thumbnail indicator" src="/images/fm_generic.png"/></td>
+                            <td><strong><span>PINNED</span></strong> <span>a BriefAnalysis (AAA)</span><br/><span>Manager Demo (managerdemo)</span><br/><span class="file-timestamp">2016-05-31 18:04</span></td>
+                        </tr>
+                        <tr>
+                            <td><img class="timeline" src="/images/timeline-current.png"/></td>
+                            <td></td>
+                        </tr>
+
                         </tbody>
                     </table>
                 </div>
-
-                <!--
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Load more</a>
-                </div>
-
-                <div class="panel-footer" style="text-align:center">
-                    <a href="#" th:action="@{/load}" class="btn btn-default btn-sm disabled"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> Nothing more to load</a>
-                </div>
-                -->
 
             </div>
         </div>

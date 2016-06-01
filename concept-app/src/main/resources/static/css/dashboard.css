@@ -930,6 +930,7 @@ a.fm-popup {
 }
 
 .panel-body img{ width: 90px; margin:5px; display:inline;}
+.panel-body img.timeline { width: 160px; }
 
 .panel-body td.truncate{
     max-width: 0;
