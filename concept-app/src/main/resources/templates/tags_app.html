@@ -80,6 +80,9 @@
                                 <div class="row">
 
                                     <div class="col-md-12">
+                                        <div th:if="${showTagsAlert == 'false'}" id="tagsAlert" class="alert alert-success" role="alert">
+                                            The system has started importing images for the Europeana Collections for later use. This will take a minute or two.
+                                        </div>
                                         <div th:if="${showTagsAlert == 'true'}" id="tagsAlert" class="alert alert-warning" role="alert">
                                             <!--<form class="project-form" id="pm-tags-form" action="/pm_app/model" method="post">-->
                                             <!--<button  onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-model" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Set Tags</button>-->
