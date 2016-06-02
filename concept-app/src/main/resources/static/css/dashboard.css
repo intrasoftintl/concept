@@ -642,6 +642,7 @@ nav{
     padding:5px 10px;
 }
 
+/*
 @media (max-height: 700px) {
     .nav-chat{
         display: none;
@@ -653,6 +654,7 @@ nav{
         bottom:50px;
     }
 }
+*/
 
 /* COMMENTS */
 
