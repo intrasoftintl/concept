@@ -45,11 +45,11 @@
                 <input type="hidden" id="pid" name="pid" value="<%= request.getParameter("pid")%>"/>
             <!-- COnCEPT UserId -->
             <input type="hidden" id="uid" name="uid" value="<%= request.getParameter("uid")%>"/>
-        </form>	
+        </form>
         <div class="container">
             <h3>Storyboard list</h3>
             <br>
-            <table class="table table-hover" style="width: 70%;">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                         	&nbsp;
-                                        	<!-- 
+                                        	<!--
                                             <button type="button" class="btn btn-primary btn-md btn-block" onclick="fRemove('<c:out value="${myStory.id}"></c:out>');">
                                                 <span class="glyphicon glyphicon-remove-circle"></span> Remove
                                             </button>
