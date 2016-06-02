@@ -4,16 +4,15 @@
         <table id="ba_table" class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-3">Recent Documents</th>
-                    <th class="col-md-4">Details</th>
-                    <th class="col-md-5"> </th>
+                    <th class="col-md-4">Recent Documents</th>
+                    <th class="col-md-9">Details</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="baContent : ${baContents}">
                     <td class="truncate"><a th:href="@{'/ba_app/'+${baContent.id}}" th:text="${baContent.title}" th:alt="${baContent.title}"></a></td>
-                    <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(baContent.createdDate,0,16)}"></span></td>
-                    <td>
+                    <td class="truncate"><span th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(baContent.createdDate,0,16)}"></span>
+                    <br/>
                         <button class="action-button" th:attr="onclick=@{   'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'   }    ">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                         </button>
@@ -22,7 +21,8 @@
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                         <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')'" th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                        <span th:id="@{'LikeBA' + ${baContent.id} }" th:attr="onclick=@{'like(\'BA\','+${baContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${baContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"    aria-hidden="true"></span> <span th:id="@{'LikeCountBA' + ${baContent.id} }" th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>
+                        <span th:id="@{'LikeBA' + ${baContent.id} }" th:attr="onclick=@{'like(\'BA\','+${baContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${baContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"    aria-hidden="true"></span> <span th:id="@{'LikeCountBA' + ${baContent.id} }" th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>&nbsp;
+                        <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')'" th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-pushpin"  aria-hidden="true"></span>&nbsp;
                     </td>
                 </tr>
             </tbody>
@@ -72,7 +72,7 @@
                             <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
                         </form>
                         <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${baContent.id} + '&amp;cname=BA&amp;source=flickr'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a><br/>
-                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${baContent.id} + '&amp;cname=BA&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V &amp; A Museum</a>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${baContent.id} + '&amp;cname=BA&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V&amp;A Museum</a>
                     </td>
                 </tr>
             </tbody>

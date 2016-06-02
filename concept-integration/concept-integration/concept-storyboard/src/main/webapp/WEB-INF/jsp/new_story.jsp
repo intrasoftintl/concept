@@ -112,7 +112,7 @@
     <body style="height: 100%;">
         <jsp:include page="/WEB-INF/jsp/bar.jsp"></jsp:include>
             <div class="container">
-                <div style="width: 70%;">
+                <div>
                     <h3>
                     <c:if test="${requestScope.is_update != null}">
                         <fmt:message key="newstory.title.update" />
@@ -120,7 +120,7 @@
                     <c:if test="${requestScope.is_update == null}">
                         <fmt:message key="newstory.title.new" />
                     </c:if>
-                </h3>		
+                </h3>
                 <form role="form" id="idNewStoryForm" method="post">
                     <input type="hidden" id="idStory" name="idStory"/>
                     <input type="hidden" id="slidesList" name="slidesList"/>
@@ -130,16 +130,16 @@
                     <input type="hidden" id="uid" name="uid" value="<%= request.getParameter("uid")%>"/>
 
                     <div class="form-group">
-                        <label for="story_name">Name</label> 
+                        <label for="story_name">Name</label>
                         <input class="form-control" id="story_name" name="story_name" placeholder="Enter story name" onchange="fCheckEmpty(this);">
                         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                     </div>
                     <div id="slidesList" style="height: 290px; overflow: auto; overflow-x: hidden; margin-bottom: 20px;">
                         <div class="col-sm-6 verticalLine_right" id="slidesSelectedListDiv" style="height: 100%; overflow:auto; width: 50%; display:inline-block; ">
-                            <label for="story_name">Scenes selected</label><br> 
+                            <label for="story_name">Scenes selected</label><br>
                             <c:forEach var="i" begin="0" end="99" varStatus="count">
                                 <div class="div1">
-                                    Scene ${count.index + 1} 
+                                    Scene ${count.index + 1}
                                     <div name="nameDiv" id="idDiv${count.index}" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 100%; height: 80%">
 
                                     </div>
@@ -149,7 +149,7 @@
                         <div class="col-sm-6 verticalLine_left" id="slidesListDiv" style="height: 100%; overflow:auto; width: 50%; display:inline-block;">
                             <label for="story_name">Scenes available</label><br>
                             <c:forEach var="mySlide" items="${request_slides}" varStatus="count">
-                                <div class="div2" id="idDivSource${count.index}" style="display:inline-block;" ondrop="drop(event)" ondragover="allowDrop(event)">							
+                                <div class="div2" id="idDivSource${count.index}" style="display:inline-block;" ondrop="drop(event)" ondragover="allowDrop(event)">
                                     <img width="140" id="${mySlide.id}" draggable="true" ondragstart="drag(event)" >
                                     <script type="text/javascript">
                                         var svgContent = '${mySlide.slideText}';

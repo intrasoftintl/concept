@@ -4,21 +4,30 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.Category;
 import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.MindMap;
+import eu.concept.repository.concept.domain.ProjectCategory;
 import eu.concept.repository.concept.domain.Storyboard;
+import eu.concept.repository.concept.service.ProjectCategoryService;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
-public final class ElasticSearchController {
+@Component
+public class ElasticSearchController {
+
+    @Autowired
+    ProjectCategoryService projectCategoryService;
 
     private static Optional<ElasticSearchController> instance = Optional.empty();
     private static final Logger logger = Logger.getLogger(ElasticSearchController.class.getName());
@@ -26,20 +35,8 @@ public final class ElasticSearchController {
     private final String INSERT_URL = "http://192.168.3.5:9999/insert_item";
     private final String DELETE_URL = "http://192.168.3.5:9999/delete_item";
     private final String COnCEPT_BASE_URL = "http://concept.euprojects.net/";
-    private final Map<Integer, String> categoriesMap = new HashMap<>();
 
     private ElasticSearchController() {
-        String[] categoriesList = new String[]{"ProductCategory,1", "Kitchenware,11", "Exhibition,12", "Lighting,13", "Furniture,14", "ProductDomain,2", "Medical,21", "Cosumer,22", "Sport,23", "MarketAnalysis,24", "Technology,25", "Usability,26", "ProductLanguage,3", "Style,31", "PeriodStyle,311", "Clasic,3112", "Chic,3113", "Modern,3113", "Artdeco,3115", "PartialStyle,312", "National,3121", "Corporate,3122", "TargetStyle,3123", "Material,32", "Steel,321", "Stone,322", "AssociationsandFeelings,33", "Cold,331", "Warm,332", "Aggressive,333"};
-        for (String category : categoriesList) {
-            categoriesMap.put(Integer.parseInt(category.split(",")[1]), category.split(",")[0]);
-        }
-    }
-
-    public static ElasticSearchController getInstance() {
-        if (!instance.isPresent()) {
-            instance = Optional.of(new ElasticSearchController());
-        }
-        return instance.get();
     }
 
     /**
@@ -117,9 +114,9 @@ public final class ElasticSearchController {
             //Check if document has metadata to store
             if (metadata.isPresent()) {
                 keywords = metadata.get().getKeywords();
-                categories = getCategoriesNames(metadata.get().getCategories());
+                categories = getCategoriesNames(metadata.get().getCategories(), pid);
             }
-
+            
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ElasticSearchController.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -140,10 +137,15 @@ public final class ElasticSearchController {
         return false;
     }
 
-    public String getCategoriesNames(String categories) {
+    public String getCategoriesNames(String categories, int pid) {
+
         if (categories.isEmpty()) {
             return categories;
         }
+
+        ProjectCategory projectCategory = projectCategoryService.findByPid(pid);
+
+        Map<Integer, String> categoriesMap = projectCategory.getCategories().stream().filter(category -> null != category.getParentID()).collect(Collectors.toMap(Category::getId, Category::getName));
 
         int end = categories.length() - 1;
         int start = categories.indexOf("selected_node") + "selected_node".length() + 2;

@@ -24,36 +24,36 @@
     </head>
     <body>
 
-        <!-- navbar -->
-        <nav class="nav-main">
-            <ul>
-                <form th:action="@{/dashboard}" method="post" >
-                    <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
-                    <a href="#" onclick="$(this).closest('form').submit()">
-                        <li class="main"><img src="/images/BUTTON_BACK.png" />Dashboard</li>
-                    </a>
-                </form>
-            </ul>
-        </nav>
+    <!-- logo -->
+    <nav class="nav-logo">
+        <form id="ba-form" th:action="@{/dashboard}" method="post">
+                <span href="#" onclick="addProjectIDToForm('ba-form');
+                            $(this).closest('form').submit()">
+                    <img class="back" src="/images/BUTTON_BACK.png"/>
+                    <img class="logo" src="/images/concept-logo-small.png"/>
+                </span>
+        </form>
 
-        <!-- apps -->
-        <nav class="nav-apps">
-            <ul class="disabled">
-                <li><img src="/images/ICON_FM_DISABLED.png" /></li>
-                <li><img src="/images/ICON_BA_DISABLED.png" /></li>
-                <li><img src="/images/ICON_SE_DISABLED.png" /></li>
-                <li><img src="/images/ICON_MM_DISABLED.png" /></li>
-                <li><img src="/images/ICON_MB_DISABLED.png" /></li>
-                <li><img src="/images/ICON_SB_DISABLED.png" /></li>
-            </ul>
-        </nav>
+    </nav>
+
+    <!-- apps -->
+    <nav class="nav-apps">
+        <ul class="disabled">
+            <li><img src="/images/ICON_BA_DISABLED.png"/></li>
+            <li><img src="/images/ICON_MM_DISABLED.png"/></li>
+            <li><img src="/images/ICON_MB_DISABLED.png"/></li>
+            <li><img src="/images/ICON_SB_DISABLED.png"/></li>
+            <li><img class="fm" src="/images/ICON_FM_DISABLED.png"/></li>
+        </ul>
+    </nav>
 
         <!-- projects -->
         <nav class="nav-projects">
             <div class="btn-group project-selection">
+                <p>Project Management</p>
                 <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default" disabled="true">
                     <option selected="true" value="0">Please select a project</option>
-                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+                    <option th:each="project : ${projects}" th:value="${project.id}" th:text="'Project: ' + ${project.name}"></option>
                 </select>
 
                 <select th:if="${projects.isEmpty()}" class="btn btn-default">
@@ -110,7 +110,6 @@
 
                 <form th:action="@{/dashboard}" method="post" class="pull-left">
                     <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
-                    <button type="submit" class="btn btn-default btn-link back-button">&larr; Back</button>
                 </form>
 
                 <!-- Profile -->

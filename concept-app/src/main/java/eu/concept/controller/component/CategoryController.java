@@ -7,8 +7,12 @@ import eu.concept.repository.concept.service.CategoryService;
 import eu.concept.repository.concept.service.ProjectCategoryService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,15 +28,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 public class CategoryController {
-
+    
     private static final Logger logger = Logger.getLogger(CategoryController.class.getName());
-
+    
     @Autowired
     ProjectServiceOp projectServiceOp;
-
+    
     @Autowired
     CategoryService categoryService;
-
+    
     @Autowired
     ProjectCategoryService projectCategoryService;
 
@@ -50,16 +54,18 @@ public class CategoryController {
         model.addAttribute("projectID", projectID);
         return "category_app";
     }
-
+    
     @RequestMapping(value = "/category/fragment/{projectID}", method = RequestMethod.GET)
     public String loadFragment(Model model, @PathVariable(value = "projectID") String projectID, @RequestParam(value = "action", defaultValue = "", required = false) String action, @RequestParam(value = "id", defaultValue = "", required = false) String categoryID) {
-
+        
         ProjectCategory projectCategory = projectCategoryService.findByPid(Integer.valueOf(projectID));
-
+        
         if (null != projectCategory) {
-
+            
             if (action.isEmpty()) {
                 model.addAttribute("treegrid", categoryService.constructTreeGrid(projectCategory.getCategories()));
+           
+                
                 return "category :: category-list";
             } else if (action.equalsIgnoreCase("add")) {
                 model.addAttribute("projectCategoryID", projectCategory.getId());
@@ -68,7 +74,7 @@ public class CategoryController {
             } else if (action.equalsIgnoreCase("edit")) {
                 model.addAttribute("projectCategoryID", projectCategory.getId());
                 model.addAttribute("isEdit", 1);
-
+                
                 Category category = categoryService.fetchCategoryById(Integer.valueOf(categoryID));
                 model.addAttribute("hasFather", null == category.getParentID().getParentID() ? 0 : 1);
                 model.addAttribute("category", category);
@@ -76,91 +82,91 @@ public class CategoryController {
             } else {
                 return "category :: category-init";
             }
-
+            
         } else {
             return "category :: category-init";
         }
     }
-
+    
     @RequestMapping(value = "/category/add", method = RequestMethod.POST)
     public String addCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID, final RedirectAttributes redirectAttributes) {
-
+        
         Category newCategory;
-
+        
         if (null != categoryName && !categoryName.isEmpty()) {
-
+            
             if (!parentCategoryID.isEmpty()) {
-
+                
                 Category parentCategory = categoryService.fetchCategoryById(Integer.valueOf(parentCategoryID));
                 newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
-
+                
             } else {
                 ProjectCategory projectCategory = projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID));
                 Category parentCategory = categoryService.findRootCategoryByProjectCategory(projectCategory);
                 newCategory = new Category(categoryName, parentCategory, projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
             }
-
+            
             if (categoryService.storeCategory(newCategory)) {
                 redirectAttributes.addFlashAttribute("success", "Category has been added successfully!");
                 return "redirect:/category_app/" + projectID;
-
+                
             } else {
                 redirectAttributes.addFlashAttribute("error", "Problem occured while adding Category to Model!");
                 return "redirect:/category_app/" + projectID;
             }
-
+            
         } else {
             redirectAttributes.addFlashAttribute("error", "Please fill all the fields!");
             return "redirect:/category_app/" + projectID;
         }
     }
-
+    
     @RequestMapping(value = "/category/update", method = RequestMethod.POST)
-    public String updateCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID, @RequestParam(value = "categoryID", defaultValue = "", required = true) String categoryID,  final RedirectAttributes redirectAttributes) {
-
+    public String updateCategory(Model model, @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID, @RequestParam(value = "categoryName", defaultValue = "", required = true) String categoryName, @RequestParam(value = "parentCategoryID", defaultValue = "", required = false) String parentCategoryID, @RequestParam(value = "projectCategoryID", defaultValue = "", required = true) String projectCategoryID, @RequestParam(value = "categoryID", defaultValue = "", required = true) String categoryID, final RedirectAttributes redirectAttributes) {
+        
         Category existingCategory = categoryService.fetchCategoryById(Integer.valueOf(categoryID));
-
+        
         if (!parentCategoryID.isEmpty()) {
-
+            
             Category parentCategory = categoryService.fetchCategoryById(Integer.valueOf(parentCategoryID));
             existingCategory.setName(categoryName);
             existingCategory.setParentID(parentCategory);
             existingCategory.setProjectCategory(projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
-
+            
         } else {
-
+            
             ProjectCategory projectCategory = projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID));
-
+            
             Category parentCategory = categoryService.findRootCategoryByProjectCategory(projectCategory);
-
+            
             existingCategory.setName(categoryName);
             existingCategory.setParentID(parentCategory);
             existingCategory.setProjectCategory(projectCategoryService.fetchProjectCategoryById(Integer.valueOf(projectCategoryID)));
         }
-
+        
         if (categoryService.storeCategory(existingCategory)) {
             redirectAttributes.addFlashAttribute("success", "Category has been updated successfully!");
             return "redirect:/category_app/" + projectID;
-
+            
         } else {
             redirectAttributes.addFlashAttribute("error", "Problem occured while updating Category!");
             return "redirect:/category_app/" + projectID;
         }
     }
-
+    
     @RequestMapping(value = "/category/delete", method = RequestMethod.GET)
     public String deleteCategory(Model model, @RequestParam(value = "pid", defaultValue = "", required = true) String projectID, @RequestParam(value = "id", defaultValue = "", required = true) Integer categoryID) {
-
+        
         if (categoryService.deleteCategoryCustom(categoryID)) {
             model.addAttribute("success", "Category has been deleted successfully!");
             
         } else {
-             model.addAttribute("error", "Problem occured while deleting Category!");
+            model.addAttribute("error", "Problem occured while deleting Category!");
         }
-
+        
         return loadFragment(model, projectID, "", "");
     }
-
+    
     @RequestMapping(value = "/category/init", method = RequestMethod.POST)
     public String assignCategory(Model model,
             @RequestParam(value = "projectID", defaultValue = "", required = true) String projectID,
@@ -174,17 +180,46 @@ public class CategoryController {
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
 
+        //Get Default Taxonomy
+        ProjectCategory defaultTaxonomy = projectCategoryService.findByPid(0);
+        
         ProjectCategory projectCategory = new ProjectCategory(name, null, Integer.valueOf(projectID));
+        
+        Map<String, String> categoriesMap = new HashMap<>();
+        
+        List<Category> categoriesToAdd = defaultTaxonomy.getCategories().stream().
+                map(category -> {
+                    //Create a copy category
+                    Category categoryMapped = new Category(category.getName(), null, projectCategory);
+                    //Create a map child,parent
+                    categoriesMap.put(category.getName(), null == category.getParentID() ? null : category.getParentID().getName());
+                    //Return created category
+                    return categoryMapped;
+                }).collect(Collectors.toList());
 
+        //Set parent for each category
+        categoriesToAdd.forEach(category -> {
+            
+            String fatherName = categoriesMap.get(category.getName());
+            
+            if (null != fatherName) {
+                Optional<Category> fatherCategory = categoriesToAdd.stream().filter(categoryToMatch -> categoryToMatch.getName().equals(fatherName)).findFirst();
+                category.setParentID(fatherCategory.get());
+            }
+            
+        });
+        
+        projectCategory.setCategories(categoriesToAdd);
+        
         if (projectCategoryService.storeProjectCategoryWithRootCategory(projectCategory)) {
             redirectAttributes.addFlashAttribute("success", "Model has been created successfully!");
             return "redirect:/category_app/" + projectID;
-
+            
         } else {
             redirectAttributes.addFlashAttribute("error", "Problem occured while adding model!");
             return "redirect:/category_app/" + projectID;
         }
-
+        
     }
-
+    
 }

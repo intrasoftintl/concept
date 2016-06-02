@@ -6,8 +6,7 @@
                 <thead>
                     <tr>
                         <th class="col-md-3">Recent Moodboards</th>
-                        <th class="col-md-4">Details</th>
-                        <th class="col-md-5"></th>
+                        <th class="col-md-9">Details</th>
                     </tr>
                 </thead>
                 <tbody>            
@@ -20,8 +19,8 @@
                             </form>
                         </td>
 
-                        <td class="truncate"><span th:text="@{${mbContent.uid.firstName} + ' '+ ${mbContent.uid.lastName} + ' (' +  ${mbContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mbContent.createdDate,0,16)}"></span></td>
-                        <td>
+                        <td class="truncate"><span th:text="@{${mbContent.uid.firstName} + ' '+ ${mbContent.uid.lastName} + ' (' +  ${mbContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mbContent.createdDate,0,16)}"></span>
+                        <br/>
                             <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${mbContent.id}  +',\'MB\','+${mbContent.pid}+',this)'}">
                                 <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                             </button>
@@ -93,7 +92,7 @@
                             <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
                         </form>
                         <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mbContent.id} + '&amp;cname=MB&amp;source=flickr'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a><br/>
-                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mbContent.id} + '&amp;cname=MB&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V &amp; A Museum</a>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mbContent.id} + '&amp;cname=MB&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V&amp;A Museum</a>
                     </td>
                 </tr>
             </tbody>

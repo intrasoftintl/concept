@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Tags &mdash; CONCEPT</title>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+        <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+              th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+              rel="stylesheet" media="screen"/>
+
+        <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
+    </head>
+    <body>
+
+        <!-- logo -->
+        <nav class="nav-logo">
+            <form id="ba-form" th:action="@{/dashboard}" method="post">
+                <span href="#" onclick="addProjectIDToForm('ba-form');
+                        $(this).closest('form').submit()">
+                    <img class="back" src="/images/BUTTON_BACK.png"/>
+                    <img class="logo" src="/images/concept-logo-small.png"/>
+                </span>
+            </form>
+
+        </nav>
+
+        <!-- apps -->
+        <nav class="nav-apps">
+            <ul class="disabled">
+                <li><img src="/images/ICON_BA_DISABLED.png"/></li>
+                <li><img src="/images/ICON_MM_DISABLED.png"/></li>
+                <li><img src="/images/ICON_MB_DISABLED.png"/></li>
+                <li><img src="/images/ICON_SB_DISABLED.png"/></li>
+                <li><img class="fm" src="/images/ICON_FM_DISABLED.png"/></li>
+            </ul>
+        </nav>
+
+        <!-- dashboard -->
+        <div class="content">
+
+            <div class="header">
+                <!--<a href="/" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>-->
+
+                <!-- Profile -->
+                <div class="btn-group pull-right">
+                    <div class="row col-md-12 pull-right">
+                        <h5 th:inline="text" class="pull-right"> [[${currentUser.getFirstName()}]]
+                            [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
+                    </div>
+                    <div class="row col-md-12 pull-right">
+
+                        <form th:action="@{/logout}" method="post" class="pull-right" style="margin-left:4px">
+                            <button type="submit" class="btn btn-default btn-sm ">
+                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+                            </button>
+                        </form>
+
+                        <!-- Preferences Button -->
+                        <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
+                            <button type="submit" class="btn btn-default btn-sm ">
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            </button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="dashboard-login">
+
+                        <section id="login">
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div th:if="${showTagsAlert == 'false'}" id="tagsAlert" class="alert alert-success" role="alert">
+                                            The system has started importing images for the Europeana Collections for later use. This will take a minute or two.
+                                        </div>
+                                        <div th:if="${showTagsAlert == 'true'}" id="tagsAlert" class="alert alert-warning" role="alert">
+                                            <!--<form class="project-form" id="pm-tags-form" action="/pm_app/model" method="post">-->
+                                            <!--<button  onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-model" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Set Tags</button>-->
+                                            <!--<input name="initTaxonomy" value="true" type="hidden"  />-->
+                                            <!--</form>-->
+                                            <span class="label label-warning">OPTIONAL</span><br/><br/>Here you can define a set of tags that will auto-import visual data (images) from <strong>Europeana Collections</strong> for later use.
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-wrap">
+                                            <h5 class="heading">Define tags</h5>
+                                            <form role="form" th:action="@{/tagsAdd}" method="post" id="login-form" th:object="${tag}" autocomplete="off">
+                                                
+                                                <input th:if="${_csrf}" type="hidden" th:name="${_csrf.parameterName}"     th:value="${_csrf.token}"/>
+                                                
+                                                <div class="form-group">
+                                                    <label for="key" class="sr-only">Tag 1</label>
+                                                    <input   type="text" name="tag1" th:field="*{tag1}" class="form-control" placeholder="Tag 1" th:classappend="${showTagsAlert == 'false' ? 'disabled' : ''}"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="key" class="sr-only">Tag 2</label>
+                                                    <input type="text" name="tag2"  th:field="*{tag2}" class="form-control" placeholder="Tag 2" th:classappend="${showTagsAlert == 'false' ? 'disabled' : ''}"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="key" class="sr-only">Tag 3</label>
+                                                    <input type="text" name="tag3" th:field="*{tag3}" class="form-control" placeholder="Tag 3" th:classappend="${showTagsAlert == 'false' ? 'disabled' : ''}"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="key" class="sr-only">Tag 4</label>
+                                                    <input type="text" name="tag4" th:field="*{tag4}" class="form-control" placeholder="Tag 4" th:classappend="${showTagsAlert == 'false' ? 'disabled' : ''}"/>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="key" class="sr-only">Tag 5</label>
+                                                    <input type="text" name="tag5"  th:field="*{tag5}" class="form-control" placeholder="Tag 5" th:classappend="${showTagsAlert == 'false' ? 'disabled' : ''}" />
+                                                </div>
+
+                                                <!-- Project Id -->
+                                                <input type="hidden" name="pid" th:field="*{id}" id="id"/>
+                                                
+                                                <!-- Project Id -->
+                                                <input type="hidden" name="pid" th:field="*{pid}" id="pid"/>
+
+                                                <input th:if="${showTagsAlert == 'true'}" type="submit" id="defineTags" value="Set Tags" class="btn btn-danger"/>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
+        th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
+
+        <script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
+        th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
+
+        <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
+
+    </body>
+</html> 

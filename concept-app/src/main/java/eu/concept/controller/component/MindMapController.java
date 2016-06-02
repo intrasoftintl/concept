@@ -15,7 +15,6 @@ import eu.concept.util.other.NotificationTool.NOTIFICATION_OPERATION;
 import eu.concept.util.other.Util;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +50,9 @@ public class MindMapController {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    ElasticSearchController elasticSearchController;
 
     /*
      *  GET Methods 
@@ -88,7 +90,7 @@ public class MindMapController {
                 int mm_id = mindmapCreateResponse.getBody().getMindMapId();
                 createdMMURL = createdMMURL.concat(String.valueOf(mindmapCreateResponse.getBody().getMindMapId()) + "/" + currentUserID + "/edit");
                 //Insert mindmap to elastic search engine            
-                ElasticSearchController.getInstance().insert(Optional.ofNullable(mmService.fetchMindMapById(mm_id)), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mm_id, Util.getComponentName(MindMap.class.getSimpleName()))));
+                elasticSearchController.insert(Optional.ofNullable(mmService.fetchMindMapById(mm_id)), Optional.ofNullable(metadataService.fetchMetadataByCidAndComponent(mm_id, Util.getComponentName(MindMap.class.getSimpleName()))));
                 logger.info("Success created MindMap with ID: " + mindmapCreateResponse.getBody().getMindMapId());
             } else {
                 logger.severe("Could not create mindmap for projectId: " + projectID);
@@ -121,7 +123,7 @@ public class MindMapController {
         if (null != mm && mmService.delete(mm_id)) {
             notificationService.storeNotification(project_id, NotificationTool.MM, NOTIFICATION_OPERATION.DELETED, "a MindMap (" + mm.getTitle() + ")", mm.getContentThumbnail(), WebController.getCurrentUserCo());
             //Delete from elastic search engine (id=component_name+mm_id)
-            ElasticSearchController.getInstance().deleteById(Util.getComponentName(MindMap.class.getSimpleName()) + String.valueOf(mm_id));
+            elasticSearchController.deleteById(Util.getComponentName(MindMap.class.getSimpleName()) + String.valueOf(mm_id));
         }
         return fetchMMByProjectID(model, project_id, limit);
     }

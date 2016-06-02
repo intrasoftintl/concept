@@ -105,16 +105,21 @@ public class Util {
     }
 
     public static void main(String[] args) {
-        String sha1 = Util.createAlgorithm("manager2", "SHA");
-        System.out.println("SHA1: " + sha1);
+        String sha1_manager1 = Util.createAlgorithm("manager1", "SHA");
+        String sha1_designer1 = Util.createAlgorithm("designer1", "SHA");
+        String sha1_client1 = Util.createAlgorithm("client1", "SHA");
+
+        System.out.println("SHA1 (manager1): " + sha1_manager1);
+        System.out.println("SHA1 (designer1): " + sha1_designer1);
+        System.out.println("SHA1 (client1): " + sha1_client1);
+
         String salt = "56ca7800420a4d73619ea72af8c7fd54";
-//        String salt = Util.getRandomHexString(32);
+        //String salt = Util.getRandomHexString(32);
 
-        String sha1_salt = Util.createAlgorithm(salt + sha1, "SHA");
+        String sha1_salt = Util.createAlgorithm(salt + sha1_manager1, "SHA");
         System.out.println("Salt= " + salt);
-        System.out.println("salt+sha1=" + salt + sha1);
+        System.out.println("salt+sha1=" + salt + sha1_manager1);
         System.out.println("SHA1(salt+SHA1(palin_text)) =  " + sha1_salt);
-
     }
 
 }

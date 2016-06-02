@@ -51,9 +51,15 @@ public class DatasourceConceptConfig {
         mysqlXaDataSource.setAutoReconnect(true);
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
         mysqlXaDataSource.setPinGlobalTxToPhysicalConnection(true);
+        mysqlXaDataSource.setTcpKeepAlive(true);
+        mysqlXaDataSource.setAutoReconnect(true);
+
         AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
         xaDataSource.setXaDataSource(mysqlXaDataSource);
+        xaDataSource.setTestQuery("select now()");
         xaDataSource.setUniqueResourceName("conceptDS");
+        xaDataSource.getXaProperties().setProperty("validationQuery", "select now()");
+        xaDataSource.getXaProperties().setProperty("testOnBorrow", "true");
         return xaDataSource;
 
     }

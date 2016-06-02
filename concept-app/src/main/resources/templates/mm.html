@@ -6,11 +6,10 @@
                 <thead>
                     <tr>
                         <th class="col-md-3">Recent MindMaps</th>
-                        <th class="col-md-4">Details</th>
-                        <th class="col-md-5"></th>
+                        <th class="col-md-9">Details</th>
                     </tr>
                 </thead>
-                <tbody>            
+                <tbody>
                     <tr th:each="mmContent : ${mmContents}">
                         <td>
                             <form th:id="@{'mm-add-form' + ${mmContent.id}}" method="post" th:action="@{/mm_app}">
@@ -19,8 +18,8 @@
                                 <a id="mb-add" type="submit" th:onclick="@{ '$(\'#mm-add-form'+${mmContent.id} +'\').submit()'}"  ><img  src="/images/fm_generic_mm.png" class="img-thumbnail" /></a>
                             </form>
                         </td>
-                        <td class="truncate"><span th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mmContent.createdDate,0,16)}"></span></td>
-                        <td>
+                        <td class="truncate"><span th:text="@{${mmContent.userCo.firstName} + ' '+ ${mmContent.userCo.lastName} + ' (' +  ${mmContent.userCo.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(mmContent.createdDate,0,16)}"></span>
+                            <br/>
                             <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${mmContent.id}  +',\'MM\','+${mmContent.pid}+',this)'}">
                                 <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                             </button>
@@ -29,17 +28,17 @@
                                 <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                             </button>
 
-                            <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                            <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp;
                             <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountMM' + ${mmContent.id} }" th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>
                         </td>
-                    </tr>  
+                    </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="panel-footer">
             <form id="mmAllForm" action="#" method="post" th:action="@{/mm_all}">
-                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>                
+                <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control"/>
             </form>
             Mindmaps (<span th:text="${totalMindMaps}"></span>) - <a onclick="$('#mmAllForm').submit();" >View All</a>
         </div>
@@ -78,7 +77,7 @@
                             <i class="glyphicon glyphicon-trash" aria-hidden="true"/>
                         </button>
                         &nbsp;
-                        <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
+                        <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp;
                         <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''" aria-hidden="true"></span> <span th:id="@{'LikeCountMM' + ${mmContent.id} }" th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>
                         <br/>
                         <form id="se-form" method="post" action="/search_similar" th:object="${mmContent}">
@@ -88,7 +87,7 @@
                             <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Project</button>
                         </form>
                         <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mmContent.id} + '&amp;cname=MM&amp;source=flickr'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> Flickr</a><br/>
-                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mmContent.id} + '&amp;cname=MM&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V &amp; A Museum</a>
+                        <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${mmContent.id} + '&amp;cname=MM&amp;source=vam'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px"></i> V&amp;A Museum</a>
                     </td>
                 </tr>
             </tbody>

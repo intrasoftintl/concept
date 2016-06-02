@@ -49,6 +49,8 @@ public class FileManagementController {
     @Autowired
     NotificationService notificationService;
 
+    @Autowired
+    ElasticSearchController elasticSearchController;
 
     /*
      *  GET Methods 
@@ -120,7 +122,7 @@ public class FileManagementController {
         if (null != fm && fmService.deleteFile(fm_id)) {
             notificationService.storeNotification(project_id, NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.DELETED, "a file (" + fm.getFilename() + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
             //Delete from elastic search engine (id=component_name+ba_id)
-            ElasticSearchController.getInstance().deleteById(Util.getComponentName(FileManagement.class.getSimpleName()) + String.valueOf(fm_id));
+            elasticSearchController.deleteById(Util.getComponentName(FileManagement.class.getSimpleName()) + String.valueOf(fm_id));
         }
         return fetchFilesByProjectIDAll(model, project_id, limit);
     }

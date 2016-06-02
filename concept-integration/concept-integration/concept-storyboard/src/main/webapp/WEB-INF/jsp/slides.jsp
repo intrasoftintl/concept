@@ -51,7 +51,7 @@
         </form>
         <div class="container">
             <h3>Scenes list</h3>
-            <table class="table table-hover" style="width: 70%;">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -77,9 +77,12 @@
                                             </button>
                                         </div>
                                         <div class="col-sm-4">
+                                        	&nbsp;
+                                        	<!--
                                             <button type="button" class="btn btn-primary btn-md btn-block" onclick="fRemove('<c:out value="${mySlide.id}"></c:out>');">
                                                 <span class="glyphicon glyphicon-remove-circle"></span> Remove
                                             </button>
+                                             -->
                                         </div>
                                     </div>
                                 </td>

@@ -1,4 +1,4 @@
-function initMetadata() {
+function initMetadata(data) {
     logger("Initializing Metadata tags...");
 
     $('#tags').tagsInput({
@@ -8,70 +8,7 @@ function initMetadata() {
         'placeholderColor': '#ccc'
     });
 
-    var data = [
-        {
-            label: 'Product Category', id: 1,
-            children: [
-                {label: 'Kitchenware', id: 11},
-                {label: 'Exhibition', id: 12},
-                {label: 'Lighting', id: 13},
-                {label: 'Furniture', id: 14}
-            ]
-        },
-        {
-            label: 'Product Domain', id: 2,
-            children: [
-                {label: 'Medical', id: 21},
-                {label: 'Cosumer', id: 22},
-                {label: 'Sport', id: 23},
-                {label: 'Market Analysis', id: 24},
-                {label: 'Technology', id: 25},
-                {label: 'Usability', id: 26}
-            ]
-        },
-        {
-            label: 'Product Language', id: 3,
-            children: [
-                {
-                    label: 'Style', id: 31,
-                    children: [
-                        {
-                            label: 'Period Style', id: 311,
-                            children: [
-                                {label: 'Classic', id: 3112},
-                                {label: 'Chic', id: 3113},
-                                {label: 'Modern', id: 3113},
-                                {label: 'Artdeco', id: 3115}
-                            ]
-                        },
-                        {
-                            label: 'Partial Style', id: 312,
-                            children: [
-                                {label: 'National', id: 3121},
-                                {label: 'Corporate', id: 3122},
-                                {label: 'Target Style', id: 3123}
-                            ]
-                        }
-                    ]
-                },
-                {
-                    label: 'Material', id: 32,
-                    children: [
-                        {label: 'Steel', id: 321},
-                        {label: 'Stone', id: 322}
-                    ]
-                },
-                {
-                    label: 'Associations and Feelings', id: 33,
-                    children: [
-                        {label: 'Cold', id: 331},
-                        {label: 'Warm', id: 332},
-                        {label: 'Aggressive', id: 333}
-                    ]
-                }
-            ]
-        }
-    ];
+    //var data = [{"children":[{"children":[{"children":[{"label":"Order","id":12},{"label":"Complexity","id":13}],"label":"Aesthetic Function","id":11},{"children":[{"children":[{"label":"Brand","id":16},{"label":"Material","id":17}],"label":"Identity","id":15},{"children":[{"label":"Stability","id":19},{"label":"Usability","id":20}],"label":"Practicality","id":18}],"label":"Indication Function","id":14},{"children":[{"children":[{"label":"Classic","id":23},{"label":"Corporate","id":24},{"label":"ArtDeco","id":25},{"label":"National","id":26},{"label":"Pop","id":27},{"label":"Romantic","id":28},{"children":[{"label":"Time","id":30},{"label":"Region","id":31},{"label":"Movement","id":32}],"label":"Character","id":29}],"label":"Style","id":22},{"children":[{"label":"Old","id":35},{"label":"Aggressive","id":36},{"label":"Warm","id":37},{"label":"Cold","id":38},{"label":"Dark","id":39}],"label":"Association","id":34}],"label":"Symbol Function","id":21}],"label":"Product Function","id":10},{"children":[{"label":"Manufacturing","id":41},{"label":"IT","id":42},{"label":"Kitchenware","id":43},{"label":"Automotive","id":44}],"label":"Product Category","id":40}],"label":"Design Product","id":8}];
 
     logger("Initializing Metadata Categories tree...");
     $(function () {
@@ -95,17 +32,16 @@ function initMetadata() {
 
                     if ($tree.tree('isNodeSelected', selected_node)) {
                         $tree.tree('removeFromSelection', selected_node);
-                    }
-                    else {
+                    } else {
                         $tree.tree('addToSelection', selected_node);
                     }
                 }
         );
     });
 
-    $('#tree').tree('setState', JSON.parse($("#categories").val()));
+    console.log('Categories: ' + $("#categories").val());
+            $('#tree').tree('setState', JSON.parse($("#categories").val()));
     logger("Finished Metadata initalization...");
-
 
 
     $("#metadataForm").submit(function (event) {
@@ -132,71 +68,7 @@ function initMetadata() {
     });
 }
 
-function initCategorySearch() {
-    var data = [
-        {
-            label: 'Product Category', id: 1,
-            children: [
-                {label: 'Kitchenware', id: 11},
-                {label: 'Exhibition', id: 12},
-                {label: 'Lighting', id: 13},
-                {label: 'Furniture', id: 14}
-            ]
-        },
-        {
-            label: 'Product Domain', id: 2,
-            children: [
-                {label: 'Medical', id: 21},
-                {label: 'Cosumer', id: 22},
-                {label: 'Sport', id: 23},
-                {label: 'Market Analysis', id: 24},
-                {label: 'Technology', id: 25},
-                {label: 'Usability', id: 26}
-            ]
-        },
-        {
-            label: 'Product Language', id: 3,
-            children: [
-                {
-                    label: 'Style', id: 31,
-                    children: [
-                        {
-                            label: 'Period Style', id: 311,
-                            children: [
-                                {label: 'Classic', id: 3112},
-                                {label: 'Chic', id: 3113},
-                                {label: 'Modern', id: 3113},
-                                {label: 'Artdeco', id: 3115}
-                            ]
-                        },
-                        {
-                            label: 'Partial Style', id: 312,
-                            children: [
-                                {label: 'National', id: 3121},
-                                {label: 'Corporate', id: 3122},
-                                {label: 'Target Style', id: 3123}
-                            ]
-                        }
-                    ]
-                },
-                {
-                    label: 'Material', id: 32,
-                    children: [
-                        {label: 'Steel', id: 321},
-                        {label: 'Stone', id: 322}
-                    ]
-                },
-                {
-                    label: 'Associations and Feelings', id: 33,
-                    children: [
-                        {label: 'Cold', id: 331},
-                        {label: 'Warm', id: 332},
-                        {label: 'Aggressive', id: 333}
-                    ]
-                }
-            ]
-        }
-    ];
+function initCategorySearch(data) {
 
     logger("Initializing Search Categories tree...");
     $(function () {
@@ -220,8 +92,7 @@ function initCategorySearch() {
 
                     if ($tree.tree('isNodeSelected', selected_node)) {
                         $tree.tree('removeFromSelection', selected_node);
-                    }
-                    else {
+                    } else {
                         $tree.tree('addToSelection', selected_node);
                     }
                 }

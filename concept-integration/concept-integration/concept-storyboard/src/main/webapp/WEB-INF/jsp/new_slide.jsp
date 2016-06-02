@@ -52,13 +52,13 @@
     <body>
         <jsp:include page="/WEB-INF/jsp/bar.jsp"></jsp:include>
             <div class="container">
-                <div style="width: 960px;">
+                <div>
                     <div class="row">
                         <div class="col-sm-5">
                             <h3>
                             <c:if test="${requestScope.is_update != null}">
                                 <fmt:message key="newslide.title.update" />
-                            </c:if>				
+                            </c:if>
                             <c:if test="${requestScope.is_update == null}">
                                 <fmt:message key="newslide.title.new" />
                             </c:if>
@@ -73,7 +73,7 @@
                             <!-- COnCEPT UserId -->
                             <input type="hidden" id="uid" name="uid" value="<%= request.getParameter("uid")%>"/>
                             <div class="form-inline">
-                                <label for="slidename">Name&nbsp;&nbsp;</label> 
+                                <label for="slidename">Name&nbsp;&nbsp;</label>
                                 <input class="form-control" id="slide_name" name="slide_name" placeholder="Enter moodname name" onchange="fCheckEmpty(this);">
                             </div>
                         </form>
@@ -85,12 +85,12 @@
                     </div>
                 </div>
                 <div>
-                    <iframe src="/storyboard/svg-edit-2.6/svg-editor.html" id="idIframe" width="960" height="550"></iframe>
+                    <iframe src="/storyboard/svg-edit-2.8.1/svg-editor.html" id="idIframe" width="100%" height="600"></iframe>
                 </div>
                 <c:if test="${requestScope.request_new_slide_error != null}">
                     <div class="alert alert-danger" id="divError"><c:out value="${requestScope.request_new_slide_error}"></c:out></div>
                 </c:if>
-            </div>		
+            </div>
         </div>
     </body>
 </html>

@@ -36,14 +36,14 @@ public class ProjectCategory implements Serializable {
     @Column(name = "name")
     private String name;
     @Basic(optional = true)
-    @Size(min = 1, max = 250)
+    @Size(min = 1, max = 4096)
     @Column(name = "current_structure", columnDefinition = "TEXT")
     private String currentStructure;
     @Basic(optional = false)
     @NotNull
     @Column(name = "pid", updatable = false)
     private int pid;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "projectCategory")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "projectCategory")
     private List<Category> categories;
     @Basic(optional = false)
     @Column(name = "last_modified", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")

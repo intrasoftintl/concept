@@ -2,12 +2,12 @@
     <!-- navbar -->
     <nav class="nav-main-md">
         <ul>
-                <a href="#" onclick="unloadMD()">
-                    <li class="main-md"><img src="/images/BUTTON_BACK.png" />Metadata</li>
-                </a>
+            <a href="#" onclick="unloadMD()">
+                <li class="main-md"><img src="/images/BUTTON_BACK.png" />Metadata</li>
+            </a>
         </ul>
     </nav>
-    
+
     <!-- keywords -->
     <nav class="nav-keywords">
         <div class="nav-header">
@@ -29,7 +29,7 @@
             <!-- Component name -->
             <input th:type="hidden" th:name="component" th:field="*{component.id}"/>
             <button id="autoannotatebtn" type="submit" class="btn btn-xs btn-danger btn-block btn-keywords">
-                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Auto-annotate</strong><br/>WARNING: This will clear your edits
+                <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span> <strong>Add Tags (Auto-annotate)</strong><br/>WARNING: This will clear your edits
             </button>
         </form>
     </nav>
@@ -67,6 +67,9 @@
             <!-- Metadata description-->
             <input th:type="hidden" th:name="description" th:field="*{description}"  />
 
+            <a type="submit" class="btn btn-default btn-block btn-actions" onclick="unloadMD()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
+            </a>
             <button type="submit" class="btn btn-success btn-block btn-actions">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
             </button>
@@ -75,6 +78,6 @@
     </nav>
 
     <!-- Immediate load metadata -->
-    <script> initMetadata()</script>
+    <script th:inline="javascript"> initMetadata(JSON.parse([[${taxonomy}]]))</script>
 
 </div>
