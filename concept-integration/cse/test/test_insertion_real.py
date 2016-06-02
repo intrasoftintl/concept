@@ -403,431 +403,431 @@ r = json.loads(response.read().decode('utf-8'))
 print(r)
 
 
-data = {
-"ID": "201",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 201",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-
-data = {
-"ID": "202",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 202",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-
-data = {
-"ID": "203",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 203",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "204",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 204",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "205",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 205",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "206",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 206",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "207",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 207",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "208",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 208",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "209",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 209",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "210",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 210",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "211",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 211",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "212",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 212",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "213",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 213",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "214",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 214",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "215",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 215",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "216",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 216",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "217",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 217",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "218",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 218",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "219",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 219",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "220",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 220",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-data = {
-"ID": "221",
-"Project ID": "22",
-"COMPONENT": "MM (Mindmap)",
-"TITLE": "Mindmap automaticaly generated fake 221",
-"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
-"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
-"url":"document/49",
-"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
-<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
-'''
-}
-print("Inserting "+str(data))
-data = urllib.parse.urlencode(data).encode('utf-8')
-#POST
-req = urllib.request.Request(url+"/insert_item",data)
-response = urllib.request.urlopen(req)
-r = json.loads(response.read().decode('utf-8'))
-print(r)
-
-
-
-
-
-
-
+##data = {
+##"ID": "201",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 201",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##
+##data = {
+##"ID": "202",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 202",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##
+##data = {
+##"ID": "203",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 203",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "204",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 204",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "205",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 205",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "206",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 206",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "207",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 207",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "208",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 208",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "209",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 209",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "210",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 210",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "211",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 211",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "212",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 212",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "213",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 213",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "214",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 214",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "215",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 215",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "216",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 216",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "217",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 217",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "218",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 218",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "219",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 219",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "220",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 220",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##data = {
+##"ID": "221",
+##"Project ID": "22",
+##"COMPONENT": "MM (Mindmap)",
+##"TITLE": "Mindmap automaticaly generated fake 221",
+##"KEYWORDS": "chair design,iteration,consumer chair,medical chair",
+##"CATEGORIES": "Modern, Steel, Warm, Exhibition, Furtniture",
+##"url":"document/49",
+##"CONTENT": '''<map name="49" version="tango"><topic central="true" text="COnCEPT Mindmap" id="1"><note>
+##<![CDATA[Simple to operate and widely used in multiple (project) chair installations because you can change the back and seat angles quickly and simultaneously, allowing posture changes for different activities such as keyboard work or reading. Suits many people but will not suit all. Chair geometry varies between manufacturers and from model to model so, if you like this feature on one chair, do not necessarily assume you will like it on another.]]></note><topic position="194,-72" order="0" text="Synchronous Mechanism " id="2"/><topic position="204,-43" order="2" text="Free Float (Rocking) Feature" id="3"/><topic position="192,-14" order="4" text="Seat Height Adjustment" id="4"/><topic position="192,15" order="6" text="Back Height Adjustment" id="5"/><topic position="201,44" order="8" text="Adjustable Lumbar Support" id="6"/><topic position="166,73" order="10" text="Pelvic Support" id="7"/></topic></map>
+##'''
+##}
+##print("Inserting "+str(data))
+##data = urllib.parse.urlencode(data).encode('utf-8')
+###POST
+##req = urllib.request.Request(url+"/insert_item",data)
+##response = urllib.request.urlopen(req)
+##r = json.loads(response.read().decode('utf-8'))
+##print(r)
+##
+##
+##
+##
+##
+##
+##

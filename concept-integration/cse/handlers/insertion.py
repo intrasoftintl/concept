@@ -319,8 +319,10 @@ class insertion_categories_handler(tornado.web.RequestHandler):
             self.set_status(400,str(e))
             return
 
+        inserted = "inserted" if res["created"] else "updated"
+ 
 
-        self.write('{"status":"ok"}')
+        self.write('{{"text":"category {} tree for project {}", "status":"ok"}}'.format(inserted,project_id))
         self.set_status(201,"categories inserted")
         
         return

@@ -58,6 +58,8 @@ class Application(tornado.web.Application):
             (r"/search_keyword", search.search_keyword_handler),
 
             (r"/search_image_by_id", search.search_image_by_id_handler), 
+            (r"/search_image_qbe", search.search_image_by_example_handler),
+        
 
             (r"/insert_categories",insertion.insertion_categories_handler),
             (r"/delete_categories", deletion.deletion_categories_handler),

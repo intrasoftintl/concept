@@ -139,7 +139,8 @@ def advanced_search_query(param,es,index,doc_type,
         #categories query expansion
         s_tree = getCategoriesTree(project_id,es,index)
         if s_tree:
-            query = param_list["categories"].split()
+            #the list of categories is comma separated
+            query = param_list["categories"].split(",")
             query = list(map(str.strip,query))
 
             param_list["categories"] = expandQuery(query,s_tree)
@@ -610,42 +611,74 @@ class search_image_by_id_handler(tornado.web.RequestHandler):
             #something very weird happend
             self.set_status(400,"other error")
             
-#==============================================================================
-# class search_image_by_example_handler(tornado.web.RequestHandler):
-#     """ REST API for image search by example, sending a example image
-#     or using the id of a stored image
-#     """
-#     def get(self):
-#         self.post()
-# 
-#     def post(self):                    
-#         user_id = self.get_argument('user_id',"")
-#         project_id = self.get_argument('project_id',"") 
-#         uuid = self.get_argument("id","")
-#         image = self.get_argument("image","")
-# 
-#         es = self.application.es
-#         index = self.application.config_init["index"]
-#         doc_type = self.application.config_init["type_item"]               
-#                
-#         if uuid:
-#             queryImage = {
-#                 "query": {
-#                     "image": {
-#                     "content-image": {
-#                         "feature": "CEDD",
-#                         "index": index,
-#                         "type": doc_type,
-#                         "id": uuid,
-#                         "path": "content-image",
-#                         "hash": "BIT_SAMPLING"
-#                     }
-#                     }
-#                     }
-#                     }            
-#             #Executing the query
-#             res = es.search(index=index, doc_type=doc_type, body=queryImage)
-#==============================================================================
+class search_image_by_example_handler(tornado.web.RequestHandler):
+    """ REST API for image search by example, sending a example image
+    or using the id of a stored image
+    """
+    def get(self):
+        self.post()
+ 
+    def post(self):                    
+        user_id = self.get_argument('user_id',"")
+        project_id = self.get_argument('project_id',"") 
+        output = self.get_argument("output","html")
+        uuid = self.get_argument("id","")
+        logging.info(uuid)
+ 
+        es = self.application.es
+        index = self.application.config_init["index"]
+        doc_type = self.application.config_init["type_item"]               
+                
+        queryImage = {
+                 "query": {
+                     "image": {
+                     "content-image": {
+                         "feature": "CEDD",
+                         "index": index,
+                         "type": doc_type,
+                         "id": uuid,
+                         "path": "content-image",
+                         "hash": "BIT_SAMPLING"
+                     }
+                     }
+                     }
+                     }            
+             #Executing the query
+        try:
+             res = es.search(index=index, doc_type=doc_type, body=queryImage)
+        except Exception as e:
+            logging.exception(e)                
+            self.set_status(400,str(e))
+            return    
+
+        logging.info(res["hits"]["total"])
+
+        for i in res['hits']['hits']:
+            logging.info("{} {}".format(i["_id"],i["_score"]))
+    
+
+
+        if output == "html":
+            total = res["hits"]["total"]
+            #max_score = res["hits"]["max_score"]
+            list_results = res["hits"]["hits"]
+
+
+            #logging.debug(total)
+            #logging.debug(max_score)
+
+            self.render('rest_results.html',
+                    user = user_id,
+                    project = project_id,
+                    search_param = json.dumps(search_param),
+                    s_type = "search_advanced",
+                    page = page,
+                    total = total,
+                    list_results = list_results)
+        else:
+            self.set_header("Content-Type", 'application/json')
+            self.write(res["hits"]["hits"])
+            
 
 
 def expandTerm(term,s_tree,resultList,listFathers):
@@ -662,6 +695,7 @@ def expandTerm(term,s_tree,resultList,listFathers):
             
             
 def expandQuery(query,s_tree):
+    logging.info("expandQuery")
     resultList=list(query)
     for term in query:
         expandTerm(term,s_tree,resultList,[])

@@ -74,6 +74,7 @@ for f in file_list:
 
     image = { "my_img":encoded_data }
 
-    es.index(index="test",doc_type="test",body=image,id=f)
+    res = es.index(index="test",doc_type="test",body=image,id=f)
+    print(res['created'])
 
     print("Indexed")
