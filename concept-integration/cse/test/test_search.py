@@ -91,7 +91,7 @@ url = "http://localhost:9999"
 data = {
     #'user_id':'robert',
     'project_id':'22',
-    'categories':'Target Style'
+    'categories':'Product Language'
     }
 
 

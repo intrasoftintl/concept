@@ -680,30 +680,60 @@ class search_image_by_example_handler(tornado.web.RequestHandler):
             self.write(res["hits"]["hits"])
             
 
+# This set of functions expands the fathers from the children
+#
+##def expandTerm(term,s_tree,resultList,listFathers):
+##    for item in s_tree:
+##        #loggin.info((item["label"],listFathers)
+##        if item["label"].lower()==term.lower():
+##            return resultList.extend(listFathers)
+##        else:
+##            if "children" in item:
+##                fathers = list(listFathers)
+##                fathers.append(item["label"])
+##                expandTerm(term,item["children"],
+##                           resultList,fathers)
+##            
+##            
+##def expandQuery(query,s_tree):
+##    logging.info("expandQuery")
+##    resultList=list(query)
+##    for term in query:
+##        expandTerm(term,s_tree,resultList,[])
+##
+##    logging.info(resultList)
+##    lt =' OR '.join(resultList)
+##    logging.info(lt)
+##    return lt
 
-def expandTerm(term,s_tree,resultList,listFathers):
+# this set of funcitions give the children of a father node
+def expandTerm(term,s_tree,resultList):
     for item in s_tree:
-        #loggin.info((item["label"],listFathers)
+        #print(item)
         if item["label"].lower()==term.lower():
-            return resultList.extend(listFathers)
+            getChildren(item,resultList)
         else:
             if "children" in item:
-                fathers = list(listFathers)
-                fathers.append(item["label"])
-                expandTerm(term,item["children"],
-                           resultList,fathers)
+                expandTerm(term,item["children"],resultList)
             
+def getChildren(item,resultList):
+    #print(item)
+    if "children" in item:
+        for i in item["children"]:
+            resultList.append(i["label"])
+            getChildren(i,resultList)
             
-def expandQuery(query,s_tree):
+def expandQuery(categories,s_tree):
     logging.info("expandQuery")
-    resultList=list(query)
-    for term in query:
-        expandTerm(term,s_tree,resultList,[])
+    resultList=list(categories)
+    for term in categories:
+        expandTerm(term,s_tree,resultList)
 
     logging.info(resultList)
     lt =' OR '.join(resultList)
     logging.info(lt)
     return lt
+
 
 def getCategoriesTree(project,es,index):
     logging.info("Searching for categories for "+project)

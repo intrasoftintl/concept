@@ -33,7 +33,8 @@ f.close()
 
 s_tree = json.loads(sim_file)
 
-categories = "Furniture,Consumer,Market Analysis,Product Language"
+#categories = "Furniture,Consumer,Market Analysis,Product Language"
+categories = "Product Language"
 
 categories = categories.split(",")
 categories = list(map(str.strip,categories))
