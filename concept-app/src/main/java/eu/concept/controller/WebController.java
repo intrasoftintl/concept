@@ -141,6 +141,7 @@ public class WebController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
+        model.addAttribute("projectID", projectID);
         return "timeline_app";
     }
 
@@ -233,6 +234,7 @@ public class WebController {
         List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
         model.addAttribute("projects", projects);
         model.addAttribute("currentUser", getCurrentUser());
+        model.addAttribute("projectID", projectID);
         return "tags_app";
     }
 

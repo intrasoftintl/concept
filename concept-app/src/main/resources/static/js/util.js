@@ -319,6 +319,14 @@ function projectSelectedAction(projectID) {
             $("#nf-placeholder").show();
         }
 
+        if (isTL_app()) {
+            $("#project-members").show();
+            $("#project-view").show();
+            $("#project-model").show();
+            $("#nf-button").show();
+            $("#nf-placeholder").show();
+        }
+
         if (isSE_app()) {
             $("#project-members").show();
             $("#project-view").show();
@@ -415,6 +423,14 @@ function projectSelectedAction(projectID) {
             $("#project-view").hide();
             $("#project-model").hide();
             $("#nf-button").hide();
+        } else if (isTL_app()) {
+            $("#nf-placeholder").show();
+            $(".panel-body").hide();
+            $(".panel-footer").hide();
+            $("#project-members").hide();
+            $("#project-view").hide();
+            $("#project-model").hide();
+            $("#nf-button").hide();
         }
 
     }
@@ -497,6 +513,11 @@ function isMB_all() {
 //Return true if current page is NF ALL
 function isNF_app() {
     return location.pathname === "/notifications_app";
+}
+
+//Return true if current page is NF ALL
+function isTL_app() {
+    return location.pathname === "/timeline_app";
 }
 
 //Return true if current page is MM ALL
