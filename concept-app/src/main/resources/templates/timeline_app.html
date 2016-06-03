@@ -54,7 +54,8 @@
     </div>
 
     <div class="project-selection">
-        <input type="hidden" th:value="${projectID}" name="projectID" id="projectID" class="form-control"/>
+        <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
+        <input type="hidden" th:value="${currentUser.getId()}"  name="userID" id="userID" class="form-control" />
 
         <!-- Content to be showed only on project members (managers, designers, clients) -->
         <div th:switch="${currentUser.getRole()}">
@@ -73,6 +74,12 @@
                               th:action="@{/pm_app/model}">
                             <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model"
                                     href="" class="btn btn-link btn-xs">Model</button>
+                        </form>
+                        <form class="project-form" id="pm-tags-form" action="#" method="post" th:action="@{/tags}">
+                            <button onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-tags" href="" class="btn btn-link btn-xs">Tags</button>
+                        </form>
+                        <form class="project-form" id="pm-tags-form" action="#" method="post" th:action="@{/tags}">
+                            <button onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-tags" href="" class="btn btn-link btn-xs">Tags</button>
                         </form>
                  
                     </span>
@@ -138,8 +145,15 @@
                 <!-- Notifications Button -->
                 <form id="nf-app-link-form-2" action="#" method="post" th:action="@{/notifications_app}">
                     <button id="notifications-btn-2" onclick="addProjectIDToForm('nf-app-link-form-2')" type="submit"
-                            class="btn btn-danger btn-sm pull-right">
+                            class="btn btn-default btn-sm pull-right">
                         Notifications <span id="notifications-count" class="badge">0</span>
+                    </button>
+                </form>
+
+                <!-- Timeline Button -->
+                <form id="tl-app-link-form" action="#" method="post" th:action="@{/timeline_app}">
+                    <button id="timeline-btn-2" onclick="addProjectIDToForm('tl-app-link-form')" type="submit" class="btn btn-default btn-sm pull-right" style="margin-right:4px">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Timeline
                     </button>
                 </form>
             </div>
@@ -196,8 +210,7 @@
 
 </div>
 
-<input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}" name="projectID" id="projectID"
-       class="form-control"/>
+<input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
 <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
         th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>

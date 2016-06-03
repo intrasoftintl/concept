@@ -918,6 +918,10 @@ a.fm-popup {
     padding: 10px 0;
 }
 
+.search-buttons{
+    margin-top: 24px;
+}
+
 /* BOOTSTRAP OVERRIDE */
 .row { margin:0; }
 .row.disabled{ opacity:0.5; pointer-events: none; }

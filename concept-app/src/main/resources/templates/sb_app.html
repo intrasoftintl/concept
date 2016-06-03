@@ -83,6 +83,9 @@
                             <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model"
                                     href="" class="btn btn-link btn-xs">Model</button>
                         </form>
+                        <form class="project-form" id="pm-tags-form" action="#" method="post" th:action="@{/tags}">
+                            <button onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-tags" href="" class="btn btn-link btn-xs">Tags</button>
+                        </form>
                  
                     </span>
                     <span th:case="'DESIGNER'">
