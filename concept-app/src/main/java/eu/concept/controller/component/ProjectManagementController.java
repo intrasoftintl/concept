@@ -83,9 +83,9 @@ public class ProjectManagementController {
             projectCategory.setCurrentStructure(categoryService.constructTaxonomyJSON(projectCategory.getCategories()));
             String content = new JSONObject().put("project_id", projectID).put("categories", new JSONArray(projectCategory.getCurrentStructure())).toString();
             try {
-//                System.out.println("Content JSON: " + content);
+                System.out.println("Content JSON: " + content);
                 HttpResponse<JsonNode> jsonResponse = Unirest.post("http://concept-se.euprojects.net/insert_categories").body(content).asJson();
-//                System.out.println("Response is: " + jsonResponse.getBody());
+                System.out.println("Response is: " + jsonResponse.getBody());
 
             } catch (UnirestException ex) {
                 Logger.getLogger(ProjectManagementController.class.getName()).log(Level.SEVERE, null, ex);
