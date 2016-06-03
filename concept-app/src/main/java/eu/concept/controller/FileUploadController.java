@@ -93,7 +93,7 @@ public class FileUploadController {
             files.add(fileMeta);
             if (files.size() > 0) {
                 //Create a notification for current action
-                notificationService.storeNotification(Integer.valueOf(projectID), NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.UPLOADED, files.size() + " file(s) (" + files.stream().map(s -> s.fileName).collect(Collectors.joining()) + ")", conceptProperties.getFMUploadGenericImageURL(), WebController.getCurrentUserCo());
+                notificationService.storeNotification(Integer.valueOf(projectID), NotificationTool.FM, NotificationTool.NOTIFICATION_OPERATION.UPLOADED, files.size() + " file(s) (" + files.stream().map(s -> s.fileName).collect(Collectors.joining()) + ")", fm.getContent(), WebController.getCurrentUserCo());
                 //Insert document to elastic search engine            
                 elasticSearchController.insert(Optional.ofNullable(fm), generateMetadata(fileMeta, fm.getId()));
             }

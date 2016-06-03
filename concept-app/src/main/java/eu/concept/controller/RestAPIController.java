@@ -342,7 +342,7 @@ public class RestAPIController {
                         return -1;
                     }
                     timeline.setOperation("PINNED");
-                    timeline.setMessage("a File (" + fm.getTitle() + ")");
+                    timeline.setMessage("a File (" + fm.getFilename() + ")");
                     timeline.setThumbnail(fm.getContent());
                     timelineService.store(timeline);
                 } else //Delete Pin
@@ -385,7 +385,7 @@ public class RestAPIController {
                     }
                     timeline.setOperation("PINNED");
                     timeline.setMessage("a Storyboard (" + sb.getTitle() + ")");
-                    timeline.setThumbnail(sb.getContent());
+                    timeline.setThumbnail(sb.getContentThumbnail());
                     timelineService.store(timeline);
                 } else //Delete Pin
                 {
@@ -404,8 +404,8 @@ public class RestAPIController {
                         return -1;
                     }
                     timeline.setOperation("PINNED");
-                    timeline.setMessage("a Storyboard (" + mb.getTitle() + ")");
-                    timeline.setThumbnail(mb.getContent());
+                    timeline.setMessage("a Moodboard (" + mb.getTitle() + ")");
+                    timeline.setThumbnail(mb.getContentThumbnail());
                     timelineService.store(timeline);
                 } else //Delete Pin
                 {
