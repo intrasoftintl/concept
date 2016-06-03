@@ -182,17 +182,11 @@
                             <td><img class="timeline" src="/images/timeline-start.png"/></td>
                             <td></td>
                         </tr>
-                        <tr>
-                            <td><img class="timeline" src="/images/timeline-pinned.png"/><img class="thumbnail indicator" src="/images/fm_generic_mm.png"/></td>
-                            <td><strong><span>PINNED</span></strong> <span>a Mindmap (AAA)</span><br/><span>Manager Demo (managerdemo)</span><br/><span class="file-timestamp">2016-05-31 18:04</span></td>
-                        </tr>
-                        <tr>
-                            <td><img class="timeline" src="/images/timeline-pinned.png"/><img class="thumbnail indicator" src="/images/fm_generic_img.png"/></td>
-                            <td><strong><span>PINNED</span></strong> <span>a File (asass.png)</span><br/><span>Manager Demo (managerdemo)</span><br/><span class="file-timestamp">2016-05-31 18:04</span></td>
-                        </tr>
-                        <tr>
-                            <td><img class="timeline" src="/images/timeline-pinned.png"/><img class="thumbnail indicator" src="/images/fm_generic.png"/></td>
-                            <td><strong><span>PINNED</span></strong> <span>a BriefAnalysis (AAA)</span><br/><span>Manager Demo (managerdemo)</span><br/><span class="file-timestamp">2016-05-31 18:04</span></td>
+
+
+                        <tr th:each="tlContent : ${tlContents}"  th:class="( ${#dates.format(#calendars.createToday(), 'yyyy-MM-dd')} == ${ #strings.substring(tlContent.createdDate,0,10)   } ? 'warning' : '' )">
+                            <td><img class="timeline" src="/images/timeline-pinned.png"/><img class="thumbnail indicator" th:src="${tlContent.thumbnail}" /></td>
+                            <td><strong><span th:text="${tlContent.operation}"></span></strong> <span th:text="${tlContent.message}"></span><br/><span  th:text="@{${tlContent.uid.firstName} + ' '+ ${tlContent.uid.lastName} + ' (' +  ${tlContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(tlContent.createdDate,0,16)}"></span></td>
                         </tr>
                         <tr>
                             <td><img class="timeline" src="/images/timeline-current.png"/></td>
