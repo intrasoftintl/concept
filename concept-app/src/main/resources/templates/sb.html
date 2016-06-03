@@ -20,7 +20,7 @@
                         </td>       
 
                         <td class="truncate"><span th:text="@{${sbContent.uid.firstName} + ' '+ ${sbContent.uid.lastName} + ' (' +  ${sbContent.uid.username} +')'}"></span> <br/> <span th:text="${ #strings.substring(sbContent.createdDate,0,16)}"></span>
-                        <br/>
+                            <br/>
                             <button class="action-button" th:attr="onclick=@{'lo    adMetadata(' + ${sbContent.id}  +',\'SB\','+${sbContent.pid}+',this)'}">
                                 <i class="glyphicon glyphicon-tags" aria-hidden="true"/>
                             </button>
@@ -30,7 +30,8 @@
                             </button>
 
                             <span th:id="@{'SB' + ${sbContent.id} }" th:attr="onclick=@{'setIsPublic(\'SB\','+${sbContent.id} } +')' " th:classappend="(${sbContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
-                            <span th:id="@{'LikeSB' + ${sbContent.id} }" th:attr="onclick=@{'like(\'SB\','+${sbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${sbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountSB' + ${sbContent.id} }" th:text="${#arrays.length(sbContent.getLikes())}" class="label label-warning"></span>
+                            <span th:id="@{'LikeSB' + ${sbContent.id} }" th:attr="onclick=@{'like(\'SB\','+${sbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${sbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountSB' + ${sbContent.id} }" th:text="${#arrays.length(sbContent.getLikes())}" class="label label-warning"></span>&nbsp;
+                            <span th:id="@{'PinSB' + ${sbContent.id} }" th:attr="onclick=@{'setPin(\'SB\','+${sbContent.id} +','+  ${sbContent.pid} } +')'" th:classappend="(${sbContent.isPinned()} == true ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-pushpin"  aria-hidden="true"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -81,6 +82,8 @@
                         &nbsp;
                         <span th:id="@{'SB' + ${sbContent.id} }" th:attr="onclick=@{'setIsPublic(\'SB\','+${sbContent.id} } +')' " th:classappend="(${sbContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                         <span th:id="@{'LikeSB' + ${sbContent.id} }" th:attr="onclick=@{'like(\'SB\','+${sbContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${sbContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountSB' + ${sbContent.id} }" th:text="${#arrays.length(sbContent.getLikes())}" class="label label-warning"></span>
+                        &nbsp;
+                        <span th:id="@{'PinSB' + ${sbContent.id} }" th:attr="onclick=@{'setPin(\'SB\','+${sbContent.id} +','+  ${sbContent.pid} } +')'" th:classappend="(${sbContent.isPinned()} == true ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-pushpin"  aria-hidden="true"></span>
                         <br/>
                         <form id="se-form" method="post" action="/search_similar" th:object="${sbContent}">
                             <input type="hidden" th:value="${sbContent.id}" name="cid"/>

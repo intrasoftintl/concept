@@ -4,9 +4,11 @@ import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.service.FileManagementService;
 import eu.concept.repository.concept.service.NotificationService;
+import eu.concept.repository.concept.service.TimelineService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
@@ -51,6 +53,9 @@ public class FileManagementController {
 
     @Autowired
     ElasticSearchController elasticSearchController;
+
+    @Autowired
+    TimelineService timelineService;
 
     /*
      *  GET Methods 
@@ -104,7 +109,14 @@ public class FileManagementController {
 
     @RequestMapping(value = "/filemanagement_all/{project_id}", method = RequestMethod.GET)
     public String fetchFilesByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("fmContents", fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentRole(), limit));
+
+        List<FileManagement> fmContents = fmService.fetchImagesByProjectIdAndUserId(project_id, WebController.getCurrentRole(), limit);
+        //Check if is pinned
+        fmContents.forEach(fm -> {
+            fm.setPinned(timelineService.isPinned(fm.getPid(), fm.getId(), new Component("FM")));
+        });
+
+        model.addAttribute("fmContents", fmContents);
         model.addAttribute("totalFiles", fmService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());

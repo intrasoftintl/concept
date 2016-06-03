@@ -64,6 +64,7 @@
                         &nbsp;
                         <span th:id="@{'BA' + ${baContent.id} }" th:attr="onclick=@{'setIsPublic(\'BA\','+${baContent.id} } +')' " th:classappend="(${baContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp; 
                         <span th:id="@{'LikeBA' + ${baContent.id} }" th:attr="onclick=@{'like(\'BA\','+${baContent.id} } +')'"  class="glyphicon glyphicon-thumbs-up" th:classappend="(${baContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountBA' + ${baContent.id} }" th:text="${#arrays.length(baContent.getLikes())}" class="label label-warning"></span>
+                        <span th:id="@{'PinBA' + ${baContent.id} }" th:attr="onclick=@{'setPin(\'BA\','+${baContent.id} +','+  ${baContent.pid} } +')'" th:classappend="(${baContent.isPinned()} == true ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-pushpin"  aria-hidden="true"></span>&nbsp;
                         <br/>
                         <form id="se-form" method="post" action="/search_similar" th:object="${baContent}">
                             <input type="hidden" th:value="${baContent.id}" name="cid"/>

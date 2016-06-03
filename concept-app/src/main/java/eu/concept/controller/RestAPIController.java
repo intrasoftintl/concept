@@ -314,12 +314,9 @@ public class RestAPIController {
         switch (componentCode) {
 
             case "BA":
-
                 //Create Pin
                 if (isPinned == 0) {
-
                     BriefAnalysis ba = briefAnalysisService.fetchBriefAnalysisById(cid);
-
                     if (null == ba) {
                         return -1;
                     }
@@ -338,18 +335,83 @@ public class RestAPIController {
                 return 0;
 
             case "FM":
+                //Create Pin
+                if (isPinned == 0) {
+                    FileManagement fm = fmService.fetchImageById(cid);
+                    if (null == fm) {
+                        return -1;
+                    }
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a File (" + fm.getTitle() + ")");
+                    timeline.setThumbnail(fm.getContent());
+                    timelineService.store(timeline);
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
 
                 return 0;
 
             case "MM":
 
+                //Create Pin
+                if (isPinned == 0) {
+                    MindMap mm = mindmapService.fetchMindMapById(cid);
+                    if (null == mm) {
+                        return -1;
+                    }
+                    String mmImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAtCAYAAAA5reyyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoxJREFUeNrsms1xwjAQhQ2TO04FcTowZw6BCmIqCFQAVABUQDogVACpAHLgjDsIJbiDZJc8TTQaGTtMEMLsm9EICeHYn1feHycIRCKRSCQSia5SNV9PbLvdxtQNqEWYWrRarTcBWA5eQt3S8tUbQez7dK51Tw1wroBRu6fWpZZR6xHcnk8neueh9bWpC6mlmrWtaD4E2CeAFQss0N4YZ+hD2cLHlaJP4EgCWN8Y8x/iRIq38Yy6IYYbajEsj62ySVs7E4DFECea1SmQfYK3FwssD/FLG3YI3sa3c/TZiVyF6h5bX1sAnsc7C8CSCgvGt+1EENslWrFAV4PTNgMaW+BUC6hTH8KZ2oXgMZzZP1rVAS4BXVUeIODNz3R4hjipLEBs20/L1sxynoGxkRtHJf6M03jRdTUmMeD184qkCGPWakzrHnNCnLaRsQyQtVQSoG5BaUGFOTcONCxsQ0ADDWJyK2HMXzxoUf57sRTPNcCHE3/nVQHhkgCjEy1QUjl6TkWmF4VXzlNDAP6C4nBkZwDkh/3aBpHmOE4c6g4Fc3nHHltizUpZoMo62OtyONJB/BcjZdMvfoI53uKvaOqN3MRi1Wt47L1WcJi7gugK4OEC+S0bV5QRhozw3bOxVo27tG7ELfh5rcl6MdYOcGNWHCdSa3Jsqd20SjmRrKRnjc1YT/sc2dZqNyNAbMmWGMJCKwGQYcXGthrngEzNbEP7fBS6kQY68fSuMpEpCgj8bFLbLsIFTo217wCypLUqU1HgF5a1h1SO1mYAPMaxnZS7nBUTLCWsw3OQLjLN8cKmE7D+Xwyt3VksMENRIa0MwBNDH5XXro7BoLVDzfmwFU59e/0pEolEIpFI5Jm+BRgA3DTreSj6LvUAAAAASUVORK5CYII=";
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a MindMap (" + mm.getTitle() + ")");
+                    timeline.setThumbnail(mmImage);
+                    timelineService.store(timeline);
+
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
+
                 return 0;
 
             case "SB":
 
+                //Create Pin
+                if (isPinned == 0) {
+                    Storyboard sb = sbService.fetchStoryboardById(cid);
+                    if (null == sb) {
+                        return -1;
+                    }
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a Storyboard (" + sb.getTitle() + ")");
+                    timeline.setThumbnail(sb.getContent());
+                    timelineService.store(timeline);
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
+
                 return 0;
 
             case "MB":
+
+                //Create Pin
+                if (isPinned == 0) {
+                    Moodboard mb = mbService.fetchMoodboardById(cid);
+                    if (null == mb) {
+                        return -1;
+                    }
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a Storyboard (" + mb.getTitle() + ")");
+                    timeline.setThumbnail(mb.getContent());
+                    timelineService.store(timeline);
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
 
                 return 0;
 

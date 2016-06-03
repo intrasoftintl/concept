@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -65,9 +66,13 @@ public class Moodboard implements Serializable {
     //Non Domain field
     @OneToMany(mappedBy = "mbId", orphanRemoval = false)
     public Collection<Likes> likes;
-        //Non Domain field
+    //Non Domain field
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mbId", orphanRemoval = false)
     private Collection<MBComment> comments;
+
+    //Transient field
+    @Transient
+    private boolean pinned = false;
 
     public Collection<MBComment> getComments() {
         return comments;
@@ -200,6 +205,14 @@ public class Moodboard implements Serializable {
     @Override
     public String toString() {
         return "eu.concept.repository.concept.domain.Moodboard[ id=" + id + " ]";
+    }
+
+    public void setPinned(boolean pinStatus) {
+        this.pinned = pinStatus;
+    }
+
+    public boolean isPinned() {
+        return this.pinned;
     }
 
 }

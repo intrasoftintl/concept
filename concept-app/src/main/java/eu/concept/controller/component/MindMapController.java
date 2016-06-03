@@ -4,10 +4,13 @@ import eu.concept.configuration.COnCEPTProperties;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.service.MetadataService;
 import eu.concept.repository.concept.service.MindMapService;
 import eu.concept.repository.concept.service.NotificationService;
+import eu.concept.repository.concept.service.TimelineService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.util.other.NotificationTool;
@@ -54,12 +57,22 @@ public class MindMapController {
     @Autowired
     ElasticSearchController elasticSearchController;
 
+    @Autowired
+    TimelineService timelineService;
+
+
     /*
      *  GET Methods 
      */
     @RequestMapping(value = "/mindmap/{project_id}", method = RequestMethod.GET)
     public String fetchMMByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("mmContents", mmService.fetchMindMapByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<MindMap> mmContents = mmService.fetchMindMapByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        mmContents.forEach(mm -> {
+            mm.setPinned(timelineService.isPinned(mm.getPid(), mm.getId(), new Component("MM")));
+        });
+
+        model.addAttribute("mmContents", mmContents);
         model.addAttribute("totalMindMaps", mmService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUserID", WebController.getCurrentUserCo().getId());
@@ -69,7 +82,13 @@ public class MindMapController {
 
     @RequestMapping(value = "/mindmaps_all/{project_id}", method = RequestMethod.GET)
     public String fetchMindMapsByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("mmContents", mmService.fetchMindMapByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<MindMap> mmContents = mmService.fetchMindMapByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        mmContents.forEach(mm -> {
+            mm.setPinned(timelineService.isPinned(mm.getPid(), mm.getId(), new Component("MM")));
+        });
+
+        model.addAttribute("mmContents", mmContents);
         model.addAttribute("totalFiles", mmService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());

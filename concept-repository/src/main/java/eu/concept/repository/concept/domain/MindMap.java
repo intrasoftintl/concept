@@ -69,10 +69,14 @@ public class MindMap implements Serializable {
     //Non Domain field
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mmId", orphanRemoval = false)
     private Collection<MMComment> comments;
-      
+
     @Transient
     @JsonIgnore
     private UserCo uid;
+
+    //Transient field
+    @Transient
+    private boolean pinned = false;
 
     public UserCo getUid() {
         return userCo;
@@ -80,8 +84,8 @@ public class MindMap implements Serializable {
 
     public void setUserCo(UserCo userCo) {
         this.userCo = userCo;
-    }  
-    
+    }
+
     public Collection<MMComment> getComments() {
         return comments;
     }
@@ -89,8 +93,6 @@ public class MindMap implements Serializable {
     public void setComments(Collection<MMComment> comments) {
         this.comments = comments;
     }
-    
-    
 
     /**
      *
@@ -217,4 +219,11 @@ public class MindMap implements Serializable {
         return "eu.concept.repository.concept.domain.MindMap[ id=" + id + " ]";
     }
 
+    public void setPinned(boolean pinStatus) {
+        this.pinned = pinStatus;
+    }
+
+    public boolean isPinned() {
+        return this.pinned;
+    }
 }

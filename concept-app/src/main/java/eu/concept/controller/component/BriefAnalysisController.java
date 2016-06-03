@@ -73,10 +73,8 @@ public class BriefAnalysisController {
         baContents.forEach(ba -> {
             ba.setPinned(timelineService.isPinned(ba.getPid(), ba.getId(), new Component("BA")));
         });
-        
-        
         //Add attributes
-        model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        model.addAttribute("baContents", baContents);
         model.addAttribute("totalFiles", baService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());
@@ -85,7 +83,13 @@ public class BriefAnalysisController {
 
     @RequestMapping(value = "/briefanalysis_all/{project_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<BriefAnalysis> baContents = baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        baContents.forEach(ba -> {
+            ba.setPinned(timelineService.isPinned(ba.getPid(), ba.getId(), new Component("BA")));
+        });
+        //Add attributes
+        model.addAttribute("baContents", baContents);
         model.addAttribute("totalFiles", baService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());

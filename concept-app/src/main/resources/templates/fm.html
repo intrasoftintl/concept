@@ -71,7 +71,8 @@
                         </button>
                         &nbsp;
                         <span th:id="@{'FM' + ${fmContent.id} }" th:attr="onclick=@{'setIsPublic(\'FM\','+${fmContent.id} } +')' " th:classappend="(${fmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp;
-                        <span th:id="@{'LikeFM' + ${fmContent.id} }" th:attr="onclick=@{'like(\'FM\','+${fmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${fmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountFM' + ${fmContent.id} }" th:text="${#arrays.length(fmContent.getLikes())}" class="label label-warning"></span>
+                        <span th:id="@{'LikeFM' + ${fmContent.id} }" th:attr="onclick=@{'like(\'FM\','+${fmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${fmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountFM' + ${fmContent.id} }" th:text="${#arrays.length(fmContent.getLikes())}" class="label label-warning"></span>&nbsp;
+                        <span th:id="@{'PinFM' + ${fmContent.id} }" th:attr="onclick=@{'setPin(\'FM\','+${fmContent.id} +','+  ${fmContent.pid} } +')'" th:classappend="(${fmContent.isPinned()} == true ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-pushpin"  aria-hidden="true"></span>
                         <br/>
                         <form id="se-form" method="post" action="/search_similar" th:object="${fmContent}">
                             <input type="hidden" th:value="${fmContent.id}" name="cid"/>

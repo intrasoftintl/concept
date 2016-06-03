@@ -6,9 +6,11 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Moodboard;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.MoodboardService;
+import eu.concept.repository.concept.service.TimelineService;
 import eu.concept.repository.concept.service.UserCoService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
@@ -57,6 +59,9 @@ public class MoodboardController {
     @Autowired
     ElasticSearchController elasticSearchController;
 
+    @Autowired
+    TimelineService timelineService;
+
     /*
      *  GET Methods 
      */
@@ -70,7 +75,13 @@ public class MoodboardController {
 
     @RequestMapping(value = "/moodboard/{project_id}", method = RequestMethod.GET)
     public String fetchMoodboardByProjectId(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("mbContents", mbService.fetchMoodboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<Moodboard> mbContents = mbService.fetchMoodboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        mbContents.forEach(mb -> {
+            mb.setPinned(timelineService.isPinned(mb.getPid(), mb.getId(), new Component("MB")));
+        });
+
+        model.addAttribute("mbContents", mbContents);
         model.addAttribute("totalMoodboards", mbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("totalFiles", mbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
@@ -80,7 +91,13 @@ public class MoodboardController {
 
     @RequestMapping(value = "/moodboard_all/{project_id}", method = RequestMethod.GET)
     public String fetchMoodboardByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("mbContents", mbService.fetchMoodboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<Moodboard> mbContents = mbService.fetchMoodboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        mbContents.forEach(mb -> {
+            mb.setPinned(timelineService.isPinned(mb.getPid(), mb.getId(), new Component("MB")));
+        });
+
+        model.addAttribute("mbContents", mbContents);
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());
         return "mb :: mbContentAllList";

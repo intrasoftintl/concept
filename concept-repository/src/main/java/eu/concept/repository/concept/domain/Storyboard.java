@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -68,6 +69,10 @@ public class Storyboard implements Serializable {
     //Non Domain field
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sbId", orphanRemoval = false)
     private Collection<SBComment> comments;
+
+    //Transient field
+    @Transient
+    private boolean pinned = false;
 
     public Collection<SBComment> getComments() {
         return comments;
@@ -202,4 +207,11 @@ public class Storyboard implements Serializable {
         return "eu.concept.repository.concept.domain.Storyboard[ id=" + id + " ]";
     }
 
+    public void setPinned(boolean pinStatus) {
+        this.pinned = pinStatus;
+    }
+
+    public boolean isPinned() {
+        return this.pinned;
+    }
 }
