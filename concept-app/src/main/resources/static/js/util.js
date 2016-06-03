@@ -10,6 +10,7 @@ var MINDMAP_REST_URL = "/conceptRest/api/mm_app/";
 var MOOBBOARD_REST_URL = "http://concept-mb.euprojects.net/storyboard/";
 var STORYBOARD_REST_URL = "http://concept-sb.euprojects.net/storyboard/";
 var LIKE_REST_URL = "/conceptRest/api/like/";
+var PIN_REST_URL = "/conceptRest/api/pin/";
 
 //COnCEPT Logger
 function logger(message) {
@@ -91,8 +92,36 @@ function setIsPublic(componentCode, componentID) {
 
         }
     });
-
 }
+
+function setPin(componentCode, cid, pid) {
+    var isPinned = $("#Pin" + componentCode + cid).hasClass("icon-active") ? 1 : 0;
+
+    console.log("Pin is: " + isPinned);
+
+    $.ajax({
+        url: PIN_REST_URL + cid,
+        type: 'POST',
+        data: {
+            "componentCode": componentCode,
+            "cid": cid,
+            "pid": pid,
+            "isPinned": isPinned
+        },
+    }).then(function (data) {
+        if (data == -1) {
+            logger('Could not change Pinned status for component with id: ' + componentCode + cid);
+        } else {
+
+            if (isPinned == 1) {
+                $("#Pin" + componentCode + cid).removeClass("icon-active");
+            } else {
+                $("#Pin" + componentCode + cid).addClass("icon-active");
+            }
+        }
+    });
+}
+
 
 function like(componentCode, componentID) {
     var isLiked = $("#Like" + componentCode + componentID).hasClass("icon-active") ? 1 : 0;
@@ -221,7 +250,7 @@ function projectSelectedAction(projectID) {
             $("#fm-add").attr("href", "/fm_app?projectID=" + projectID);
             $("#fm-add").show();
             $("#fm-add").removeClass("disabled");
-            $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200", copyLink ());
+            $("#fm-all").load("/filemanagement_all/" + projectID + "?limit=200", copyLink());
             $("#fm-placeholder").hide();
             $("#project-members").show();
             $("#project-view").show();
@@ -240,7 +269,7 @@ function projectSelectedAction(projectID) {
             $("#ba-add").attr("href", "/ba_app?projectID=" + projectID);
             $("#ba-add").show();
             var client = [];
-            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200", copyLink ());
+            $("#ba-all").load("/briefanalysis_all/" + projectID + "?limit=200", copyLink());
 
             $("#ba-placeholder").hide();
 
@@ -254,7 +283,7 @@ function projectSelectedAction(projectID) {
 
             $("#mm-add").attr("href", "/mm_app?projectID=" + projectID);
             $("#mm-add").show();
-            $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200", copyLink ());
+            $("#mm-all").load("/mindmaps_all/" + projectID + "?limit=200", copyLink());
 
             $("#mm-placeholder").hide();
 
@@ -268,7 +297,7 @@ function projectSelectedAction(projectID) {
 
             $("#sb-add").attr("href", "/sb_app?projectID=" + projectID);
             $("#sb-add").show();
-            $("#sb-all").load("/storyboards_all/" + projectID + "?limit=200", copyLink ());
+            $("#sb-all").load("/storyboards_all/" + projectID + "?limit=200", copyLink());
 
             $("#sb-placeholder").hide();
 
@@ -303,7 +332,7 @@ function projectSelectedAction(projectID) {
             $("#mb-add").attr("href", "/mb_app?projectID=" + projectID);
             $("#mb-add").show();
             $("#project-hierarchy").show();
-            $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200", copyLink ());
+            $("#mb-all").load("/moodboard_all/" + projectID + "?limit=200", copyLink());
 
             $("#mb-placeholder").hide();
             $("#project-members").show();
@@ -438,12 +467,12 @@ function projectSelectedAction(projectID) {
 }
 
 
-function copyLink(){
+function copyLink() {
     var clipboard = new Clipboard('#copy-button');
-    clipboard.on('success', function(e) {
+    clipboard.on('success', function (e) {
         console.log(e);
     });
-    clipboard.on('error', function(e) {
+    clipboard.on('error', function (e) {
         console.log(e);
     });
 }

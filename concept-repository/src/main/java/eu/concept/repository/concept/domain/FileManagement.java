@@ -79,10 +79,13 @@ public class FileManagement implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "fmId", orphanRemoval = false)
     private Collection<FMComment> comments;
 
-    
     //Transient Field
     @Transient
-    private String title="N/A";
+    private String title = "N/A";
+
+    //Transient field
+    @Transient
+    private boolean pinned = false;
 
     public String getTitle() {
         return title;
@@ -91,8 +94,7 @@ public class FileManagement implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-    
-    
+
     public Collection<FMComment> getComments() {
         return comments;
     }
@@ -222,6 +224,14 @@ public class FileManagement implements Serializable {
     @Override
     public String toString() {
         return "eu.concept.repository.concept.domain.FileManagement[ id=" + id + " ]";
+    }
+
+    public void setPinned(boolean pinStatus) {
+        this.pinned = pinStatus;
+    }
+
+    public boolean isPinned() {
+        return this.pinned;
     }
 
 }

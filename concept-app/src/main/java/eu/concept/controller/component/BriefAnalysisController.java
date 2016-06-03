@@ -11,7 +11,9 @@ import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.controller.ElasticSearchController;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.service.ProjectCategoryService;
+import eu.concept.repository.concept.service.TimelineService;
 import eu.concept.util.other.EtherpadHandler;
 import eu.concept.util.other.NotificationTool;
 import eu.concept.util.other.Util;
@@ -58,12 +60,21 @@ public class BriefAnalysisController {
     @Autowired
     ElasticSearchController elasticSearchController;
 
+    @Autowired
+    TimelineService timelineService;
+
     /*
      *  GET Methods 
      */
     @RequestMapping(value = "/briefanalysis/{project_id}", method = RequestMethod.GET)
     public String fetchBAByProjectID(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<BriefAnalysis> baContents = baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        baContents.forEach(ba -> {
+            ba.setPinned(timelineService.isPinned(ba.getPid(), ba.getId(), new Component("BA")));
+        });
+        //Add attributes
+        model.addAttribute("baContents", baContents);
         model.addAttribute("totalFiles", baService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());
@@ -72,7 +83,13 @@ public class BriefAnalysisController {
 
     @RequestMapping(value = "/briefanalysis_all/{project_id}", method = RequestMethod.GET)
     public String fetchBriefAnalysisByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("baContents", baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<BriefAnalysis> baContents = baService.fetchBriefAnalysisByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        baContents.forEach(ba -> {
+            ba.setPinned(timelineService.isPinned(ba.getPid(), ba.getId(), new Component("BA")));
+        });
+        //Add attributes
+        model.addAttribute("baContents", baContents);
         model.addAttribute("totalFiles", baService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());

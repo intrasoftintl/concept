@@ -6,9 +6,12 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.controller.WebController;
 import static eu.concept.controller.WebController.getCurrentUser;
+import eu.concept.repository.concept.domain.BriefAnalysis;
+import eu.concept.repository.concept.domain.Component;
 import eu.concept.repository.concept.domain.Storyboard;
 import eu.concept.repository.concept.service.NotificationService;
 import eu.concept.repository.concept.service.StoryboardService;
+import eu.concept.repository.concept.service.TimelineService;
 import eu.concept.repository.concept.service.UserCoService;
 import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
@@ -57,6 +60,9 @@ public class StoryboardController {
     @Autowired
     ElasticSearchController elasticSearchController;
 
+    @Autowired
+    TimelineService timelineService;
+
     /*
      *  GET Methods 
      */
@@ -70,7 +76,12 @@ public class StoryboardController {
 
     @RequestMapping(value = "/storyboard/{project_id}", method = RequestMethod.GET)
     public String fetchStoryboardByProjectId(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("sbContents", sbService.fetchStoryboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+        List<Storyboard> sbContents = sbService.fetchStoryboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        sbContents.forEach(ba -> {
+            ba.setPinned(timelineService.isPinned(ba.getPid(), ba.getId(), new Component("SB")));
+        });
+        model.addAttribute("sbContents", sbContents);
         model.addAttribute("totalStoryboards", sbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("totalFiles", sbService.countFilesById(project_id, WebController.getCurrentRole()));
         model.addAttribute("projectID", project_id);
@@ -80,7 +91,13 @@ public class StoryboardController {
 
     @RequestMapping(value = "/storyboards_all/{project_id}", method = RequestMethod.GET)
     public String fetchStoryboardByProjectIDAll(Model model, @PathVariable int project_id, @RequestParam(value = "limit", defaultValue = "0", required = false) int limit) {
-        model.addAttribute("sbContents", sbService.fetchStoryboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit));
+
+        List<Storyboard> sbContents = sbService.fetchStoryboardByProjectId(project_id, getCurrentUser().getConceptUser(), limit);
+        //Check if is pinned
+        sbContents.forEach(ba -> {
+            ba.setPinned(timelineService.isPinned(ba.getPid(), ba.getId(), new Component("SB")));
+        });
+        model.addAttribute("sbContents", sbContents);
         model.addAttribute("projectID", project_id);
         model.addAttribute("currentUser", getCurrentUser());
         return "sb :: sbContentAllList";
@@ -141,7 +158,7 @@ public class StoryboardController {
             //Add a notification
             notificationService.storeNotification(project_id, NotificationTool.SB, NOTIFICATION_OPERATION.DELETED, "a Storyboard (" + sb.getTitle() + ")", sb.getContentThumbnail(), WebController.getCurrentUserCo());
             //Delete from elastic search engine (id=component_name+mb_id)
-           elasticSearchController.deleteById(Util.getComponentName(Storyboard.class.getSimpleName()) + String.valueOf(sb_id));
+            elasticSearchController.deleteById(Util.getComponentName(Storyboard.class.getSimpleName()) + String.valueOf(sb_id));
         }
         return fetchStoryboardByProjectId(model, project_id, limit);
     }

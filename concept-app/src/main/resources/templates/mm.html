@@ -29,7 +29,8 @@
                             </button>
 
                             <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp;
-                            <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountMM' + ${mmContent.id} }" th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>
+                            <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''"  aria-hidden="true"></span> <span th:id="@{'LikeCountMM' + ${mmContent.id} }" th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>&nbsp;
+                            <span th:id="@{'PinMM' + ${mmContent.id} }" th:attr="onclick=@{'setPin(\'MM\','+${mmContent.id} +','+  ${mmContent.pid} } +')'" th:classappend="(${mmContent.isPinned()} == true ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-pushpin"  aria-hidden="true"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -78,7 +79,8 @@
                         </button>
                         &nbsp;
                         <span th:id="@{'MM' + ${mmContent.id} }" th:attr="onclick=@{'setIsPublic(\'MM\','+${mmContent.id} } +')' " th:classappend="(${mmContent.isPublic} == 1 ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-eye-open"  aria-hidden="true"></span>&nbsp;
-                        <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''" aria-hidden="true"></span> <span th:id="@{'LikeCountMM' + ${mmContent.id} }" th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>
+                        <span th:id="@{'LikeMM' + ${mmContent.id} }" th:attr="onclick=@{'like(\'MM\','+${mmContent.id} } +')'" class="glyphicon glyphicon-thumbs-up" th:classappend="(${mmContent.hasLike(currentUser.getId())}) ? ' icon-active' : ''" aria-hidden="true"></span> <span th:id="@{'LikeCountMM' + ${mmContent.id} }" th:text="${#arrays.length(mmContent.getLikes())}" class="label label-warning"></span>&nbsp;
+                        <span th:id="@{'PinMM' + ${mmContent.id} }" th:attr="onclick=@{'setPin(\'MM\','+${mmContent.id} +','+  ${mmContent.pid} } +')'" th:classappend="(${mmContent.isPinned()} == true ) ? ' icon-active' : ''"  class="glyphicon  glyphicon-pushpin"  aria-hidden="true"></span>
                         <br/>
                         <form id="se-form" method="post" action="/search_similar" th:object="${mmContent}">
                             <input type="hidden" th:value="${mmContent.id}" name="cid"/>

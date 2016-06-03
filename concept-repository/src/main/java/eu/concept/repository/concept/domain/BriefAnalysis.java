@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -59,7 +60,7 @@ public class BriefAnalysis implements Serializable {
     @Column(name = "isPublic")
     private short isPublic;
     @JoinColumn(name = "uid", referencedColumnName = "id")
-    @ManyToOne(optional = false) 
+    @ManyToOne(optional = false)
     private UserCo uid;
     //Non Domain field
     @OneToMany(mappedBy = "baId", orphanRemoval = false)
@@ -67,6 +68,10 @@ public class BriefAnalysis implements Serializable {
     //Non Domain field
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "baId", orphanRemoval = false)
     private Collection<BAComment> comments;
+
+    //Transient field
+    @Transient
+    private boolean pinned = false;
 
     public Collection<BAComment> getComments() {
         return comments;
@@ -189,6 +194,14 @@ public class BriefAnalysis implements Serializable {
     @Override
     public String toString() {
         return "eu.concept.repository.concept.domain.BriefAnalysis[ id=" + id + " ]";
+    }
+
+    public void setPinned(boolean pinStatus) {
+        this.pinned = pinStatus;
+    }
+
+    public boolean isPinned() {
+        return this.pinned;
     }
 
 }

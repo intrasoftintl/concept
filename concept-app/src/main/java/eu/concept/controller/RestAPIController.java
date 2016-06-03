@@ -109,6 +109,9 @@ public class RestAPIController {
     @Autowired
     ElasticSearchController elasticSearchController;
 
+    @Autowired
+    TimelineService timelineService;
+
     @RequestMapping(value = "/memberships/{project_id}", method = RequestMethod.GET)
     public List<MemberOp> fetchProjectByID(@PathVariable int project_id) {
         return members.fetchMemberhipsByProjectId(project_id);
@@ -288,6 +291,129 @@ public class RestAPIController {
                 }
 //                    notificationService.storeNotification(bf.getPid(), NotificationTool.BA, NotificationTool.NOTIFICATION_OPERATION.SHARED, "a BriefAnalysis (" + bf.getTitle() + ")", "/images/fm_generic_mm.png", WebController.getCurrentUserCo());
                 return (likesService.storeLikes(likes) ? 1 : 0);
+
+            default:
+                return 0;
+        }
+
+    }
+
+    //Change Pin  status
+    @RequestMapping(value = "/pin/{component_id}", method = RequestMethod.POST)
+    public int changePinStatus(@PathVariable int component_id, @RequestParam(value = "componentCode", required = true) String componentCode, @RequestParam(value = "cid", required = true) int cid, @RequestParam(value = "pid", required = true) int pid, @RequestParam(value = "isPinned", required = true) int isPinned) {
+        UserCo currentUser = WebController.getCurrentUserCo();
+//        System.out.println("isPinned : " + isPinned);
+
+        //Create a new Component object
+        Timeline timeline = new Timeline();
+        timeline.setCid(cid);
+        timeline.setPid(pid);
+        timeline.setComponent(new Component(componentCode));
+        timeline.setUid(currentUser);
+
+        switch (componentCode) {
+
+            case "BA":
+                //Create Pin
+                if (isPinned == 0) {
+                    BriefAnalysis ba = briefAnalysisService.fetchBriefAnalysisById(cid);
+                    if (null == ba) {
+                        return -1;
+                    }
+                    String baImage = "data:image/png;base64,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";
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a BriefAnalysis (" + ba.getTitle() + ")");
+                    timeline.setThumbnail(baImage);
+                    timelineService.store(timeline);
+
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
+
+                return 0;
+
+            case "FM":
+                //Create Pin
+                if (isPinned == 0) {
+                    FileManagement fm = fmService.fetchImageById(cid);
+                    if (null == fm) {
+                        return -1;
+                    }
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a File (" + fm.getFilename() + ")");
+                    timeline.setThumbnail(fm.getContent());
+                    timelineService.store(timeline);
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
+
+                return 0;
+
+            case "MM":
+
+                //Create Pin
+                if (isPinned == 0) {
+                    MindMap mm = mindmapService.fetchMindMapById(cid);
+                    if (null == mm) {
+                        return -1;
+                    }
+                    String mmImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAtCAYAAAA5reyyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoxJREFUeNrsms1xwjAQhQ2TO04FcTowZw6BCmIqCFQAVABUQDogVACpAHLgjDsIJbiDZJc8TTQaGTtMEMLsm9EICeHYn1feHycIRCKRSCQSia5SNV9PbLvdxtQNqEWYWrRarTcBWA5eQt3S8tUbQez7dK51Tw1wroBRu6fWpZZR6xHcnk8neueh9bWpC6mlmrWtaD4E2CeAFQss0N4YZ+hD2cLHlaJP4EgCWN8Y8x/iRIq38Yy6IYYbajEsj62ySVs7E4DFECea1SmQfYK3FwssD/FLG3YI3sa3c/TZiVyF6h5bX1sAnsc7C8CSCgvGt+1EENslWrFAV4PTNgMaW+BUC6hTH8KZ2oXgMZzZP1rVAS4BXVUeIODNz3R4hjipLEBs20/L1sxynoGxkRtHJf6M03jRdTUmMeD184qkCGPWakzrHnNCnLaRsQyQtVQSoG5BaUGFOTcONCxsQ0ADDWJyK2HMXzxoUf57sRTPNcCHE3/nVQHhkgCjEy1QUjl6TkWmF4VXzlNDAP6C4nBkZwDkh/3aBpHmOE4c6g4Fc3nHHltizUpZoMo62OtyONJB/BcjZdMvfoI53uKvaOqN3MRi1Wt47L1WcJi7gugK4OEC+S0bV5QRhozw3bOxVo27tG7ELfh5rcl6MdYOcGNWHCdSa3Jsqd20SjmRrKRnjc1YT/sc2dZqNyNAbMmWGMJCKwGQYcXGthrngEzNbEP7fBS6kQY68fSuMpEpCgj8bFLbLsIFTo217wCypLUqU1HgF5a1h1SO1mYAPMaxnZS7nBUTLCWsw3OQLjLN8cKmE7D+Xwyt3VksMENRIa0MwBNDH5XXro7BoLVDzfmwFU59e/0pEolEIpFI5Jm+BRgA3DTreSj6LvUAAAAASUVORK5CYII=";
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a MindMap (" + mm.getTitle() + ")");
+                    timeline.setThumbnail(mmImage);
+                    timelineService.store(timeline);
+
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
+
+                return 0;
+
+            case "SB":
+
+                //Create Pin
+                if (isPinned == 0) {
+                    Storyboard sb = sbService.fetchStoryboardById(cid);
+                    if (null == sb) {
+                        return -1;
+                    }
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a Storyboard (" + sb.getTitle() + ")");
+                    timeline.setThumbnail(sb.getContentThumbnail());
+                    timelineService.store(timeline);
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
+
+                return 0;
+
+            case "MB":
+
+                //Create Pin
+                if (isPinned == 0) {
+                    Moodboard mb = mbService.fetchMoodboardById(cid);
+                    if (null == mb) {
+                        return -1;
+                    }
+                    timeline.setOperation("PINNED");
+                    timeline.setMessage("a Moodboard (" + mb.getTitle() + ")");
+                    timeline.setThumbnail(mb.getContentThumbnail());
+                    timelineService.store(timeline);
+                } else //Delete Pin
+                {
+                    Timeline timelineToDelete = timelineService.findByOther(pid, cid, timeline.getComponent());
+                    timelineService.delete(timelineToDelete.getId());
+                }
+
+                return 0;
 
             default:
                 return 0;
