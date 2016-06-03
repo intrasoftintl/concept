@@ -622,30 +622,63 @@ class search_image_by_example_handler(tornado.web.RequestHandler):
         user_id = self.get_argument('user_id',"")
         project_id = self.get_argument('project_id',"") 
         output = self.get_argument("output","html")
-        uuid = self.get_argument("id","")
-        logging.info(uuid)
- 
+        page = int(self.get_argument("page","1"))
+        search_param = self.get_argument('search_param',"")
+        if search_param:        
+            logging.info(search_param)
+            try:
+                search_param = json.loads(search_param)
+            except Exception as e:
+                logging.exception(e)
+                self.set_status(400,str(e))
+                return            
+        else:
+            search_param = {}
+            search_param["uuid"] = self.get_argument('id',"")
+                    
+        if user_id:    
+            search_param["user_id"] = user_id
+        if project_id:         
+            search_param["project_id"] = project_id
+
+        size = 10
+
+
         es = self.application.es
         index = self.application.config_init["index"]
         doc_type = self.application.config_init["type_item"]               
                 
-        queryImage = {
-                 "query": {
+        queryImage =  {
                      "image": {
                      "content-image": {
                          "feature": "CEDD",
                          "index": index,
                          "type": doc_type,
-                         "id": uuid,
+                         "id": search_param["uuid"],
                          "path": "content-image",
                          "hash": "BIT_SAMPLING"
                      }
                      }
-                     }
-                     }            
+                    }
+        
+        if project_id:
+            doc = { "query": 
+                    {
+                        "filtered": {
+                            "filter": {
+                                "term": { "project_id":project_id }
+                        },
+                            "query":queryImage
+                        }
+                    }
+                }
+        else:
+             doc = { "query":queryImage }
+        
              #Executing the query
         try:
-             res = es.search(index=index, doc_type=doc_type, body=queryImage)
+             res = es.search(index=index, doc_type=doc_type, body=doc,
+                              from_=(page-1) * size, size = size)
         except Exception as e:
             logging.exception(e)                
             self.set_status(400,str(e))
@@ -667,11 +700,11 @@ class search_image_by_example_handler(tornado.web.RequestHandler):
             #logging.debug(total)
             #logging.debug(max_score)
 
-            self.render('rest_results.html',
+            self.render('rest_results3.html',
                     user = user_id,
                     project = project_id,
                     search_param = json.dumps(search_param),
-                    s_type = "search_advanced",
+                    s_type = "search_image_qbe",
                     page = page,
                     total = total,
                     list_results = list_results)
