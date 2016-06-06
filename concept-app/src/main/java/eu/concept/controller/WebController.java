@@ -237,7 +237,7 @@ public class WebController {
                 try {
                     HttpResponse<JsonNode> jsonResponse = Unirest.get("https://www.europeana.eu/api/v2/search.json?wskey=wNrgTqaJw&query=" + keyword + "&qf=IMAGE_SIZE:extra_large&qf=MIME_TYPE:image%2Fjpeg").asJson();
 
-                    // System.out.println("Query is: https://www.europeana.eu/api/v2/search.json?wskey=wNrgTqaJw&query=" + keyword + "&qf=IMAGE_SIZE:extra_large&qf=MIME_TYPE:image%2Fjpeg");
+                     System.out.println("Query is: https://www.europeana.eu/api/v2/search.json?wskey=wNrgTqaJw&query=" + keyword + "&qf=IMAGE_SIZE:extra_large&qf=MIME_TYPE:image%2Fjpeg");
                     jsonResponse.getBody().getObject().getJSONArray("items").forEach(item -> {
 
                         String url = ((JSONObject) item).getJSONArray("edmPreview").get(0).toString();
