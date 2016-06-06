@@ -12,7 +12,6 @@ import eu.concept.repository.openproject.domain.ProjectOp;
 import eu.concept.repository.openproject.service.ProjectServiceOp;
 import eu.concept.controller.ElasticSearchController;
 import eu.concept.repository.concept.domain.Component;
-import eu.concept.repository.concept.service.ProjectCategoryService;
 import eu.concept.repository.concept.service.TimelineService;
 import eu.concept.util.other.EtherpadHandler;
 import eu.concept.util.other.NotificationTool;
