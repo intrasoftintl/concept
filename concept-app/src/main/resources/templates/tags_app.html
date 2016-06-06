@@ -150,9 +150,9 @@
                                 <div class="row">
 
                                     <div class="col-md-12">
-                                        <div th:if="${showTagsAlert == 'false'}" id="tagsAlert" class="alert alert-success" role="alert">
+                                        <!-- <div th:if="${showTagsAlert == 'false'}" id="tagsAlert" class="alert alert-success" role="alert">
                                             The system has started importing images for the Europeana Collections for later use. This will take a minute or two.
-                                        </div>
+                                        </div> -->
                                         <div th:if="${showTagsAlert == 'true'}" id="tagsAlert" class="alert alert-warning" role="alert">
                                             <!--<form class="project-form" id="pm-tags-form" action="/pm_app/model" method="post">-->
                                             <!--<button  onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-model" class="btn btn-success btn-sm pull-right"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Set Tags</button>-->
@@ -166,9 +166,9 @@
                                         <div class="form-wrap">
                                             <h5 class="heading">Define tags</h5>
                                             <form role="form" th:action="@{/tagsAdd}" method="post" id="login-form" th:object="${tag}" autocomplete="off">
-                                                
+
                                                 <input th:if="${_csrf}" type="hidden" th:name="${_csrf.parameterName}"     th:value="${_csrf.token}"/>
-                                                
+
                                                 <div class="form-group">
                                                     <label for="key" class="sr-only">Tag 1</label>
                                                     <input   type="text" name="tag1" th:field="*{tag1}" class="form-control" placeholder="Tag 1" th:classappend="${showTagsAlert == 'false' ? 'disabled' : ''}"/>
@@ -196,7 +196,7 @@
 
                                                 <!-- Project Id -->
                                                 <input type="hidden" name="pid" th:field="*{id}" id="id"/>
-                                                
+
                                                 <!-- Project Id -->
                                                 <input type="hidden" name="pid" th:field="*{pid}" id="pid"/>
 
@@ -248,4 +248,4 @@
         <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
         <script src="../static/js/category.js" th:src="@{/js/category.js}"></script>
     </body>
-</html> 
+</html>
