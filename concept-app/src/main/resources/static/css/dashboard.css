@@ -859,7 +859,7 @@ a.fm-popup {
 
 .folder{
     border-radius: 4px;
-    //padding: 10px 0;
+    width: 50px;
     padding: 0 0 10px;
 }
 .folder:hover{
