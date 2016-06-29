@@ -46,7 +46,7 @@ public class ElasticSearchController {
      * @return
      */
     public boolean deleteById(String id) {
-        try {w
+        try {
             HttpResponse<String> response = Unirest.post(DELETE_URL).field("id", id).asString();
             if (200 == response.getStatus()) {
                 logger.info("Successfully deleted document with id: " + id);
