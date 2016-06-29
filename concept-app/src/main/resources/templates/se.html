@@ -1,5 +1,5 @@
 <div th:fragment="seContent">
-    <div class="panel-body col-md-8 search-header">
+    <div class="panel-body col-md-12 search-header">
 
         <form id="se-form" method="post" th:object="${search}" th:action="@{/se_app}">
 
@@ -7,16 +7,18 @@
             <!-- Project ID -->
             <input th:type="hidden" th:name="pid" th:field="*{pid}"/>
 
-
-
-            <div class="col-md-5">
+            <div class="col-md-2">
 
                 <div id="main-search" class="form-group col-md-12">
                     <label for="keyword">Content search</label>
-                    <input type="text" class="form-control" id="content" th:name="content"  th:field="*{content}" placeholder="Content search (Search content or title)"/>
+                    <input type="text" class="form-control" id="content" th:name="content"  th:field="*{content}" placeholder="Content or title"/>
                 </div>
 
-                <div class="form-group col-md-6">
+
+            </div>
+
+            <div class="col-md-4">
+                <div class="form-group col-md-5">
                     <label for="keyword">Type</label>
                     <select th:field="*{component.id}" id="component" name="component" class="form-control">
                         <option value="">All</option>
@@ -25,7 +27,7 @@
 
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-7">
                     <label for="keyword">Keyword filter</label>
                     <select th:field="*{keywords}"  id="keywords" name="keywords"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
                         <option  th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
@@ -43,11 +45,11 @@
 
             </div>
 
-            <div class="col-md-3 search-buttons">
+            <div class="col-md-2 search-buttons">
 
                 <input th:type="hidden" name="categories" value="{}"  th:value="*{categories}"  id="categories"/>
 
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-2">
                     <button type ="submit" class="btn btn-danger">Search</button>
                 </div>
 

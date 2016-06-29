@@ -12,7 +12,7 @@ a {
 }
 
 body{
-    background:#f2f2f2;
+    background: #cbcbcb; #f2f2f2;
     font-family: 'Roboto', sans-serif;
     font-size:14px;
 }
@@ -121,6 +121,13 @@ nav{
     left: 10px;
 }
 
+/* HEADER - ACCOUNT */
+.account{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 /* NAV-APPS CONTAINER */
 .nav-apps{
     width: 238px;
@@ -198,12 +205,14 @@ nav{
 
 /* NAV-PROJECTS CONTAINER */
 .nav-projects{
-    width: 240px;
+    //width: 240px;
     height: auto;
-    position:fixed;
-    left:0;
-    top:210px;
-    z-index:1000;
+    ///position:fixed;
+    //left:0;
+    //top:210px;
+    z-index:10000;
+    padding: 10px;
+
 }
 
 .nav-projects select{
@@ -264,13 +273,13 @@ nav{
 
 .project-prompt {
     width: 500px;
-    height: 200px;
+    height: 400px;
     position: absolute;
-    top: 260px;
-    left:100px;
-    z-index: 1000;
-    opacity:0.6;
-    background:url('/images/icon-prompt.png') no-repeat;
+    top: 0px;
+    left:240px;
+    //z-index: 1;
+    //opacity:0.6;
+    background:url('/images/icon-prompt2.png') no-repeat;
 }
 
 /* NAV-ACTIONS CONTAINER */
@@ -685,7 +694,7 @@ nav{
 /* CONTENT */
 
 .content{
-    background: #ddd; #f2f2f2;
+    background: #555861; #a5b1c9; #ddd; #f2f2f2;
     //opacity:0.8;
     width:calc(100vw - 240px);
     height: 100vh;
@@ -727,13 +736,37 @@ nav{
     background-size: 400px 109px;
     background-repeat: no-repeat;
     background-position: 30px 20px;
-    background-color:#fff;
+    background-color: #fff5e9; #fff5e9; #fff;
     width:auto;
-    height:160px;
+    height:130px;
 //    padding: 10px; 20px;
     border-bottom: 2px solid #eee;
-    margin-bottom:20px;
+   margin-bottom:20px;
 }
+
+.content .header-top{
+    //background:url('/images/CONCEPT_LOGO_S.png');
+    background-size: 400px 109px;
+    background-repeat: no-repeat;
+    background-position: 30px 20px;
+    background-color: #555962; #fff;
+    width:auto;
+    height:80px;
+//    padding: 10px; 20px;
+    //border-bottom: 2px solid #eee;
+    //margin-bottom:20px;
+    color: #fff;
+}
+
+.content .header-top h5,
+.content .header-top small{
+    color: #fff;
+}
+
+.content .header-top .btn-link{
+    color: #eee;
+}
+
 .content-pre .header{
     background:url('/images/CONCEPT_LOGO_WHITE.png');
     background-size: 400px 109px;
@@ -754,11 +787,11 @@ nav{
 .document-title{
     height:36px;
     padding:3px 10px;
-    border-bottom: 2px solid #eee;
-    background-color: #f2f2f2;
+    border-bottom: 2px solid #555861;
+    background-color: #555861;
     font-size:12px;
     text-transform: uppercase;
-    color:#888;
+    color:#fff;
     font-family: 'Source Sans Pro', sans-serif;
     letter-spacing: -0.5px;
 }
@@ -891,8 +924,8 @@ a.fm-popup {
 
 #category-search{
     //width:238px;
-    background:#f2f2f2;
-    height:100px;
+    background: #CCC3A6; #f2f2f2;
+    height:78px;
     max-height: 166px;
     overflow-x: scroll;
     padding:10px;
