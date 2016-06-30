@@ -5,6 +5,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.Category;
+import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.domain.Metadata;
 import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.domain.ProjectCategory;
@@ -98,6 +99,11 @@ public class ElasticSearchController {
                 content = (String) document.get().getClass().getDeclaredMethod("getContent", null).invoke(document.get(), null);
             }
 
+            //Get content only  object is intance of FileManagement
+            if (document.get() instanceof FileManagement) {
+                content = ((String) document.get().getClass().getDeclaredMethod("getContent", null).invoke(document.get(), null)).replaceFirst("data:image/jpeg;base64,", "");
+            }
+
             //If document is a MindMap object get the userid of the creator
             if (document.get() instanceof MindMap) {
                 user_id = String.valueOf(((MindMap) document.get()).getUserCo().getId());
@@ -116,7 +122,7 @@ public class ElasticSearchController {
                 keywords = metadata.get().getKeywords();
                 categories = getCategoriesNames(metadata.get().getCategories(), pid);
             }
-            
+
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             Logger.getLogger(ElasticSearchController.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -125,6 +131,7 @@ public class ElasticSearchController {
         elastic_id = component + String.valueOf(id);
         //Make the call to insert document to elastic
         try {
+
             HttpResponse<String> response = Unirest.post(INSERT_URL).field("id", elastic_id).field("project_id", pid).field("title", title).field("content", content).field("url", url).field("component", component).field("keywords", keywords).field("categories", categories).asString();
 
             if (201 == response.getStatus()) {
@@ -139,11 +146,12 @@ public class ElasticSearchController {
 
     public String getCategoriesNames(String categories, int pid) {
 
-        if (categories.isEmpty()) {
-            return categories;
-        }
-
         ProjectCategory projectCategory = projectCategoryService.findByPid(pid);
+
+        //If Categories not set yet return
+        if ( null == projectCategory) {
+            return new String();
+        }
 
         Map<Integer, String> categoriesMap = projectCategory.getCategories().stream().filter(category -> null != category.getParentID()).collect(Collectors.toMap(Category::getId, Category::getName));
 
