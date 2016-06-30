@@ -92,7 +92,7 @@ nav{
 .nav-logo-home,
 .nav-logo{
     width: 238px;
-    height: 70px;
+    height: 80px;
     position:fixed;
     left:0;
     top:0px;
@@ -131,10 +131,10 @@ nav{
 /* NAV-APPS CONTAINER */
 .nav-apps{
     width: 238px;
-    height: auto;
+    height: 130px;
     position:fixed;
     left:0;
-    top:70px;
+    top:80px;
     z-index:100;
     border-bottom: 2px solid #eee;
     background: #f8f8f8;
@@ -997,6 +997,7 @@ h5.heading{
     font-weight: 800;
     //opacity:0.6;
     letter-spacing: 4px;
+    color: #eee;
 }
 
 hr {
