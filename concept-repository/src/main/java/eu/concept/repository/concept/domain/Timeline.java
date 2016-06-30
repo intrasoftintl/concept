@@ -84,6 +84,17 @@ public class Timeline implements Serializable {
         this.component = component;
     }
 
+    public Timeline(int pid, int cid, String operation, String message, String thumbnail, Component component, Date createdDate, UserCo user) {
+        this.pid = pid;
+        this.cid = cid;
+        this.operation = operation;
+        this.message = message;
+        this.thumbnail = thumbnail;
+        this.createdDate = createdDate;
+        this.component = component;
+        this.uid = user;
+    }
+
     public Long getId() {
         return id;
     }

@@ -101,7 +101,7 @@ public class ElasticSearchController {
 
             //Get content only  object is intance of FileManagement
             if (document.get() instanceof FileManagement) {
-                content = ((String) document.get().getClass().getDeclaredMethod("getContent", null).invoke(document.get(), null)).replaceFirst("data:image/jpeg;base64,", "");
+                content = (String) document.get().getClass().getDeclaredMethod("getContent", null).invoke(document.get(), null);
             }
 
             //If document is a MindMap object get the userid of the creator
@@ -134,6 +134,8 @@ public class ElasticSearchController {
 
             HttpResponse<String> response = Unirest.post(INSERT_URL).field("id", elastic_id).field("project_id", pid).field("title", title).field("content", content).field("url", url).field("component", component).field("keywords", keywords).field("categories", categories).asString();
 
+            System.out.println("Content: "+content);
+            
             if (201 == response.getStatus()) {
                 logger.info("Successfully inserted document with id: " + elastic_id);
                 return true;
