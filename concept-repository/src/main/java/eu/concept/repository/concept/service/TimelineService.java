@@ -32,27 +32,33 @@ public class TimelineService {
         return timeline.getId() > 0;
     }
 
+    public void store(List<Timeline> timelines) {
+        timelineRepo.save(timelines);
+    }
+
     public List<Timeline> fetchTimelineByProjectId(int projectID, UserCo user, int limit) {
         return fetchTimelineByProjectIdAndComponent(projectID, user, limit, 0);
     }
 
     public List<Timeline> fetchTimelineByProjectIdAndComponent(int projectID, UserCo user, int limit, int page) {
-        List<Timeline> notifications;
         Pageable pageRequest = new PageRequest(page, limit);
-        notifications = timelineRepo.findByPidOrderByCreatedDateAsc(projectID, pageRequest);
-        return notifications;
+        return timelineRepo.findByPidOrderByCreatedDateAsc(projectID, pageRequest);
     }
 
     public boolean isPinned(int pid, int cid, Component component) {
         return null == timelineRepo.findByPidAndCidAndComponent(pid, cid, component) ? false : true;
     }
-    
+
     public Timeline findByOther(int pid, int cid, Component component) {
         return timelineRepo.findByPidAndCidAndComponent(pid, cid, component);
     }
 
     public long countNotificationsById(int projectID) {
         return timelineRepo.countByPid(projectID);
+    }
+
+    public void deleteByPidAndComponent(int projectId, Component component) {
+        timelineRepo.deleteByPidAndComponent(projectId, component);
     }
 
     public boolean delete(long pinId) {
