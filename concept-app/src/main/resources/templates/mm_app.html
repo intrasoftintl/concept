@@ -26,8 +26,8 @@
 
 <!-- logo -->
 <nav class="nav-logo">
-    <form id="ba-form" th:action="@{/dashboard}" method="post">
-                <span href="#" onclick="addProjectIDToForm('ba-form');
+    <form id="mm-form" th:action="@{/dashboard}" method="post">
+                <span href="#" onclick="addProjectIDToForm('mm-form');
                             $(this).closest('form').submit()">
                     <img class="back" src="/images/BUTTON_BACK.png"/>
                     <img class="logo" src="/images/concept-logo-small.png"/>
@@ -45,69 +45,6 @@
         <li><img src="/images/ICON_SB_DISABLED.png"/></li>
         <li><img class="fm" src="/images/ICON_FM_DISABLED.png"/></li>
     </ul>
-</nav>
-
-<!-- projects -->
-<nav class="nav-projects">
-    <div class="btn-group project-selection">
-        <p>Project Management</p>
-        <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default disabled">
-            <option selected="true" value="0">Please select a project</option>
-            <option th:each="project : ${projects}" th:value="${project.id}" th:text="'Project: ' + ${project.name}"></option>
-        </select>
-
-        <select th:if="${projects.isEmpty()}" class="btn btn-default">
-            <option selected="true" disabled="true">No projects available</option>
-        </select>
-
-    </div>
-
-    <div class="project-selection">
-        <input type="hidden" th:value="${projectID}" name="projectID" id="projectID" class="form-control"/>
-
-        <!-- Content to be showed only on project members (managers, designers, clients) -->
-        <div th:switch="${currentUser.getRole()}">
-                    <span th:case="'MANAGER'">
-                        
-                        <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
-                            <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href=""
-                                    class="btn btn-success btn-xs">New Project</button>
-                        </form>
-                        <form class="project-form" id="pm-details-form" action="#" method="post"
-                              th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
-                                    href="" class="btn btn-default btn-xs">Details</button>
-                        </form>
-                        <form class="project-form" id="pm-model-form" action="#" method="post"
-                              th:action="@{/pm_app/model}">
-                            <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model"
-                                    href="" class="btn btn-link btn-xs">Model</button>
-                        </form>
-                        <form class="project-form" id="pm-tags-form" action="#" method="post" th:action="@{/tags}">
-                            <button onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-tags" href="" class="btn btn-link btn-xs">Tags</button>
-                        </form>
-                 
-                    </span>
-                    <span th:case="'DESIGNER'">
-                        <form class="project-form" id="pm-details-form" action="#" method="post"
-                              th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
-                                    href="" class="btn btn-default btn-xs">Details</button>
-                        </form>
-                    </span>
-                    <span th:case="'CLIENT'">
-                        <form class="project-form" id="pm-details-form" action="#" method="post"
-                              th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
-                                    href="" class="btn btn-default btn-xs">Details</button>
-                        </form>
-                    </span>
-        </div>
-
-        <h5 id="project-members" class="highlight">Project Members<br/>
-            <small></small>
-        </h5>
-    </div>
 </nav>
 
 <!-- Success Message -->
@@ -135,6 +72,8 @@
 <div class="content">
     <iframe id="mindmap" th:src="${mindmapURL}" width="100%" height="100%"></iframe>
 </div>
+
+<input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}" name="projectID" id="projectID" class="form-control"/>
 
 <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
         th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>

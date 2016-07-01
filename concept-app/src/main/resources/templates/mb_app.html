@@ -20,8 +20,8 @@
 
 <!-- logo -->
 <nav class="nav-logo">
-    <form id="ba-form" th:action="@{/dashboard}" method="post">
-                <span href="#" onclick="addProjectIDToForm('ba-form');
+    <form id="mb-form" th:action="@{/dashboard}" method="post">
+                <span href="#" onclick="addProjectIDToForm('mb-form');
                             $(this).closest('form').submit()">
                     <img class="back" src="/images/BUTTON_BACK.png"/>
                     <img class="logo" src="/images/concept-logo-small.png"/>
@@ -69,6 +69,8 @@
 
     <!-- <iframe id="moodboard" th:attr="src=${moodboardURL}" width="100%" height="100%"></iframe> -->
 </div>
+
+<input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}" name="projectID" id="projectID" class="form-control"/>
 
 <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js" th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
 
