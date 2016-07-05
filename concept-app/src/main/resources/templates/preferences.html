@@ -42,11 +42,11 @@
 <!-- dashboard -->
 <div class="content">
 
-    <div class="header">
+    <div class="header-top">
         <!--<a href="/" class="btn btn-link btn-xs back-button" value="Back">&larr; Back</a>-->
 
         <!-- Profile -->
-        <div class="btn-group pull-right">
+        <div class="btn-group pull-right account">
             <div class="row col-md-12 pull-right">
                 <h5 th:inline="text" class="pull-right"> [[${currentUser.getFirstName()}]]
                     [[${currentUser.getLastName()}]] ([[${currentUser.getUsername()}]]) </h5>
@@ -61,7 +61,7 @@
 
                 <!-- Preferences Button -->
                 <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
-                    <button type="submit" class="btn btn-default btn-sm ">
+                    <button type="submit" class="btn btn-success btn-sm ">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     </button>
                 </form>

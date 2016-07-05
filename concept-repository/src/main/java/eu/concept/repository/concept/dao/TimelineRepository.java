@@ -5,11 +5,15 @@ import eu.concept.repository.concept.domain.Timeline;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Christos Paraskeva <ch.paraskeva at gmail dot com>
  */
+@Repository
+@Transactional
 public interface TimelineRepository extends JpaRepository<Timeline, Long> {
 
     /*
@@ -23,5 +27,8 @@ public interface TimelineRepository extends JpaRepository<Timeline, Long> {
      *Count Queries
      */
     public long countByPid(int Pid);
+    
+    
+    public void deleteByPidAndComponent(int pid, Component component);
 
 }

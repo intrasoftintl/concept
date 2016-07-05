@@ -89,13 +89,25 @@ public class SearchController {
         System.out.println("Project Id is: " + search.getPid());
         System.out.println("Content is: " + search.getContent());
         System.out.println("Component Id is: " + search.getComponent().getId());
-        search.setCategories(elasticSearchController.getCategoriesNames(search.getCategories(),search.getPid()));
+        search.setCategories(elasticSearchController.getCategoriesNames(search.getCategories(), search.getPid()));
         System.out.println("Categories selected: " + search.getCategories());
         System.out.println("Keywords: " + search.getKeywords());
         model.addAttribute("projects", projects);
         model.addAttribute("projectID", search.getPid());
         model.addAttribute("currentUser", getCurrentUser());
         String search_query_url = constructSearchUrl(String.valueOf(search.getPid()), search.getContent(), search.getComponent().getId(), search.getCategories(), search.getKeywords());
+        model.addAttribute("search_query_url", search_query_url);
+        Logger.getLogger(SearchController.class.getName()).info("Search URL is: " + search_query_url);
+        return "se_app";
+    }
+
+    @RequestMapping(value = "/se_image_search", method = {RequestMethod.GET, RequestMethod.POST})
+    public String imageSearch(Model model, @RequestParam("pid") int pid, @RequestParam("fid") int fid) {
+        List<ProjectOp> projects = projectServiceOp.findProjectsByUserId(getCurrentUser().getId());
+        model.addAttribute("projects", projects);
+        model.addAttribute("projectID", pid);
+        model.addAttribute("currentUser", getCurrentUser());
+        String search_query_url = "http://concept-se.euprojects.net/search_image_qbe?id=FM" + fid + "&project_id=" + pid;
         model.addAttribute("search_query_url", search_query_url);
         Logger.getLogger(SearchController.class.getName()).info("Search URL is: " + search_query_url);
         return "se_app";

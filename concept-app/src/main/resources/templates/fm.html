@@ -80,10 +80,10 @@
                             <input type="hidden" value="FM" name="cname"/>
                             <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px;"></i> Keyword-based Search</button>
                         </form>
-                        <form id="se-form" method="post" action="/search_similar" th:object="${fmContent}" style="margin-top:4px">
-                            <input type="hidden" th:value="${fmContent.id}" name="cid"/>
-                            <input type="hidden" th:value="${fmContent.pid}" name="project_id"/>
-                            <input type="hidden" value="FM" name="cname"/>
+                        <form id="se-form" method="post" action="/se_image_search" th:object="${fmContent}" style="margin-top:4px">
+                            <input type="hidden" th:value="${fmContent.id}" name="fid"/>
+                            <input type="hidden" th:value="${fmContent.pid}" name="pid"/>
+<!--                            <input type="hidden" value="FM" name="cname"/>-->
                             <button type="submit" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px;"></i> Content-based Search</button>
                         </form>
                         <a style="margin-top:4px" th:href="@{'http://concept.euprojects.net/search_external?cid=' + ${fmContent.id} + '&amp;cname=FM&amp;source=flickr'}" target="_blank" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-search" aria-hidden="true" style="position: relative; top:-1px;"></i> Flickr</a><br/>

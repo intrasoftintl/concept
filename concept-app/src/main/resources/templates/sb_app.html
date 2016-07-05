@@ -7,17 +7,11 @@
     <meta name="viewport" content="width=device-width"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen"/>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
 
-    <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css"
-          th:href="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css}"
-          rel="stylesheet" media="screen"/>
+    <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css" th:href="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css}" rel="stylesheet" media="screen"/>
 
-    <link href="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/jqtree.css"
-          th:href="@{/webjars/jqtree/1.1.0/jqtree.css}"
-          rel="stylesheet" media="screen"/>
+    <link href="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/jqtree.css" th:href="@{/webjars/jqtree/1.1.0/jqtree.css}" rel="stylesheet" media="screen"/>
 
     <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet"/>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
@@ -26,8 +20,8 @@
 
 <!-- logo -->
 <nav class="nav-logo">
-    <form id="ba-form" th:action="@{/dashboard}" method="post">
-                <span href="#" onclick="addProjectIDToForm('ba-form');
+    <form id="sb-form" th:action="@{/dashboard}" method="post">
+                <span href="#" onclick="addProjectIDToForm('sb-form');
                             $(this).closest('form').submit()">
                     <img class="back" src="/images/BUTTON_BACK.png"/>
                     <img class="logo" src="/images/concept-logo-small.png"/>
@@ -47,74 +41,12 @@
     </ul>
 </nav>
 
-<!-- projects -->
-<nav class="nav-projects">
-    <div class="btn-group project-selection">
-        <p>Project Management</p>
-        <select id="project-select" th:if="${!projects.isEmpty()}" class="btn btn-default disabled">
-            <option selected="true" value="0">Please select a project</option>
-            <option th:each="project : ${projects}" th:value="${project.id}" th:text="'Project: ' + ${project.name}"></option>
-        </select>
-
-        <select th:if="${projects.isEmpty()}" class="btn btn-default">
-            <option selected="true" disabled="true">No projects available</option>
-        </select>
-
-    </div>
-
-    <div class="project-selection">
-        <input type="hidden" th:value="${projectID}" name="projectID" id="projectID" class="form-control"/>
-
-        <!-- Content to be showed only on project members (managers, designers, clients) -->
-        <div th:switch="${currentUser.getRole()}">
-                    <span th:case="'MANAGER'">
-                        
-                        <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
-                            <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href=""
-                                    class="btn btn-success btn-xs">New Project</button>
-                        </form>
-                        <form class="project-form" id="pm-details-form" action="#" method="post"
-                              th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
-                                    href="" class="btn btn-default btn-xs">Details</button>
-                        </form>
-                        <form class="project-form" id="pm-model-form" action="#" method="post"
-                              th:action="@{/pm_app/model}">
-                            <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model"
-                                    href="" class="btn btn-link btn-xs">Model</button>
-                        </form>
-                        <form class="project-form" id="pm-tags-form" action="#" method="post" th:action="@{/tags}">
-                            <button onclick="addProjectIDToForm('pm-tags-form')" type="submit" id="project-tags" href="" class="btn btn-link btn-xs">Tags</button>
-                        </form>
-                 
-                    </span>
-                    <span th:case="'DESIGNER'">
-                        <form class="project-form" id="pm-details-form" action="#" method="post"
-                              th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
-                                    href="" class="btn btn-default btn-xs">Details</button>
-                        </form>
-                    </span>
-                    <span th:case="'CLIENT'">
-                        <form class="project-form" id="pm-details-form" action="#" method="post"
-                              th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view"
-                                    href="" class="btn btn-default btn-xs">Details</button>
-                        </form>
-                    </span>
-        </div>
-
-        <h5 id="project-members" class="highlight">Project Members<br/>
-            <small></small>
-        </h5>
-    </div>
-</nav>
-
 <!-- Success Message -->
 <nav id="notification" th:if="null != ${success}" class="nav-actions">
     <div class="alert alert-warning alert-dismissible btn-actions" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <span th:text="${success}"></span>
     </div>
 </nav>
@@ -122,8 +54,9 @@
 <!-- Error Message -->
 <nav id="notification" th:if="null != ${error}" class="nav-actions">
     <div class="alert alert-danger alert-dismissible btn-actions" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
         <span th:text="${error}"></span>
     </div>
 </nav>
@@ -137,23 +70,19 @@
     <!--<iframe id="storyboard" th:src="@{'http://concept-sb.euprojects.net/storyboard/storyboard/new?pid=' + ${projectID} + '&amp;uid=' + ${currentUser.getId()} }" width="100%" height="100%"></iframe>-->
 </div>
 
-<script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
-        th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
+<input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}" name="projectID" id="projectID" class="form-control"/>
 
-<script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
-        th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js" th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
 
-<script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js"
-        th:src="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
 
-<script src="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/tree.jquery.js"
-        th:src="@{/webjars/jqtree/1.1.0/tree.jquery.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js" th:src="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js}"></script>
 
-<script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
-        th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/tree.jquery.js" th:src="@{/webjars/jqtree/1.1.0/tree.jquery.js}"></script>
 
-<script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
-        th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js" th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+
+<script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js" th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
 
 <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
 <script src="../static/js/metadata.js" th:src="@{/js/metadata.js}"></script>
