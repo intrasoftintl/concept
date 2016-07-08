@@ -671,11 +671,11 @@ doc_type_code = {
 }
 
 doc_type_img = {
-"MB":"/images/fm_generic.png",
-"FM":"/images/fm_generic.png",
-"BA":"/images/fm_generic.png",
-"MM":"/images/fm_generic_mm.png",
-"SB":"/images/fm_generic.png",
+"MB":"/images/search_moodboard.png",
+"FM":"/images/search_file.png",
+"BA":"/images/search_document.png",
+"MM":"/images/search_mindmap.png",
+"SB":"/images/search_storyboard.png",
 "SK":"/images/fm_generic.png"
 }
 
