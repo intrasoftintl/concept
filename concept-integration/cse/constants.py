@@ -671,12 +671,12 @@ doc_type_code = {
 }
 
 doc_type_img = {
-"MB":"/images/search_moodboard.png",
-"FM":"/images/search_file.png",
-"BA":"/images/search_document.png",
-"MM":"/images/search_mindmap.png",
-"SB":"/images/search_storyboard.png",
-"SK":"/images/fm_generic.png"
+"MB":"http://concept.euprojects.net/images/search_moodboard.png",
+"FM":"http://concept.euprojects.net/images/search_file.png",
+"BA":"http://concept.euprojects.net/images/search_document.png",
+"MM":"http://concept.euprojects.net/images/search_mindmap.png",
+"SB":"http://concept.euprojects.net/images/search_storyboard.png",
+"SK":"http://concept.euprojects.net/images/fm_generic.png"
 }
 
  
