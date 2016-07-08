@@ -389,8 +389,10 @@ data = {
 "Project ID": "22",
 "COMPONENT": "FM (File Management)",
 "TITLE": "21141_PE106141_S5.JPG",
-"KEYWORDS": "wooden,chair,comfortable,light,portable,waterproof,no arms,soft materials",
-"CATEGORIES": "Market Analaysis, Technology, Usability, Consumer",
+#"KEYWORDS": "wooden,chair,comfortable,light,portable,waterproof,no arms,soft materials",
+#"CATEGORIES": "Market Analaysis, Technology, Usability, Consumer",
+"KEYWORDS":"",
+"CATEGORIES":"", 
 "url":"document/89",
 "CONTENT": "data:image/jpeg;base64,"+coded_file
 }

@@ -12,7 +12,7 @@ import logging
 
 import base64
 
-from constants import boost_list
+from constants import boost_list, doc_type_code, doc_type_img
     
 def basic_search_query(param,es,index,doc_type, dpage = 0):
     """Create a basic query for elastic 
@@ -521,6 +521,25 @@ class search_advanced_handler(tornado.web.RequestHandler):
             #max_score = res["hits"]["max_score"]
             list_results = res["hits"]["hits"]
 
+            
+            for item in list_results:
+                # changing the type code of the document for a long name
+                doc_code = item["_source"].get("content-type","")
+                item["_source"]["content-type-name"] = doc_type_code.get(doc_code,doc_code)
+                # adding an icon according to the file type
+                item["_source"]["content-icon"] = doc_type_img.get(doc_code,"/images/fm_generic.png")
+                # it is an image?
+                if ("image-properties" in item["_source"]
+                        and "format" in item["_source"]["image-properties"]
+                        and item["_source"]["image-properties"]["format"] =="jpg" ):
+                    item["_source"]["content-icon"] = "thumbnail"
+                # deleting the [""] present for a empty field 
+                if ((len(item["_source"].get("categories",[])) > 0)
+                        and (item["_source"]["categories"][0] == "")):
+                    item["_source"]["categories"] = []
+                if ((len(item["_source"].get("keywords",[])) > 0)
+                        and (item["_source"]["keywords"][0] == "")):
+                    item["_source"]["keywords"] = []
 
             #logging.debug(total)
             #logging.debug(max_score)
@@ -666,8 +685,11 @@ class search_image_by_example_handler(tornado.web.RequestHandler):
                     {
                         "filtered": {
                             "filter": {
-                                "term": { "project_id":project_id }
-                        },
+                                "bool": {
+                                "must":[ {"term": { "project_id":project_id }}],
+                                "must_not":[ { "term": {"uuid":search_param["uuid"] }}]
+                                }
+                            },
                             "query":queryImage
                         }
                     }
@@ -696,11 +718,30 @@ class search_image_by_example_handler(tornado.web.RequestHandler):
             #max_score = res["hits"]["max_score"]
             list_results = res["hits"]["hits"]
 
+            for item in list_results:
+                # changing the type code of the document for a long name
+                doc_code = item["_source"].get("content-type","")
+                item["_source"]["content-type-name"] = doc_type_code.get(doc_code,doc_code)
+                # adding an icon according to the file type
+                item["_source"]["content-icon"] = doc_type_img.get(doc_code,"/images/fm_generic.png")
+                # it is an image?
+                if ("image-properties" in item["_source"]
+                        and "format" in item["_source"]["image-properties"]
+                        and item["_source"]["image-properties"]["format"] =="jpg" ):
+                    item["_source"]["content-icon"] = "thumbnail"
+                # deleting the [""] present for a empty field 
+                if ((len(item["_source"].get("categories",[])) > 0)
+                        and (item["_source"]["categories"][0] == "")):
+                    item["_source"]["categories"] = []
+                if ((len(item["_source"].get("keywords",[])) > 0)
+                        and (item["_source"]["keywords"][0] == "")):
+                    item["_source"]["keywords"] = []
+
 
             #logging.debug(total)
             #logging.debug(max_score)
 
-            self.render('rest_results3.html',
+            self.render('rest_results.html',
                     user = user_id,
                     project = project_id,
                     search_param = json.dumps(search_param),

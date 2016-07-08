@@ -660,4 +660,23 @@ languages_list = [
 {"index":{"_index":"concept_search_engine","_type":"language","_id":"zu"}},
 {"description" : "Zulu", "code": "zu"}
 ]
-    
+
+doc_type_code = {
+"MB":"MoodBoard",
+"FM":"File",
+"BA":"Document",
+"MM":"Mindmap",
+"SB":"StoryBoard",
+"SK":"Sketch"
+}
+
+doc_type_img = {
+"MB":"/images/fm_generic.png",
+"FM":"/images/fm_generic.png",
+"BA":"/images/fm_generic.png",
+"MM":"/images/fm_generic_mm.png",
+"SB":"/images/fm_generic.png",
+"SK":"/images/fm_generic.png"
+}
+
+ 
