@@ -50,8 +50,8 @@
         </script>
     </head>
     <body>
-        <jsp:include page="/WEB-INF/jsp/bar.jsp"></jsp:include>
-            <div class="container">
+        <%-- <jsp:include page="/WEB-INF/jsp/bar.jsp"></jsp:include> --%>
+            <div class="container" style="margin-top: 30px;">
                 <div>
                     <div class="row">
                         <div class="col-sm-5">
