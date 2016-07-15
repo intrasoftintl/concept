@@ -131,7 +131,7 @@
 
                     <div class="form-group">
                         <label for="story_name">Name</label>
-                        <input class="form-control" id="story_name" name="story_name" placeholder="Enter story name" onchange="fCheckEmpty(this);">
+                        <input class="form-control" id="story_name" name="story_name" placeholder="Enter Storyboard name" onchange="fCheckEmpty(this);">
                         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                     </div>
                     <div id="slidesList" style="height: 290px; overflow: auto; overflow-x: hidden; margin-bottom: 20px;">
