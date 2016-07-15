@@ -110,8 +110,8 @@
         </script>
     </head>
     <body style="height: 100%;">
-        <jsp:include page="/WEB-INF/jsp/bar.jsp"></jsp:include>
-            <div class="container">
+        <%-- <jsp:include page="/WEB-INF/jsp/bar.jsp"></jsp:include> --%>
+            <div class="container" style="margin-top: 30px;">
                 <div>
                     <h3>
                     <c:if test="${requestScope.is_update != null}">
