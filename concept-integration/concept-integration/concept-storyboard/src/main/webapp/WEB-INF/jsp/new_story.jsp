@@ -136,7 +136,7 @@
                     </div>
                     <div id="slidesList" style="height: 290px; overflow: auto; overflow-x: hidden; margin-bottom: 20px;">
                         <div class="col-sm-6 verticalLine_right" id="slidesSelectedListDiv" style="height: 100%; overflow:auto; width: 50%; display:inline-block; ">
-                            <label for="story_name">Scenes selected</label><br>
+                            <label for="story_name">Moodboards selected</label><br>
                             <c:forEach var="i" begin="0" end="99" varStatus="count">
                                 <div class="div1">
                                     Scene ${count.index + 1}
@@ -147,7 +147,7 @@
                             </c:forEach>
                         </div>
                         <div class="col-sm-6 verticalLine_left" id="slidesListDiv" style="height: 100%; overflow:auto; width: 50%; display:inline-block;">
-                            <label for="story_name">Scenes available</label><br>
+                            <label for="story_name">Moodboards available</label><br>
                             <c:forEach var="mySlide" items="${request_slides}" varStatus="count">
                                 <div class="div2" id="idDivSource${count.index}" style="display:inline-block;" ondrop="drop(event)" ondragover="allowDrop(event)">
                                     <img width="140" id="${mySlide.id}" draggable="true" ondragstart="drag(event)" >
