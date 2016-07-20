@@ -71,6 +71,12 @@
                         $("#idNewStoryForm").attr("action", "save");
                         $("#idNewStoryForm").submit();
                     });
+                    
+                    $("#idPreviewButton").click(function () {
+                        $("#idNewStoryForm").attr("action", "previewNew");
+                        $("#idNewStoryForm").attr("target", "_blank");
+                        $("#idNewStoryForm").submit();
+                    });
 
             <c:if test="${requestScope.request_story != null}">
                     $("#idStory").val('<c:out value="${requestScope.request_story.id}"/>');
@@ -161,10 +167,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <div class="alert alert-danger" id="divError"></div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
+                            <button id="idPreviewButton" type="button" class="btn btn-primary btn-md btn-block">
+                                <span class="glyphicon glyphicon-eye-open"></span> Preview
+                            </button>
+                        </div>
+                        <div class="col-sm-2">                        
                             <button id="idSaveButton" type="button" class="btn btn-primary btn-md btn-block">
                                 <span class="glyphicon glyphicon-floppy-disk"></span> Save
                             </button>
