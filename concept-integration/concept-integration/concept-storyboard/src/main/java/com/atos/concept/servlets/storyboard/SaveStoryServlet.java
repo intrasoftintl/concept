@@ -3,9 +3,11 @@ package com.atos.concept.servlets.storyboard;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -62,11 +64,13 @@ public class SaveStoryServlet extends HttpServlet {
 
         String storyId = req.getParameter(ConceptConstants.REQUEST_STORY_ID);
         String uuidOld;
+        boolean isUpdate = false;
         if (StringUtils.isNotEmpty(storyId)) {
             Integer myId = new Integer(storyId);
             Stories oldStory = storiesServices.findById(myId);
             uuidOld = oldStory.getUuid();
             storiesServices.delete(myId);
+            isUpdate = true;
         } else {
             uuidOld = UUID.randomUUID().toString();
         }
@@ -79,7 +83,21 @@ public class SaveStoryServlet extends HttpServlet {
         story.setCreation(new Date());
         story.setUserId(String.valueOf(userId));
         storiesServices.persist(story);
-        resp.sendRedirect("view?pid=" + projectId + "&uid=" + userId);
+        
+        SlidesServices slidesServices = new SlidesServices();
+        Slides slide = new Slides();
+        slide.setProjectId(projectId);
+        List<Slides> slidesList = slidesServices.findBySlide(slide);
+        req.setAttribute(ConceptConstants.REQUEST_SLIDES, slidesList);
+        if (isUpdate) {
+            StoriesServices storiesService = new StoriesServices();
+            req.setAttribute(ConceptConstants.REQUEST_STORY, story);
+            req.setAttribute(ConceptConstants.REQUEST_IS_UPDATE, true);
+            List<Slides> slides = storiesService.findSlides(story.getId());
+            req.setAttribute(ConceptConstants.REQUEST_SLIDES_ORDERED, slides);        	
+        } 
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/new_story.jsp");
+        dispatcher.forward(req, resp);
     }
 
     private Set<StoriesSlides> generateSlidesList(Stories story, String[] slides) {
