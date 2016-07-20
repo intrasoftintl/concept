@@ -79,7 +79,7 @@ public class SaveSlideServlet extends HttpServlet {
             if (!nameTaken) {
                 slide.setId(mySlideId);
                 slidesService.update(slide);
-                resp.sendRedirect("view?pid=" + projectId + "&uid=" + userId);
+                resp.sendRedirect("edit?idSlide=" + slideId + "&pid=" + projectId + "&uid=" + userId);
             } else {
                 slide.setSlideText(slide.getSlideText().replaceAll("\r\n", "\\\\r\\\\n"));
                 ResourceBundle bundle = ResourceBundle.getBundle("ext");
@@ -98,8 +98,8 @@ public class SaveSlideServlet extends HttpServlet {
                 slide.setCreation(new Date());
                 slidesService.persist(slide,projectId,userId);
             }
-
-            resp.sendRedirect("view?pid=" + projectId + "&uid=" + userId);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/new_slide.jsp");
+            dispatcher.forward(req, resp);
         }
     }
 }
