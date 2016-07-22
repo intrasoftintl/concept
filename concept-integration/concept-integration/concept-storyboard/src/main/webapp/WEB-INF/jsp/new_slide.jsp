@@ -57,10 +57,10 @@
                         <div class="col-sm-5">
                             <h3>
                             <c:if test="${requestScope.is_update != null}">
-                                <fmt:message key="newslide.title.update" />
+                                Edit Moodboard
                             </c:if>
                             <c:if test="${requestScope.is_update == null}">
-                                <fmt:message key="newslide.title.new" />
+                                New Moodboard
                             </c:if>
                         </h3>
                     </div>

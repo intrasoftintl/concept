@@ -42,19 +42,19 @@
                             }
                         });
                         if (error_name) {
-                            errorText += "<fmt:message key="newstory.error.name"/>";
+                            errorText += "Error: empty name.";
                         }
                         if (error_disorder) {
                             if (errorText != "") {
                                 errorText += "<br>";
                             }
-                            errorText += "<fmt:message key="newstory.error.holes"/>";
+                            errorText += "Error: story with holes.";
                         } else {
                             if ($("#slidesList").val() == "") {
                                 if (errorText != "") {
                                     errorText += "<br>";
                                 }
-                                errorText += "<fmt:message key="newstory.error.empty"/>";
+                                errorText += "Error: story empty.";
                             }
                         }
                         $("#divError").text("");
@@ -121,10 +121,10 @@
                 <div>
                     <h3>
                     <c:if test="${requestScope.is_update != null}">
-                        <fmt:message key="newstory.title.update" />
+                        Edit Storyboard
                     </c:if>
                     <c:if test="${requestScope.is_update == null}">
-                        <fmt:message key="newstory.title.new" />
+                        New Storyboard
                     </c:if>
                 </h3>
                 <form role="form" id="idNewStoryForm" method="post">
