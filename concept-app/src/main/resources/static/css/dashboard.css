@@ -732,6 +732,12 @@ nav{
     font-size:15px;
 }
 
+.content-pre .help{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
 .content-pre a:hover{
     opacity: 0.75;
 }
