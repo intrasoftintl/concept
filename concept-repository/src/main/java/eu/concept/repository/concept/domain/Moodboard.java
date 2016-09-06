@@ -70,6 +70,12 @@ public class Moodboard implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mbId", orphanRemoval = false)
     private Collection<MBComment> comments;
 
+    /*Decision cards*/
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mbId", orphanRemoval = false)
+    private Collection<MBDecisionCard> decisions;
+    /**/    
+    
     //Transient field
     @Transient
     private boolean pinned = false;
@@ -81,6 +87,12 @@ public class Moodboard implements Serializable {
     public void setComments(Collection<MBComment> comments) {
         this.comments = comments;
     }
+    
+    /*Decision cards*/
+    public Collection<MBDecisionCard> getDecisions(){ return this.decisions; }
+
+    public void setDecisions(Collection<MBDecisionCard> decisions){ this.decisions = decisions; }
+    /**/
 
     /**
      *

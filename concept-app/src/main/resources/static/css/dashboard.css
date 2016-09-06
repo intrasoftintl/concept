@@ -666,6 +666,55 @@ nav{
 }
 */
 
+
+/* DECISION CARDS */
+.decision_card{
+    display:         block;
+    float:           left;
+    border:          2px solid #eee;
+    width:           25em;
+    height:          200px;
+    margin-right:    5px;
+    margin-bottom:   5px;
+
+    padding:         5px;
+}
+
+.new_decision_card{
+    display:         block;
+    float:           left;
+    margin-left:     20px;
+    border:          2px solid #eee;
+
+    padding:         5px;
+}
+
+.dc-row-info{
+    padding-left:    20px;
+}
+
+.dc-elementtext{
+    width:           550px;
+    padding:         0px;
+    margin:          5px;
+    height:          30px;
+    font-size:       13px;
+    border:          1px solid #eee;
+    border-radius:   4px;
+}
+
+.dc-decisiontext{
+    width:           550px;
+    padding:         0px;
+    margin:          5px;
+    height:          90px;
+    font-size:       13px;
+    border:          1px solid #eee;
+    border-radius:   4px;
+}
+
+
+
 /* COMMENTS */
 
 .comment-content{

@@ -61,7 +61,13 @@
             <tbody>
                 <tr th:each="fmContent : ${fmContents}">
                     <td><a class="fm-popup" th:href="@{'/file/'+${fmContent.id}}" data-lightbox="${fmContent.pid}"><img th:src="${fmContent.content}" th:title="${fmContent.filename}"  class="img-thumbnail" /></a><a th:href="@{'/file/'+${fmContent.id}}" class="btn btn-default btn-xs pull-up" th:attr="download=${fmContent.filename}" >Download</a></td>
-                    <td class="truncate"><span class="file-title" th:text="${fmContent.filename}"></span><br/><span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(fmContent.createdDate,0,16)}"></span><br/><a th:text="@{'Comments (' + ${#lists.size(fmContent.comments)}     +')'   }" th:href="@{'/fm_all/' + ${projectID} + '/' + ${fmContent.id}}" class="text-success">Comments (0)</a></td>
+                    <td class="truncate">
+                        <span class="file-title" th:text="${fmContent.filename}"></span><br/>
+                        <span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/>
+                        <span class="file-timestamp" th:text="${#strings.substring(fmContent.createdDate,0,16)}"></span><br/>
+                        <a th:text="@{'Decisions (' + ${#lists.size(fmContent.decisions)}     +')'   }" th:href="@{'/fm_all/' + ${projectID} + '/' + ${fmContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 100px;">Decisions (0)</a> <br/> <!-- New code to handle decision cards integration -->
+                        <a th:text="@{'Comments (' + ${#lists.size(fmContent.comments)}     +')'   }" th:href="@{'/fm_all/' + ${projectID} + '/' + ${fmContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 100px;">Comments (0)</a> <br/>
+                    </td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${fmContent.id}  +',\'FM\','+${fmContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>

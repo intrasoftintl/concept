@@ -1,0 +1,78 @@
+/************************************************************************************************************************************************************************/
+/************************************************************************************************************************************************************************/
+
+
+                                                                  COnCEPT decision cards integration log
+
+
+/************************************************************************************************************************************************************************/
+/************************************************************************************************************************************************************************/
+
+Notes: 
+
+   (M) at the beginning of the line referes to a file that has been modified as part of the integration process of the decision cards
+   (N) at the beginning of the line referes to a new file as part of the integration process of the decision cards
+
+/************************************************************************************************************************************************************************/
+/*                                                                              CODE                                                                                    */
+/************************************************************************************************************************************************************************/
+   \concept-master\concept-app\src\main\
+      java\eu\concept\controller\component\
+(M)      CommentController.java
+                        
+            
+      resources\static\
+         css\
+(M)         dashboard.css
+      
+         js\
+(M)         util.js
+
+               
+               
+               
+      resources\templates
+(M)      ba.html
+(M)      fm.html
+(M)      mb.html
+(M)      mm.html
+(M)      sb.html
+(M)      comment.html
+(M)      comment_app.html
+            
+(N)      decisioncards.html
+(N)      documentdetails.html
+            
+   \concept-master\concept-repository\src\main\java\eu\concept\repository\concept\
+      dao\
+(N)      FMDecisionCardRepository.java
+(N)      BADecisionCardRepository.java
+(N)      MBDecisionCardRepository.java
+(N)      MMDecisionCardRepository.java
+(N)      SBDecisionCardRepository.java
+
+      domain\
+(M)      FileManagement.java
+(M)      BriefAnalisys.java
+(M)      Moodboard.java
+(M)      Mindmap.java
+(M)      Storyboard.java
+               
+(N)      FMDecisionCard.java
+(N)      BADecisionCard.java
+(N)      MBDecisionCard.java
+(N)      MMDecisionCard.java
+(N)      SBDecisionCard.java
+
+               
+/************************************************************************************************************************************************************************/
+/*                                                                           DB CHANGES                                                                                 */
+/************************************************************************************************************************************************************************/
+
+   Create tables:
+      badecisioncards     // Comments for brief analysis module -> id, title, keywords, team, decision, ba_id, uid, created_date
+      fmdecisioncards     // Comments for file managment module -> id, title, keywords, team, decision, fm_id, uid, created_date
+      mbdecisioncards     // Comments for mood board module -> id, title, keywords, team, decision, mb_id, uid, created_date
+      mmdecisioncards     // Comments for mind map module -> id, title, keywords, team, decision, mm_id, uid, created_date
+      sbdecisioncards     // Comments for story board module -> id, title, keywords, team, decision, sb_id, uid, created_date
+      

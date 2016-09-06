@@ -69,6 +69,13 @@ public class BriefAnalysis implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "baId", orphanRemoval = false)
     private Collection<BAComment> comments;
 
+
+    /*Decision cards*/
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "baId", orphanRemoval = false)
+    private Collection<BADecisionCard> decisions;
+    /**/
+
     //Transient field
     @Transient
     private boolean pinned = false;
@@ -81,6 +88,13 @@ public class BriefAnalysis implements Serializable {
         this.comments = comments;
     }
 
+    
+    /*Decision cards*/
+    public Collection<BADecisionCard> getDecisions(){ return this.decisions; }
+
+    public void setDecisions(Collection<BADecisionCard> decisions){ this.decisions = decisions; }
+    /**/
+    
     /**
      *
      * @return A collection of Likes object
