@@ -69,6 +69,14 @@ public class MindMap implements Serializable {
     //Non Domain field
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mmId", orphanRemoval = false)
     private Collection<MMComment> comments;
+    
+    
+    /*Decision cards*/
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "mmId", orphanRemoval = false)
+    private Collection<MMDecisionCard> decisions;
+    /**/
+    
 
     @Transient
     @JsonIgnore
@@ -93,6 +101,12 @@ public class MindMap implements Serializable {
     public void setComments(Collection<MMComment> comments) {
         this.comments = comments;
     }
+    
+    /*Decision cards*/
+    public Collection<MMDecisionCard> getDecisions(){ return this.decisions; }
+
+    public void setDecisions(Collection<MMDecisionCard> decisions){ this.decisions = decisions; }
+    /**/
 
     /**
      *

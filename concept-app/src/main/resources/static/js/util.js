@@ -718,3 +718,20 @@ function sendComment(itemID, app) {
     }
 }
 
+
+/* DECISION CARDS */
+$('#decision-button').attr('disabled', true);
+
+$('#decision-title').keyup(function () {
+    if ($(this).val().length != 0 && $('#decision-content').val().length != 0 )
+        $('#decision-button').attr('disabled', false);
+    else
+        $('#decision-button').attr('disabled', true);
+});
+
+$('#decision-content').keyup(function () {
+    if ($(this).val().length != 0 && $('#decision-title').val().length != 0 )
+        $('#decision-button').attr('disabled', false);
+    else
+        $('#decision-button').attr('disabled', true);
+});

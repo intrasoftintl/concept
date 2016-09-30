@@ -47,6 +47,12 @@
 
     </div>
 
+         
+    <span th:if="${#lists.isEmpty(mbContents)}">
+       There is not any moodboard
+    </span>
+
+    
     <div id="mb-placeholder" class="panel-body disabled" th:if="${#lists.isEmpty(mbContents)}" ></div>
 
 </div>
@@ -72,7 +78,12 @@
                         </form>
                     </td>
 
-                    <td class="truncate"><span class="file-title" th:text="${mbContent.title}"></span><br/><span class="file-user" th:text="@{${mbContent.uid.firstName} + ' '+ ${mbContent.uid.lastName} + ' (' +  ${mbContent.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(mbContent.createdDate,0,16)}"></span><br/><a th:text="@{'Comments (' + ${#lists.size(mbContent.comments)}     +')'   }" th:href="@{'/mb_all/' + ${projectID} + '/' + ${mbContent.id}}" class="text-success">Comments (0)</a></td>
+                    <td class="truncate">
+                        <span class="file-title" th:text="${mbContent.title}"></span><br/>
+                        <span class="file-user" th:text="@{${mbContent.uid.firstName} + ' '+ ${mbContent.uid.lastName} + ' (' +  ${mbContent.uid.username} +')'}"></span><br/>
+                        <span class="file-timestamp" th:text="${#strings.substring(mbContent.createdDate,0,16)}"></span><br/>
+                        <a th:text="@{'Decisions (' + ${#lists.size(mbContent.decisions)}     +') and Comments (' + ${#lists.size(mbContent.comments)}     +')'   }" th:href="@{'/mb_all/' + ${projectID} + '/' + ${mbContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 250px;">Decisions (0) and Comments (0)</a>
+                    </td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${mbContent.id}  +',\'MB\','+${mbContent.pid}+',this)'}">
                             <i class="glyphicon glyphicon-tags" aria-hidden="true"/>

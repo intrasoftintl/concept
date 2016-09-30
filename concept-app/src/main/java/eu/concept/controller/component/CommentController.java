@@ -7,15 +7,25 @@ import eu.concept.repository.concept.dao.FMCommentRepository;
 import eu.concept.repository.concept.dao.MBCommentRepository;
 import eu.concept.repository.concept.dao.MMCommentRepository;
 import eu.concept.repository.concept.dao.SBCommentRepository;
+import eu.concept.repository.concept.dao.FMDecisionCardRepository; //New code to handle decision cards integration
+import eu.concept.repository.concept.dao.BADecisionCardRepository; //New code to handle decision cards integration
+import eu.concept.repository.concept.dao.MBDecisionCardRepository; //New code to handle decision cards integration
+import eu.concept.repository.concept.dao.MMDecisionCardRepository; //New code to handle decision cards integration
+import eu.concept.repository.concept.dao.SBDecisionCardRepository; //New code to handle decision cards integration
 import eu.concept.repository.concept.domain.BAComment;
+import eu.concept.repository.concept.domain.BADecisionCard; //New code to handle decision cards integration
 import eu.concept.repository.concept.domain.BriefAnalysis;
 import eu.concept.repository.concept.domain.FMComment;
+import eu.concept.repository.concept.domain.FMDecisionCard; //New code to handle decision cards integration
 import eu.concept.repository.concept.domain.FileManagement;
 import eu.concept.repository.concept.domain.MBComment;
+import eu.concept.repository.concept.domain.MBDecisionCard; //New code to handle decision cards integration
 import eu.concept.repository.concept.domain.MMComment;
+import eu.concept.repository.concept.domain.MMDecisionCard; //New code to handle decision cards integration
 import eu.concept.repository.concept.domain.MindMap;
 import eu.concept.repository.concept.domain.Moodboard;
 import eu.concept.repository.concept.domain.SBComment;
+import eu.concept.repository.concept.domain.SBDecisionCard;//New code to handle decision cards integration
 import eu.concept.repository.concept.domain.Storyboard;
 import eu.concept.repository.concept.service.BriefAnalysisService;
 import eu.concept.repository.concept.service.FileManagementService;
@@ -51,13 +61,22 @@ public class CommentController {
     BACommentRepository baCommentsRepo;
 
     @Autowired
+    BADecisionCardRepository baDecisionRepo; //New code to handle decision cards integration
+    
+    @Autowired
     FileManagementService fmService;
 
     @Autowired
     FMCommentRepository fmCommentsRepo;
-
+    
+    @Autowired
+    FMDecisionCardRepository fmDecisionCardRepo; //New code to handle decision cards integration
+    
     @Autowired
     MMCommentRepository mmCommentsRepo;
+    
+    @Autowired
+    MMDecisionCardRepository mmDecisionCardRepo; //New code to handle decision cards integration
 
     @Autowired
     MindMapService mmService;
@@ -66,10 +85,16 @@ public class CommentController {
     MBCommentRepository mbCommentsRepo;
 
     @Autowired
+    MBDecisionCardRepository mbDecisionCardsRepo;   //New code to handle decision cards integration  
+    
+    @Autowired
     MoodboardService mbService;
 
     @Autowired
     SBCommentRepository sbCommentsRepo;
+    
+    @Autowired
+    SBDecisionCardRepository sbDecisionCardsRepo; //New code to handle decision cards integration
 
     @Autowired
     StoryboardService sbService;
@@ -204,4 +229,52 @@ public class CommentController {
         return "redirect:/" + app.replace("app", "all") + "/" + projectID + "/" + itemID;
     }
 
+    /**New code to handle decision cards integration**/
+    @RequestMapping(value = "/decision_add", method = RequestMethod.GET)
+    public String addDecision(Model model, @RequestParam(value = "projectID", defaultValue = "0") int projectID, @RequestParam(value = "itemID", defaultValue = "0") int itemID, @RequestParam(value = "app", defaultValue = "") String app, @RequestParam(value = "dcTitle", defaultValue = "Decision title") String dcTitle, @RequestParam(value = "dcKeywords", defaultValue = "") String dcKeywords, @RequestParam(value = "dcTeam", defaultValue = "") String dcTeam, @RequestParam(value = "dcDecision", defaultValue = "Decision text") String dcDecision) {
+        System.out.println("Adding decision card for item with ID: " + itemID + " and app: " + app + " and user: " + WebController.getCurrentUserCo().getId());
+
+
+        switch (app) {
+
+            //BriefAnalysis Application
+            case "ba_app": {
+                BADecisionCard decisionBA = new  BADecisionCard(WebController.getCurrentUserCo(), new BriefAnalysis(itemID), dcTitle, dcKeywords, dcTeam, dcDecision);
+                baDecisionRepo.save(decisionBA);
+                break;
+            }
+
+            //FileManagement Application
+            case "fm_app": {
+                FMDecisionCard decisionFM = new FMDecisionCard(WebController.getCurrentUserCo(), new FileManagement(itemID), dcTitle, dcKeywords, dcTeam, dcDecision);
+                fmDecisionCardRepo.save(decisionFM);
+                break;
+            }
+
+            //MindMap Application
+            case "mm_app": {
+                MMDecisionCard decisionMM = new MMDecisionCard(WebController.getCurrentUserCo(), new MindMap(itemID), dcTitle, dcKeywords, dcTeam, dcDecision);
+                mmDecisionCardRepo.save(decisionMM);
+                break;
+            }
+
+            //Moodboard Application
+            case "mb_app": {
+                MBDecisionCard decisionMB = new MBDecisionCard(WebController.getCurrentUserCo(), new Moodboard(itemID), dcTitle, dcKeywords, dcTeam, dcDecision);
+                mbDecisionCardsRepo.save(decisionMB);
+                break;
+            }
+
+            //Storyboard Application
+            case "sb_app": {
+                SBDecisionCard decisionSB = new SBDecisionCard(WebController.getCurrentUserCo(), new Storyboard(itemID), dcTitle, dcKeywords, dcTeam, dcDecision);
+                sbDecisionCardsRepo.save(decisionSB);
+                break;
+            }
+
+        }
+        return "redirect:/" + app.replace("app", "all") + "/" + projectID + "/" + itemID;
+    }
+    
+    /****/
 }

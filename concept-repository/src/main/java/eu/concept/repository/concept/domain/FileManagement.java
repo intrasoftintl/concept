@@ -79,6 +79,14 @@ public class FileManagement implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "fmId", orphanRemoval = false)
     private Collection<FMComment> comments;
 
+    
+    /*Decision cards*/
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "fmId", orphanRemoval = false)
+    private Collection<FMDecisionCard> decisions;
+    /**/
+  
+    
     //Transient Field
     @Transient
     private String title = "N/A";
@@ -103,6 +111,12 @@ public class FileManagement implements Serializable {
         this.comments = comments;
     }
 
+    /*Decision cards*/
+    public Collection<FMDecisionCard> getDecisions(){ return this.decisions; }
+
+    public void setDecisions(Collection<FMDecisionCard> decisions){ this.decisions = decisions; }
+    /**/
+    
     /**
      *
      * @return A collection of Likes object

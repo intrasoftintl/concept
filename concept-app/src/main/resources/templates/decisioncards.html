@@ -1,0 +1,106 @@
+<div th:fragment="decisioncards-list">
+
+    <div class="panel-body no-padding" >
+
+        <div class="comment-content">
+
+            <h5 th:text="@{'Decisions (' + ${#lists.size(item.decisions)}     +')'   }">Decisions (0)</h5>
+
+            <ul th:each="decision : ${item.decisions}" class="decision_card">
+                <li >
+                    <strong><span th:text="${decision.title}" th:classappend="'comment-user-you'">Decision title</span></strong>
+                    <table id="dc_table">
+                        <tbody>
+                        <tr>
+                            <td>Author </td>
+                            <td class="dc-row-info">
+                                <span th:text="${decision.uid.username}">username</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Date</td>
+                            <td class="dc-row-info">
+                                <span th:text=" ${#strings.substring(decision.createdDate,0,16)}" >30/11/2015 11:27:51</span>
+                            </td>
+                        </tr>
+
+                        <tr style="display:none">
+                            <td>Keywords </td>
+                            <td class="dc-row-info">
+                               <i> <span th:text="${decision.keywords}">Decision keywords</span> </i>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Team </td>
+                            <td class="dc-row-info">
+                                <span th:text="${decision.team}">Decision team</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Decision </td>
+                            <td class="dc-row-info">
+                                <span th:text="${decision.decision}">Decision content</span>
+                            </td>
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </li>
+            </ul>
+
+
+
+            <ul class="new_decision_card">
+                <li>
+                    <form th:action="@{/decision_add}">
+                        <table id="dc_table">
+                            <tbody>
+                            <tr>
+                                <td>Title* </td>
+                                <td class="dc-new-row-info">
+                                    <input id="decision-title" class="dc-elementtext" type="text" name="dcTitle" rows="1" autocomplete="off"/>
+                                </td>
+                            </tr>
+
+                            <tr style="display:none">
+                                <td>Keywords </td>
+                                <td class="dc-new-row-info">
+                                    <input id="decision-keywords" class="dc-elementtext" type="text" name="dcKeywords" rows="1" autocomplete="off"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Team</td>
+                                <td class="dc-new-row-info">
+                                    <input id="decision-team" class="dc-elementtext" type="text" name="dcTeam" rows="1" autocomplete="off"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Decision*</td>
+                                <td class="dc-new-row-info">
+                                    <textarea  id="decision-content" class="dc-decisiontext" name="dcDecision" rows="4" autocomplete="off" />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <input type="hidden" th:value="${item.id}" th:name="itemID" />
+                        <input type="hidden" th:value="${app}" th:name="app" />
+                        <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
+                        <button type="submit" id="decision-button" class="btn btn-xs btn-success comment-button" disabled="disabled" >Send</button>
+                    </form>
+
+                </li>
+            </ul>
+
+        </div>
+
+
+    </div>
+
+</div>

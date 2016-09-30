@@ -70,6 +70,14 @@ public class Storyboard implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sbId", orphanRemoval = false)
     private Collection<SBComment> comments;
 
+    
+    /*Decision cards*/
+    //Non Domain field
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sbId", orphanRemoval = false)
+    private Collection<SBDecisionCard> decisions;
+    /**/
+    
+    
     //Transient field
     @Transient
     private boolean pinned = false;
@@ -82,6 +90,14 @@ public class Storyboard implements Serializable {
         this.comments = comments;
     }
 
+    
+    /*Decision cards*/
+    public Collection<SBDecisionCard> getDecisions(){ return this.decisions; }
+
+    public void setDecisions(Collection<SBDecisionCard> decisions){ this.decisions = decisions; }
+    /**/
+    
+    
     /**
      *
      * @return A collection of Likes object

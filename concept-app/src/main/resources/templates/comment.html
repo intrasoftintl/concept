@@ -1,27 +1,9 @@
 <div th:fragment="comment-list">
 
     <div class="panel-body no-padding" >
-        <table id="ba_table" class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="col-md-3">Document</th>
-                    <th class="col-md-6">Details</th>
-                    <th class="col-md-3"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a th:href="@{'/'+${app}+'/' + ${item.id}}" title="Untitled" alt="Untitled"><img class="img-thumbnail" src="/images/fm_generic.png"/></a></td>
-                    <td class="truncate"><span class="file-title"  th:text="${item.title}"></span><br/><span class="file-user" th:text="@{${item.uid.firstName} + ' '+ ${item.uid.lastName} + ' (' +  ${item.uid.username} +')'}"></span><br/><span class="file-timestamp" th:text="${#strings.substring(item.createdDate,0,16)}"></span><br/><a th:text="@{'Comments (' + ${#lists.size(item.comments)}     +')'   }" th:href="@{''}" class="text-success">Comments (0)</a></td>
-                    <td>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
         <div class="comment-content">
 
-            <h5>Comments</h5>
+            <h5 th:text="@{'Comments (' + ${#lists.size(item.comments)}     +')'   }">Comments (0)</h5>
             <ul th:each="comment : ${item.comments}" class="comment-list">
                 <li class="comment-message">
                     <strong><span th:text="${comment.uid.username}" th:classappend="(${comment.uid.id} == ${currentUser.getId()} ) ? 'comment-user-you' : ''"  >username</span></strong>
@@ -37,7 +19,6 @@
                         <input type="hidden" th:value="${item.id}" th:name="itemID" />
                         <input type="hidden" th:value="${app}" th:name="app" />
                         <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
-                        <!--                        <button id="comment-button" class="btn btn-xs btn-success comment-button"  th:onclick="@{'sendComment('+ ${item.id} +  ',\''+${app}+'\')'}" >Send</button>-->
                         <button type="submit" id="comment-button" class="btn btn-xs btn-success comment-button" disabled="disabled" >Send</button>
                     </form>
 
