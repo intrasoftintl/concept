@@ -669,29 +669,43 @@ nav{
 
 /* DECISION CARDS */
 .decision_card{
-    display:         block;
-    float:           left;
-    border:          2px solid #eee;
-    width:           25em;
-    height:          200px;
-    margin-right:    5px;
-    margin-bottom:   5px;
+    display:            block;
+    float:              left;
+    border:             2px solid #eee;
+    width:              25em;
+    height:             200px;
+    margin-right:       5px;
+    margin-bottom:      5px;
 
-    padding:         5px;
+    background-color:   #f1f5f0;
+    
+    padding:            5px;
+    
+    overflow:           auto;
+    
 }
 
 .new_decision_card{
-    display:         block;
-    float:           left;
-    margin-left:     20px;
-    border:          2px solid #eee;
+    display:            block;
+    float:              left;
+    margin-left:        20px;
+    border:             2px solid #eee;
 
-    padding:         5px;
+    background-color:   #f1f5f0;
+    padding:            5px;
 }
 
 .dc-row-info{
-    padding-left:    20px;
+   display:             inline-block;
+   padding-left:        20px;
+   word-wrap:           break-word;
+   width:               18em;
 }
+
+.dc-new-row-info{
+   padding-left:        20px;
+}
+
 
 .dc-elementtext{
     width:           550px;

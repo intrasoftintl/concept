@@ -57,8 +57,7 @@
                         <span class="file-title" th:text="${baContent.title}"></span><br/>
                         <span class="file-user" th:text="@{${baContent.uid.firstName} + ' '+ ${baContent.uid.lastName} + ' (' +  ${baContent.uid.username} +')'}"></span><br/>
                         <span class="file-timestamp" th:text="${#strings.substring(baContent.createdDate,0,16)}"></span><br/>
-                        <a th:text="@{'Decisions (' + ${#lists.size(baContent.decisions)}     +')'   }" th:href="@{'/ba_all/' + ${projectID} + '/' + ${baContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 100px;">Decisions (0)</a> <br /> <!-- New code to handle decision cards integration -->
-                        <a th:text="@{'Comments (' + ${#lists.size(baContent.comments)}     +')'   }" th:href="@{'/ba_all/' + ${projectID} + '/' + ${baContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 100px;">Comments (0)</a>
+                        <a th:text="@{'Decisions (' + ${#lists.size(baContent.decisions)}     +') and Comments (' + ${#lists.size(baContent.comments)}     +')'   }" th:href="@{'/ba_all/' + ${projectID} + '/' + ${baContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 250px;">Decisions (0) and Comments (0)</a>
                     </td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{ 'loadMetadata(' + ${baContent.id}  +',\'BA\','+${baContent.pid}+',this)'}">

@@ -4,7 +4,7 @@
 
         <div class="comment-content">
 
-            <h5>Decisions</h5>
+            <h5 th:text="@{'Decisions (' + ${#lists.size(item.decisions)}     +')'   }">Decisions (0)</h5>
 
             <ul th:each="decision : ${item.decisions}" class="decision_card">
                 <li >
@@ -25,7 +25,7 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr style="display:none">
                             <td>Keywords </td>
                             <td class="dc-row-info">
                                <i> <span th:text="${decision.keywords}">Decision keywords</span> </i>
@@ -62,27 +62,27 @@
                             <tbody>
                             <tr>
                                 <td>Title* </td>
-                                <td class="dc-row-info">
+                                <td class="dc-new-row-info">
                                     <input id="decision-title" class="dc-elementtext" type="text" name="dcTitle" rows="1" autocomplete="off"/>
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr style="display:none">
                                 <td>Keywords </td>
-                                <td class="dc-row-info">
+                                <td class="dc-new-row-info">
                                     <input id="decision-keywords" class="dc-elementtext" type="text" name="dcKeywords" rows="1" autocomplete="off"/>
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>Team</td>
-                                <td class="dc-row-info">
+                                <td class="dc-new-row-info">
                                     <input id="decision-team" class="dc-elementtext" type="text" name="dcTeam" rows="1" autocomplete="off"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Decision*</td>
-                                <td class="dc-row-info">
+                                <td class="dc-new-row-info">
                                     <textarea  id="decision-content" class="dc-decisiontext" name="dcDecision" rows="4" autocomplete="off" />
                                 </td>
                             </tr>

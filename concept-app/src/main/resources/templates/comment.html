@@ -3,7 +3,7 @@
     <div class="panel-body no-padding" >
         <div class="comment-content">
 
-            <h5>Comments</h5>
+            <h5 th:text="@{'Comments (' + ${#lists.size(item.comments)}     +')'   }">Comments (0)</h5>
             <ul th:each="comment : ${item.comments}" class="comment-list">
                 <li class="comment-message">
                     <strong><span th:text="${comment.uid.username}" th:classappend="(${comment.uid.id} == ${currentUser.getId()} ) ? 'comment-user-you' : ''"  >username</span></strong>
@@ -19,7 +19,6 @@
                         <input type="hidden" th:value="${item.id}" th:name="itemID" />
                         <input type="hidden" th:value="${app}" th:name="app" />
                         <input type="hidden" th:value="${projectID}"  name="projectID" id="projectID" class="form-control" />
-                        <!--                        <button id="comment-button" class="btn btn-xs btn-success comment-button"  th:onclick="@{'sendComment('+ ${item.id} +  ',\''+${app}+'\')'}" >Send</button>-->
                         <button type="submit" id="comment-button" class="btn btn-xs btn-success comment-button" disabled="disabled" >Send</button>
                     </form>
 

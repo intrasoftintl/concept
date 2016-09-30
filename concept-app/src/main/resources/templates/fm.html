@@ -65,8 +65,7 @@
                         <span class="file-title" th:text="${fmContent.filename}"></span><br/>
                         <span class="file-user" th:text="@{${fmContent.uid.firstName} + ' '+ ${fmContent.uid.lastName} + ' (' +  ${fmContent.uid.username} +')'}"></span><br/>
                         <span class="file-timestamp" th:text="${#strings.substring(fmContent.createdDate,0,16)}"></span><br/>
-                        <a th:text="@{'Decisions (' + ${#lists.size(fmContent.decisions)}     +')'   }" th:href="@{'/fm_all/' + ${projectID} + '/' + ${fmContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 100px;">Decisions (0)</a> <br/> <!-- New code to handle decision cards integration -->
-                        <a th:text="@{'Comments (' + ${#lists.size(fmContent.comments)}     +')'   }" th:href="@{'/fm_all/' + ${projectID} + '/' + ${fmContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 100px;">Comments (0)</a> <br/>
+                        <a th:text="@{'Decisions (' + ${#lists.size(fmContent.decisions)}     +') and Comments (' + ${#lists.size(fmContent.comments)}     +')'   }" th:href="@{'/fm_all/' + ${projectID} + '/' + ${fmContent.id}}" class="btn btn-default btn-xs" style="margin-top: 4px; width: 250px;">Decisions (0) and Comments (0)</a>
                     </td>
                     <td>
                         <button class="action-button" th:attr="onclick=@{'loadMetadata(' + ${fmContent.id}  +',\'FM\','+${fmContent.pid}+',this)'}">
