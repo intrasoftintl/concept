@@ -140,7 +140,7 @@
                         <input class="form-control" id="story_name" name="story_name" placeholder="Enter Storyboard name" onchange="fCheckEmpty(this);">
                         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                     </div>
-                    <div id="slidesList" style="height: 290px; overflow: auto; overflow-x: hidden; margin-bottom: 20px;">
+                    <div id="slidesList" style="height: 300px; overflow: auto; overflow-x: hidden; margin-bottom: 20px;">
                         <div class="col-sm-6 verticalLine_right" id="slidesSelectedListDiv" style="height: 100%; overflow:auto; width: 50%; display:inline-block; ">
                             <label for="story_name">Moodboards selected</label><br>
                             <c:forEach var="i" begin="0" end="99" varStatus="count">
