@@ -79,7 +79,7 @@
                         </form>
                     </div>
                     <div class="col-sm-2" style="margin-top: 20px; margin-bottom: 10px;">
-                        <button id="idSaveButton" type="button" class="btn btn-primary btn-md btn-block">
+                        <button id="idSaveButton" type="button" class="btn btn-danger btn-md btn-block">
                             <span class="glyphicon glyphicon-floppy-disk"></span> Save
                         </button>
                     </div>

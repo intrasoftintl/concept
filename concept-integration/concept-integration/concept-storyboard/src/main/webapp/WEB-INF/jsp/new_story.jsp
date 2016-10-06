@@ -176,7 +176,7 @@
                             </button>
                         </div>
                         <div class="col-sm-2">                        
-                            <button id="idSaveButton" type="button" class="btn btn-primary btn-md btn-block">
+                            <button id="idSaveButton" type="button" class="btn btn-danger btn-md btn-block">
                                 <span class="glyphicon glyphicon-floppy-disk"></span> Save
                             </button>
                         </div>
