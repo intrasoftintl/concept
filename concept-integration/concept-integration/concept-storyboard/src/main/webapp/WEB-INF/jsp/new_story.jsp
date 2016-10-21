@@ -71,7 +71,7 @@
                         $("#idNewStoryForm").attr("action", "save");
                         $("#idNewStoryForm").submit();
                     });
-                    
+
                     $("#idPreviewButton").click(function () {
                         $("#idNewStoryForm").attr("action", "previewNew");
                         $("#idNewStoryForm").attr("target", "_blank");
@@ -142,7 +142,7 @@
                     </div>
                     <div id="slidesList" style="height: 300px; overflow: auto; overflow-x: hidden; margin-bottom: 20px;">
                         <div class="col-sm-6 verticalLine_right" id="slidesSelectedListDiv" style="height: 100%; overflow:auto; width: 50%; display:inline-block; ">
-                            <label for="story_name">Moodboards selected</label><br>
+                            <label for="story_name">Current Storyboard</label><br>
                             <c:forEach var="i" begin="0" end="99" varStatus="count">
                                 <div class="div1">
                                     Scene ${count.index + 1}
@@ -175,7 +175,7 @@
                                 <span class="glyphicon glyphicon-eye-open"></span> Preview
                             </button>
                         </div>
-                        <div class="col-sm-2">                        
+                        <div class="col-sm-2">
                             <button id="idSaveButton" type="button" class="btn btn-danger btn-md btn-block">
                                 <span class="glyphicon glyphicon-floppy-disk"></span> Save
                             </button>

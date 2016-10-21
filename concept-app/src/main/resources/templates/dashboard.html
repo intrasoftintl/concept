@@ -123,8 +123,9 @@
                             <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
                         </form>
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Projects Settings</button>
                         </form>
+                        <div style="height: 10px;"></div>
                         <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
                             <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-default btn-xs">Model</button>
                         </form>
@@ -135,12 +136,12 @@
                     </span>
                     <span th:case="'DESIGNER'">
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Projects Settings</button>
                         </form>
                     </span>
                     <span th:case="'CLIENT'">
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Projects Settings</button>
                         </form>
                     </span>
                     </div>

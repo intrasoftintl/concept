@@ -272,6 +272,12 @@ nav{
     margin: 0 0 6px 0;
 }
 
+#project-members{
+    max-height: 48px;
+    height: 48px;
+    overflow-y: auto;
+}
+
 .project-prompt {
     width: 500px;
     height: 400px;

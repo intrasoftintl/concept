@@ -22,7 +22,7 @@
                     <label for="keyword">Type</label>
                     <select th:field="*{component.id}" id="component" name="component" class="form-control">
                         <option value="">All</option>
-                        <option  th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
+                        <option th:each="component : ${components}" th:value="${component.id}"  th:text="${component.name}"></option>
                     </select>
 
                 </div>
@@ -30,31 +30,28 @@
                 <div class="form-group col-md-7">
                     <label for="keyword">Keyword filter</label>
                     <select th:field="*{keywords}"  id="keywords" name="keywords"  data-placeholder="Choose keywords" multiple='true' class="form-control chosen-select">
-                        <option  th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
+                        <option th:field="*{keywords}" th:each="keyword : ${keywordsAll}" th:value="${keyword}"  th:text="${keyword}"></option>
                     </select>
 
                 </div>
             </div>
 
             <div class="col-md-4">
-
                 <div class="form-group col-md-12">
-                    <label for="category-search">Category filter</label>
-                    <div id="category-search" ></div>
+                    <label for="category-search">Model Category Filter</label>
+                    <div id="category-search"></div>
                 </div>
-
             </div>
 
             <div class="col-md-2 search-buttons">
-
                 <input th:type="hidden" name="categories" value="{}"  th:value="*{categories}"  id="categories"/>
-
                 <div class="form-group col-md-2">
                     <button type ="submit" class="btn btn-danger">Search</button>
                 </div>
-
             </div>
+
         </form>
+
         <!-- Init a search based on an image -->
         <form id="search-upload" method="POST" enctype="multipart/form-data"  action="/search_upload">
             <input type="hidden" name="project_id" th:value="${project_id}" />

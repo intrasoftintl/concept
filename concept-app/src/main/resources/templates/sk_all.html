@@ -4,21 +4,21 @@
         <title>Sketches &mdash; CONCEPT</title>
 
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />	
+        <meta name="viewport" content="width=device-width" />
         <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 
         <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
               th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
               rel="stylesheet" media="screen" />
-        
+
         <link href="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css"
               th:href="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.css}"
               rel="stylesheet" media="screen" />
-        
+
         <link href="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/jqtree.css"
               th:href="@{/webjars/jqtree/1.1.0/jqtree.css}"
               rel="stylesheet" media="screen" />
-        
+
         <link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css' />
     </head>
@@ -60,37 +60,38 @@
                     <option selected="true" disabled="true">No projects available</option>
                 </select>
 
-            </div>          
+            </div>
 
             <div class="project-selection">
 
                 <!-- Content to be showed only on project members (managers, designers, clients) -->
                 <div th:switch="${currentUser.getRole()}">
                     <span th:case="'MANAGER'">
-                        
+
                         <form class="project-form" id="pm-add-form" action="#" method="post" th:action="@{/pm_app/add}">
                             <button onclick="addProjectIDToForm('pm-add-form')" type="submit" id="pm-add" href="" class="btn btn-success btn-xs">New Project</button>
                         </form>
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Projects Settings</button>
                         </form>
+                        <div style="height: 10px;"></div>
                         <form class="project-form" id="pm-model-form" action="#" method="post" th:action="@{/pm_app/model}">
                             <button onclick="addProjectIDToForm('pm-model-form')" type="submit" id="project-model" href="" class="btn btn-link btn-xs">Model</button>
                         </form>
-                 
+
                     </span>
                     <span th:case="'DESIGNER'">
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Projects Settings</button>
                         </form>
                     </span>
                     <span th:case="'CLIENT'">
                         <form class="project-form" id="pm-details-form" action="#" method="post" th:action="@{/pm_app/details}">
-                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Details</button>
+                            <button onclick="addProjectIDToForm('pm-details-form')" type="submit" id="project-view" href="" class="btn btn-default btn-xs">Projects Settings</button>
                         </form>
                     </span>
                 </div>
-                
+
                 <h5 id="project-members" class="highlight">Project Members<br/><small></small></h5>
             </div>
 
@@ -101,7 +102,7 @@
 
         <!-- Metadata Content -->
         <div id="metadata-area"></div>
-        
+
         <!-- SK -->
         <div class="content">
 
@@ -129,9 +130,9 @@
                         <!-- Preferences Button -->
                         <form th:action="@{/preferences}" method="get" class="pull-right" style="margin-left:4px">
                             <button type="submit" class="btn btn-default btn-sm ">
-                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 
+                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                             </button>
-                        </form> 
+                        </form>
 
                         <!-- Notifications Button -->
                         <form id="nf-app-link-form" action="#" method="post" th:action="@{/notifications_app}">
@@ -139,14 +140,14 @@
                                 Notifications <span id="notifications-count" class="badge">0</span>
                             </button>
                         </form>
-                        
+
                     </div>
 
 
                 </div>
             </div>
 
-            <div class="row">               
+            <div class="row">
                 <div class="col-md-12">
                     <div id="fmDIVbuttons" class="panel panel-default">
                         <div class="panel-heading clearfix">
@@ -154,48 +155,48 @@
                              <div class="btn-group pull-right">
                                 <a id="sk-add" href="/sk_app" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Sketch</a>
                             </div>
-                            
-                            <!--                        
+
+                            <!--
                             <div id="sort" class="btn-group pull-right btn-sort" role="group">
                                 <button type="button" class="btn btn-default btn-sm">Most Recent</button>
                                 <button type="button" class="btn btn-default btn-sm">Most Popular</button>
                             </div>
                             -->
-                            
+
                         </div>
-                        
+
                         <div id="sk-placeholder" class="panel-body disabled"></div>
                         <div id="sk-all"></div>
-                        
+
                     </div>
                 </div>
 
             </div>
         </div>
-        
+
         <input type="hidden" th:value="${#httpServletRequest.getParameter('projectID')}"  name="projectID" id="projectID" class="form-control" />
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery/1.11.3/jquery.min.js"
         th:src="@{/webjars/jquery/1.11.3/jquery.min.js}"></script>
-        
+
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/bootstrap/3.3.5/js/bootstrap.min.js"
         th:src="@{/webjars/bootstrap/3.3.5/js/bootstrap.min.js}"></script>
-        
+
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/Magnific-Popup/1.0.0/jquery.magnific-popup.min.js"
         th:src="@{/webjars/Magnific-Popup/1.0.0/jquery.magnific-popup.min.js}"></script>
-        
+
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js"
         th:src="@{/webjars/jquery-tagsinput/1.3.2/jquery.tagsinput.min.js}"></script>
 
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars.npm/jqtree/1.1.0/tree.jquery.js"
         th:src="@{/webjars/jqtree/1.1.0/tree.jquery.js}"></script>
-        
+
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/sockjs-client/1.0.2/sockjs.min.js"
         th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
-        
+
         <script src="http://cdn.jsdelivr.net/webjars/org.webjars/stomp-websocket/2.3.3/stomp.min.js"
         th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
-        
+
         <script src="../static/js/util.js" th:src="@{/js/util.js}"></script>
         <script src="../static/js/metadata.js" th:src="@{/js/metadata.js}"></script>
         <script src="../static/js/chat.js" th:src="@{/js/chat.js}"></script>
