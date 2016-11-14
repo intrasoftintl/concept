@@ -51,7 +51,7 @@ public class MetadataService {
     }
 
     public List<String> findAllMetadata() {
-        return  metadataRepo.findAllByCustomQueryAndStream().flatMap(metadata -> Stream.of(metadata.getKeywords().split(","))).distinct().collect(Collectors.toList());
+        return  metadataRepo.findAllByCustomQueryAndStream().flatMap(metadata -> Stream.of(metadata.getKeywords().split(" "))).distinct().collect(Collectors.toList());
     }
 
 }
