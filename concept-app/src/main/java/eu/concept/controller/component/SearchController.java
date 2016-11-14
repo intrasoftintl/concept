@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,7 +67,7 @@ public class SearchController {
     ElasticSearchController elasticSearchController;
 
     /*
-     *  GET Methods 
+     *  GET Methods
      */
     @RequestMapping(value = "/search/{project_id}", method = RequestMethod.GET)
     public String notifications(Model model, @PathVariable int project_id) {
@@ -81,7 +84,7 @@ public class SearchController {
     }
 
     /*
-     *  POST Methods 
+     *  POST Methods
      */
     @RequestMapping(value = "/se_app", method = {RequestMethod.GET, RequestMethod.POST})
     public String search(Model model, @ModelAttribute Search search) {
@@ -118,7 +121,7 @@ public class SearchController {
         if (!file.isEmpty()) {
             String keywordPhrase = "";
             try {
-                //Create TMP Image 
+                //Create TMP Image
                 String content = "data:".concat(file.getContentType().concat(";base64,").concat(Base64.getEncoder().encodeToString(file.getBytes())));
                 FileManagement fm = new FileManagement(null, 0, "TO_BE_DELETED", content, file.getContentType(), new Short("0"), null);
                 fm.setUid(new UserCo(99999));
@@ -164,7 +167,7 @@ public class SearchController {
         String url = "error";
         Metadata metadata = metadataService.fetchMetadataByCidAndComponent(Integer.valueOf(cid), cname);
         if (null != metadata && "flickr".equals(source)) {
-            url = "https://www.flickr.com/search/?text=" + metadata.getKeywords();
+            url = "https://www.flickr.com/search/?text=" + metadata.getKeywords().replace(",", " ");
         } else if (null != metadata && "vam".equals(source)) {
             url = "http://collections.vam.ac.uk/search/?q=" + metadata.getKeywords();
         }
