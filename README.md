@@ -1,23 +1,19 @@
 # CONCEPT
 > Collaborative creative design platform
 
+The platform has been developed as part of the ConCEPT FP7 EU funded project. The project aims to implement a semantically driven collaboration framework to be integrated into future synchronous/asynchronous collaborative design environments, to assist professional product designers during the early stages of the design process.
+
 ## Prerequisites
 
-* JDK 1.8.0_latest
-* Maven 3.x
+The main application requires *Maven* (3) and the latest *Java* version (1.8.0_latest). You will also need a *MySQL* server.
 
-Before moving on, make sure you have the required JDK and Maven version.
- 
-	$ mvn -version
-	$ java -version
-	$ javac -version
-	
-###### Install Maven on Ubuntu 
-	sudo apt-get install maven
-###### Install Maven on OS X
-	brew install maven	
+Besides the main application the platform requires the following third-party software: *OpenProject*, *Elasticsearch*, *WiseMapping* and *Etherpad*.
 
-## Run the Application
+You can deploy the rest of the components using a *WildFly* server.
+
+Before moving on, make sure that you have successfully installed the aforementioned components.
+
+## Building and running
 
 	$ git clone git@github.com:intrasoftintl/concept.git
 	$ cd concept
